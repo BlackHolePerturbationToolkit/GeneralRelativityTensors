@@ -241,7 +241,7 @@ Module[{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta]},
 
 
 Clear[InverseMetric]
-Tensor/:InverseMetric[t_Tensor]:=InverseMetric@Metric@t;
+Tensor/:InverseMetric[t_Tensor]:=If[Metric@t===Undefined,Undefined,InverseMetric@Metric@t];
 Tensor/:InverseMetric[t_Tensor?MetricQ]:=InverseMetric[t]=
 Module[{assoc,tvStored,tv,posUp},
 
