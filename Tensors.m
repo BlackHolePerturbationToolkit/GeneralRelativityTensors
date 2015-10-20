@@ -143,6 +143,20 @@ Module[{dispName,coords,vals,posInds,abstr,metric,dims},
 ]
 
 
+ToTensor[name_String,metric_Tensor?MetricQ,vals_List]:=ToTensor[{name,name},metric,vals];
+ToTensor[{name_String,dispName_String},metric_Tensor?MetricQ,vals_List]:=
+Module[{coords,posInds,dims,inds},
+
+	If[AbstractQ[metric],Print["Tensor with values cannot be defined using \"Abstract\" metric."];Abort[]];
+
+	coords=Coordinates[metric];	
+	posInds=PossibleIndices[metric];
+	dims=Dimensions[metric];
+	inds=Take[posInds,Length@Dimensions[vals]];
+	ToTensor[Association["Coordinates"->coords,"Metric"->metric,"Name"->name,"DisplayName"->dispName,"Indices"->inds,"PossibleIndices"->posInds,"Abstract"->False,"Values"->vals,"Dimensions"->dims]]
+]
+
+
 Clear[ToMetric]
 ToMetric[assoc_Association]:=
 Module[{keys,dims,posInds,inds},
