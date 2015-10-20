@@ -273,6 +273,7 @@ Module[{n,g,ig,xx,vals,posInds},
 			Association["Metric"->gT,"Values"->vals,"DisplayName"->"\[CapitalGamma]","Name"->"Christoffel","Indices"->{posInds[[1]],-posInds[[2]],-posInds[[3]]}]]]
 ]
 
+
 Tensor/:RiemannTensor[gT_Tensor?MetricQ]:=
 Module[{n,g,ig,xx,chr,vals,posInds},
 	xx=Coordinates[gT];
@@ -289,6 +290,7 @@ Module[{n,g,ig,xx,chr,vals,posInds},
 		Association["Metric"->gT,"Values"->vals,"DisplayName"->"R","Name"->"RiemannTensor","Indices"->{posInds[[1]],-posInds[[2]],-posInds[[3]],-posInds[[4]]}]]]
 ]
 
+
 Tensor/:RicciTensor[gT_Tensor?MetricQ]:=
 Module[{rie,vals,n,xx,posInds},
 	xx=Coordinates[gT];
@@ -299,6 +301,7 @@ Module[{rie,vals,n,xx,posInds},
 	
 	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","Indices"}],Association["Metric"->gT,"Values"->vals,"DisplayName"->"R","Name"->"RicciTensor","Indices"->{-posInds[[1]],-posInds[[2]]}]]]
 ]
+
 
 Tensor/:RicciScalar[gT_Tensor?MetricQ]:=
 Module[{ricc,ig,vals,n,xx,posInds},
