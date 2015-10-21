@@ -3,29 +3,41 @@
 BeginPackage["Tensors`"];
 
 
-Tensor;
-ToTensor::usage="ToTensor[n,{inds}] returns a tensor with name n and indices {inds}.
-ToTensor[{n1,n2},m,vals] returns a contravariant tensor with name n1 and DisplayName n2. The (non-\"Abstract\") metric m and values vals (given as a consistently sized List) are assigned.
+Tensor::usage="Tensor is a Head created with the command ToTensor.";
+ToTensor::usage="ToTensor[{n1,n2},{inds}] returns a tensor with Name n1, DisplayName n2 and indices {inds}.
+ToTensor[n,{inds}] is equivalent to ToTensor[{n,n},{inds}].
+ToTensor[{n1,n2},m,vals] returns a contravariant tensor with Name n1 and DisplayName n2. The (non-\"Abstract\") metric m and values vals (given as a consistently sized List) are assigned.
 ToTensor[n,m,vals] is equivalent to ToTensor[{n,n},m,vals]";
-ToMetric;
+ToMetric::usage="ToMetric[{n1,n2}] returns an Abtract metric Tensor with Name n1 and DisplayName n2.
+ToMetric[n] is equivalent to ToMetric[{n,n}]
+ToMetric[{n1,n2},coords,vals,inds] returns an non-Abtract metric Tensor with Name n1, DisplayName n2, Coordinates coords, TensorValues vals, and PossibleIndices inds \
+(where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
+ToMetric[{n1,n2},coords,vals] is equivalent to ToMetric[{n1,n2},coords,vals \"Greek\"].
+ToMetric[n,coords,vals,inds] is equivalent to ToMetric[{n,n},coords,vals,inds].
+ToMetric[n,coords,vals] is equivalent to ToMetric[n,coords,vals,\"Greek\"].
+ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\", \"Schwarzschild\", or \"Kerr\".";
 Coordinates::usage="Coordinates[t] returns a List of symbols used for the coordinates of the Tensor t, or Undefined if coordinates were not set.";
 Metric::usage="Metric[t] returns the metric tensor associated with the Tensor t, or Undefined if no metric was set. If t is a metric, \"Self\" is returned.";
 InverseMetric::usage="InverseMetric[t] returns the inverse metric tensor associated with the Tensor t, or Undefined if no metric was set.";
 Rank::usage="Rank[t] returns the tensor rank of the Tensor t as a List {p,q}, where p is the number of contravariant indices and q the number of covariant indices.";
 Indices::usage="Indices[t] returns a List of Symbols representing the indices of the Tensor t. Positive Symbols are contravariant and negative Symbols are covariant.";
 PossibleIndices::usage="PossibleIndices[t] returns a List of all possible Symbols that can represent the indices of the Tensor t.";
-Name::usage="Name[t] returns the name of Tensor t which is used for storing cached values in the Symbol TensorValues.";
-DisplayName::usage="DisplayName[t] returns the name of Tensor t that is used for formatted output.";
+Name::usage="Name[t] returns the Name of Tensor t which is used for storing cached values in the Symbol TensorValues.";
+DisplayName::usage="DisplayName[t] returns the Name of Tensor t that is used for formatted output.";
 IndexPositions::usage="IndexPositions[t] returns a List of elements \"Up\" and \"Down\" which represent (respectively) the contravariant and covariant positions of the indices of Tensor t.";
 ChristoffelSymbol::usage="ChristoffelSymbol[m] returns the Christoffel symbol computed from the metric tensor m.";
 RiemannTensor::usage="RiemannTensor[m] returns the Riemann tensor with indices {\"Up\",\"Down\",\"Down\",\"Down\"} computed from the metric tensor m.";
 RicciTensor::usage="RicciTensor[m] returns the Ricci tensor with indices {\"Down\",\"Down\"} computed from the metric tensor m.";
 RicciScalar::usage="RicciScalar[m] returns the Ricci scalar computed from the metric tensor m.";
-ContractIndices::usage="ContractIndices[t] contracts all repeated indices of Tensor t, returning the resulting lower-rank tensor.";
+ContractIndices::usage="ContractIndices[t,{n1,n2}] contracts all repeated indices of Tensor t, returning the resulting lower-rank tensor with Name n1 and DisplayName n2.
+ContractIndices[t,n] is equivalent to ContractIndices[t,{n,n}].
+ContractIndices[t] is equivalent to ContractIndices[t,{Name[t],DisplayName[t]}].";
 ShiftIndices::usage="ShiftIndices[t,{inds}] raises and/or lowers the indices of Tensor t according to the given list inds, adjusting the values using the tensor's associated metric.";
 ValidateIndices::usage="ValidateIndices[t,{inds}] checks that the list of indices {inds} is valid for Tensor t. An error is printed an operation is aborted if the list is not valid.";
-TensorValues::usage="TensorValues[n,{inds}] returns the cached values of a Tensor with name n and indices in positions {inds} or Undefined if none have been computed. The List {inds} should contain elements \"Up\" and/or \"Down\".
+TensorValues::usage="TensorValues[n,{inds}] returns the cached values of a Tensor with Name n and indices in positions {inds} or Undefined if none have been computed. The List {inds} should contain elements \"Up\" and/or \"Down\".
 TensorValues[t] is equivalent to TensorValues[Name[t],IndexPositions[t]].";
+RenameTensor::usage="RenameTensor[t,{n1,n2}] returns the Tensor t with its Name changed to n1 and DisplayName changed to n2.
+RenameTensor[t,n] is equivalent to RenameTensor[t,{n,n}].";
 MergeTensors::usage="MergeTensors[exprm{n1,n2}] calls MultiplyTensors, MultiplyTensorScalar, and SumTensors to merge the tensor expression expr  into one Tensor with Name n1 and DisplayName n2. Multiplication is assumed to \
 be entered with NonCommutativeMultiply (**).
 MergeTensors[expr,n] is equivalent to MergeTensors[t,{n,n}].
