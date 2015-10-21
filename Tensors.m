@@ -372,7 +372,7 @@ Module[{},
 		Abort[]
 	];
 
-	ContractIndices[Fold[shiftIndex,t,Thread[{Range@Length[inds],inds}]]]
+	Fold[shiftIndex,t,Thread[{Range@Length[inds],inds}]]
 ]
 
 
