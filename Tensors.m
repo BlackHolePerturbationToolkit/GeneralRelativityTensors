@@ -413,6 +413,8 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,itrBefore,itrAf
 
 Clear[ContractIndices]
 Tensor/:ContractIndices[t_Tensor]:=NestWhile[contractIndex,t,RepeatedIndexQ]
+Tensor/:ContractIndices[t_Tensor,name_String]:=RenameTensor[ContractIndices[t],name]
+Tensor/:ContractIndices[t_Tensor,{name_String,displayName_String}]:=RenameTensor[ContractIndices[t],{name,displayName}]
 
 
 Clear[contractIndex]
