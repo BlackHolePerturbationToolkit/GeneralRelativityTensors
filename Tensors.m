@@ -174,6 +174,20 @@ Module[{coords,posInds,dims,inds},
 ]
 
 
+Clear[builtInIndices]
+builtInIndices[label_]:=
+Switch[label,
+		"Latin",
+		Symbol/@CharacterRange["a","z"],
+		"CapitalLatin",
+		Symbol/@Complement[CharacterRange["A","Z"],{"D","C","E","I","N"}],
+		"Greek",
+		Symbol/@Complement[CharacterRange["\[Alpha]","\[Omega]"],{"\[Pi]"}],
+		___,
+		Print["No built-in indices ", label]; Abort[]
+]
+
+
 Clear[ToMetric]
 ToMetric[assoc_Association]:=
 Module[{keys,dims,posInds,inds},
@@ -185,18 +199,8 @@ Module[{keys,dims,posInds,inds},
 		Print["The following extra keys were in the metric tensor formation: "<>ToString[Complement[Keys[assoc],keys]]];
 		Abort[]
 	];
-	posInds=Complement[
-			Switch[assoc["PossibleIndices"],
-				"Latin",
-				Symbol/@CharacterRange["a","z"],
-				"CapitalLatin",
-				Symbol/@Complement[CharacterRange["A","Z"],{"D","E","I","N"}],
-				"Greek",
-				Symbol/@Complement[CharacterRange["\[Alpha]","\[Omega]"],{"\[Pi]"}],
-				___,
-				assoc["PossibleIndices"]
-	
-			],Union[If[assoc["Coordinates"]=!=Undefined,assoc["Coordinates"],##&[]],Cases[assoc["Values"],_Symbol,Infinity]]];
+	posInds=Complement[If[MemberQ[{"Greek","Latin","CapitalLatin"},assoc["PossibleIndices"]],builtInIndices[assoc["PossibleIndices"]],assoc["PossibleIndices"]],
+						Union[If[assoc["Coordinates"]=!=Undefined,assoc["Coordinates"],##&[]],Cases[assoc["Values"],_Symbol,Infinity]]];
 	inds=If[assoc["Indices"]===Undefined,-Take[posInds,2],assoc["Indices"]];
 
 	If[Not@MatchQ[inds,{-_Symbol,-_Symbol}]||(inds[[1]]===inds[[2]]),Print["Metric indices must be a pair of distinct covariant symbols"];Abort[]];
@@ -210,17 +214,41 @@ Module[{keys,dims,posInds,inds},
 ]
 
 
-Options[ToMetric]={"Coordinates"->Undefined,"DisplayName"->Undefined,"Indices"->Undefined,"PossibleIndices"->"Greek","Abstract"->True,"Values"->Undefined};
-ToMetric[name_String,opts:OptionsPattern[]]:=
-Module[{dispName,coords,vals,inds,posInds,abstr},
-	dispName=If[OptionValue["DisplayName"]=!=Undefined,OptionValue["DisplayName"],name];
-	coords=OptionValue["Coordinates"];
-	vals=OptionValue["Values"];
-	inds=OptionValue["Indices"];
-	posInds=OptionValue["PossibleIndices"];
-	abstr=OptionValue["Abstract"];
-	ToMetric[Association["Coordinates"->coords,"Name"->name,"DisplayName"->dispName,"Indices"->inds,"PossibleIndices"->posInds,"Abstract"->abstr,"Values"->vals]]
+ToMetric[{name_String,dispName_String},coords_,posIndsParam_:"Greek"]:=
+Module[{inds,posInds},
+	posInds=Complement[
+					If[MemberQ[{"Greek","Latin","CapitalLatin"},posIndsParam],builtInIndices[posIndsParam],posIndsParam],
+					If[coords=!=Undefined,coords,{}]
+			];
+	inds=-Take[posInds,2];
+	ToMetric[Association["Coordinates"->coords,"Name"->name,"DisplayName"->dispName,"Indices"->inds,"PossibleIndices"->posInds,"Abstract"->True,"Values"->Undefined]]
 ]
+ToMetric[name_String]:=ToMetric[{name,name}]
+
+
+ToMetric[{name_String,dispName_String},coords_List,vals_List,posIndsParam_]:=
+Module[{inds,posInds},
+
+	posInds=Complement[
+					If[MemberQ[{"Greek","Latin","CapitalLatin"},posIndsParam],builtInIndices[posIndsParam],posIndsParam],
+					Union[coords,Cases[vals,_Symbol,Infinity]]
+			];
+
+	inds=-Take[posInds,2];
+	
+	ToMetric[
+		Association["Coordinates"->coords,
+					"Name"->name,
+					"DisplayName"->dispName,
+					"Indices"->inds,
+					"PossibleIndices"->posInds,
+					"Abstract"->False,
+					"Values"->vals]
+		]
+]
+ToMetric[{name_String,dispName_String},coords_,vals_]:=ToMetric[{name,dispName},coords,vals,"Greek"]
+ToMetric[name_String,coords_,vals_,posIndsParam_]:=ToMetric[{name,name},coords,vals,posIndsParam]
+ToMetric[name_String,coords_,vals_]:=ToMetric[{name,name},coords,vals,"Greek"]
 
 
 ToMetric["Minkowski"]:=
