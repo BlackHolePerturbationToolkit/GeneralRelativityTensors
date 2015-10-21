@@ -147,9 +147,8 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 
 
 Options[ToTensor]={"Coordinates"->Undefined,"DisplayName"->Undefined,"Metric"->Undefined,"PossibleIndices"->{},"Abstract"->True,"Values"->Undefined,"Dimensions"->Undefined};
-ToTensor[name_String,{inds___},opts:OptionsPattern[]]:=
-Module[{dispName,coords,vals,posInds,abstr,metric,dims},
-	dispName=If[OptionValue["DisplayName"]=!=Undefined,OptionValue["DisplayName"],name];
+ToTensor[{name_String,dispName_String},{inds___},opts:OptionsPattern[]]:=
+Module[{coords,vals,posInds,abstr,metric,dims},
 	coords=OptionValue["Coordinates"];
 	vals=OptionValue["Values"];
 	posInds=OptionValue["PossibleIndices"];
@@ -158,6 +157,7 @@ Module[{dispName,coords,vals,posInds,abstr,metric,dims},
 	dims=OptionValue["Dimensions"];
 	ToTensor[Association["Coordinates"->coords,"Metric"->metric,"Name"->name,"DisplayName"->dispName,"Indices"->{inds},"PossibleIndices"->posInds,"Abstract"->abstr,"Values"->vals,"Dimensions"->dims]]
 ]
+ToTensor[name_String,{inds___},opts:OptionsPattern[]]:=ToTensor[{name,name},{inds},opts]
 
 
 ToTensor[name_String,metric_Tensor?MetricQ,vals_List]:=ToTensor[{name,name},metric,vals];
