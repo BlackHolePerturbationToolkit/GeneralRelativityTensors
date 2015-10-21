@@ -26,6 +26,20 @@ ShiftIndices::usage="ShiftIndices[t,{inds}] raises and/or lowers the indices of 
 ValidateIndices::usage="ValidateIndices[t,{inds}] checks that the list of indices {inds} is valid for Tensor t. An error is printed an operation is aborted if the list is not valid.";
 TensorValues::usage="TensorValues[n,{inds}] returns the cached values of a Tensor with name n and indices in positions {inds} or Undefined if none have been computed. The List {inds} should contain elements \"Up\" and/or \"Down\".
 TensorValues[t] is equivalent to TensorValues[Name[t],IndexPositions[t]].";
+MergeTensors::usage="MergeTensors[exprm{n1,n2}] calls MultiplyTensors, MultiplyTensorScalar, and SumTensors to merge the tensor expression expr  into one Tensor with Name n1 and DisplayName n2. Multiplication is assumed to \
+be entered with NonCommutativeMultiply (**).
+MergeTensors[expr,n] is equivalent to MergeTensors[t,{n,n}].
+MergeTensors[expr] merges the tensor expression expr and forms a new Name and DisplayName from a combination of the tensors making up the expression.";
+SumTensors::usage="SumTensors[t1,t2,..,{n1,n2}] sums the Tensors t1, t2, etc., forming a new Tensor with Name n1 and DisplayName n2.
+SumTensors[t1,t2,..,n] is equivalent to SumTensors[t1,t2,..,{n,n}].
+SumTensors[t1,t2,..] sums the Tensors t1, t2, etc., and forms a new Name and DisplayName from a combination of the Tensors making up the expression.";
+MultiplyTensors::usage="MultiplyTensors[t1,t2,..,{n1,n2}] forms the outer product of the Tensors t1, t2, etc., creating a new Tensor with Name n1 and DisplayName n2.
+MultiplyTensors[t1,t2,..,n] is equivalent to MultiplyTensors[t1,t2,..,{n,n}].
+MultiplyTensors[t1,t2,..] forms the outer product of the Tensors t1, t2, etc., and forms a new Name and DisplayName from a combination of the Tensors making up the expression.";
+MultiplyTensorScalar::usage="MultiplyTensorScalar[a, t, {n1,n2}] or MultiplyTensorScalar[t, a, {n1,n2}] forms the product of the scalar a with the Tensor t, creating a new Tensor with Name n1 and DisplayName n2.
+MultiplyTensorScalar[a, t, n] is equivalent to MultiplyTensorScalar[a, t, {n,n}].
+MultiplyTensorScalar[a, t] forms the product of the a and t, and forms a new Name and DisplayName from a combination of the scalar and Tensor making up the expression.";
+
 RepeatedIndexQ::usage="RepeatedIndexQ[t] returns True if the Tensor t has repeated indices which can be traced.";
 MetricQ::usage="MetricQ[t] returns True if the Tensor t is a metric.";
 AbstractQ::usage="AbstractQ[t] returns True if the Tensor t is treated as abstract.";
@@ -436,6 +450,102 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 		];
 	ToTensor[Join[KeyDrop[Association@@t,"Indices"],Association["Values"->vals,"Indices"->indsNew]]]
 ]
+
+
+Tensor/:RenameTensor[t_Tensor,{name_String,displayName_String}]:=ToTensor[Join[KeyDrop[(Association@@t),{"Name","DisplayName"}],Association["Name"->name,"DisplayName"->displayName,"Values"->TensorValues[t]]]]
+Tensor/:RenameTensor[t_Tensor,name_String]:=RenameTensor[t,{name,name}]
+
+
+Clear[SumTensors]
+Attributes[SumTensors]={Orderless};
+Tensor/:SumTensors[t1_Tensor,t2_Tensor]:=
+Module[{posInds,vals},
+	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot sum Abstract Tensors."];Abort[]];
+	If[Metric[t1]=!=Metric[t2]&&Not[Metric[t1]==="Self"&&t1===Metric[t2]]&&Not[Metric[t2]==="Self"&&t2===Metric[t1]],
+		Print["Cannot sum Tensors with different metrics."];
+		Abort[]
+	];
+	If[Indices[t1]=!=Indices[t2],Print["Cannot sum Tensors with different indices ",Indices[t1]," and ",Indices[t2]];Abort[]];
+	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
+	vals=TensorValues[t1]+TensorValues[t2];
+	
+	ToTensor[{"("<>Name[t1]<>"+"<>Name[t2]<>")","("<>DisplayName[t1]<>"+"<>DisplayName[t2]<>")"},
+			Indices[t1],
+			"Values"->vals,
+			"Metric"->Metric[t1],
+			"Coordinates"->Coordinates[t1],
+			"Abstract"->False,
+			"PossibleIndices"->posInds,
+			"Dimensions"->Dimensions[t1]]
+]
+Tensor/:SumTensors[t1_Tensor]:=t1;
+Tensor/:SumTensors[t1_Tensor,t2__Tensor]:=Fold[SumTensors,t1,{t2}]
+Tensor/:SumTensors[t1_Tensor,t2__Tensor,name_String]:=RenameTensor[SumTensors[t1,t2],name]
+Tensor/:SumTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String}]:=RenameTensor[SumTensors[t1,t2],{name,displayName}]
+
+
+Clear[MultiplyTensors]
+Tensor/:MultiplyTensors[t1_Tensor,t2_Tensor]:=
+Module[{posInds,vals,inds,indsUp,repeatedInds},
+	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot multiply Abstract Tensors."];Abort[]];
+	If[Metric[t1]=!=Metric[t2]&&Not[Metric[t1]==="Self"&&t1===Metric[t2]]&&Not[Metric[t2]==="Self"&&t2===Metric[t1]],
+		Print["Cannot multiply Tensors with different metrics."];
+		Abort[]
+	];
+	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
+	inds=Join[Indices[t1],Indices[t2]];
+	indsUp=inds/.-sym_:>sym;
+	If[Union@Join[Count[indsUp,#]&/@DeleteDuplicates[indsUp],{1,2}]=!=Sort@{1,2},
+		Print["The following indices were repeated more than twice: ",If[Count[indsUp,#]>2,#,##&[]]&/@DeleteDuplicates[indsUp]];Abort[]];
+	repeatedInds=Cases[inds,#|-#]&/@(If[Count[indsUp,#]>1,#,##&[]]&/@DeleteDuplicates[indsUp]);
+	If[If[#[[1]]=!=-#[[2]],#,##&[]]&/@repeatedInds=!={},
+		Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],#[[1]]/.-sym_:>sym,##&[]]&/@repeatedInds];
+		Abort[]
+	];
+
+	vals=Outer[Times,TensorValues[t1],TensorValues[t2]];
+
+	ToTensor[{"("<>Name[t1]<>"\[CenterDot]"<>Name[t2]<>")","("<>DisplayName[t1]<>"\[CenterDot]"<>DisplayName[t2]<>")"},
+			inds,
+			"Values"->vals,
+			"Metric"->Metric[t1],
+			"Coordinates"->Coordinates[t1],
+			"Abstract"->False,
+			"PossibleIndices"->posInds,
+			"Dimensions"->Dimensions[t1]]
+]
+
+Tensor/:MultiplyTensors[t1_Tensor]:=t1;
+Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor]:=Fold[MultiplyTensors,t1,{t2}]
+Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,name_String]:=RenameTensor[MultiplyTensors[t1,t2],name]
+Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String}]:=RenameTensor[MultiplyTensors[t1,t2],{name,displayName}]
+
+
+Clear[MultiplyTensorScalar]
+Tensor/:MultiplyTensorScalar[t_Tensor,n_]:=MultiplyTensorScalar[n,t];
+Tensor/:MultiplyTensorScalar[n_,t_Tensor]:=
+Module[{posInds,vals},
+	If[AbstractQ[t],Print["Cannot multiply Abstract Tensors."];Abort[]];
+	If[Not[MatchQ[n,(_Symbol|_Real|_Complex|_Integer|_Rational)]],Print["Cannot multiply a Tensor by a ", Head[n]];Abort[]];
+	vals=n TensorValues[t];
+	ToTensor["("<>ToString[n]<>Name[t]<>")",Metric[t],vals]
+]
+Tensor/:MultiplyTensorScalar[t1_Tensor]:=t1;
+Tensor/:MultiplyTensorScalar[n_,t1_Tensor,name_String]:=RenameTensor[MultiplyTensorScalar[n,t1],name]
+Tensor/:MultiplyTensorScalar[n_,t1_Tensor,{name_String,displayName_String}]:=RenameTensor[MultiplyTensorScalar[n,t1],{name,displayName}]
+
+
+Clear[MergeTensors]
+MergeTensors[expr_]:=
+Module[{expr1,expr2},
+	expr1=expr/.NonCommutativeMultiply[t__Tensor]:>MultiplyTensors[t];
+	expr2=expr1/.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t];
+	expr2/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2]
+]
+MergeTensors[expr_,name_]:=RenameTensor[MergeTensors[expr],name]
+
+
+Tensor/:Times[t1_Tensor,t2__Tensor]:=(Print["To multiply Tensors use NonCommutativeMultiply, e.g.: t1**t2."];Abort[])
 
 
 End[];
