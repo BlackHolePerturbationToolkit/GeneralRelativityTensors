@@ -377,15 +377,28 @@ Module[{ricc,ig,vals,n,xx,posInds},
 Clear[ValidateIndices]
 Tensor/:ValidateIndices[t_Tensor,{inds___}]:=
 Module[{posInds,indsUp,repeatedInds},
+
 	posInds=PossibleIndices[t];
 	indsUp={inds}/.-sym_:>sym;
-	If[Complement[indsUp,posInds]=!={},Print["The following indices are not included in the list of PossibleIndices for tensor ", t, ": ", Complement[indsUp,posInds]];Abort[]];
-	If[Length[indsUp]=!=Total[Rank[t]],Print["The tensor ", t, " expects " ,Total[Rank[t]], " indices, but ", Length[indsUp]," indices were given."];Abort[]];
-	If[Union@Join[Count[indsUp,#]&/@DeleteDuplicates[indsUp],{1,2}]=!=Sort@{1,2},
-		Print["The following indices were repeated more than twice: ",If[Count[indsUp,#]>2,#,##&[]]&/@DeleteDuplicates[indsUp]];Abort[]];
 	repeatedInds=Cases[{inds},#|-#]&/@(If[Count[indsUp,#]>1,#,##&[]]&/@DeleteDuplicates[indsUp]);
+
+	If[Complement[indsUp,posInds]=!={},
+		Print["The following indices are not included in the list of PossibleIndices for tensor ", t, ": ", Complement[indsUp,posInds]];
+		Abort[]
+	];
+	If[Length[indsUp]=!=Total[Rank[t]],
+		Print["The tensor ", t, " expects " ,Total[Rank[t]], " indices, but ", Length[indsUp]," indices were given."];
+		Abort[]
+	];
+	If[Union@Join[Count[indsUp,#]&/@DeleteDuplicates[indsUp],{1,2}]=!=Sort@{1,2},
+		Print["The following indices were repeated more than twice: ",If[Count[indsUp,#]>2,#,##&[]]&/@DeleteDuplicates[indsUp]];
+		Abort[]
+	];
+
 	If[If[#[[1]]=!=-#[[2]],#,##&[]]&/@repeatedInds=!={},
-		Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],#[[1]]/.-sym_:>sym,##&[]]&/@repeatedInds];Abort[]];
+		Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],#[[1]]/.-sym_:>sym,##&[]]&/@repeatedInds];
+		Abort[]
+	];
 ]
 
 
