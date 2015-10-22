@@ -93,7 +93,7 @@ Tensor/:t_Tensor[inds__]:=ShiftIndices[t,{inds}]
 
 
 TensorValues[___]:=Undefined;
-TensorValues[t_Tensor]:=If[#=!=Undefined,TensorValues[Name[t],IndexPositions[t]]=#,Undefined]&[(Association@@t)["Values"]];
+TensorValues[t_Tensor]:=If[#=!=Undefined,If[AutoNameQ[t],#,TensorValues[Name[t],IndexPositions[t]]=#],Undefined]&[(Association@@t)["Values"]];
 
 
 Clear[ToTensor]
@@ -155,7 +155,7 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Abort[]
 	];
 			
-	If[#=!=Undefined,TensorValues[assoc["Name"],If[MatchQ[#,_Symbol],"Up","Down"]&/@assoc["Indices"]]=#]&[assoc["Values"]];
+	If[#=!=Undefined&&Not[AutoNameQ[assoc["Name"]]],TensorValues[assoc["Name"],If[MatchQ[#,_Symbol],"Up","Down"]&/@assoc["Indices"]]=#]&[assoc["Values"]];
 	Tensor@@(Normal@assoc/.("PossibleIndices"->_):>("PossibleIndices"->indexChoices))
 ]
 
@@ -526,7 +526,7 @@ Module[{posInds,vals},
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
 	vals=TensorValues[t1]+TensorValues[t2];
 	
-	ToTensor[{"("<>Name[t1]<>"+"<>Name[t2]<>")","("<>DisplayName[t1]<>"+"<>DisplayName[t2]<>")"},
+	ToTensor[{"("<>Name[t1]<>"+"<>Name[t2]<>")-Auto","("<>DisplayName[t1]<>"+"<>DisplayName[t2]<>")"},
 			Indices[t1],
 			"Values"->vals,
 			"Metric"->Metric[t1],
@@ -562,7 +562,7 @@ Module[{posInds,vals,inds,indsUp,repeatedInds},
 
 	vals=Outer[Times,TensorValues[t1],TensorValues[t2]];
 
-	ToTensor[{"("<>Name[t1]<>"\[CenterDot]"<>Name[t2]<>")","("<>DisplayName[t1]<>"\[CenterDot]"<>DisplayName[t2]<>")"},
+	ToTensor[{"("<>Name[t1]<>"\[CenterDot]"<>Name[t2]<>")-Auto","("<>DisplayName[t1]<>"\[CenterDot]"<>DisplayName[t2]<>")"},
 			inds,
 			"Values"->vals,
 			"Metric"->Metric[t1],
@@ -585,7 +585,7 @@ Module[{posInds,vals},
 	If[AbstractQ[t],Print["Cannot multiply Abstract Tensors."];Abort[]];
 	If[Not[MatchQ[n,(_Symbol|_Real|_Complex|_Integer|_Rational)]],Print["Cannot multiply a Tensor by a ", Head[n]];Abort[]];
 	vals=n TensorValues[t];
-	ToTensor["("<>ToString[n]<>Name[t]<>")",Metric[t],vals]
+	ToTensor[{"("<>ToString[n]<>Name[t]<>")-Auto","("<>ToString[n]<>DisplayName[t]<>")"},Metric[t],vals]
 ]
 Tensor/:MultiplyTensorScalar[t1_Tensor]:=t1;
 Tensor/:MultiplyTensorScalar[n_,t1_Tensor,name_String]:=RenameTensor[MultiplyTensorScalar[n,t1],name]
@@ -609,6 +609,11 @@ Clear[ClearCachedTensorValues]
 ClearCachedTensorValues[s_String,inds_]:=If[TensorValues[s,inds]=!=Undefined,Unset[TensorValues[s,inds]]]
 ClearCachedTensorValues[t_Tensor]:=Scan[ClearCachedTensorValues[Name[t],#]&,Tuples[{"Up","Down"},Total[Rank[t]]]]
 ClearCachedTensorValues[All]:=Scan[ClearCachedTensorValues[Sequence@@#]&,DeleteDuplicates@Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{_String,{__String}}]]
+
+
+
+AutoNameQ[t_Tensor]:=AutoNameQ[Name[t]]
+AutoNameQ[s_String]:=StringMatchQ[s,__~~"-Auto"]
 
 
 End[];
