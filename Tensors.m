@@ -81,7 +81,7 @@ Module[{upStr,dnStr},
 
 
 Tensor/:Coordinates[t_Tensor]:=(Association@@t)["Coordinates"]
-Tensor/:Metric[t_Tensor]:=(Association@@t)["Metric"]
+Tensor/:Metric[t_Tensor]:=If[(Association@@t)["Metric"]==="Self",t,(Association@@t)["Metric"]];
 Tensor/:Rank[t_Tensor]:=Module[{inds,co},inds=Indices[t];co=Count[inds,-_Symbol];{Length[inds]-co,co}];
 Tensor/:AbstractQ[t_Tensor]:=(Association@@t)["Abstract"]
 Tensor/:Dimensions[t_Tensor]:=(Association@@t)["Dimensions"]
@@ -91,7 +91,7 @@ Tensor/:Name[t_Tensor]:=(Association@@t)["Name"]
 Tensor/:DisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
 Tensor/:IndexPositions[t_Tensor]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
 Tensor/:RepeatedIndexQ[t_Tensor]:=Length[DeleteDuplicates@(Indices[t]/.-sym_:>sym)]<Length[Indices[t]];
-Tensor/:MetricQ[t_Tensor]:=Metric[t]==="Self"
+Tensor/:MetricQ[t_Tensor]:=(Association@@t)["IsMetric"]
 Tensor/:t_Tensor[inds__]:=ShiftIndices[t,{inds}]
 
 
@@ -102,7 +102,7 @@ TensorValues[t_Tensor]:=If[#=!=Undefined,If[AutoNameQ[t],#,TensorValues[Name[t],
 Clear[ToTensor]
 ToTensor[assoc_Association]:=
 Module[{keys,nullKeys,listKeys,indexChoices},
-	keys={"Metric","Coordinates","Name","DisplayName","Indices","Values","Abstract","Dimensions","PossibleIndices"};
+	keys={"IsMetric","Metric","Coordinates","Name","DisplayName","Indices","Values","Abstract","Dimensions","PossibleIndices"};
 	nullKeys={"Metric","Coordinates","Values","PossibleIndices","Dimensions"};
 	listKeys={"Coordinates","PossibleIndices","Indices"};
 
@@ -157,27 +157,32 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Print["The following Options must be given as lists: "<>ToString[If[assoc[#]=!=Undefined&&Head[assoc[#]]=!=List,#,##&[]]&/@listKeys]];
 		Abort[]
 	];
-			
+		
+	If[Not@BooleanQ[assoc["IsMetric"]],
+		Print["\"IsMetric\" must be True or False."];
+		Abort[]
+	];
+
 	If[#=!=Undefined&&Not[AutoNameQ[assoc["Name"]]],TensorValues[assoc["Name"],If[MatchQ[#,_Symbol],"Up","Down"]&/@assoc["Indices"]]=#]&[assoc["Values"]];
 	Tensor@@(Normal@assoc/.("PossibleIndices"->_):>("PossibleIndices"->indexChoices))
 ]
 
 
-Options[ToTensor]={"Coordinates"->Undefined,"DisplayName"->Undefined,"Metric"->Undefined,"PossibleIndices"->{},"Abstract"->True,"Values"->Undefined,"Dimensions"->Undefined};
+Options[ToTensor]={"Coordinates"->Undefined,"DisplayName"->Undefined,"Metric"->Undefined,"IsMetric"->False,"PossibleIndices"->{},"Abstract"->True,"Values"->Undefined,"Dimensions"->Undefined};
 ToTensor[{name_String,dispName_String},{inds___},opts:OptionsPattern[]]:=
-Module[{coords,vals,posInds,abstr,metric,dims},
+Module[{coords,vals,posInds,abstr,metric,dims,isMetric},
 	coords=OptionValue["Coordinates"];
 	vals=OptionValue["Values"];
 	posInds=OptionValue["PossibleIndices"];
 	abstr=OptionValue["Abstract"];
 	metric=OptionValue["Metric"];
+	isMetric=OptionValue["IsMetric"];
 	dims=OptionValue["Dimensions"];
-	ToTensor[Association["Coordinates"->coords,"Metric"->metric,"Name"->name,"DisplayName"->dispName,"Indices"->{inds},"PossibleIndices"->posInds,"Abstract"->abstr,"Values"->vals,"Dimensions"->dims]]
+	ToTensor[Association["Coordinates"->coords,"Metric"->metric,"IsMetric"->isMetric,"Name"->name,"DisplayName"->dispName,"Indices"->{inds},"PossibleIndices"->posInds,"Abstract"->abstr,"Values"->vals,"Dimensions"->dims]]
 ]
 ToTensor[name_String,{inds___},opts:OptionsPattern[]]:=ToTensor[{name,name},{inds},opts]
 
 
-ToTensor[name_String,metric_Tensor?MetricQ,vals_List]:=ToTensor[{name,name},metric,vals];
 ToTensor[{name_String,dispName_String},metric_Tensor?MetricQ,vals_List]:=
 Module[{coords,posInds,dims,inds},
 
@@ -187,8 +192,9 @@ Module[{coords,posInds,dims,inds},
 	posInds=PossibleIndices[metric];
 	dims=Dimensions[metric];
 	inds=Take[posInds,Length@Dimensions[vals]];
-	ToTensor[Association["Coordinates"->coords,"Metric"->metric,"Name"->name,"DisplayName"->dispName,"Indices"->inds,"PossibleIndices"->posInds,"Abstract"->False,"Values"->vals,"Dimensions"->dims]]
+	ToTensor[Association["Coordinates"->coords,"Metric"->metric,"IsMetric"->False,"Name"->name,"DisplayName"->dispName,"Indices"->inds,"PossibleIndices"->posInds,"Abstract"->False,"Values"->vals,"Dimensions"->dims]]
 ]
+ToTensor[name_String,metric_Tensor?MetricQ,vals_List]:=ToTensor[{name,name},metric,vals];
 
 
 Clear[builtInIndices]
@@ -227,7 +233,7 @@ Module[{keys,dims,posInds,inds},
 	];
 
 	dims=If[assoc["Coordinates"]=!=Undefined,Length@assoc["Coordinates"],assoc["Coordinates"]];
-	ToTensor[Join[KeyDrop[assoc,{"PossibleIndices","Indices"}],Association["Metric"->"Self","Dimensions"->dims,"PossibleIndices"->posInds,"Indices"->inds]]]
+	ToTensor[Join[KeyDrop[assoc,{"PossibleIndices","Indices"}],Association["Metric"->"Self","IsMetric"->True,"Dimensions"->dims,"PossibleIndices"->posInds,"Indices"->inds]]]
 ]
 
 
@@ -326,18 +332,19 @@ Module[{assoc,tvStored,tv,posUp},
 	tv=If[tvStored===Undefined,
 			If[TensorValues[t]===Undefined,
 				Undefined,
-				TensorValues[Name[t],posUp]=Simplify@Inverse[TensorValues[t]]
+				Simplify@Inverse[TensorValues[Metric[t]]]
 			],
 			tvStored
 		];
 	
 	assoc=Association@@t;
-	ToTensor[Join[KeyDrop[assoc,"Indices"],Association["Indices"->Indices[t]/.-sym_Symbol:>sym,"Values"->tv]]]
+	ToTensor[Join[KeyDrop[assoc,{"Indices","Metric"}],Association["Indices"->Indices[t]/.-sym_Symbol:>sym,"Values"->tv,"Metric"->Metric[t]]]]
 ]
 
 
-Tensor/:ChristoffelSymbol[gT_Tensor?MetricQ]:=
-Module[{n,g,ig,xx,vals,posInds},
+Tensor/:ChristoffelSymbol[t_Tensor?MetricQ]:=
+Module[{n,g,ig,xx,vals,posInds,gT},
+	gT=Metric[t];
 	xx=Coordinates[gT];
 	posInds=PossibleIndices[gT];
 	n=Dimensions[gT];
@@ -345,13 +352,14 @@ Module[{n,g,ig,xx,vals,posInds},
 	ig=TensorValues@InverseMetric[gT];
 	vals=Simplify@Table[(1/2)Sum[ig[[i,s]](-D[g[[j,k]],xx[[s]]]+D[g[[j,s]],xx[[k]]]+D[g[[s,k]],xx[[j]]]),{s,1,n}],{i,1,n},{j,1,n},{k,1,n}];
 
-	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","Indices"}],
-			Association["Metric"->gT,"Values"->vals,"DisplayName"->"\[CapitalGamma]","Name"->"Christoffel","Indices"->{posInds[[1]],-posInds[[2]],-posInds[[3]]}]]]
+	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+			Association["Metric"->gT,"IsMetric"->False,"Values"->vals,"DisplayName"->"\[CapitalGamma]","Name"->"Christoffel","Indices"->{posInds[[1]],-posInds[[2]],-posInds[[3]]}]]]
 ]
 
 
-Tensor/:RiemannTensor[gT_Tensor?MetricQ]:=
-Module[{n,g,ig,xx,chr,vals,posInds},
+Tensor/:RiemannTensor[t_Tensor?MetricQ]:=
+Module[{n,g,ig,xx,chr,vals,posInds,gT},
+	gT=Metric[t];
 	xx=Coordinates[gT];
 	posInds=PossibleIndices[gT];
 	n=Dimensions[gT];
@@ -362,32 +370,34 @@ Module[{n,g,ig,xx,chr,vals,posInds},
 			+Sum[chr[[i,s,l]]chr[[s,k,m]],{s,1,n}]
 			-Sum[chr[[i,s,m]]chr[[s,k,l]],{s,1,n}],
 							{i,1,n},{k,1,n},{l,1,n},{m,1,n}];
-	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","Indices"}],
-		Association["Metric"->gT,"Values"->vals,"DisplayName"->"R","Name"->"RiemannTensor","Indices"->{posInds[[1]],-posInds[[2]],-posInds[[3]],-posInds[[4]]}]]]
+	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+		Association["Metric"->gT,"IsMetric"->False,"Values"->vals,"DisplayName"->"R","Name"->"RiemannTensor","Indices"->{posInds[[1]],-posInds[[2]],-posInds[[3]],-posInds[[4]]}]]]
 ]
 
 
-Tensor/:RicciTensor[gT_Tensor?MetricQ]:=
-Module[{rie,vals,n,xx,posInds},
+Tensor/:RicciTensor[t_Tensor?MetricQ]:=
+Module[{rie,vals,n,xx,posInds,gT},
+	gT=Metric[t];
 	xx=Coordinates[gT];
 	posInds=PossibleIndices[gT];
 	n=Dimensions[gT];
 	rie=TensorValues@RiemannTensor[gT];
 	vals=Simplify@Table[Sum[rie[[s,i,s,j]],{s,1,n}],{i,1,n},{j,1,n}];
 	
-	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","Indices"}],Association["Metric"->gT,"Values"->vals,"DisplayName"->"R","Name"->"RicciTensor","Indices"->{-posInds[[1]],-posInds[[2]]}]]]
+	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],Association["Metric"->gT,"IsMetric"->False,"Values"->vals,"DisplayName"->"R","Name"->"RicciTensor","Indices"->{-posInds[[1]],-posInds[[2]]}]]]
 ]
 
 
-Tensor/:RicciScalar[gT_Tensor?MetricQ]:=
-Module[{ricc,ig,vals,n,xx,posInds},
+Tensor/:RicciScalar[t_Tensor?MetricQ]:=
+Module[{ricc,ig,vals,n,xx,posInds,gT},
+	gT=Metric[t];
 	xx=Coordinates[gT];
 	posInds=PossibleIndices[gT];
 	n=Dimensions[gT];
 	ricc=TensorValues@RicciTensor[gT];
 	ig=TensorValues@InverseMetric[gT];
 	vals=Simplify@Sum[ig[[s,i]] ricc[[s,i]],{s,1,n},{i,1,n}];
-	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","Indices"}],Association["Metric"->gT,"Values"->vals,"DisplayName"->"R","Name"->"RicciScalar","Indices"->{}]]]
+	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],Association["Metric"->gT,"IsMetric"->False,"Values"->vals,"DisplayName"->"R","Name"->"RicciScalar","Indices"->{}]]]
 ]
 
 
@@ -429,14 +439,14 @@ Module[{},
 		Print["The tensor ", Name[t]," does not use the following indices: ",Complement[inds/.-sym_:>sym,PossibleIndices[t]]];
 		Abort[]
 	];
-
+	
 	Fold[shiftIndex,t,Thread[{Range@Length[inds],inds}]]
 ]
 
 
 Clear[shiftIndex]
 shiftIndex[t_Tensor,{pos_Integer,ind_}]:=
-Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,itrBefore,itrAfter,vals,i,itrTot,itr,newPos},
+Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,itrBefore,itrAfter,vals,i,itrTot,itr,newPos,newMet,newInds},
 	
 	newPos=If[MatchQ[ind,_Symbol],"Up","Down"];
 	indPos=IndexPositions[t];
@@ -451,21 +461,24 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,itrBefore,itrAf
 		
 		If[TensorValues[Name[t],indPosNew]===Undefined,
 
-			gOrInvG=If[newPos==="Up",TensorValues[InverseMetric[t]],If[MetricQ[t],TensorValues[Name[t],{"Down","Down"}],TensorValues[Metric[t]]]];
+			gOrInvG=If[newPos==="Up",TensorValues[InverseMetric[t]],TensorValues[Metric[t]](*If[MetricQ[t],TensorValues[Name[t],{"Down","Down"}],TensorValues[Metric[t]]]*)];
 			tvs=TensorValues[t];
 			n=Dimensions[t];
 			indsBefore=Table[itr[ii],{ii,1,pos-1}];
 			indsAfter=Table[itr[ii],{ii,pos+1,Length@indPos}];
 			itrBefore=({#,1,n}&/@indsBefore);
 			itrAfter=({#,1,n}&/@indsAfter);
-			itrTot=Join[itrAfter,{{i,1,n}},itrBefore];
+			itrTot=Join[itrBefore,{{i,1,n}},itrAfter];
 			Simplify@Table[Sum[gOrInvG[[i,s]]tvs[[Sequence@@indsBefore,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]],
 			
 			TensorValues[Name[t],indPosNew]
 		]
 	];
-		
-	ToTensor[Join[KeyDrop[Association@@t,"Indices"],Association["Values"->vals,"Indices"->Flatten@{Take[inds,pos-1],ind,Drop[inds,pos]}]]]
+
+	newInds=Flatten@{Take[inds,pos-1],ind,Drop[inds,pos]};
+	newMet=If[MetricQ[t]&&(If[MatchQ[#,_Symbol],"Up","Down"]&/@newInds)==={"Down","Down"},"Self",Metric[t]];
+
+	ToTensor[Join[KeyDrop[Association@@t,{"Indices","Metric"}],Association["Values"->vals,"Metric"->newMet,"Indices"->newInds]]]
 ]
 
 
@@ -500,7 +513,7 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 			itrBefore=({#,1,n}&/@indsBefore);
 			itrBetween=({#,1,n}&/@indsBetween);
 			itrAfter=({#,1,n}&/@indsAfter);
-			itrTot=Join[itrAfter,itrBetween,itrBefore];
+			itrTot=Join[itrBefore,itrBetween,itrAfter];
 			Simplify@If[itrTot==={},
 						Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],
 						Table[Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]]
@@ -508,7 +521,7 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 						
 			TensorValues[Name[t],indPosNew]
 		];
-	ToTensor[Join[KeyDrop[Association@@t,"Indices"],Association["Values"->vals,"Indices"->indsNew]]]
+	ToTensor[Join[KeyDrop[Association@@t,{"Indices","Name"}],Association["Name"->Name[t]<>"-Auto","Values"->vals,"Indices"->indsNew]]]
 ]
 
 
@@ -548,10 +561,7 @@ Clear[MultiplyTensors]
 Tensor/:MultiplyTensors[t1_Tensor,t2_Tensor]:=
 Module[{posInds,vals,inds,indsUp,repeatedInds},
 	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot multiply Abstract Tensors."];Abort[]];
-	If[Metric[t1]=!=Metric[t2]&&Not[Metric[t1]==="Self"&&t1===Metric[t2]]&&Not[Metric[t2]==="Self"&&t2===Metric[t1]],
-		Print["Cannot multiply Tensors with different metrics."];
-		Abort[]
-	];
+	If[Metric[t1]=!=Metric[t2],Print["Cannot multiply Tensors with different metrics."];Abort[]];
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
 	inds=Join[Indices[t1],Indices[t2]];
 	indsUp=inds/.-sym_:>sym;
@@ -611,13 +621,13 @@ Tensor/:Times[t1_Tensor,t2__Tensor]:=(Print["To multiply Tensors use NonCommutat
 Clear[ClearCachedTensorValues]
 ClearCachedTensorValues[s_String,inds_]:=If[TensorValues[s,inds]=!=Undefined,Unset[TensorValues[s,inds]]]
 ClearCachedTensorValues[t_Tensor]:=Scan[ClearCachedTensorValues[Name[t],#]&,Tuples[{"Up","Down"},Total[Rank[t]]]]
-ClearCachedTensorValues[All]:=Scan[ClearCachedTensorValues[Sequence@@#]&,DeleteDuplicates@Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{_String,{__String}}]]
+ClearCachedTensorValues[All]:=Scan[ClearCachedTensorValues[Sequence@@#]&,DeleteDuplicates@Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{_String,{___String}}]]
 
 
 Clear[CachedTensorValues]
-CachedTensorValues[s_String]:=#->TensorValues@@#&/@(Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{s,{__String}}])
+CachedTensorValues[s_String]:=#->TensorValues@@#&/@(Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{s,{___String}}])
 CachedTensorValues[t_Tensor]:=CachedTensorValues[Name[t]]
-CachedTensorValues[All]:=CachedTensorValues/@DeleteDuplicates@Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{n_String,{__String}}:>n]
+CachedTensorValues[All]:=CachedTensorValues/@DeleteDuplicates@Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{n_String,{___String}}:>n]
 
 
 AutoNameQ[t_Tensor]:=AutoNameQ[Name[t]]
