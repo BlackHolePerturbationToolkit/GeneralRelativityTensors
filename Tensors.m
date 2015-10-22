@@ -55,6 +55,9 @@ MultiplyTensorScalar[a, t] forms the product of the a and t, and forms a new Nam
 RepeatedIndexQ::usage="RepeatedIndexQ[t] returns True if the Tensor t has repeated indices which can be traced.";
 MetricQ::usage="MetricQ[t] returns True if the Tensor t is a metric.";
 AbstractQ::usage="AbstractQ[t] returns True if the Tensor t is treated as abstract.";
+ClearCachedTensorValues::usage="ClearCachedTensorValues[n,inds] removes cached expressions stored with the Symbol TensorValues using the Tensor Name n and IndexPositions inds. Here inds is a List of \"Up\" and \"Down\".
+ClearCachedTensorValues[t] removes all cached expressions stored with the Symbol TensorValues for the Tensor t.
+ClearCachedTensorValues[All] removes all cached expressions associated with the Symbol TensorValues.";
 
 
 Begin["`Private`"];
@@ -601,6 +604,12 @@ MergeTensors[expr_,name_]:=RenameTensor[MergeTensors[expr],name]
 
 
 Tensor/:Times[t1_Tensor,t2__Tensor]:=(Print["To multiply Tensors use NonCommutativeMultiply, e.g.: t1**t2."];Abort[])
+
+
+Clear[ClearCachedTensorValues]
+ClearCachedTensorValues[s_String,inds_]:=If[TensorValues[s,inds]=!=Undefined,Unset[TensorValues[s,inds]]]
+ClearCachedTensorValues[t_Tensor]:=Scan[ClearCachedTensorValues[Name[t],#]&,Tuples[{"Up","Down"},Total[Rank[t]]]]
+ClearCachedTensorValues[All]:=Scan[ClearCachedTensorValues[Sequence@@#]&,DeleteDuplicates@Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{_String,{__String}}]]
 
 
 End[];
