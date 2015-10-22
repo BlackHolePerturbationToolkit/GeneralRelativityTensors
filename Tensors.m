@@ -57,6 +57,9 @@ AbstractQ::usage="AbstractQ[t] returns True if the Tensor t is treated as Abstra
 ClearCachedTensorValues::usage="ClearCachedTensorValues[n,inds] removes cached expressions stored with the Symbol TensorValues using the Tensor Name n and IndexPositions inds. Here inds is a List of \"Up\" and \"Down\".
 ClearCachedTensorValues[t] removes all cached expressions stored with the Symbol TensorValues for the Tensor t.
 ClearCachedTensorValues[All] removes all cached expressions associated with the Symbol TensorValues.";
+CachedTensorValues::usage="CachedTensorValues[n] returns a List of Rules showing all cached expressions for the Tensor Name n (stored in the Symbol TensorValues).
+CachedTensorValues[t] returns a List of Rules showing all cached expressions for the Tensor t (stored in the Symbol TensorValues).
+CachedTensorValues[All] returns a List of Rules showing all cached expressions (stored in the Symbol TensorValues)."
 
 
 Begin["`Private`"];
@@ -610,6 +613,11 @@ ClearCachedTensorValues[s_String,inds_]:=If[TensorValues[s,inds]=!=Undefined,Uns
 ClearCachedTensorValues[t_Tensor]:=Scan[ClearCachedTensorValues[Name[t],#]&,Tuples[{"Up","Down"},Total[Rank[t]]]]
 ClearCachedTensorValues[All]:=Scan[ClearCachedTensorValues[Sequence@@#]&,DeleteDuplicates@Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{_String,{__String}}]]
 
+
+Clear[CachedTensorValues]
+CachedTensorValues[s_String]:=#->TensorValues@@#&/@(Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{s,{__String}}])
+CachedTensorValues[t_Tensor]:=CachedTensorValues[Name[t]]
+CachedTensorValues[All]:=CachedTensorValues/@DeleteDuplicates@Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{n_String,{__String}}:>n]
 
 
 AutoNameQ[t_Tensor]:=AutoNameQ[Name[t]]
