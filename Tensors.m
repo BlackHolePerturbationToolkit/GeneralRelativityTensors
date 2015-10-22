@@ -343,22 +343,27 @@ Module[{assoc,tvStored,tv,posUp},
 
 
 Tensor/:ChristoffelSymbol[t_Tensor?MetricQ]:=
-Module[{n,g,ig,xx,vals,posInds,gT},
+Module[{n,g,ig,xx,vals,posInds,gT,name},
 	gT=Metric[t];
 	xx=Coordinates[gT];
 	posInds=PossibleIndices[gT];
 	n=Dimensions[gT];
 	g=TensorValues[gT];
 	ig=TensorValues@InverseMetric[gT];
-	vals=Simplify@Table[(1/2)Sum[ig[[i,s]](-D[g[[j,k]],xx[[s]]]+D[g[[j,s]],xx[[k]]]+D[g[[s,k]],xx[[j]]]),{s,1,n}],{i,1,n},{j,1,n},{k,1,n}];
+	name="ChristoffelSymbol"<>Name[t];
+	vals=
+		If[TensorValues[name,{"Up","Down","Down"}]===Undefined,
+			Simplify@Table[(1/2)Sum[ig[[i,s]](-D[g[[j,k]],xx[[s]]]+D[g[[j,s]],xx[[k]]]+D[g[[s,k]],xx[[j]]]),{s,1,n}],{i,1,n},{j,1,n},{k,1,n}],
+			TensorValues[name,{"Up","Down","Down"}]
+		];
 
 	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],
-			Association["Metric"->gT,"IsMetric"->False,"Values"->vals,"DisplayName"->"\[CapitalGamma]","Name"->"Christoffel","Indices"->{posInds[[1]],-posInds[[2]],-posInds[[3]]}]]]
+			Association["Metric"->gT,"IsMetric"->False,"Values"->vals,"DisplayName"->"\[CapitalGamma]","Name"->name,"Indices"->{posInds[[1]],-posInds[[2]],-posInds[[3]]}]]]
 ]
 
 
 Tensor/:RiemannTensor[t_Tensor?MetricQ]:=
-Module[{n,g,ig,xx,chr,vals,posInds,gT},
+Module[{n,g,ig,xx,chr,vals,posInds,gT,name},
 	gT=Metric[t];
 	xx=Coordinates[gT];
 	posInds=PossibleIndices[gT];
@@ -366,38 +371,36 @@ Module[{n,g,ig,xx,chr,vals,posInds,gT},
 	g=TensorValues[gT];
 	ig=TensorValues@InverseMetric[gT];
 	chr=TensorValues@ChristoffelSymbol[gT];
-	vals=Simplify@Table[D[chr[[i,k,m]],xx[[l]]]-D[chr[[i,k,l]],xx[[m]]]
+	name="RiemannTensor"<>Name[t];
+	vals=
+		If[TensorValues[name,{"Up","Down","Down","Down"}]===Undefined,
+			Simplify@Table[D[chr[[i,k,m]],xx[[l]]]-D[chr[[i,k,l]],xx[[m]]]
 			+Sum[chr[[i,s,l]]chr[[s,k,m]],{s,1,n}]
 			-Sum[chr[[i,s,m]]chr[[s,k,l]],{s,1,n}],
-							{i,1,n},{k,1,n},{l,1,n},{m,1,n}];
+							{i,1,n},{k,1,n},{l,1,n},{m,1,n}],
+			TensorValues[name,{"Up","Down","Down","Down"}]
+		];
+
 	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],
-		Association["Metric"->gT,"IsMetric"->False,"Values"->vals,"DisplayName"->"R","Name"->"RiemannTensor","Indices"->{posInds[[1]],-posInds[[2]],-posInds[[3]],-posInds[[4]]}]]]
+		Association["Metric"->gT,"IsMetric"->False,"Values"->vals,"DisplayName"->"R","Name"->name,"Indices"->{posInds[[1]],-posInds[[2]],-posInds[[3]],-posInds[[4]]}]]]
 ]
 
 
 Tensor/:RicciTensor[t_Tensor?MetricQ]:=
-Module[{rie,vals,n,xx,posInds,gT},
-	gT=Metric[t];
-	xx=Coordinates[gT];
-	posInds=PossibleIndices[gT];
-	n=Dimensions[gT];
-	rie=TensorValues@RiemannTensor[gT];
-	vals=Simplify@Table[Sum[rie[[s,i,s,j]],{s,1,n}],{i,1,n},{j,1,n}];
-	
-	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],Association["Metric"->gT,"IsMetric"->False,"Values"->vals,"DisplayName"->"R","Name"->"RicciTensor","Indices"->{-posInds[[1]],-posInds[[2]]}]]]
+Module[{rie,inds},
+
+	rie=RiemannTensor[t];
+	inds=Indices[rie];
+	ContractIndices[rie[inds[[1]],inds[[2]],-inds[[1]],inds[[4]]],{"RicciTensor"<>Name[t],"R"}]
 ]
 
 
 Tensor/:RicciScalar[t_Tensor?MetricQ]:=
-Module[{ricc,ig,vals,n,xx,posInds,gT},
-	gT=Metric[t];
-	xx=Coordinates[gT];
-	posInds=PossibleIndices[gT];
-	n=Dimensions[gT];
-	ricc=TensorValues@RicciTensor[gT];
-	ig=TensorValues@InverseMetric[gT];
-	vals=Simplify@Sum[ig[[s,i]] ricc[[s,i]],{s,1,n},{i,1,n}];
-	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],Association["Metric"->gT,"IsMetric"->False,"Values"->vals,"DisplayName"->"R","Name"->"RicciScalar","Indices"->{}]]]
+Module[{ric,inds},
+
+	ric=RicciTensor[t];
+	inds=Indices[ric];
+	ContractIndices[ric[-inds[[1]],inds[[1]]],{"RicciScalar"<>Name[t],"R"}]
 ]
 
 
