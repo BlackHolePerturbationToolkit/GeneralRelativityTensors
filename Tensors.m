@@ -6,7 +6,7 @@ BeginPackage["Tensors`"];
 Tensor::usage="Tensor is a Head created with the command ToTensor.";
 ToTensor::usage="ToTensor[{n1,n2},{inds}] returns a tensor with Name n1, DisplayName n2 and indices {inds}.
 ToTensor[n,{inds}] is equivalent to ToTensor[{n,n},{inds}].
-ToTensor[{n1,n2},m,vals] returns a contravariant tensor with Name n1 and DisplayName n2. The (non-\"Abstract\") metric m and values vals (given as a consistently sized List) are assigned.
+ToTensor[{n1,n2},m,vals] returns a contravariant tensor with Name n1 and DisplayName n2. The (non-Abstract) metric m and values vals (given as a consistently sized List) are assigned.
 ToTensor[n,m,vals] is equivalent to ToTensor[{n,n},m,vals]";
 ToMetric::usage="ToMetric[{n1,n2}] returns an Abtract metric Tensor with Name n1 and DisplayName n2.
 ToMetric[n] is equivalent to ToMetric[{n,n}]
@@ -51,10 +51,9 @@ MultiplyTensors[t1,t2,..] forms the outer product of the Tensors t1, t2, etc., a
 MultiplyTensorScalar::usage="MultiplyTensorScalar[a, t, {n1,n2}] or MultiplyTensorScalar[t, a, {n1,n2}] forms the product of the scalar a with the Tensor t, creating a new Tensor with Name n1 and DisplayName n2.
 MultiplyTensorScalar[a, t, n] is equivalent to MultiplyTensorScalar[a, t, {n,n}].
 MultiplyTensorScalar[a, t] forms the product of the a and t, and forms a new Name and DisplayName from a combination of the scalar and Tensor making up the expression.";
-
 RepeatedIndexQ::usage="RepeatedIndexQ[t] returns True if the Tensor t has repeated indices which can be traced.";
 MetricQ::usage="MetricQ[t] returns True if the Tensor t is a metric.";
-AbstractQ::usage="AbstractQ[t] returns True if the Tensor t is treated as abstract.";
+AbstractQ::usage="AbstractQ[t] returns True if the Tensor t is treated as Abstract.";
 ClearCachedTensorValues::usage="ClearCachedTensorValues[n,inds] removes cached expressions stored with the Symbol TensorValues using the Tensor Name n and IndexPositions inds. Here inds is a List of \"Up\" and \"Down\".
 ClearCachedTensorValues[t] removes all cached expressions stored with the Symbol TensorValues for the Tensor t.
 ClearCachedTensorValues[All] removes all cached expressions associated with the Symbol TensorValues.";
