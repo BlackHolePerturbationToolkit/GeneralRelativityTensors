@@ -93,7 +93,7 @@ Tensor/:t_Tensor[inds__]:=ShiftIndices[t,{inds}]
 
 
 TensorValues[___]:=Undefined;
-TensorValues[t_Tensor]:=TensorValues[Name[t],IndexPositions[t]]
+TensorValues[t_Tensor]:=If[#=!=Undefined,TensorValues[Name[t],IndexPositions[t]]=#,Undefined]&[(Association@@t)["Values"]];
 
 
 Clear[ToTensor]
@@ -156,7 +156,7 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 	];
 			
 	If[#=!=Undefined,TensorValues[assoc["Name"],If[MatchQ[#,_Symbol],"Up","Down"]&/@assoc["Indices"]]=#]&[assoc["Values"]];
-	Tensor@@(Normal@KeyDrop[assoc,"Values"]/.("PossibleIndices"->_):>("PossibleIndices"->indexChoices))
+	Tensor@@(Normal@assoc/.("PossibleIndices"->_):>("PossibleIndices"->indexChoices))
 ]
 
 
