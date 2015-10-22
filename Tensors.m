@@ -270,13 +270,13 @@ Module[{t,x,y,z,\[Alpha],\[Beta]},
 
 	{t,x,y,z,\[Alpha],\[Beta]}=Symbol/@{"t","x","y","z","\[Alpha]","\[Beta]"};
 
-	ToMetric["MinkowskiMetric",
+	ToMetric[Association["Name"->"MinkowskiMetric",
 				"Coordinates"->{t,x,y,z},
 				"DisplayName"->"\[Eta]",
 				"Indices"->{-\[Alpha],-\[Beta]},
 				"PossibleIndices"->"Greek",
 				"Abstract"->False,
-				"Values"->{{-1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}}]
+				"Values"->{{-1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}}]]
 ]
 
 
@@ -285,13 +285,13 @@ Module[{t,r,\[Theta],\[Phi],M,\[Alpha],\[Beta]},
 
 	{t,r,\[Theta],\[Phi],M,\[Alpha],\[Beta]}=Symbol/@{"t","r","\[Theta]","\[Phi]","M","\[Alpha]","\[Beta]"};
 	
-	ToMetric["SchwarzschildMetric",
+	ToMetric[Association["Name"->"SchwarzschildMetric",
 				"Coordinates"->{t,r,\[Theta],\[Phi]},
 				"DisplayName"->"g",
 				"Indices"->{-\[Alpha],-\[Beta]},
 				"PossibleIndices"->"Greek",
 				"Abstract"->False,
-				"Values"->{{-1+(2 M)/r,0,0,0},{0,1/(1-(2 M)/r),0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}}]
+				"Values"->{{-1+(2 M)/r,0,0,0},{0,1/(1-(2 M)/r),0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}}]]
 ]
 
 
@@ -300,7 +300,7 @@ Module[{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta]},
 
 	{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta]}=Symbol/@{"t","r","\[Theta]","\[Phi]","M","a","\[Alpha]","\[Beta]"};
 
-	ToMetric["KerrMetric",
+	ToMetric[Association["Name"->"KerrMetric",
 				"Coordinates"->{t,r,\[Theta],\[Phi]},
 				"DisplayName"->"g",
 				"Indices"->{-\[Alpha],-\[Beta]},
@@ -309,7 +309,7 @@ Module[{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta]},
 				"Values"->{{(-a^2+2 M r-r^2+a^2 Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2),0,0,-((2 a M r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2))},
 							{0,(r^2+a^2 Cos[\[Theta]]^2)/(a^2-2 M r+r^2),0,0},
 							{0,0,r^2+a^2 Cos[\[Theta]]^2,0},
-							{-((2 a M r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2)),0,0,(Sin[\[Theta]]^2 ((a^2+r^2)^2-a^2 (a^2-2 M r+r^2) Sin[\[Theta]]^2))/(r^2+a^2 Cos[\[Theta]]^2)}}]
+							{-((2 a M r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2)),0,0,(Sin[\[Theta]]^2 ((a^2+r^2)^2-a^2 (a^2-2 M r+r^2) Sin[\[Theta]]^2))/(r^2+a^2 Cos[\[Theta]]^2)}}]]
 ]
 
 
