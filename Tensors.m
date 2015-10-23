@@ -60,6 +60,7 @@ ClearCachedTensorValues[All] removes all cached expressions associated with the 
 CachedTensorValues::usage="CachedTensorValues[n] returns a List of Rules showing all cached expressions for the Tensor Name n (stored in the Symbol TensorValues).
 CachedTensorValues[t] returns a List of Rules showing all cached expressions for the Tensor t (stored in the Symbol TensorValues).
 CachedTensorValues[All] returns a List of Rules showing all cached expressions (stored in the Symbol TensorValues)."
+Component::usage="Component[t,inds] returns the component of Tensor t with (appropriately covariant and contravariant) indices inds. All elements of inds must be Coordinates of t.";
 
 
 Begin["`Private`"];
@@ -417,7 +418,7 @@ Module[{posInds,indsUp,repeatedInds},
 		Abort[]
 	];
 	If[Length[indsUp]=!=Total[Rank[t]],
-		Print["The tensor ", t, " expects " ,Total[Rank[t]], " indices, but ", Length[indsUp]," indices were given."];
+		Print["The tensor ", t, " expects " ,Total[Rank[t]], " indices, but ", Length[indsUp], If[Length[indsUp]===1," index was ", " indices were "],"given."];
 		Abort[]
 	];
 	If[Union@Join[Count[indsUp,#]&/@DeleteDuplicates[indsUp],{1,2}]=!=Sort@{1,2},
@@ -436,12 +437,6 @@ Clear[ShiftIndices]
 Tensor/:ShiftIndices[t_Tensor,inds:{__}]:=
 Module[{},
 	ValidateIndices[t,inds];
-	If[Length[inds]=!=Total[Rank[t]],Print["Tensor ", Name[t], " has ", Total[Rank[t]], If[Total[Rank[t]]===1," index"," indices"]];Abort[]];
-	If[Not@MatchQ[inds/.-sym_:>sym,{__Symbol}],Print["Indices must be a list of Symbols (and negative Symbols)"];Abort[]];
-	If[Complement[inds/.-sym_:>sym,PossibleIndices[t]]=!={},
-		Print["The tensor ", Name[t]," does not use the following indices: ",Complement[inds/.-sym_:>sym,PossibleIndices[t]]];
-		Abort[]
-	];
 	
 	Fold[shiftIndex,t,Thread[{Range@Length[inds],inds}]]
 ]
@@ -464,7 +459,7 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,itrBefore,itrAf
 		
 		If[TensorValues[Name[t],indPosNew]===Undefined,
 
-			gOrInvG=If[newPos==="Up",TensorValues[InverseMetric[t]],TensorValues[Metric[t]](*If[MetricQ[t],TensorValues[Name[t],{"Down","Down"}],TensorValues[Metric[t]]]*)];
+			gOrInvG=TensorValues[If[newPos==="Up",InverseMetric[t],Metric[t]]];
 			tvs=TensorValues[t];
 			n=Dimensions[t];
 			indsBefore=Table[itr[ii],{ii,1,pos-1}];
@@ -525,6 +520,20 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 			TensorValues[Name[t],indPosNew]
 		];
 	ToTensor[Join[KeyDrop[Association@@t,{"Indices","Name"}],Association["Name"->Name[t]<>"-Auto","Values"->vals,"Indices"->indsNew]]]
+]
+
+
+Tensor/:Component[t_Tensor,inds___List]:=
+Module[{indsPos,indsAbstr,indsAbstrUp,coordsPos,indsUp},
+	If[Length[inds]=!=Total@Rank[t],
+		Print["Tensor ", t," expected ",Total@Rank[t]," indices to select a component, but ", Length[inds], If[Length[inds]===1," index was ", " indices were "],"given."];
+		Abort[]
+	];
+	indsUp=inds/.-sym_:>sym;
+	coordsPos=Flatten[Position[Coordinates[t],#]&/@indsUp];
+	indsAbstrUp=Indices[t]/.-sym_:>sym;
+	indsAbstr=MapThread[If[MatchQ[#1,_Symbol],#2,-#2]&,{inds,indsAbstrUp}];
+	Part[TensorValues[t[Sequence@@indsAbstr]],Sequence@@coordsPos]
 ]
 
 
