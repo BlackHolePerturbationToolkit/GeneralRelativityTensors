@@ -65,6 +65,10 @@ KinnersleyNullVector::usage="KinnersleyNullVector[m,v] returns the contravariant
 KinnersleyNullVector[builtIn,v] is equivalent to KinnersleyNullVector[ToMetric[builtIn],v], where builtIn can be \"Schwarzschild\" or \"Kerr\"."
 KinnersleyNullTetrad::uusage="KinnersleyNullTetrad[m] returns a list of the four KinnersleyNullVector in order {\"l\", \"n\", \"m\", \"mStar\"} for the metric m.
 KinnersleyNullTetrad[builtIn] is equivalent to KinnersleyNullTetrad[ToMetric[builtIn]], where builtIn can be \"Schwarzschild\" or \"Kerr\"."
+KinnersleyDerivative::usage="KinnersleyDerivative[m,s] returns the projected derivative s being the appropriate Kinnersley null vector contracted with a partial derivative. Values for s are \"D\", \"Delta\", \"delta\", or \"deltaStar\".
+KinnersleyDerivative[builtIn,s] is equivalent to KinnersleyDerivative[ToMetric[builtIn],s], where builtIn can be \"Schwarzschild\" or \"Kerr\"."
+SpinCoefficient::usage="SpinCoefficient[s] returns the Newman-Penrose spin coefficient corresponding to the string s, where possible values of s are \
+\"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\"mu\",\"nu\",\"pi\",\"rho\",\"sigma\", and \"tau\".";
 
 
 Begin["`Private`"];
@@ -457,6 +461,87 @@ KinnersleyNullVector["Kerr",vec_String,opts:OptionsPattern[]]:=KinnersleyNullVec
 Options[KinnersleyNullTetrad]=Options[KinnersleyNullVector];
 Clear[KinnersleyNullTetrad]
 KinnersleyNullTetrad[expr_,opts:OptionsPattern[]]:=KinnersleyNullVector[expr,#,opts]&/@{"l","n","m","mStar"}
+
+
+Options[KinnersleyDerivative]={"Schwarzschild"->False};
+Clear[KinnersleyDerivative]
+KinnersleyDerivative[tt_Tensor?MetricQ,op_String,opts:OptionsPattern[]]:=
+Module[{r,th,schw,t,phi,deriv},
+
+	schw=OptionValue["Schwarzschild"];
+
+	{t,r,th,phi}=Symbol/@{"t","r","\[Theta]","\[Phi]"};
+
+	(Switch[op,
+		"D",
+		TensorValues@KinnersleyNullVector[tt,"l","Schwarzschild"->schw],
+
+		"Delta",
+		TensorValues@KinnersleyNullVector[tt,"n","Schwarzschild"->schw],
+
+		"delta",
+		TensorValues@KinnersleyNullVector[tt,"m","Schwarzschild"->schw],
+
+		"deltaStar",
+		TensorValues@KinnersleyNullVector[tt,"mStar","Schwarzschild"->schw],
+
+		___,
+		Print["No KinnersleyDerivative = "<>op];
+		Print["Options are \"D\", \"Delta\", \"delta\", and \"deltaStar\"."];
+		Abort[]
+
+	].{D[#,t],D[#,r],D[#,th],D[#,phi]})&
+]
+KinnersleyDerivative["Schwarzschild",vec_String,opts:OptionsPattern[]]:=KinnersleyDerivative[ToMetric["Schwarzschild"],vec,"Schwarzschild"->True]
+KinnersleyDerivative["Kerr",vec_String,opts:OptionsPattern[]]:=KinnersleyDerivative[ToMetric["Kerr"],vec,"Schwarzschild"->False]
+
+
+Options[SpinCoefficient]={"Conjugate"->False,"Schwarzschild"->False};
+SpinCoefficient[coeff_String,opts:OptionsPattern[]]:=
+Module[{r,a,th,M,val,conj,rules,delta,schw},
+
+	conj=OptionValue["Conjugate"];
+	schw=OptionValue["Schwarzschild"];
+
+	{r,th,a,M}=Symbol/@{"r","\[Theta]","a","M"};
+	delta=a^2-2 M r+r^2;
+	rules=If[schw,{a->0},{}];
+
+	val=
+		Switch[coeff,
+				"rho",
+				-1/(r-I a Cos[th]),
+
+				"beta",
+				- SpinCoefficient["rho",Conjugate->True] Cot[th]/(2Sqrt[2]),
+
+				"pi",
+				I a SpinCoefficient["rho"]^2 Sin[th]/Sqrt[2],
+
+				"tau",
+				-I a SpinCoefficient["rho"]SpinCoefficient["rho",Conjugate->True] Sin[th]/Sqrt[2],
+
+				"mu",
+				SpinCoefficient["rho"]^2 SpinCoefficient["rho",Conjugate->True] delta/2,
+
+				"gamma",
+				SpinCoefficient["mu"]+SpinCoefficient["rho"]SpinCoefficient["rho",Conjugate->True] (r-M)/2,
+
+				"alpha",
+				SpinCoefficient["pi"]-SpinCoefficient["beta",Conjugate->True],
+
+				"sigma"|"epsilon"|"kappa"|"nu"|"lambda",
+				0,
+
+				___,
+				Print["No SpinCoefficient = ",coeff];
+				Print["Possible options are \"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\"mu\",\"nu\",\"pi\",\"rho\",\"sigma\", and \"tau\"."];
+				Abort[]
+
+		]/.rules;
+
+	If[conj,Simplify@ComplexExpand@Conjugate@val,val]
+]
 
 
 Clear[ValidateIndices]
