@@ -32,7 +32,7 @@ RicciScalar::usage="RicciScalar[m] returns the Ricci scalar computed from the me
 ContractIndices::usage="ContractIndices[t,{n1,n2}] contracts all repeated indices of Tensor t, returning the resulting lower-rank tensor with Name n1 and DisplayName n2.
 ContractIndices[t,n] is equivalent to ContractIndices[t,{n,n}].
 ContractIndices[t] is equivalent to ContractIndices[t,{Name[t],DisplayName[t]}].";
-ShiftIndices::usage="ShiftIndices[t,{inds}] raises and/or lowers the indices of Tensor t according to the given list inds, adjusting the values using the tensor's associated metric.";
+ShiftIndices::usage="ShiftIndices[t,inds] raises and/or lowers the indices of Tensor t according to the given List inds, adjusting the values using the tensor's associated metric.";
 ValidateIndices::usage="ValidateIndices[t,{inds}] checks that the list of indices {inds} is valid for Tensor t. An error is printed an operation is aborted if the list is not valid.";
 TensorValues::usage="TensorValues[n,{inds}] returns the cached values of a Tensor with Name n and indices in positions {inds} or Undefined if none have been computed. The List {inds} should contain elements \"Up\" and/or \"Down\".
 TensorValues[t] is equivalent to TensorValues[Name[t],IndexPositions[t]].";
