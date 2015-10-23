@@ -61,6 +61,10 @@ CachedTensorValues::usage="CachedTensorValues[n] returns a List of Rules showing
 CachedTensorValues[t] returns a List of Rules showing all cached expressions for the Tensor t (stored in the Symbol TensorValues).
 CachedTensorValues[All] returns a List of Rules showing all cached expressions (stored in the Symbol TensorValues)."
 Component::usage="Component[t,inds] returns the component of Tensor t with (appropriately covariant and contravariant) indices inds. All elements of inds must be Coordinates of t.";
+KinnersleyNullVector::usage="KinnersleyNullVector[m,v] returns the contravariant Kinnersley null vector associated with metric tensor m and string v, where v can be \"l\", \"n\", \"m\", or \"mStar\".
+KinnersleyNullVector[builtIn,v] is equivalent to KinnersleyNullVector[ToMetric[builtIn],v], where builtIn can be \"Schwarzschild\" or \"Kerr\"."
+KinnersleyNullTetrad::uusage="KinnersleyNullTetrad[m] returns a list of the four KinnersleyNullVector in order {\"l\", \"n\", \"m\", \"mStar\"} for the metric m.
+KinnersleyNullTetrad[builtIn] is equivalent to KinnersleyNullTetrad[ToMetric[builtIn]], where builtIn can be \"Schwarzschild\" or \"Kerr\"."
 
 
 Begin["`Private`"];
@@ -405,6 +409,54 @@ Module[{ric,inds},
 	inds=Indices[ric];
 	ContractIndices[ric[-inds[[1]],inds[[1]]],{"RicciScalar"<>Name[t],"R"}]
 ]
+
+
+Options[KinnersleyNullVector]={"Schwarzschild"->False};
+Clear[KinnersleyNullVector]
+KinnersleyNullVector[t_Tensor?MetricQ,vec_String,opts:OptionsPattern[]]:=
+Module[{r,a,th,M,val,delta,sigma,valC,schw,rules},
+schw=OptionValue["Schwarzschild"];
+
+	{r,th,a,M}=Symbol/@{"r","\[Theta]","a","M"};
+	sigma=r^2+a^2 Cos[th]^2;
+	delta=a^2-2 M r+r^2;
+	rules=If[schw,{a->0},{}];
+
+	val=
+	Switch[vec,
+			"l",
+			{(r^2+a^2)/delta,1,0,a/delta},
+		
+			"n",
+			{r^2+a^2,-delta,0,a}/(2sigma),
+	
+			"m"|"mStar",
+			{I a Sin[th],0,1,I/Sin[th]}/(Sqrt[2](r+I a Cos[th])),
+
+			___,
+			Print["No KinnersleyNullVector = "<>vec];
+			Print["Options are \"l\", \"n\", \"m\", and \"mStar\"."];
+			Abort[]
+		]/.rules;
+
+	valC=If[vec==="mStar",Simplify@ComplexExpand@Conjugate@#,#]&@val;
+
+	ToTensor[{vec<>"Kinnersley"<>Name[t],If[vec==="mStar",\!\(\*
+TagBox[
+StyleBox["\"\<\\!\\(\\*SuperscriptBox[\\(m\\), \\(*\\)]\\)\>\"",
+ShowSpecialCharacters->False,
+ShowStringCharacters->True,
+NumberMarks->True],
+FullForm]\),vec]},t,valC]
+]
+
+KinnersleyNullVector["Schwarzschild",vec_String,opts:OptionsPattern[]]:=KinnersleyNullVector[ToMetric["Schwarzschild"],vec,"Schwarzschild"->True]
+KinnersleyNullVector["Kerr",vec_String,opts:OptionsPattern[]]:=KinnersleyNullVector[ToMetric["Kerr"],vec,"Schwarzschild"->False]
+
+
+Options[KinnersleyNullTetrad]=Options[KinnersleyNullVector];
+Clear[KinnersleyNullTetrad]
+KinnersleyNullTetrad[expr_,opts:OptionsPattern[]]:=KinnersleyNullVector[expr,#,opts]&/@{"l","n","m","mStar"}
 
 
 Clear[ValidateIndices]
