@@ -93,7 +93,9 @@ Tensor/:DisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
 Tensor/:IndexPositions[t_Tensor]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
 Tensor/:RepeatedIndexQ[t_Tensor]:=Length[DeleteDuplicates@(Indices[t]/.-sym_:>sym)]<Length[Indices[t]];
 Tensor/:MetricQ[t_Tensor]:=(Association@@t)["IsMetric"]
-Tensor/:t_Tensor[inds__]:=ShiftIndices[t,{inds}]
+Tensor/:t_Tensor[inds__]/;Complement[{inds}/.-sym_:>sym,PossibleIndices[t]]==={}:=ShiftIndices[t,{inds}]
+Tensor/:t_Tensor[inds__]/;Complement[{inds}/.-sym_:>sym,Coordinates[t]]==={}:=Component[t,{inds}]
+Tensor/:t_Tensor[inds__]:=(Print["The given indices ",{inds}, " are neither entirely in the List of PossibleIndices, nor Coordinates of ", t];Abort[])
 
 
 TensorValues[___]:=Undefined;
