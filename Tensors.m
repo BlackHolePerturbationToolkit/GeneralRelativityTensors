@@ -785,6 +785,47 @@ AutoNameQ[t_Tensor]:=AutoNameQ[Name[t]]
 AutoNameQ[s_String]:=StringMatchQ[s,__~~"-Auto"]
 
 
+Clear[SetTensorKeyValue]
+Tensor/:SetTensorKeyValue[t_Tensor,key_String,value_]:=ToTensor[Join[KeyDrop[(Association@@t),{key}],Association[key->value]]]
+
+
+Clear[SetMetric]
+Tensor/:SetMetric[t_Tensor,m_Tensor]:=If[t=!=m,SetTensorKeyValue[t,"Metric",m],t]
+
+
+Clear[SetAsMetric]
+Tensor/:SetAsMetric[t_Tensor,tf_?BooleanQ]:=SetTensorKeyValue[t,"Metric",tf]
+
+
+Clear[SetIndices]
+Tensor/:SetIndices[t_Tensor,inds___List]:=SetTensorKeyValue[t,"Indices",inds]
+
+
+Clear[SetPossibleIndices]
+Tensor/:SetPossibleIndices[t_Tensor,inds_List]:=SetTensorKeyValue[t,"PossibleIndices",inds]
+
+
+Clear[SetCoordinates]
+Tensor/:SetCoordinates[t_Tensor,coords_List]:=SetTensorKeyValue[t,"Coordinates",coords]
+
+
+Clear[SetName]
+Tensor/:SetName[t_Tensor,{name_String,dispName_String}]:=SetDisplayName[SetTensorKeyValue[t,"Name",name],dispName]
+Tensor/:SetName[t_Tensor,name_String]:=SetName[t,{name,name}]
+
+
+Clear[SetDisplayName]
+Tensor/:SetDisplayName[t_Tensor,name_String]:=SetTensorKeyValue[t,"DisplayName",name]
+
+
+Clear[SetAsAbstract]
+Tensor/:SetAsAbstract[t_Tensor,tf_?BooleanQ]:=SetTensorKeyValue[t,"Abstract",tf]
+
+
+Clear[SetTensorValues]
+Tensor/:SetTensorValues[t_Tensor,values_List]:=SetTensorKeyValue[t,"Values",values]
+
+
 End[];
 
 EndPackage[];
