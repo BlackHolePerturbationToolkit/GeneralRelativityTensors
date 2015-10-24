@@ -826,6 +826,10 @@ Clear[SetTensorValues]
 Tensor/:SetTensorValues[t_Tensor,values_List]:=SetTensorKeyValue[t,"Values",values]
 
 
+Clear[ToCovariant]
+ToCovariant[inds_]:=inds/.-sym_:>sym
+
+
 End[];
 
 EndPackage[];
