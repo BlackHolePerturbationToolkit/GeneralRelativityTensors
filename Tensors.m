@@ -688,27 +688,30 @@ If[Sort[inds1]=!=Sort[inds2],
 Clear[SumTensors]
 Attributes[SumTensors]={Orderless};
 Tensor/:SumTensors[t1_Tensor,t2_Tensor]:=
-Module[{posInds,vals,inds,tvs,its,dims,itr,finalInds},
+Module[{posInds,vals,inds,tvs,its,dims,itr,indsUp},
+
 	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot sum Abstract Tensors."];Abort[]];
 	If[Metric[t1]=!=Metric[t2]&&Not[Metric[t1]==="Self"&&t1===Metric[t2]]&&Not[Metric[t2]==="Self"&&t2===Metric[t1]],
 		Print["Cannot sum Tensors with different metrics."];
 		Abort[]
 	];
-	validateSumIndices[Indices[t1],Indices[t2]];
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
 
 	inds[1]=Indices[t1];
 	inds[2]=Indices[t2];
-	finalInds=Sort@inds[1];
+	validateSumIndices[inds[1],inds[2]];
+	inds["Tot"]=Sort@inds[1];
+	indsUp[a_]:=ToCovariant[inds[a]];
+
 	tvs[1]=TensorValues[t1];
 	tvs[2]=TensorValues[t2];
 	dims=Dimensions[t1];
-	itr={#,1,dims}&/@finalInds;
-	vals=Table[tvs[1][[Sequence@@inds[1]]]+tvs[2][[Sequence@@inds[2]]],Evaluate[Sequence@@itr]];
+	itr={#,1,dims}&/@indsUp["Tot"];
+	vals=Table[tvs[1][[Sequence@@indsUp[1]]]+tvs[2][[Sequence@@indsUp[2]]],Evaluate[Sequence@@itr]];
 
 	
 	ToTensor[{"("<>Name[t1]<>"+"<>Name[t2]<>")-Auto","("<>DisplayName[t1]<>"+"<>DisplayName[t2]<>")"},
-			finalInds,
+			inds["Tot"],
 			"Values"->vals,
 			"Metric"->Metric[t1],
 			"Coordinates"->Coordinates[t1],
@@ -752,18 +755,18 @@ Module[{posInds,vals,inds,indsUp,repeatedInds,tvs,dims,itrs,indsTot},
 	
 	inds[1]=Indices[t1];
 	inds[2]=Indices[t2];
-	indsTot=Sort@Join[inds[1],inds[2]];
-	indsUp=ToCovariant[indsTot];
 	validateProductIndices[inds[1],inds[2]];
+	inds["Tot"]=Sort@Join[inds[1],inds[2]];
+	indsUp[a_]:=ToCovariant[inds[a]];
 
 	tvs[1]=TensorValues[t1];
 	tvs[2]=TensorValues[t2];
 	dims=Dimensions[t1];
-	itrs:=({#,1,dims}&/@indsTot);
-	vals=Table[tvs[1][[Sequence@@inds[1]]]tvs[2][[Sequence@@inds[2]]],Evaluate[Sequence@@itrs]];
+	itrs={#,1,dims}&/@indsUp["Tot"];
+	vals=Table[tvs[1][[Sequence@@indsUp[1]]]tvs[2][[Sequence@@indsUp[2]]],Evaluate[Sequence@@itrs]];
 
 	ToTensor[{"("<>Name[t1]<>"\[CenterDot]"<>Name[t2]<>")-Auto","("<>DisplayName[t1]<>"\[CenterDot]"<>DisplayName[t2]<>")"},
-			indsTot,
+			inds["Tot"],
 			"Values"->vals,
 			"Metric"->Metric[t1],
 			"Coordinates"->Coordinates[t1],
