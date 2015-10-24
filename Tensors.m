@@ -747,7 +747,7 @@ Module[{indsUp,repeatedInds,inds},
 
 Clear[MultiplyTensors]
 Tensor/:MultiplyTensors[t1_Tensor,t2_Tensor]:=
-Module[{posInds,vals,inds,indsUp,repeatedInds,tvs,dims,itrs,indsTot},
+Module[{posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal},
 
 	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot multiply Abstract Tensors."];Abort[]];
 	If[Metric[t1]=!=Metric[t2],Print["Cannot multiply Tensors with different metrics."];Abort[]];
@@ -756,17 +756,21 @@ Module[{posInds,vals,inds,indsUp,repeatedInds,tvs,dims,itrs,indsTot},
 	inds[1]=Indices[t1];
 	inds[2]=Indices[t2];
 	validateProductIndices[inds[1],inds[2]];
-	inds["Tot"]=Sort@Join[inds[1],inds[2]];
-	indsUp[a_]:=ToCovariant[inds[a]];
+	
+	local[sym_]:=If[MatchQ[sym,-_Symbol],Symbol["cov"<>ToString[-sym]],Symbol["con"<>ToString[sym]]];
+	indsLocal[1]=local/@inds[1];
+	indsLocal[2]=local/@inds[2];
+	indsLocal["Tot"]=Sort@Join[indsLocal[1],indsLocal[2]];
+	indsFinal=indsLocal["Tot"]/.(local[#]->#&/@Join[inds[1],inds[2]]);
 
 	tvs[1]=TensorValues[t1];
 	tvs[2]=TensorValues[t2];
 	dims=Dimensions[t1];
-	itrs={#,1,dims}&/@indsUp["Tot"];
-	vals=Table[tvs[1][[Sequence@@indsUp[1]]]tvs[2][[Sequence@@indsUp[2]]],Evaluate[Sequence@@itrs]];
+	itrs={#,1,dims}&/@indsLocal["Tot"];
+	vals=Table[tvs[1][[Sequence@@indsLocal[1]]]tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]];
 
 	ToTensor[{"("<>Name[t1]<>"\[CenterDot]"<>Name[t2]<>")-Auto","("<>DisplayName[t1]<>"\[CenterDot]"<>DisplayName[t2]<>")"},
-			inds["Tot"],
+			indsFinal,
 			"Values"->vals,
 			"Metric"->Metric[t1],
 			"Coordinates"->Coordinates[t1],
