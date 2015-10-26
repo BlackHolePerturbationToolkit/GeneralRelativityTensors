@@ -4,17 +4,16 @@ BeginPackage["Tensors`"];
 
 
 Tensor::usage="Tensor is a Head created with the command ToTensor.";
-ToTensor::usage="ToTensor[{n1,n2},{inds}] returns a tensor with Name n1, DisplayName n2 and indices {inds}.
-ToTensor[n,{inds}] is equivalent to ToTensor[{n,n},{inds}].
-ToTensor[{n1,n2},m,vals] returns a contravariant tensor with Name n1 and DisplayName n2. The (non-Abstract) metric m and values vals (given as a consistently sized List) are assigned.
-ToTensor[n,m,vals] is equivalent to ToTensor[{n,n},m,vals]";
-ToMetric::usage="ToMetric[{n1,n2}] returns an Abtract metric Tensor with Name n1 and DisplayName n2.
-ToMetric[n] is equivalent to ToMetric[{n,n}]
-ToMetric[{n1,n2},coords,vals,inds] returns an non-Abtract metric Tensor with Name n1, DisplayName n2, Coordinates coords, TensorValues vals, and PossibleIndices inds \
+ToTensor::usage="ToTensor[n,{inds}] returns a tensor with Name n and indices {inds}.
+ToTensor[n,m,vals] returns a contravariant tensor with Name n. The (non-Abstract) metric m and values vals (given as a consistently sized List) are assigned.";
+(*ToMetric::usage="ToMetric[n,coords,inds] returns an Abtract metric Tensor with Name n, Coordinates coords and Indices inds.
+ToMetric[n,coords] is equivalent to ToMetric[n,coords,\"Greek\"].
+ToMetric[n,coords,vals,inds] returns an non-Abtract metric Tensor with Name n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
 (where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
-ToMetric[{n1,n2},coords,vals] is equivalent to ToMetric[{n1,n2},coords,vals \"Greek\"].
-ToMetric[n,coords,vals,inds] is equivalent to ToMetric[{n,n},coords,vals,inds].
-ToMetric[n,coords,vals] is equivalent to ToMetric[n,coords,vals,\"Greek\"].
+ToMetric[n,coords,vals] is equivalent to ToMetric[n,coords,vals \"Greek\"].
+ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\", \"Schwarzschild\", or \"Kerr\".";*)
+ToMetric::usage="ToMetric[n,coords,vals,inds] returns an non-Abtract metric Tensor with Name n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
+(where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
 ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\", \"Schwarzschild\", or \"Kerr\".";
 Coordinates::usage="Coordinates[t] returns a List of symbols used for the coordinates of the Tensor t, or Undefined if coordinates were not set.";
 Metric::usage="Metric[t] returns the metric tensor associated with the Tensor t, or Undefined if no metric was set. If t is a metric, \"Self\" is returned.";
@@ -29,27 +28,20 @@ ChristoffelSymbol::usage="ChristoffelSymbol[m] returns the Christoffel symbol co
 RiemannTensor::usage="RiemannTensor[m] returns the Riemann tensor with indices {\"Up\",\"Down\",\"Down\",\"Down\"} computed from the metric tensor m.";
 RicciTensor::usage="RicciTensor[m] returns the Ricci tensor with indices {\"Down\",\"Down\"} computed from the metric tensor m.";
 RicciScalar::usage="RicciScalar[m] returns the Ricci scalar computed from the metric tensor m.";
-ContractIndices::usage="ContractIndices[t,{n1,n2}] contracts all repeated indices of Tensor t, returning the resulting lower-rank tensor with Name n1 and DisplayName n2.
-ContractIndices[t,n] is equivalent to ContractIndices[t,{n,n}].
+ContractIndices::usage="ContractIndices[t,n] contracts all repeated indices of Tensor t, returning the resulting lower-rank tensor with Name n.
 ContractIndices[t] is equivalent to ContractIndices[t,{Name[t],DisplayName[t]}].";
 ShiftIndices::usage="ShiftIndices[t,inds] raises and/or lowers the indices of Tensor t according to the given List inds, adjusting the values using the tensor's associated metric.";
 ValidateIndices::usage="ValidateIndices[t,{inds}] checks that the list of indices {inds} is valid for Tensor t. An error is printed an operation is aborted if the list is not valid.";
 TensorValues::usage="TensorValues[n,{inds}] returns the cached values of a Tensor with Name n and indices in positions {inds} or Undefined if none have been computed. The List {inds} should contain elements \"Up\" and/or \"Down\".
 TensorValues[t] is equivalent to TensorValues[Name[t],IndexPositions[t]].";
-RenameTensor::usage="RenameTensor[t,{n1,n2}] returns the Tensor t with its Name changed to n1 and DisplayName changed to n2.
-RenameTensor[t,n] is equivalent to RenameTensor[t,{n,n}].";
-MergeTensors::usage="MergeTensors[exprm{n1,n2}] calls MultiplyTensors, MultiplyTensorScalar, and SumTensors to merge the tensor expression expr  into one Tensor with Name n1 and DisplayName n2. Multiplication is assumed to \
-be entered with NonCommutativeMultiply (**).
-MergeTensors[expr,n] is equivalent to MergeTensors[t,{n,n}].
+RenameTensor::usage="RenameTensor[t,n] returns the Tensor t with its Name changed to n1 and DisplayName changed to n2.";
+MergeTensors::usage="MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, and SumTensors to merge the tensor expression expr  into one Tensor with Name n.
 MergeTensors[expr] merges the tensor expression expr and forms a new Name and DisplayName from a combination of the tensors making up the expression.";
-SumTensors::usage="SumTensors[t1,t2,..,{n1,n2}] sums the Tensors t1, t2, etc., forming a new Tensor with Name n1 and DisplayName n2.
-SumTensors[t1,t2,..,n] is equivalent to SumTensors[t1,t2,..,{n,n}].
+SumTensors::usage="SumTensors[t1,t2,..,n] sums the Tensors t1, t2, etc., forming a new Tensor with Name n.
 SumTensors[t1,t2,..] sums the Tensors t1, t2, etc., and forms a new Name and DisplayName from a combination of the Tensors making up the expression.";
-MultiplyTensors::usage="MultiplyTensors[t1,t2,..,{n1,n2}] forms the outer product of the Tensors t1, t2, etc., creating a new Tensor with Name n1 and DisplayName n2.
-MultiplyTensors[t1,t2,..,n] is equivalent to MultiplyTensors[t1,t2,..,{n,n}].
+MultiplyTensors::usage="MultiplyTensors[t1,t2,..,n] forms the outer product of the Tensors t1, t2, etc., creating a new Tensor with Name n.
 MultiplyTensors[t1,t2,..] forms the outer product of the Tensors t1, t2, etc., and forms a new Name and DisplayName from a combination of the Tensors making up the expression.";
-MultiplyTensorScalar::usage="MultiplyTensorScalar[a, t, {n1,n2}] or MultiplyTensorScalar[t, a, {n1,n2}] forms the product of the scalar a with the Tensor t, creating a new Tensor with Name n1 and DisplayName n2.
-MultiplyTensorScalar[a, t, n] is equivalent to MultiplyTensorScalar[a, t, {n,n}].
+MultiplyTensorScalar::usage="MultiplyTensorScalar[a, t, n] or MultiplyTensorScalar[t, a, n] forms the product of the scalar a with the Tensor t, creating a new Tensor with Name n.
 MultiplyTensorScalar[a, t] forms the product of the a and t, and forms a new Name and DisplayName from a combination of the scalar and Tensor making up the expression.";
 RepeatedIndexQ::usage="RepeatedIndexQ[t] returns True if the Tensor t has repeated indices which can be traced.";
 MetricQ::usage="MetricQ[t] returns True if the Tensor t is a metric.";
@@ -69,6 +61,10 @@ KinnersleyDerivative::usage="KinnersleyDerivative[m,s] returns the projected der
 KinnersleyDerivative[builtIn,s] is equivalent to KinnersleyDerivative[ToMetric[builtIn],s], where builtIn can be \"Schwarzschild\" or \"Kerr\"."
 SpinCoefficient::usage="SpinCoefficient[s] returns the Newman-Penrose spin coefficient corresponding to the string s, where possible values of s are \
 \"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\"mu\",\"nu\",\"pi\",\"rho\",\"sigma\", and \"tau\".";
+CovariantD;
+FourVelocity;
+LeviCivitaSymbol;
+TensorHarmonic;
 
 
 Begin["`Private`"];
@@ -194,7 +190,7 @@ Module[{coords,vals,posInds,abstr,metric,dims,isMetric},
 ToTensor[name_String,{inds___},opts:OptionsPattern[]]:=ToTensor[{name,name},{inds},opts]
 
 
-ToTensor[{name_String,dispName_String},metric_Tensor?MetricQ,vals_List]:=
+ToTensor[{name_String,dispName_String},metric_Tensor?MetricQ,vals_List,indsGiven_:Undefined]:=
 Module[{coords,posInds,dims,inds},
 
 	If[AbstractQ[metric],Print["Tensor with values cannot be defined using \"Abstract\" metric."];Abort[]];
@@ -202,7 +198,7 @@ Module[{coords,posInds,dims,inds},
 	coords=Coordinates[metric];	
 	posInds=PossibleIndices[metric];
 	dims=Dimensions[metric];
-	inds=Take[posInds,Length@Dimensions[vals]];
+	inds=If[indsGiven===Undefined,Take[posInds,Length@Dimensions[vals]],indsGiven];
 	ToTensor[Association["Coordinates"->coords,"Metric"->metric,"IsMetric"->False,"Name"->name,"DisplayName"->dispName,"Indices"->inds,"PossibleIndices"->posInds,"Abstract"->False,"Values"->vals,"Dimensions"->dims]]
 ]
 ToTensor[name_String,metric_Tensor?MetricQ,vals_List]:=ToTensor[{name,name},metric,vals];
@@ -248,7 +244,7 @@ Module[{keys,dims,posInds,inds},
 ]
 
 
-ToMetric[{name_String,dispName_String},coords_,posIndsParam_:"Greek"]:=
+(*ToMetric[{name_String,dispName_String},coords_,posIndsParam_:"Greek"]:=
 Module[{inds,posInds},
 	posInds=Complement[
 					If[MemberQ[{"Greek","Latin","CapitalLatin"},posIndsParam],builtInIndices[posIndsParam],posIndsParam],
@@ -257,7 +253,7 @@ Module[{inds,posInds},
 	inds=-Take[posInds,2];
 	ToMetric[Association["Coordinates"->coords,"Name"->name,"DisplayName"->dispName,"Indices"->inds,"PossibleIndices"->posInds,"Abstract"->True,"Values"->Undefined]]
 ]
-ToMetric[name_String]:=ToMetric[{name,name}]
+ToMetric[name_String]:=ToMetric[{name,name}]*)
 
 
 ToMetric[{name_String,dispName_String},coords_List,vals_List,posIndsParam_]:=
@@ -330,6 +326,21 @@ Module[{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta]},
 							{0,(r^2+a^2 Cos[\[Theta]]^2)/(a^2-2 M r+r^2),0,0},
 							{0,0,r^2+a^2 Cos[\[Theta]]^2,0},
 							{-((2 a M r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2)),0,0,(Sin[\[Theta]]^2 ((a^2+r^2)^2-a^2 (a^2-2 M r+r^2) Sin[\[Theta]]^2))/(r^2+a^2 Cos[\[Theta]]^2)}}]]
+]
+
+
+ToMetric["TwoSphere"]:=
+Module[{th,ph},
+	{th,ph}=Symbol/@{"\[Theta]","\[Phi]"};
+	ToMetric[{"TwoSphereMetric","\[CapitalOmega]"},{th,ph},{{1,0},{0,Sin[th]^2}},"CapitalLatin"]
+]
+
+
+Clear[LeviCivitaSymbol]
+LeviCivitaSymbol["TwoSphere"]:=
+Module[{th,ph,A,B},
+	{th,ph,A,B}=Symbol/@{"\[Theta]","\[Phi]","A","B"};
+	ToTensor[{"LeviCivitaSymbol","\[CurlyEpsilon]"},ToMetric["TwoSphere"],{{0,Sin[th]},{-Sin[th],0}},{-A,-B}]
 ]
 
 
@@ -620,6 +631,7 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,itrBefore,itrAf
 
 
 Clear[ContractIndices]
+ContractIndices[expr_]:=expr/.t_Tensor:>ContractIndices[t]
 Tensor/:ContractIndices[t_Tensor]:=NestWhile[contractIndex,t,RepeatedIndexQ]
 Tensor/:ContractIndices[t_Tensor,name_String]:=RenameTensor[ContractIndices[t],name]
 Tensor/:ContractIndices[t_Tensor,{name_String,displayName_String}]:=RenameTensor[ContractIndices[t],{name,displayName}]
@@ -686,34 +698,41 @@ If[Sort[inds1]=!=Sort[inds2],
 
 
 Clear[SumTensors]
-Attributes[SumTensors]={Orderless};
 Tensor/:SumTensors[t1_Tensor,t2_Tensor]:=
-Module[{posInds,vals,inds,tvs,its,dims,itr,indsUp},
+Module[{posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal},
 
 	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot sum Abstract Tensors."];Abort[]];
-	If[Metric[t1]=!=Metric[t2]&&Not[Metric[t1]==="Self"&&t1===Metric[t2]]&&Not[Metric[t2]==="Self"&&t2===Metric[t1]],
+	If[Name@Metric[t1]=!=Name@Metric[t2],
 		Print["Cannot sum Tensors with different metrics."];
+		Print[Name@Metric[t1]];
+		Print[Name@Metric[t2]];
 		Abort[]
 	];
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
 
+
 	inds[1]=Indices[t1];
 	inds[2]=Indices[t2];
 	validateSumIndices[inds[1],inds[2]];
-	inds["Tot"]=Sort@inds[1];
-	indsUp[a_]:=ToCovariant[inds[a]];
+
+	local[sym_]:=If[MatchQ[sym,-_Symbol],Symbol["cov"<>ToString[-sym]],Symbol["con"<>ToString[sym]]];
+	indsLocal[1]=local/@inds[1];
+	indsLocal[2]=local/@inds[2];
+	indsLocal["Tot"]=Sort@indsLocal[1];
+	indsFinal=indsLocal["Tot"]/.(local[#]->#&/@inds[1]);
 
 	tvs[1]=TensorValues[t1];
 	tvs[2]=TensorValues[t2];
 	dims=Dimensions[t1];
-	itr={#,1,dims}&/@indsUp["Tot"];
-	vals=Table[tvs[1][[Sequence@@indsUp[1]]]+tvs[2][[Sequence@@indsUp[2]]],Evaluate[Sequence@@itr]];
-
+	itrs={#,1,dims}&/@indsLocal["Tot"];
 	
+	vals=Table[tvs[1][[Sequence@@indsLocal[1]]]+tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]];
+
 	ToTensor[{"("<>Name[t1]<>"+"<>Name[t2]<>")-Auto","("<>DisplayName[t1]<>"+"<>DisplayName[t2]<>")"},
-			inds["Tot"],
+			indsFinal,
 			"Values"->vals,
 			"Metric"->Metric[t1],
+			"IsMetric"->False,
 			"Coordinates"->Coordinates[t1],
 			"Abstract"->False,
 			"PossibleIndices"->posInds,
@@ -750,7 +769,7 @@ Tensor/:MultiplyTensors[t1_Tensor,t2_Tensor]:=
 Module[{posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal},
 
 	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot multiply Abstract Tensors."];Abort[]];
-	If[Metric[t1]=!=Metric[t2],Print["Cannot multiply Tensors with different metrics."];Abort[]];
+	If[Name@Metric[t1]=!=Name@Metric[t2],Print["Cannot multiply Tensors with different metrics."];Abort[]];
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
 	
 	inds[1]=Indices[t1];
@@ -773,6 +792,7 @@ Module[{posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal},
 			indsFinal,
 			"Values"->vals,
 			"Metric"->Metric[t1],
+			"IsMetric"->False,
 			"Coordinates"->Coordinates[t1],
 			"Abstract"->False,
 			"PossibleIndices"->posInds,
@@ -788,23 +808,69 @@ Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String}]:=
 Clear[MultiplyTensorScalar]
 Tensor/:MultiplyTensorScalar[t_Tensor,n_]:=MultiplyTensorScalar[n,t];
 Tensor/:MultiplyTensorScalar[n_,t_Tensor]:=
-Module[{posInds,vals},
+Module[{vals},
 	If[AbstractQ[t],Print["Cannot multiply Abstract Tensors."];Abort[]];
-	If[Not[MatchQ[n,(_Symbol|_Real|_Complex|_Integer|_Rational)]],Print["Cannot multiply a Tensor by a ", Head[n]];Abort[]];
+	If[Not[MatchQ[n,(_Symbol|_Real|_Complex|_Integer|_Rational|_Times|_Plus)]],Print["Cannot multiply a Tensor by a ", Head[n]];Abort[]];
 	vals=n TensorValues[t];
-	SetTensorValues[SetName[t,{"("<>ToString[n]<>Name[t]<>")-Auto","("<>ToString[n]<>"\[CenterDot]"<>DisplayName[t]<>")"}],vals]
+	(*SetTensorValues[SetName[t,{"("<>ToString[n]<>Name[t]<>")-Auto","("<>ToString[n]<>"\[CenterDot]"<>DisplayName[t]<>")"}],vals]*)
+
+	ToTensor[{"("<>ToString[n]<>Name[t]<>")-Auto","("<>ToString[n]<>"\[CenterDot]"<>DisplayName[t]<>")"},
+			Indices[t],
+			"Values"->vals,
+			"Metric"->Metric[t],
+			"IsMetric"->False,
+			"Coordinates"->Coordinates[t],
+			"Abstract"->False,
+			"PossibleIndices"->PossibleIndices[t],
+			"Dimensions"->Dimensions[t]]
+
 ]
 Tensor/:MultiplyTensorScalar[t1_Tensor]:=t1;
 Tensor/:MultiplyTensorScalar[n_,t1_Tensor,name_String]:=RenameTensor[MultiplyTensorScalar[n,t1],name]
 Tensor/:MultiplyTensorScalar[n_,t1_Tensor,{name_String,displayName_String}]:=RenameTensor[MultiplyTensorScalar[n,t1],{name,displayName}]
 
 
+Tensor/:D[t1_Tensor,a_]:=
+Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords},
+
+	inds[1]={a};
+	inds[2]=Indices[t1];
+	validateProductIndices[inds[1],inds[2]];
+	
+	local[sym_]:=If[MatchQ[sym,-_Symbol],Symbol["cov"<>ToString[-sym]],Symbol["con"<>ToString[sym]]];
+	indsLocal[1]=local/@inds[1];
+	indsLocal[2]=local/@inds[2];
+	indsLocal["Tot"]=Join[indsLocal[1],indsLocal[2]];
+	indsFinal=indsLocal["Tot"]/.(local[#]->#&/@Join[inds[1],inds[2]]);
+
+	tvs=TensorValues[t1];
+	dims=Dimensions[t1];
+	coords=Coordinates[t1];
+	itrs={#,1,dims}&/@indsLocal["Tot"];
+	vals=Table[D[tvs[[Sequence@@indsLocal[2]]],coords[[Sequence@@indsLocal[1]]]],Evaluate[Sequence@@itrs]];
+
+	ToTensor[{"(PartialD"<>Name[t1]<>")-Auto","(\[PartialD]"<>DisplayName[t1]<>")"},
+			indsFinal,
+			"Values"->vals,
+			"Metric"->Metric[t1],
+			"Coordinates"->Coordinates[t1],
+			"Abstract"->False,
+			"PossibleIndices"->PossibleIndices[t1],
+			"Dimensions"->dims]
+]
+
+Tensor/:MultiplyTensors[t1_Tensor]:=t1;
+Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor]:=Fold[MultiplyTensors,t1,{t2}]
+Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,name_String]:=RenameTensor[MultiplyTensors[t1,t2],name]
+Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String}]:=RenameTensor[MultiplyTensors[t1,t2],{name,displayName}]
+
+
 Clear[MergeTensors]
 MergeTensors[expr_]:=
 Module[{expr1,expr2},
-	expr1=expr/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2];
-	expr2=expr1/.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t];
-	expr2/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2]
+	expr1=Expand[expr]/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2];
+	expr2=expr1//.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t];
+	ContractIndices[expr2]/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2]
 ]
 MergeTensors[expr_,name_]:=RenameTensor[MergeTensors[expr],name]
 
@@ -872,6 +938,77 @@ Tensor/:SetTensorValues[t_Tensor,values_List]:=SetTensorKeyValue[t,"Values",valu
 
 Clear[ToCovariant]
 ToCovariant[inds_]:=inds/.-sym_:>sym
+
+
+CovariantD[t_Tensor,a_]:=
+Module[{chr,inds,dummies,tvs,coords,dims},
+ 
+	chr=ChristoffelSymbol[Metric[t]];
+	inds=Indices[t];
+	dummies=Complement[PossibleIndices[t],inds/.{-sym_:>sym}];
+	tvs=TensorValues[t];
+	coords=Coordinates[t];
+	dims=Dimensions[t];
+
+	D[t,a]+Sum[chrTerm[t,i,a],{i,Indices[t]}]
+]
+
+
+chrTerm[t_Tensor,tensorInd_,derivInd_]:=
+Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
+	inds=Indices[t];
+	tensorIndUp=ToCovariant[tensorInd];
+	dummy=First[Complement[PossibleIndices[t],ToCovariant@Join[{tensorInd,derivInd},inds]]];
+	chr=ChristoffelSymbol[Metric[t]];
+	chrDummy=If[MatchQ[tensorInd,-_Symbol],chr[dummy,tensorInd,derivInd],chr[tensorInd,-dummy,derivInd]];
+
+	newInds=inds/.tensorIndUp->dummy;
+	tNew=ToTensor[Join[KeyDrop[(Association@@t),{"Indices","Metric","IsMetric"}],Association["Indices"->newInds,"Metric"->Metric[t],"IsMetric"->False]]];
+	If[tensorIndUp===tensorInd,1,-1]tNew chrDummy
+]
+
+
+Clear[FourVelocity]
+FourVelocity[tens_Tensor?MetricQ]:=
+Module[{t,r,th,ph,tau},
+
+	{t,r,th,ph,tau}=Symbol/@{"t","r","\[Theta]","\[Phi]","\[Tau]"};
+	ToTensor[{"FourVelocity"<>Name[tens],"u"},tens,{t[tau],r[tau],th[tau],ph[tau]}]
+]
+
+FourVelocity["Schwarzschild"]:=
+Module[{t,rp,EE,JJ,M},
+	{t,rp,EE,JJ,M}=Symbol/@{"t","rp","\[ScriptCapitalE]","\[ScriptCapitalJ]","M"};
+	SetTensorValues[FourVelocity[ToMetric["Schwarzschild"]],{EE/(1-(2 M)/rp[t]),(EE rp'[t])/(1-(2 M)/rp[t]),0,JJ/rp[t]^2}]
+]
+
+
+
+Clear[TensorHarmonic]
+TensorHarmonic[label_]:=
+Module[{Ylm,YAVal,lTemp,mTemp,thTemp,phTemp,l,m,th,ph,A,B,F,G,eps},
+
+{Ylm,l,m,th,ph,A,B,F,G}=Symbol/@{"Ylm","l","m","\[Theta]","\[Phi]","A","B","F","G"};
+
+YAVal=Simplify[{D[Ylm[lTemp,mTemp,thTemp,phTemp],thTemp],D[Ylm[l,m,thTemp,phTemp],phTemp]},{\[Pi]>=thTemp>=0,2\[Pi]>=phTemp>=0}]/.{lTemp->l,mTemp->m,thTemp->th,phTemp->ph};
+eps=LeviCivitaSymbol["TwoSphere"];
+
+Switch[label,
+	"YA",
+	ToTensor[{"HarmonicYA","Y"},ToMetric["TwoSphere"],YAVal,{-A}],
+	"XA",
+	ContractIndices[MergeTensors[-eps[-A,F]TensorHarmonic["YA"][-F]],{"HarmonicXA","X"}],
+	"YAB",
+	MergeTensors[CovariantD[TensorHarmonic["YA"][-B],-A]
+				+1/2 l(l+1)Ylm[l,m,th,ph]ToMetric["TwoSphere"][-A,-B],{"HarmonicYAB","Y"}],
+	"XAB",
+	MergeTensors[-(1/2)(eps[-G,F]CovariantD[TensorHarmonic["YA"][-F],-B]
+			+eps[-B,F]CovariantD[TensorHarmonic["YA"][-F],-G]),{"HarmonicXAB","X"}][-A,-B],
+	___,
+	Print["No TensorHarmonic associated with label ", label];
+	Print["Options are: ",{"YA","XA","YAB","XAB"}];
+]
+]
 
 
 End[];
