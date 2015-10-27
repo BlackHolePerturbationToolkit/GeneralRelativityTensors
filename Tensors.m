@@ -65,6 +65,7 @@ CovariantD;
 FourVelocity;
 LeviCivitaSymbol;
 TensorHarmonic;
+ActOnTensorValues;
 
 
 Begin["`Private`"];
@@ -364,8 +365,10 @@ Module[{assoc,tvStored,tv,posUp},
 ]
 
 
-Tensor/:ChristoffelSymbol[t_Tensor?MetricQ]:=
-Module[{n,g,ig,xx,vals,posInds,gT,name},
+Options[ChristoffelSymbol]={"SimplifyFunction"->Identity};
+Tensor/:ChristoffelSymbol[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
+Module[{n,g,ig,xx,vals,posInds,gT,name,simpFn},
+	simpFn=OptionValue["SimplifyFunction"];
 	gT=Metric[t];
 	xx=Coordinates[gT];
 	posInds=PossibleIndices[gT];
@@ -375,7 +378,7 @@ Module[{n,g,ig,xx,vals,posInds,gT,name},
 	name="ChristoffelSymbol"<>Name[t];
 	vals=
 		If[TensorValues[name,{"Up","Down","Down"}]===Undefined,
-			Simplify@Table[(1/2)Sum[ig[[i,s]](-D[g[[j,k]],xx[[s]]]+D[g[[j,s]],xx[[k]]]+D[g[[s,k]],xx[[j]]]),{s,1,n}],{i,1,n},{j,1,n},{k,1,n}],
+			simpFn@Table[(1/2)Sum[ig[[i,s]](-D[g[[j,k]],xx[[s]]]+D[g[[j,s]],xx[[k]]]+D[g[[s,k]],xx[[j]]]),{s,1,n}],{i,1,n},{j,1,n},{k,1,n}],
 			TensorValues[name,{"Up","Down","Down"}]
 		];
 
@@ -384,21 +387,23 @@ Module[{n,g,ig,xx,vals,posInds,gT,name},
 ]
 
 
-Tensor/:RiemannTensor[t_Tensor?MetricQ]:=
-Module[{n,g,ig,xx,chr,vals,posInds,gT,name},
+Options[RiemannTensor]=Options[ChristoffelSymbol];
+Tensor/:RiemannTensor[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
+Module[{n,g,ig,xx,chr,vals,posInds,gT,name,simpFn},
+	simpFn=OptionValue["SimplifyFunction"];
 	gT=Metric[t];
 	xx=Coordinates[gT];
 	posInds=PossibleIndices[gT];
 	n=Dimensions[gT];
 	g=TensorValues[gT];
 	ig=TensorValues@InverseMetric[gT];
-	chr=TensorValues@ChristoffelSymbol[gT];
+	chr=TensorValues@ChristoffelSymbol[gT,"SimplifyFunction"->simpFn];
 	name="RiemannTensor"<>Name[t];
 	vals=
 		If[TensorValues[name,{"Up","Down","Down","Down"}]===Undefined,
-			Simplify@Table[D[chr[[i,k,m]],xx[[l]]]-D[chr[[i,k,l]],xx[[m]]]
-			+Sum[chr[[i,s,l]]chr[[s,k,m]],{s,1,n}]
-			-Sum[chr[[i,s,m]]chr[[s,k,l]],{s,1,n}],
+			simpFn@Table[D[chr[[i,k,m]],xx[[l]]]-D[chr[[i,k,l]],xx[[m]]]
+						+Sum[chr[[i,s,l]]chr[[s,k,m]],{s,1,n}]
+						-Sum[chr[[i,s,m]]chr[[s,k,l]],{s,1,n}],
 							{i,1,n},{k,1,n},{l,1,n},{m,1,n}],
 			TensorValues[name,{"Up","Down","Down","Down"}]
 		];
@@ -408,21 +413,24 @@ Module[{n,g,ig,xx,chr,vals,posInds,gT,name},
 ]
 
 
-Tensor/:RicciTensor[t_Tensor?MetricQ]:=
-Module[{rie,inds},
-
-	rie=RiemannTensor[t];
+Options[RicciTensor]=Options[ChristoffelSymbol];
+Tensor/:RicciTensor[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
+Module[{rie,inds,simpFn},
+	simpFn=OptionValue["SimplifyFunction"];
+	rie=RiemannTensor[t,"SimplifyFunction"->simpFn];
 	inds=Indices[rie];
-	ContractIndices[rie[inds[[1]],inds[[2]],-inds[[1]],inds[[4]]],{"RicciTensor"<>Name[t],"R"}]
+	ActOnTensorValues[ContractIndices[rie[inds[[1]],inds[[2]],-inds[[1]],inds[[4]]],{"RicciTensor"<>Name[t],"R"}],simpFn]
 ]
 
 
-Tensor/:RicciScalar[t_Tensor?MetricQ]:=
-Module[{ric,inds},
+Options[RicciScalar]=Options[ChristoffelSymbol];
+Tensor/:RicciScalar[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
+Module[{ric,inds,simpFn},
 
-	ric=RicciTensor[t];
+	simpFn=OptionValue["SimplifyFunction"];
+	ric=RicciTensor[t,"SimplifyFunction"->simpFn];
 	inds=Indices[ric];
-	ContractIndices[ric[-inds[[1]],inds[[1]]],{"RicciScalar"<>Name[t],"R"}]
+	ActOnTensorValues[ContractIndices[ric[-inds[[1]],inds[[1]]],{"RicciScalar"<>Name[t],"R"}],simpFn]
 ]
 
 
@@ -430,7 +438,7 @@ Options[KinnersleyNullVector]={"Schwarzschild"->False};
 Clear[KinnersleyNullVector]
 KinnersleyNullVector[t_Tensor?MetricQ,vec_String,opts:OptionsPattern[]]:=
 Module[{r,a,th,M,val,delta,sigma,valC,schw,rules},
-schw=OptionValue["Schwarzschild"];
+	schw=OptionValue["Schwarzschild"];
 
 	{r,th,a,M}=Symbol/@{"r","\[Theta]","a","M"};
 	sigma=r^2+a^2 Cos[th]^2;
@@ -584,16 +592,17 @@ Module[{posInds,indsUp,repeatedInds},
 
 
 Clear[ShiftIndices]
-Tensor/:ShiftIndices[t_Tensor,inds:{__}]:=
+Options[ShiftIndices]={"SimplifyFunction"->Simplify};
+Tensor/:ShiftIndices[t_Tensor,inds:{__},opts:OptionsPattern[]]:=
 Module[{},
 	ValidateIndices[t,inds];
 	
-	Fold[shiftIndex,t,Thread[{Range@Length[inds],inds}]]
+	Fold[shiftIndex[#1,#2,OptionValue["SimplifyFunction"]]&,t,Thread[{Range@Length[inds],inds}]]
 ]
 
 
 Clear[shiftIndex]
-shiftIndex[t_Tensor,{pos_Integer,ind_}]:=
+shiftIndex[t_Tensor,{pos_Integer,ind_},simpFn_]:=
 Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,itrBefore,itrAfter,vals,i,itrTot,itr,newPos,newMet,newInds},
 	
 	newPos=If[MatchQ[ind,_Symbol],"Up","Down"];
@@ -617,7 +626,7 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,itrBefore,itrAf
 			itrBefore=({#,1,n}&/@indsBefore);
 			itrAfter=({#,1,n}&/@indsAfter);
 			itrTot=Join[itrBefore,{{i,1,n}},itrAfter];
-			Simplify@Table[Sum[gOrInvG[[i,s]]tvs[[Sequence@@indsBefore,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]],
+			simpFn@Table[Sum[gOrInvG[[i,s]]tvs[[Sequence@@indsBefore,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]],
 			
 			TensorValues[Name[t],indPosNew]
 		]
@@ -663,7 +672,7 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 			itrBetween=({#,1,n}&/@indsBetween);
 			itrAfter=({#,1,n}&/@indsAfter);
 			itrTot=Join[itrBefore,itrBetween,itrAfter];
-			Simplify@If[itrTot==={},
+			If[itrTot==={},
 						Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],
 						Table[Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]]
 					],
@@ -709,7 +718,6 @@ Module[{posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal},
 		Abort[]
 	];
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
-
 
 	inds[1]=Indices[t1];
 	inds[2]=Indices[t2];
@@ -865,14 +873,20 @@ Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,name_String]:=RenameTensor[Multiply
 Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String}]:=RenameTensor[MultiplyTensors[t1,t2],{name,displayName}]
 
 
+Tensor/:ActOnTensorValues[t_Tensor,fn_]:=SetTensorValues[t,fn@TensorValues[t]]
+
+
+Options[MergeTensors]={"SimplifyFunction"->Identity};
 Clear[MergeTensors]
-MergeTensors[expr_]:=
-Module[{expr1,expr2},
+MergeTensors[expr_,opts:OptionsPattern[]]:=
+Module[{expr1,expr2,simpFn},
+	simpFn=OptionValue["SimplifyFunction"];
 	expr1=Expand[expr]/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2];
 	expr2=expr1//.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t];
-	ContractIndices[expr2]/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2]
+	ActOnTensorValues[ContractIndices[expr2]/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2],simpFn]
 ]
-MergeTensors[expr_,name_]:=RenameTensor[MergeTensors[expr],name]
+MergeTensors[expr_,name_String,opts:OptionsPattern[]]:=RenameTensor[MergeTensors[expr,opts],name]
+MergeTensors[expr_,{name_String,dispName_String},opts:OptionsPattern[]]:=RenameTensor[MergeTensors[expr,opts],{name,dispName}]
 
 
 Clear[ClearCachedTensorValues]
@@ -934,6 +948,7 @@ Tensor/:SetAsAbstract[t_Tensor,tf_?BooleanQ]:=SetTensorKeyValue[t,"Abstract",tf]
 
 Clear[SetTensorValues]
 Tensor/:SetTensorValues[t_Tensor,values_List]:=SetTensorKeyValue[t,"Values",values]
+Tensor/:SetTensorValues[t_Tensor,values_]/;Rank[t]==={0,0}:=SetTensorKeyValue[t,"Values",values]
 
 
 Clear[ToCovariant]
