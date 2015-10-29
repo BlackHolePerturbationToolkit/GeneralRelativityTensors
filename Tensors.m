@@ -4,15 +4,15 @@ BeginPackage["Tensors`"];
 
 
 Tensor::usage="Tensor is a Head created with the command ToTensor.";
-ToTensor::usage="ToTensor[n,{inds}] returns a tensor with Name n and indices {inds}.
-ToTensor[n,m,vals] returns a contravariant tensor with Name n. The (non-Abstract) metric m and values vals (given as a consistently sized List) are assigned.";
-(*ToMetric::usage="ToMetric[n,coords,inds] returns an Abtract metric Tensor with Name n, Coordinates coords and Indices inds.
+ToTensor::usage="ToTensor[n,{inds}] returns a tensor with TensorName n and indices {inds}.
+ToTensor[n,m,vals] returns a contravariant tensor with TensorName n. The (non-Abstract) metric m and values vals (given as a consistently sized List) are assigned.";
+(*ToMetric::usage="ToMetric[n,coords,inds] returns an Abtract metric Tensor with TensorName n, Coordinates coords and Indices inds.
 ToMetric[n,coords] is equivalent to ToMetric[n,coords,\"Greek\"].
-ToMetric[n,coords,vals,inds] returns an non-Abtract metric Tensor with Name n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
+ToMetric[n,coords,vals,inds] returns an non-Abtract metric Tensor with TensorName n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
 (where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
 ToMetric[n,coords,vals] is equivalent to ToMetric[n,coords,vals \"Greek\"].
 ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\", \"Schwarzschild\", or \"Kerr\".";*)
-ToMetric::usage="ToMetric[n,coords,vals,inds] returns an non-Abtract metric Tensor with Name n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
+ToMetric::usage="ToMetric[n,coords,vals,inds] returns an non-Abtract metric Tensor with TensorName n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
 (where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
 ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\", \"Schwarzschild\", or \"Kerr\".";
 Coordinates::usage="Coordinates[t] returns a List of symbols used for the coordinates of the Tensor t, or Undefined if coordinates were not set.";
@@ -21,35 +21,35 @@ InverseMetric::usage="InverseMetric[t] returns the inverse metric tensor associa
 Rank::usage="Rank[t] returns the tensor rank of the Tensor t as a List {p,q}, where p is the number of contravariant indices and q the number of covariant indices.";
 Indices::usage="Indices[t] returns a List of Symbols representing the indices of the Tensor t. Positive Symbols are contravariant and negative Symbols are covariant.";
 PossibleIndices::usage="PossibleIndices[t] returns a List of all possible Symbols that can represent the indices of the Tensor t.";
-Name::usage="Name[t] returns the Name of Tensor t which is used for storing cached values in the Symbol TensorValues.";
-DisplayName::usage="DisplayName[t] returns the Name of Tensor t that is used for formatted output.";
+TensorName::usage="TensorName[t] returns the name of Tensor t which is used for storing cached values in the Symbol TensorValues.";
+TensorDisplayName::usage="TensorDisplayName[t] returns the name of Tensor t that is used for formatted output.";
 IndexPositions::usage="IndexPositions[t] returns a List of elements \"Up\" and \"Down\" which represent (respectively) the contravariant and covariant positions of the indices of Tensor t.";
 ChristoffelSymbol::usage="ChristoffelSymbol[m] returns the Christoffel symbol computed from the metric tensor m.";
 RiemannTensor::usage="RiemannTensor[m] returns the Riemann tensor with indices {\"Up\",\"Down\",\"Down\",\"Down\"} computed from the metric tensor m.";
 RicciTensor::usage="RicciTensor[m] returns the Ricci tensor with indices {\"Down\",\"Down\"} computed from the metric tensor m.";
 RicciScalar::usage="RicciScalar[m] returns the Ricci scalar computed from the metric tensor m.";
-ContractIndices::usage="ContractIndices[t,n] contracts all repeated indices of Tensor t, returning the resulting lower-rank tensor with Name n.
-ContractIndices[t] is equivalent to ContractIndices[t,{Name[t],DisplayName[t]}].";
+ContractIndices::usage="ContractIndices[t,n] contracts all repeated indices of Tensor t, returning the resulting lower-rank tensor with name n.
+ContractIndices[t] is equivalent to ContractIndices[t,{TensorName[t],TensorDisplayName[t]}].";
 ShiftIndices::usage="ShiftIndices[t,inds] raises and/or lowers the indices of Tensor t according to the given List inds, adjusting the values using the tensor's associated metric.";
 ValidateIndices::usage="ValidateIndices[t,{inds}] checks that the list of indices {inds} is valid for Tensor t. An error is printed an operation is aborted if the list is not valid.";
-TensorValues::usage="TensorValues[n,{inds}] returns the cached values of a Tensor with Name n and indices in positions {inds} or Undefined if none have been computed. The List {inds} should contain elements \"Up\" and/or \"Down\".
-TensorValues[t] is equivalent to TensorValues[Name[t],IndexPositions[t]].";
-RenameTensor::usage="RenameTensor[t,n] returns the Tensor t with its Name changed to n1 and DisplayName changed to n2.";
-MergeTensors::usage="MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, and SumTensors to merge the tensor expression expr  into one Tensor with Name n.
-MergeTensors[expr] merges the tensor expression expr and forms a new Name and DisplayName from a combination of the tensors making up the expression.";
-SumTensors::usage="SumTensors[t1,t2,..,n] sums the Tensors t1, t2, etc., forming a new Tensor with Name n.
-SumTensors[t1,t2,..] sums the Tensors t1, t2, etc., and forms a new Name and DisplayName from a combination of the Tensors making up the expression.";
-MultiplyTensors::usage="MultiplyTensors[t1,t2,..,n] forms the outer product of the Tensors t1, t2, etc., creating a new Tensor with Name n.
-MultiplyTensors[t1,t2,..] forms the outer product of the Tensors t1, t2, etc., and forms a new Name and DisplayName from a combination of the Tensors making up the expression.";
-MultiplyTensorScalar::usage="MultiplyTensorScalar[a, t, n] or MultiplyTensorScalar[t, a, n] forms the product of the scalar a with the Tensor t, creating a new Tensor with Name n.
-MultiplyTensorScalar[a, t] forms the product of the a and t, and forms a new Name and DisplayName from a combination of the scalar and Tensor making up the expression.";
+TensorValues::usage="TensorValues[n,{inds}] returns the cached values of a Tensor with TensorName n and indices in positions {inds} or Undefined if none have been computed. The List {inds} should contain elements \"Up\" and/or \"Down\".
+TensorValues[t] is equivalent to TensorValues[TensorName[t],IndexPositions[t]].";
+RenameTensor::usage="RenameTensor[t,n] returns the Tensor t with its TensorName changed to n.";
+MergeTensors::usage="MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, and SumTensors to merge the tensor expression expr into one Tensor with TensorName n.
+MergeTensors[expr] merges the tensor expression expr and forms a new TensorName and TensorDisplayName from a combination of the tensors making up the expression.";
+SumTensors::usage="SumTensors[t1,t2,..,n] sums the Tensors t1, t2, etc., forming a new Tensor with TensorName n.
+SumTensors[t1,t2,..] sums the Tensors t1, t2, etc., and forms a new TensorName and TensorDisplayName from a combination of the Tensors making up the expression.";
+MultiplyTensors::usage="MultiplyTensors[t1,t2,..,n] forms the outer product of the Tensors t1, t2, etc., creating a new Tensor with TensorName n.
+MultiplyTensors[t1,t2,..] forms the outer product of the Tensors t1, t2, etc., and forms a new TensorName and TensorDisplayName from a combination of the Tensors making up the expression.";
+MultiplyTensorScalar::usage="MultiplyTensorScalar[a, t, n] or MultiplyTensorScalar[t, a, n] forms the product of the scalar a with the Tensor t, creating a new Tensor with TensorName n.
+MultiplyTensorScalar[a, t] forms the product of the a and t, and forms a new TensorName and TensorDisplayName from a combination of the scalar and Tensor making up the expression.";
 RepeatedIndexQ::usage="RepeatedIndexQ[t] returns True if the Tensor t has repeated indices which can be traced.";
 MetricQ::usage="MetricQ[t] returns True if the Tensor t is a metric.";
 AbstractQ::usage="AbstractQ[t] returns True if the Tensor t is treated as Abstract.";
-ClearCachedTensorValues::usage="ClearCachedTensorValues[n,inds] removes cached expressions stored with the Symbol TensorValues using the Tensor Name n and IndexPositions inds. Here inds is a List of \"Up\" and \"Down\".
+ClearCachedTensorValues::usage="ClearCachedTensorValues[n,inds] removes cached expressions stored with the Symbol TensorValues using the TensorName n and IndexPositions inds. Here inds is a List of \"Up\" and \"Down\".
 ClearCachedTensorValues[t] removes all cached expressions stored with the Symbol TensorValues for the Tensor t.
 ClearCachedTensorValues[All] removes all cached expressions associated with the Symbol TensorValues.";
-CachedTensorValues::usage="CachedTensorValues[n] returns a List of Rules showing all cached expressions for the Tensor Name n (stored in the Symbol TensorValues).
+CachedTensorValues::usage="CachedTensorValues[n] returns a List of Rules showing all cached expressions for the TensorName n (stored in the Symbol TensorValues).
 CachedTensorValues[t] returns a List of Rules showing all cached expressions for the Tensor t (stored in the Symbol TensorValues).
 CachedTensorValues[All] returns a List of Rules showing all cached expressions (stored in the Symbol TensorValues)."
 Component::usage="Component[t,inds] returns the component of Tensor t with (appropriately covariant and contravariant) indices inds. All elements of inds must be Coordinates of t.";
@@ -66,12 +66,13 @@ FourVelocity;
 LeviCivitaSymbol;
 TensorHarmonic;
 ActOnTensorValues;
+SetTensorValues;
 
 
 Begin["`Private`"];
 
 
-Tensor/:Format[t_Tensor]:=formatTensor[DisplayName@t,Indices@t]
+Tensor/:Format[t_Tensor]:=formatTensor[TensorDisplayName@t,Indices@t]
 
 
 Clear[formatTensor]
@@ -93,8 +94,8 @@ Tensor/:AbstractQ[t_Tensor]:=(Association@@t)["Abstract"]
 Tensor/:Dimensions[t_Tensor]:=(Association@@t)["Dimensions"]
 Tensor/:Indices[t_Tensor]:=(Association@@t)["Indices"]
 Tensor/:PossibleIndices[t_Tensor]:=(Association@@t)["PossibleIndices"]
-Tensor/:Name[t_Tensor]:=(Association@@t)["Name"]
-Tensor/:DisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
+Tensor/:TensorName[t_Tensor]:=(Association@@t)["Name"]
+Tensor/:TensorDisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
 Tensor/:IndexPositions[t_Tensor]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
 Tensor/:RepeatedIndexQ[t_Tensor]:=Length[DeleteDuplicates@(Indices[t]/.-sym_:>sym)]<Length[Indices[t]];
 Tensor/:MetricQ[t_Tensor]:=(Association@@t)["IsMetric"]
@@ -104,7 +105,7 @@ Tensor/:t_Tensor[inds__]:=(Print["The given indices ",{inds}, " are neither enti
 
 
 TensorValues[___]:=Undefined;
-TensorValues[t_Tensor]:=If[#=!=Undefined,If[AutoNameQ[t],#,TensorValues[Name[t],IndexPositions[t]]=#],Undefined]&[(Association@@t)["Values"]];
+TensorValues[t_Tensor]:=If[#=!=Undefined,If[AutoNameQ[t],#,TensorValues[TensorName[t],IndexPositions[t]]=#],Undefined]&[(Association@@t)["Values"]];
 
 
 Clear[ToTensor]
@@ -351,7 +352,7 @@ Tensor/:InverseMetric[t_Tensor?MetricQ]:=InverseMetric[t]=
 Module[{assoc,tvStored,tv,posUp},
 
 	posUp={"Up","Up"};
-	tvStored=TensorValues[Name[t],posUp];
+	tvStored=TensorValues[TensorName[t],posUp];
 	tv=If[tvStored===Undefined,
 			If[TensorValues[t]===Undefined,
 				Undefined,
@@ -375,7 +376,7 @@ Module[{n,g,ig,xx,vals,posInds,gT,name,simpFn},
 	n=Dimensions[gT];
 	g=TensorValues[gT];
 	ig=TensorValues@InverseMetric[gT];
-	name="ChristoffelSymbol"<>Name[t];
+	name="ChristoffelSymbol"<>TensorName[t];
 	vals=
 		If[TensorValues[name,{"Up","Down","Down"}]===Undefined,
 			simpFn@Table[(1/2)Sum[ig[[i,s]](-D[g[[j,k]],xx[[s]]]+D[g[[j,s]],xx[[k]]]+D[g[[s,k]],xx[[j]]]),{s,1,n}],{i,1,n},{j,1,n},{k,1,n}],
@@ -398,7 +399,7 @@ Module[{n,g,ig,xx,chr,vals,posInds,gT,name,simpFn},
 	g=TensorValues[gT];
 	ig=TensorValues@InverseMetric[gT];
 	chr=TensorValues@ChristoffelSymbol[gT,"SimplifyFunction"->simpFn];
-	name="RiemannTensor"<>Name[t];
+	name="RiemannTensor"<>TensorName[t];
 	vals=
 		If[TensorValues[name,{"Up","Down","Down","Down"}]===Undefined,
 			simpFn@Table[D[chr[[i,k,m]],xx[[l]]]-D[chr[[i,k,l]],xx[[m]]]
@@ -419,7 +420,7 @@ Module[{rie,inds,simpFn},
 	simpFn=OptionValue["SimplifyFunction"];
 	rie=RiemannTensor[t,"SimplifyFunction"->simpFn];
 	inds=Indices[rie];
-	ActOnTensorValues[ContractIndices[rie[inds[[1]],inds[[2]],-inds[[1]],inds[[4]]],{"RicciTensor"<>Name[t],"R"}],simpFn]
+	ActOnTensorValues[ContractIndices[rie[inds[[1]],inds[[2]],-inds[[1]],inds[[4]]],{"RicciTensor"<>TensorName[t],"R"}],simpFn]
 ]
 
 
@@ -430,7 +431,7 @@ Module[{ric,inds,simpFn},
 	simpFn=OptionValue["SimplifyFunction"];
 	ric=RicciTensor[t,"SimplifyFunction"->simpFn];
 	inds=Indices[ric];
-	ActOnTensorValues[ContractIndices[ric[-inds[[1]],inds[[1]]],{"RicciScalar"<>Name[t],"R"}],simpFn]
+	ActOnTensorValues[ContractIndices[ric[-inds[[1]],inds[[1]]],{"RicciScalar"<>TensorName[t],"R"}],simpFn]
 ]
 
 
@@ -464,7 +465,7 @@ Module[{r,a,th,M,val,delta,sigma,valC,schw,rules},
 
 	valC=If[vec==="mStar",Simplify@ComplexExpand@Conjugate@#,#]&@val;
 
-	ToTensor[{vec<>"Kinnersley"<>Name[t],If[vec==="mStar",\!\(\*
+	ToTensor[{vec<>"Kinnersley"<>TensorName[t],If[vec==="mStar",\!\(\*
 TagBox[
 StyleBox["\"\<\\!\\(\\*SuperscriptBox[\\(m\\), \\(*\\)]\\)\>\"",
 ShowSpecialCharacters->False,
@@ -616,7 +617,7 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,itrBefore,itrAf
 	If[indPos[[pos]]===newPos,
 		TensorValues[t],
 		
-		If[TensorValues[Name[t],indPosNew]===Undefined,
+		If[TensorValues[TensorName[t],indPosNew]===Undefined,
 
 			gOrInvG=TensorValues[If[newPos==="Up",InverseMetric[t],Metric[t]]];
 			tvs=TensorValues[t];
@@ -628,7 +629,7 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,itrBefore,itrAf
 			itrTot=Join[itrBefore,{{i,1,n}},itrAfter];
 			simpFn@Table[Sum[gOrInvG[[i,s]]tvs[[Sequence@@indsBefore,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]],
 			
-			TensorValues[Name[t],indPosNew]
+			TensorValues[TensorName[t],indPosNew]
 		]
 	];
 
@@ -661,7 +662,7 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 	indsNew=Delete[inds,{#}&/@Flatten@rptIndsPos];
 
 	vals=
-		If[TensorValues[Name[t],indPosNew]===Undefined,
+		If[TensorValues[TensorName[t],indPosNew]===Undefined,
 
 			tvs=TensorValues[t];
 			n=Dimensions[t];
@@ -677,9 +678,9 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 						Table[Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]]
 					],
 						
-			TensorValues[Name[t],indPosNew]
+			TensorValues[TensorName[t],indPosNew]
 		];
-	ToTensor[Join[KeyDrop[Association@@t,{"Indices","Name"}],Association["Name"->Name[t]<>"-Auto","Values"->vals,"Indices"->indsNew]]]
+	ToTensor[Join[KeyDrop[Association@@t,{"Indices","Name"}],Association["Name"->TensorName[t]<>"-Auto","Values"->vals,"Indices"->indsNew]]]
 ]
 
 
@@ -711,10 +712,10 @@ Tensor/:SumTensors[t1_Tensor,t2_Tensor]:=
 Module[{posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal},
 
 	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot sum Abstract Tensors."];Abort[]];
-	If[Name@Metric[t1]=!=Name@Metric[t2],
+	If[TensorName@Metric[t1]=!=TensorName@Metric[t2],
 		Print["Cannot sum Tensors with different metrics."];
-		Print[Name@Metric[t1]];
-		Print[Name@Metric[t2]];
+		Print[TensorName@Metric[t1]];
+		Print[TensorName@Metric[t2]];
 		Abort[]
 	];
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
@@ -736,7 +737,7 @@ Module[{posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal},
 	
 	vals=Table[tvs[1][[Sequence@@indsLocal[1]]]+tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]];
 
-	ToTensor[{"("<>Name[t1]<>"+"<>Name[t2]<>")-Auto","("<>DisplayName[t1]<>"+"<>DisplayName[t2]<>")"},
+	ToTensor[{"("<>TensorName[t1]<>"+"<>TensorName[t2]<>")-Auto","("<>TensorDisplayName[t1]<>"+"<>TensorDisplayName[t2]<>")"},
 			indsFinal,
 			"Values"->vals,
 			"Metric"->Metric[t1],
@@ -777,7 +778,7 @@ Tensor/:MultiplyTensors[t1_Tensor,t2_Tensor]:=
 Module[{posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal},
 
 	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot multiply Abstract Tensors."];Abort[]];
-	If[Name@Metric[t1]=!=Name@Metric[t2],Print["Cannot multiply Tensors with different metrics."];Abort[]];
+	If[TensorName@Metric[t1]=!=TensorName@Metric[t2],Print["Cannot multiply Tensors with different metrics."];Abort[]];
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
 	
 	inds[1]=Indices[t1];
@@ -796,7 +797,7 @@ Module[{posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal},
 	itrs={#,1,dims}&/@indsLocal["Tot"];
 	vals=Table[tvs[1][[Sequence@@indsLocal[1]]]tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]];
 
-	ToTensor[{"("<>Name[t1]<>"\[CenterDot]"<>Name[t2]<>")-Auto","("<>DisplayName[t1]<>"\[CenterDot]"<>DisplayName[t2]<>")"},
+	ToTensor[{"("<>TensorName[t1]<>"\[CenterDot]"<>TensorName[t2]<>")-Auto","("<>TensorDisplayName[t1]<>"\[CenterDot]"<>TensorDisplayName[t2]<>")"},
 			indsFinal,
 			"Values"->vals,
 			"Metric"->Metric[t1],
@@ -820,9 +821,8 @@ Module[{vals},
 	If[AbstractQ[t],Print["Cannot multiply Abstract Tensors."];Abort[]];
 	If[Not[MatchQ[n,(_Symbol|_Real|_Complex|_Integer|_Rational|_Times|_Plus)]],Print["Cannot multiply a Tensor by a ", Head[n]];Abort[]];
 	vals=n TensorValues[t];
-	(*SetTensorValues[SetName[t,{"("<>ToString[n]<>Name[t]<>")-Auto","("<>ToString[n]<>"\[CenterDot]"<>DisplayName[t]<>")"}],vals]*)
 
-	ToTensor[{"("<>ToString[n]<>Name[t]<>")-Auto","("<>ToString[n]<>"\[CenterDot]"<>DisplayName[t]<>")"},
+	ToTensor[{"("<>ToString[n]<>TensorName[t]<>")-Auto","("<>ToString[n]<>"\[CenterDot]"<>TensorDisplayName[t]<>")"},
 			Indices[t],
 			"Values"->vals,
 			"Metric"->Metric[t],
@@ -857,7 +857,7 @@ Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords},
 	itrs={#,1,dims}&/@indsLocal["Tot"];
 	vals=Table[D[tvs[[Sequence@@indsLocal[2]]],coords[[Sequence@@indsLocal[1]]]],Evaluate[Sequence@@itrs]];
 
-	ToTensor[{"(PartialD"<>Name[t1]<>")-Auto","(\[PartialD]"<>DisplayName[t1]<>")"},
+	ToTensor[{"(PartialD"<>TensorName[t1]<>")-Auto","(\[PartialD]"<>TensorDisplayName[t1]<>")"},
 			indsFinal,
 			"Values"->vals,
 			"Metric"->Metric[t1],
@@ -891,17 +891,17 @@ MergeTensors[expr_,{name_String,dispName_String},opts:OptionsPattern[]]:=RenameT
 
 Clear[ClearCachedTensorValues]
 ClearCachedTensorValues[s_String,inds_]:=If[TensorValues[s,inds]=!=Undefined,Unset[TensorValues[s,inds]]]
-ClearCachedTensorValues[t_Tensor]:=Scan[ClearCachedTensorValues[Name[t],#]&,Tuples[{"Up","Down"},Total[Rank[t]]]]
+ClearCachedTensorValues[t_Tensor]:=Scan[ClearCachedTensorValues[TensorName[t],#]&,Tuples[{"Up","Down"},Total[Rank[t]]]]
 ClearCachedTensorValues[All]:=Scan[ClearCachedTensorValues[Sequence@@#]&,DeleteDuplicates@Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{_String,{___String}}]]
 
 
 Clear[CachedTensorValues]
 CachedTensorValues[s_String]:=#->TensorValues@@#&/@(Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{s,{___String}}])
-CachedTensorValues[t_Tensor]:=CachedTensorValues[Name[t]]
+CachedTensorValues[t_Tensor]:=CachedTensorValues[TensorName[t]]
 CachedTensorValues[All]:=CachedTensorValues/@DeleteDuplicates@Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{n_String,{___String}}:>n]
 
 
-AutoNameQ[t_Tensor]:=AutoNameQ[Name[t]]
+AutoNameQ[t_Tensor]:=AutoNameQ[TensorName[t]]
 AutoNameQ[s_String]:=StringMatchQ[s,__~~"-Auto"]
 
 
@@ -929,17 +929,17 @@ Clear[SetCoordinates]
 Tensor/:SetCoordinates[t_Tensor,coords_List]:=SetTensorKeyValue[t,"Coordinates",coords]
 
 
-Clear[SetName]
-Tensor/:SetName[t_Tensor,{name_String,dispName_String}]:=SetDisplayName[SetTensorKeyValue[t,"Name",name],dispName]
-Tensor/:SetName[t_Tensor,name_String]:=SetName[t,{name,name}]
+Clear[SetTensorName]
+Tensor/:SetTensorName[t_Tensor,{name_String,dispName_String}]:=SetTensorDisplayName[SetTensorKeyValue[t,"Name",name],dispName]
+Tensor/:SetTensorName[t_Tensor,name_String]:=SetTensorName[t,{name,name}]
 
 
-Clear[SetDisplayName]
-Tensor/:SetDisplayName[t_Tensor,name_String]:=SetTensorKeyValue[t,"DisplayName",name]
+Clear[SetTensorDisplayName]
+Tensor/:SetTensorDisplayName[t_Tensor,name_String]:=SetTensorKeyValue[t,"DisplayName",name]
 
 
 Clear[RenameTensor]
-RenameTensor=SetName;
+RenameTensor=SetTensorName;
 
 
 Clear[SetAsAbstract]
@@ -988,7 +988,7 @@ FourVelocity[tens_Tensor?MetricQ]:=
 Module[{t,r,th,ph,tau},
 
 	{t,r,th,ph,tau}=Symbol/@{"t","r","\[Theta]","\[Phi]","\[Tau]"};
-	ToTensor[{"FourVelocity"<>Name[tens],"u"},tens,{t[tau],r[tau],th[tau],ph[tau]}]
+	ToTensor[{"FourVelocity"<>TensorName[tens],"u"},tens,{t[tau],r[tau],th[tau],ph[tau]}]
 ]
 
 FourVelocity["Schwarzschild"]:=
