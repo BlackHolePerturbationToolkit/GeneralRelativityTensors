@@ -441,7 +441,7 @@ Module[{ric,inds,simpFn,name},
 	simpFn=OptionValue["SimplifyFunction"];
 	ric=RicciTensor[g,"SimplifyFunction"->simpFn];
 	inds=Indices[ric];
-	name="RicciTensor"<>TensorName[g];
+	name="RicciScalar"<>TensorName[g];
 	
 	If[TensorValues[name,{}]===Undefined,
 		ActOnTensorValues[ContractIndices[ric[-inds[[1]],inds[[1]]],{name,"R"}],simpFn],
