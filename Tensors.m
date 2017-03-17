@@ -28,6 +28,8 @@ ChristoffelSymbol::usage="ChristoffelSymbol[m] returns the Christoffel symbol co
 RiemannTensor::usage="RiemannTensor[m] returns the Riemann tensor with indices {\"Up\",\"Down\",\"Down\",\"Down\"} computed from the metric tensor m.";
 RicciTensor::usage="RicciTensor[m] returns the Ricci tensor with indices {\"Down\",\"Down\"} computed from the metric tensor m.";
 RicciScalar::usage="RicciScalar[m] returns the Ricci scalar computed from the metric tensor m.";
+EinsteinTensor::usage="EinsteinTensor[m] returns the Einstein tensor with indices {\"Down\",\"Down\"} computed from the metric tensor m.";
+WeylTensor::usage="WeylTensor[m] returns the Weyl tensor with indices {\"Down\",\"Down\",\"Down\",\"Down\"} computed from the metric tensor m.";
 ContractIndices::usage="ContractIndices[t,n] contracts all repeated indices of Tensor t, returning the resulting lower-rank tensor with name n.
 ContractIndices[t] is equivalent to ContractIndices[t,{TensorName[t],TensorDisplayName[t]}].";
 ShiftIndices::usage="ShiftIndices[t,inds] raises and/or lowers the indices of Tensor t according to the given List inds, adjusting the values using the tensor's associated metric.";
@@ -447,6 +449,48 @@ Module[{ric,inds,simpFn,name},
 	]		
 
 ]
+
+
+Options[EinsteinTensor]=Options[ChristoffelSymbol];
+Tensor/:EinsteinTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
+Module[{ricT,ricS,inds,simpFn,name},
+	simpFn=OptionValue["SimplifyFunction"];
+	ricT=RicciTensor[g,"SimplifyFunction"->simpFn];
+	ricS=RicciScalar[g,"SimplifyFunction"->simpFn];
+	inds=Indices[g];
+	
+	name="EinsteinTensor"<>TensorName[g];
+	
+	If[TensorValues[name,{"Down","Down"}]===Undefined,
+		ActOnTensorValues[MergeTensors[ricT[inds[[1]],inds[[2]]]-1/2 ricS g[inds[[1]],inds[[2]]],{name,"G"}],simpFn],
+		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+			Association["Metric"->g,"IsMetric"->False,"Values"->TensorValues[name,{"Down","Down"}],"DisplayName"->"G","Name"->name,"Indices"->{-inds[[1]],-inds[[2]]}]]]
+	]		
+]
+
+
+Options[WeylTensor]=Options[ChristoffelSymbol];
+Tensor/:WeylTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
+Module[{rie,ricT,ricS,simpFn,dim,i,k,l,m,name},
+
+	dim = Dimensions[g];
+	If[dim <= 2, Print["Weyl tensor requires dimensions of at least 3"]; Abort[]];
+
+	simpFn=OptionValue["SimplifyFunction"];
+	rie=RiemannTensor[g,"SimplifyFunction"->simpFn];
+	ricT=RicciTensor[g,"SimplifyFunction"->simpFn];
+	ricS=RicciScalar[g,"SimplifyFunction"->simpFn];
+	{i,k,l,m}=Take[PossibleIndices[g],4];
+	name = "WeylTensor"<>TensorName[g];
+	
+	If[TensorValues[name,{"Down","Down","Down","Down"}]===Undefined,
+		ActOnTensorValues[
+		MergeTensors[rie[-i,-k,-l,-m]+
+		1/(dim-2) (ricT[-i,-m]g[-k,-l]-ricT[-i,-l]g[-k,-m]+ricT[-k,-l]g[-i,-m]-ricT[-k,-m]g[-i,-l])
+		+ricS/((dim-1)(dim-2)) (g[-i,-l]g[-k,-m]-g[-i,-m]g[-k,-l]),{name,"C"}],simpFn],
+		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+			Association["Metric"->g,"IsMetric"->False,"Values"->TensorValues[name,{"Down","Down","Down","Down"}],"DisplayName"->"C","Name"->name,"Indices"->{-i,-k,-l,-m}]]]
+	]
 ]
 
 
