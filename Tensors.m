@@ -720,24 +720,18 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 	indPosNew=Delete[indPos,{#}&/@Flatten@rptIndsPos];
 	indsNew=Delete[inds,{#}&/@Flatten@rptIndsPos];
 
-	vals=
-		If[TensorValues[TensorName[t],indPosNew]===Undefined,
-
-			tvs=TensorValues[t];
-			n=Dimensions[t];
-			indsBefore=Table[itr[ii],{ii,1,rptIndsPos[[1]]-1}];
-			indsBetween=Table[itr[ii],{ii,rptIndsPos[[1]]+1,rptIndsPos[[2]]-1}];
-			indsAfter=Table[itr[ii],{ii,rptIndsPos[[2]]+1,Length@indPos}];
-			itrBefore=({#,1,n}&/@indsBefore);
-			itrBetween=({#,1,n}&/@indsBetween);
-			itrAfter=({#,1,n}&/@indsAfter);
-			itrTot=Join[itrBefore,itrBetween,itrAfter];
-			If[itrTot==={},
-						Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],
-						Table[Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]]
-					],
-						
-			TensorValues[TensorName[t],indPosNew]
+	tvs=TensorValues[t];
+	n=Dimensions[t];
+	indsBefore=Table[itr[ii],{ii,1,rptIndsPos[[1]]-1}];
+	indsBetween=Table[itr[ii],{ii,rptIndsPos[[1]]+1,rptIndsPos[[2]]-1}];
+	indsAfter=Table[itr[ii],{ii,rptIndsPos[[2]]+1,Length@indPos}];
+	itrBefore=({#,1,n}&/@indsBefore);
+	itrBetween=({#,1,n}&/@indsBetween);
+	itrAfter=({#,1,n}&/@indsAfter);
+	itrTot=Join[itrBefore,itrBetween,itrAfter];
+	vals = If[itrTot==={},
+				Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],
+				Table[Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]]
 		];
 	ToTensor[Join[KeyDrop[Association@@t,{"Indices","Name"}],Association["Name"->TensorName[t]<>"-Auto","Values"->vals,"Indices"->indsNew]]]
 ]
