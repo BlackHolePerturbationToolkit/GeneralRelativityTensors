@@ -16,7 +16,7 @@ ToMetric::usage="ToMetric[n,coords,vals,inds] returns an non-Abtract metric Tens
 (where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
 ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\", \"Schwarzschild\", or \"Kerr\".";
 Coordinates::usage="Coordinates[t] returns a List of symbols used for the coordinates of the Tensor t, or Undefined if coordinates were not set.";
-Metric::usage="Metric[t] returns the metric tensor associated with the Tensor t, or Undefined if no metric was set. If t is a metric, \"Self\" is returned.";
+Metric::usage="Metric[t] returns the metric tensor associated with the Tensor t, or Undefined if no metric was set. Note that t will return itself if it is a metric.";
 InverseMetric::usage="InverseMetric[t] returns the inverse metric tensor associated with the Tensor t, or Undefined if no metric was set.";
 Rank::usage="Rank[t] returns the tensor rank of the Tensor t as a List {p,q}, where p is the number of contravariant indices and q the number of covariant indices.";
 Indices::usage="Indices[t] returns a List of Symbols representing the indices of the Tensor t. Positive Symbols are contravariant and negative Symbols are covariant.";
