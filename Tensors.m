@@ -415,23 +415,38 @@ Module[{n,g,ig,xx,chr,vals,posInds,gT,name,simpFn},
 
 
 Options[RicciTensor]=Options[ChristoffelSymbol];
-Tensor/:RicciTensor[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{rie,inds,simpFn},
+Tensor/:RicciTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
+Module[{rie,inds,simpFn,name},
+
 	simpFn=OptionValue["SimplifyFunction"];
-	rie=RiemannTensor[t,"SimplifyFunction"->simpFn];
+	rie=RiemannTensor[g,"SimplifyFunction"->simpFn];
 	inds=Indices[rie];
-	ActOnTensorValues[ContractIndices[rie[inds[[1]],inds[[2]],-inds[[1]],inds[[4]]],{"RicciTensor"<>TensorName[t],"R"}],simpFn]
+	name="RicciTensor"<>TensorName[g];
+	
+	If[TensorValues[name,{"Down","Down"}]===Undefined,
+		ActOnTensorValues[ContractIndices[rie[inds[[1]],inds[[2]],-inds[[1]],inds[[4]]],{name,"R"}],simpFn],
+		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+			Association["Metric"->g,"IsMetric"->False,"Values"->TensorValues[name,{"Down","Down"}],"DisplayName"->"R","Name"->name,"Indices"->{-inds[[1]],-inds[[2]]}]]]
+	]		
 ]
 
 
 Options[RicciScalar]=Options[ChristoffelSymbol];
-Tensor/:RicciScalar[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{ric,inds,simpFn},
+Tensor/:RicciScalar[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
+Module[{ric,inds,simpFn,name},
 
 	simpFn=OptionValue["SimplifyFunction"];
-	ric=RicciTensor[t,"SimplifyFunction"->simpFn];
+	ric=RicciTensor[g,"SimplifyFunction"->simpFn];
 	inds=Indices[ric];
-	ActOnTensorValues[ContractIndices[ric[-inds[[1]],inds[[1]]],{"RicciScalar"<>TensorName[t],"R"}],simpFn]
+	name="RicciTensor"<>TensorName[g];
+	
+	If[TensorValues[name,{}]===Undefined,
+		ActOnTensorValues[ContractIndices[ric[-inds[[1]],inds[[1]]],{name,"R"}],simpFn],
+		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+			Association["Metric"->g,"IsMetric"->False,"Values"->TensorValues[name,{}],"DisplayName"->"R","Name"->name,"Indices"->{}]]]
+	]		
+
+]
 ]
 
 
