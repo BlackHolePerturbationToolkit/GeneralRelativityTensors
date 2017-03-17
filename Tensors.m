@@ -49,6 +49,7 @@ RepeatedIndexQ::usage="RepeatedIndexQ[t] returns True if the Tensor t has repeat
 MetricQ::usage="MetricQ[t] returns True if the Tensor t is a metric.";
 AbstractQ::usage="AbstractQ[t] returns True if the Tensor t is treated as Abstract.";
 ClearCachedTensorValues::usage="ClearCachedTensorValues[n,inds] removes cached expressions stored with the Symbol TensorValues using the TensorName n and IndexPositions inds. Here inds is a List of \"Up\" and \"Down\".
+ClearCachedTensorValues[n] removes all cached expressions stored with the Symbol TensorValues for any Tensor with name n.
 ClearCachedTensorValues[t] removes all cached expressions stored with the Symbol TensorValues for the Tensor t.
 ClearCachedTensorValues[All] removes all cached expressions associated with the Symbol TensorValues.";
 CachedTensorValues::usage="CachedTensorValues[n] returns a List of Rules showing all cached expressions for the TensorName n (stored in the Symbol TensorValues).
@@ -946,6 +947,7 @@ MergeTensors[expr_,{name_String,dispName_String},opts:OptionsPattern[]]:=RenameT
 
 Clear[ClearCachedTensorValues]
 ClearCachedTensorValues[s_String,inds_]:=If[TensorValues[s,inds]=!=Undefined,Unset[TensorValues[s,inds]]]
+ClearCachedTensorValues[str_String]:=Scan[ClearCachedTensorValues@@#&,Cases[CachedTensorValues[All],HoldPattern[{str,a___}->_]:>{str,a},Infinity]]
 ClearCachedTensorValues[t_Tensor]:=Scan[ClearCachedTensorValues[TensorName[t],#]&,Tuples[{"Up","Down"},Total[Rank[t]]]]
 ClearCachedTensorValues[All]:=Scan[ClearCachedTensorValues[Sequence@@#]&,DeleteDuplicates@Cases[DownValues[TensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[TensorValues][x__]]:>{x},{_String,{___String}}]]
 
