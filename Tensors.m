@@ -888,7 +888,9 @@ Module[{vals},
 ]
 Tensor/:MultiplyTensorScalar[t1_Tensor]:=t1;
 Tensor/:MultiplyTensorScalar[n_,t1_Tensor,name_String]:=RenameTensor[MultiplyTensorScalar[n,t1],name]
+Tensor/:MultiplyTensorScalar[t1_Tensor,n_,name_String]:=MultiplyTensorScalar[n,t1,name]
 Tensor/:MultiplyTensorScalar[n_,t1_Tensor,{name_String,displayName_String}]:=RenameTensor[MultiplyTensorScalar[n,t1],{name,displayName}]
+Tensor/:MultiplyTensorScalar[t1_Tensor,n_,{name_String,displayName_String}]:=MultiplyTensorScalar[n,t1,{name,displayName}]
 
 
 Tensor/:D[t1_Tensor,a_]:=
