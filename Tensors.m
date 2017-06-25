@@ -14,7 +14,8 @@ ToMetric[n,coords,vals] is equivalent to ToMetric[n,coords,vals \"Greek\"].
 ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\", \"Schwarzschild\", or \"Kerr\".";*)
 ToMetric::usage="ToMetric[n,coords,vals,inds] returns an non-Abtract metric Tensor with TensorName n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
 (where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
-ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\", \"Schwarzschild\", or \"Kerr\".";
+ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\" (or \"Mink\"), \"Schwarzschild\" (or \"Schw\"), \"Kerr\", \"ReissnerNordstrom\" \
+(or \"RN\"), \"TwoSphere\" (or \"S2\"), \"SchwarzschildM2\" (or \"SchwM2\"), or \"ReissnerNordstromM2\" (or \"RNM2\").";
 Coordinates::usage="Coordinates[t] returns a List of symbols used for the coordinates of the Tensor t, or Undefined if coordinates were not set.";
 Metric::usage="Metric[t] returns the metric tensor associated with the Tensor t, or Undefined if no metric was set. Note that t will return itself if it is a metric.";
 InverseMetric::usage="InverseMetric[t] returns the inverse metric tensor associated with the Tensor t, or Undefined if no metric was set.";
@@ -65,9 +66,10 @@ KinnersleyDerivative[builtIn,s] is equivalent to KinnersleyDerivative[ToMetric[b
 SpinCoefficient::usage="SpinCoefficient[s] returns the Newman-Penrose spin coefficient corresponding to the string s, where possible values of s are \
 \"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\"mu\",\"nu\",\"pi\",\"rho\",\"sigma\", and \"tau\".";
 CovariantD;
-FourVelocity;
+FourVelocityVector;
 LeviCivitaSymbol;
 TensorHarmonic;
+M2Amplitude;
 ActOnTensorValues;
 SetTensorValues;
 
@@ -101,10 +103,10 @@ Tensor/:TensorName[t_Tensor]:=(Association@@t)["Name"]
 Tensor/:TensorDisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
 Tensor/:IndexPositions[t_Tensor]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
 Tensor/:RepeatedIndexQ[t_Tensor]:=Length[DeleteDuplicates@(Indices[t]/.-sym_:>sym)]<Length[Indices[t]];
-Tensor/:MetricQ[t_Tensor]:=(Association@@t)["IsMetric"]
 Tensor/:t_Tensor[inds__]/;Complement[{inds}/.-sym_:>sym,PossibleIndices[t]]==={}:=ShiftIndices[t,{inds}]
-Tensor/:t_Tensor[inds__]/;Complement[{inds}/.-sym_:>sym,Coordinates[t]]==={}:=Component[t,{inds}]
+Tensor/:t_Tensor[inds__]/;(Coordinates[t]=!=Undefined)&&Complement[{inds}/.-sym_:>sym,Coordinates[t]]==={}:=Component[t,{inds}]
 Tensor/:t_Tensor[inds__]:=(Print["The given indices ",{inds}, " are neither entirely in the List of PossibleIndices, nor Coordinates of ", t];Abort[])
+MetricQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["IsMetric"]
 
 
 TensorValues[___]:=Undefined;
@@ -190,6 +192,13 @@ Module[{coords,vals,posInds,abstr,metric,dims,isMetric},
 	metric=OptionValue["Metric"];
 	isMetric=OptionValue["IsMetric"];
 	dims=OptionValue["Dimensions"];
+	If[MetricQ[metric],
+		If[posInds==={},posInds=PossibleIndices[metric]];
+		If[dims===Undefined,dims=Dimensions[metric],If[dims=!=Dimensions[metric],Print["Given dimensions do not match metric dimensions"];Abort[]]];
+		If[coords===Undefined,coords=Coordinates[metric],If[coords=!=Coordinates[metric],Print["Given coordinates do not match metric coordinates"];Abort[]]];
+		If[vals=!=Undefined,abstr=False];
+	];
+	
 	ToTensor[Association["Coordinates"->coords,"Metric"->metric,"IsMetric"->isMetric,"Name"->name,"DisplayName"->dispName,"Indices"->{inds},"PossibleIndices"->posInds,"Abstract"->abstr,"Values"->vals,"Dimensions"->dims]]
 ]
 ToTensor[name_String,{inds___},opts:OptionsPattern[]]:=ToTensor[{name,name},{inds},opts]
@@ -206,7 +215,7 @@ Module[{coords,posInds,dims,inds},
 	inds=If[indsGiven===Undefined,Take[posInds,Length@Dimensions[vals]],indsGiven];
 	ToTensor[Association["Coordinates"->coords,"Metric"->metric,"IsMetric"->False,"Name"->name,"DisplayName"->dispName,"Indices"->inds,"PossibleIndices"->posInds,"Abstract"->False,"Values"->vals,"Dimensions"->dims]]
 ]
-ToTensor[name_String,metric_Tensor?MetricQ,vals_List]:=ToTensor[{name,name},metric,vals];
+ToTensor[name_String,metric_Tensor?MetricQ,vals_List,indsGiven_:Undefined]:=ToTensor[{name,name},metric,vals,indsGiven];
 
 
 Clear[builtInIndices]
@@ -219,7 +228,7 @@ Switch[label,
 		"Greek",
 		Symbol/@Complement[CharacterRange["\[Alpha]","\[Omega]"],{"\[Pi]"}],
 		___,
-		Print["No built-in indices ", label]; Abort[]
+		Print["No built-in indices ", label, ". Options are \"Latin\", \"CapitalLatin\", and \"Greek\""]; Abort[]
 ]
 
 
@@ -298,7 +307,8 @@ Module[{t,x,y,z,\[Alpha],\[Beta]},
 				"PossibleIndices"->"Greek",
 				"Abstract"->False,
 				"Values"->{{-1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}}]]
-]
+];
+ToMetric["Mink"]:=ToMetric["Minkowski"];
 
 
 ToMetric["Schwarzschild"]:=
@@ -313,7 +323,24 @@ Module[{t,r,\[Theta],\[Phi],M,\[Alpha],\[Beta]},
 				"PossibleIndices"->"Greek",
 				"Abstract"->False,
 				"Values"->{{-1+(2 M)/r,0,0,0},{0,1/(1-(2 M)/r),0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}}]]
-]
+];
+ToMetric["Schw"]:=ToMetric["Schwarzschild"]
+
+
+ToMetric["SchwarzschildM2"]:=
+Module[{t,r,M,a,b},	
+
+	{t,r,M,a,b}=Symbol/@{"t","r","M","a","b"};
+	
+	ToMetric[Association["Name"->"SchwarzschildM2Metric",
+				"Coordinates"->{t,r},
+				"DisplayName"->"g",
+				"Indices"->{-a,-b},
+				"PossibleIndices"->"Latin",
+				"Abstract"->False,
+				"Values"->{{-1+(2 M)/r,0},{0,1/(1-(2 M)/r)}}]]
+];
+ToMetric["SchwM2"]:=ToMetric["SchwarzschildM2"];
 
 
 ToMetric["Kerr"]:=
@@ -331,14 +358,47 @@ Module[{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta]},
 							{0,(r^2+a^2 Cos[\[Theta]]^2)/(a^2-2 M r+r^2),0,0},
 							{0,0,r^2+a^2 Cos[\[Theta]]^2,0},
 							{-((2 a M r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2)),0,0,(Sin[\[Theta]]^2 ((a^2+r^2)^2-a^2 (a^2-2 M r+r^2) Sin[\[Theta]]^2))/(r^2+a^2 Cos[\[Theta]]^2)}}]]
-]
+];
 
 
 ToMetric["TwoSphere"]:=
 Module[{th,ph},
 	{th,ph}=Symbol/@{"\[Theta]","\[Phi]"};
 	ToMetric[{"TwoSphereMetric","\[CapitalOmega]"},{th,ph},{{1,0},{0,Sin[th]^2}},"CapitalLatin"]
-]
+];
+ToMetric["S2"]:=ToMetric["TwoSphere"];
+
+
+ToMetric["ReissnerNordstrom"]:=
+Module[{t,r,\[Theta],\[Phi],M,Q,\[Alpha],\[Beta]},	
+
+	{t,r,\[Theta],\[Phi],M,Q,\[Alpha],\[Beta]}=Symbol/@{"t","r","\[Theta]","\[Phi]","M","Q","\[Alpha]","\[Beta]"};
+	
+	ToMetric[Association["Name"->"ReissnerNordstromMetric",
+				"Coordinates"->{t,r,\[Theta],\[Phi]},
+				"DisplayName"->"g",
+				"Indices"->{-\[Alpha],-\[Beta]},
+				"PossibleIndices"->"Greek",
+				"Abstract"->False,
+				"Values"->{{-1+(2 M)/r-Q^2/r^2,0,0,0},{0,1/(1-(2 M)/r+Q^2/r^2),0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}}]]
+];
+ToMetric["RN"]:=ToMetric["ReissnerNordstrom"];
+
+
+ToMetric["ReissnerNordstromM2"]:=
+Module[{t,r,M,Q,a,b},	
+
+	{t,r,M,Q,a,b}=Symbol/@{"t","r","M","Q","a","b"};
+	
+	ToMetric[Association["Name"->"ReissnerNordstromM2Metric",
+				"Coordinates"->{t,r},
+				"DisplayName"->"g",
+				"Indices"->{-a,-b},
+				"PossibleIndices"->"Latin",
+				"Abstract"->False,
+				"Values"->{{-1+(2 M)/r-Q^2/r^2,0},{0,1/(1-(2 M)/r+Q^2/r^2)}}]]
+];
+ToMetric["RNM2"]:=ToMetric["ReissnerNordstromM2"]
 
 
 Clear[LeviCivitaSymbol]
@@ -419,32 +479,32 @@ Module[{n,g,ig,xx,chr,vals,posInds,gT,name,simpFn},
 
 Options[RicciTensor]=Options[ChristoffelSymbol];
 Tensor/:RicciTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{rie,inds,simpFn,name},
+Module[{rie,simpFn,name,posInds},
 
 	simpFn=OptionValue["SimplifyFunction"];
 	rie=RiemannTensor[g,"SimplifyFunction"->simpFn];
-	inds=Indices[rie];
 	name="RicciTensor"<>TensorName[g];
+	posInds=PossibleIndices[rie];
 	
 	If[TensorValues[name,{"Down","Down"}]===Undefined,
-		ActOnTensorValues[ContractIndices[rie[inds[[1]],inds[[2]],-inds[[1]],inds[[4]]],{name,"R"}],simpFn],
+		ActOnTensorValues[ContractIndices[rie[posInds[[1]],-posInds[[2]],-posInds[[1]],-posInds[[4]]],{name,"R"}],simpFn],
 		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
-			Association["Metric"->g,"IsMetric"->False,"Values"->TensorValues[name,{"Down","Down"}],"DisplayName"->"R","Name"->name,"Indices"->{-inds[[1]],-inds[[2]]}]]]
+			Association["Metric"->g,"IsMetric"->False,"Values"->TensorValues[name,{"Down","Down"}],"DisplayName"->"R","Name"->name,"Indices"->{-posInds[[1]],-posInds[[2]]}]]]
 	]		
 ]
 
 
 Options[RicciScalar]=Options[ChristoffelSymbol];
 Tensor/:RicciScalar[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{ric,inds,simpFn,name},
+Module[{ric,posInds,simpFn,name},
 
 	simpFn=OptionValue["SimplifyFunction"];
 	ric=RicciTensor[g,"SimplifyFunction"->simpFn];
-	inds=Indices[ric];
 	name="RicciScalar"<>TensorName[g];
+	posInds=PossibleIndices[ric];
 	
 	If[TensorValues[name,{}]===Undefined,
-		ActOnTensorValues[ContractIndices[ric[-inds[[1]],inds[[1]]],{name,"R"}],simpFn],
+		ActOnTensorValues[ContractIndices[ric[-posInds[[1]],posInds[[1]]],{name,"R"}],simpFn],
 		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
 			Association["Metric"->g,"IsMetric"->False,"Values"->TensorValues[name,{}],"DisplayName"->"R","Name"->name,"Indices"->{}]]]
 	]		
@@ -454,18 +514,18 @@ Module[{ric,inds,simpFn,name},
 
 Options[EinsteinTensor]=Options[ChristoffelSymbol];
 Tensor/:EinsteinTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{ricT,ricS,inds,simpFn,name},
+Module[{ricT,ricS,simpFn,name,posInds},
 	simpFn=OptionValue["SimplifyFunction"];
 	ricT=RicciTensor[g,"SimplifyFunction"->simpFn];
 	ricS=RicciScalar[g,"SimplifyFunction"->simpFn];
-	inds=Indices[g];
-	
+	posInds=PossibleIndices[ricT];
+		
 	name="EinsteinTensor"<>TensorName[g];
 	
 	If[TensorValues[name,{"Down","Down"}]===Undefined,
-		ActOnTensorValues[MergeTensors[ricT[inds[[1]],inds[[2]]]-1/2 ricS g[inds[[1]],inds[[2]]],{name,"G"}],simpFn],
+		ActOnTensorValues[MergeTensors[ricT[-posInds[[1]],-posInds[[2]]]-1/2 ricS g[-posInds[[1]],-posInds[[2]]],{name,"G"}],simpFn],
 		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
-			Association["Metric"->g,"IsMetric"->False,"Values"->TensorValues[name,{"Down","Down"}],"DisplayName"->"G","Name"->name,"Indices"->{-inds[[1]],-inds[[2]]}]]]
+			Association["Metric"->g,"IsMetric"->False,"Values"->TensorValues[name,{"Down","Down"}],"DisplayName"->"G","Name"->name,"Indices"->{-posInds[[1]],-posInds[[2]]}]]]
 	]		
 ]
 
@@ -495,11 +555,11 @@ Module[{rie,ricT,ricS,simpFn,dim,i,k,l,m,name},
 ]
 
 
-Options[KinnersleyNullVector]={"Schwarzschild"->False};
 Clear[KinnersleyNullVector]
-KinnersleyNullVector[t_Tensor?MetricQ,vec_String,opts:OptionsPattern[]]:=
+KinnersleyNullVector[t_Tensor?MetricQ,vec_String]:=
 Module[{r,a,th,M,val,delta,sigma,valC,schw,rules},
-	schw=OptionValue["Schwarzschild"];
+	
+	schw=TensorName[t]==="SchwarzschildMetric";
 
 	{r,th,a,M}=Symbol/@{"r","\[Theta]","a","M"};
 	sigma=r^2+a^2 Cos[th]^2;
@@ -534,8 +594,8 @@ NumberMarks->True],
 FullForm]\),vec]},t,valC]
 ]
 
-KinnersleyNullVector["Schwarzschild",vec_String,opts:OptionsPattern[]]:=KinnersleyNullVector[ToMetric["Schwarzschild"],vec,"Schwarzschild"->True]
-KinnersleyNullVector["Kerr",vec_String,opts:OptionsPattern[]]:=KinnersleyNullVector[ToMetric["Kerr"],vec,"Schwarzschild"->False]
+KinnersleyNullVector["Schwarzschild",vec_String]:=KinnersleyNullVector[ToMetric["Schwarzschild"],vec]
+KinnersleyNullVector["Kerr",vec_String]:=KinnersleyNullVector[ToMetric["Kerr"],vec]
 
 
 Options[KinnersleyNullTetrad]=Options[KinnersleyNullVector];
@@ -543,27 +603,24 @@ Clear[KinnersleyNullTetrad]
 KinnersleyNullTetrad[expr_,opts:OptionsPattern[]]:=KinnersleyNullVector[expr,#,opts]&/@{"l","n","m","mStar"}
 
 
-Options[KinnersleyDerivative]={"Schwarzschild"->False};
 Clear[KinnersleyDerivative]
-KinnersleyDerivative[tt_Tensor?MetricQ,op_String,opts:OptionsPattern[]]:=
-Module[{r,th,schw,t,phi,deriv},
-
-	schw=OptionValue["Schwarzschild"];
+KinnersleyDerivative[tt_Tensor?MetricQ,op_String]:=
+Module[{r,th,t,phi,deriv},
 
 	{t,r,th,phi}=Symbol/@{"t","r","\[Theta]","\[Phi]"};
 
 	(Switch[op,
 		"D",
-		TensorValues@KinnersleyNullVector[tt,"l","Schwarzschild"->schw],
+		TensorValues@KinnersleyNullVector[tt,"l"],
 
 		"Delta",
-		TensorValues@KinnersleyNullVector[tt,"n","Schwarzschild"->schw],
+		TensorValues@KinnersleyNullVector[tt,"n"],
 
 		"delta",
-		TensorValues@KinnersleyNullVector[tt,"m","Schwarzschild"->schw],
+		TensorValues@KinnersleyNullVector[tt,"m"],
 
 		"deltaStar",
-		TensorValues@KinnersleyNullVector[tt,"mStar","Schwarzschild"->schw],
+		TensorValues@KinnersleyNullVector[tt,"mStar"],
 
 		___,
 		Print["No KinnersleyDerivative = "<>op];
@@ -572,8 +629,8 @@ Module[{r,th,schw,t,phi,deriv},
 
 	].{D[#,t],D[#,r],D[#,th],D[#,phi]})&
 ]
-KinnersleyDerivative["Schwarzschild",vec_String,opts:OptionsPattern[]]:=KinnersleyDerivative[ToMetric["Schwarzschild"],vec,"Schwarzschild"->True]
-KinnersleyDerivative["Kerr",vec_String,opts:OptionsPattern[]]:=KinnersleyDerivative[ToMetric["Kerr"],vec,"Schwarzschild"->False]
+KinnersleyDerivative["Schwarzschild",vec_String]:=KinnersleyDerivative[ToMetric["Schwarzschild"],vec]
+KinnersleyDerivative["Kerr",vec_String]:=KinnersleyDerivative[ToMetric["Kerr"],vec]
 
 
 Options[SpinCoefficient]={"Conjugate"->False,"Schwarzschild"->False};
@@ -669,15 +726,21 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,itrBefore,itrAf
 	newPos=If[MatchQ[ind,_Symbol],"Up","Down"];
 	indPos=IndexPositions[t];
 
-	If[pos>Length@indPos,Print["Tensor ", t, " has only ",Length@indPos ," indices. Cannot raise at position ", pos,"."];Abort[]];
+	If[pos>Length@indPos,Print["Tensor ", t, " has only ", Length@indPos ," indices. Cannot raise at position ", pos,"."];Abort[]];
 	indPosNew=ReplacePart[indPos,pos->newPos];
 	inds=Indices[t];
 	
-	vals=
-	If[indPos[[pos]]===newPos,
-		TensorValues[t],
+	vals=Which[indPos[[pos]]===newPos,
+			TensorValues[t],
+			
+			TensorValues[t]===Undefined && Metric[t]===Undefined,
+			Print["Cannot shift tensor indices without a metric."];
+			Abort[],
+				
+			TensorValues[t]===Undefined && Metric[t]=!=Undefined,
+			Undefined,
 		
-		If[TensorValues[TensorName[t],indPosNew]===Undefined,
+			TensorValues[TensorName[t],indPosNew]===Undefined,
 
 			gOrInvG=TensorValues[If[newPos==="Up",InverseMetric[t],Metric[t]]];
 			tvs=TensorValues[t];
@@ -689,8 +752,8 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,itrBefore,itrAf
 			itrTot=Join[itrBefore,{{i,1,n}},itrAfter];
 			simpFn@Table[Sum[gOrInvG[[i,s]]tvs[[Sequence@@indsBefore,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]],
 			
+			True,
 			TensorValues[TensorName[t],indPosNew]
-		]
 	];
 
 	newInds=Flatten@{Take[inds,pos-1],ind,Drop[inds,pos]};
@@ -894,10 +957,10 @@ Tensor/:MultiplyTensorScalar[n_,t1_Tensor,{name_String,displayName_String}]:=Ren
 Tensor/:MultiplyTensorScalar[t1_Tensor,n_,{name_String,displayName_String}]:=MultiplyTensorScalar[n,t1,{name,displayName}]
 
 
-Tensor/:D[t1_Tensor,a_]:=
+Tensor/:D[t1_Tensor,-a_]:=
 Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords},
 
-	inds[1]={a};
+	inds[1]={-a};
 	inds[2]=Indices[t1];
 	validateProductIndices[inds[1],inds[2]];
 	
@@ -921,8 +984,12 @@ Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords},
 			"Abstract"->False,
 			"PossibleIndices"->PossibleIndices[t1],
 			"Dimensions"->dims]
-]
-
+];
+Tensor/:D[t1_Tensor,a_]:=
+Module[{posInds},
+	posInds=Complement[PossibleIndices[t1],Join[{a},Indices[t1]]/.{-ind_:>ind}];
+	Metric[t1][a,posInds[[1]]]D[t1,-posInds[[1]]]
+];
 Tensor/:MultiplyTensors[t1_Tensor]:=t1;
 Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor]:=Fold[MultiplyTensors,t1,{t2}]
 Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,name_String]:=RenameTensor[MultiplyTensors[t1,t2],name]
@@ -1008,29 +1075,19 @@ Tensor/:SetTensorValues[t_Tensor,values_List]:=SetTensorKeyValue[t,"Values",valu
 Tensor/:SetTensorValues[t_Tensor,values_]/;Rank[t]==={0,0}:=SetTensorKeyValue[t,"Values",values]
 
 
-Clear[ToCovariant]
-ToCovariant[inds_]:=inds/.-sym_:>sym
-
-
-CovariantD[t_Tensor,a_]:=
-Module[{chr,inds,dummies,tvs,coords,dims},
- 
-	chr=ChristoffelSymbol[Metric[t]];
-	inds=Indices[t];
-	dummies=Complement[PossibleIndices[t],inds/.{-sym_:>sym}];
-	tvs=TensorValues[t];
-	coords=Coordinates[t];
-	dims=Dimensions[t];
-
-	D[t,a]+Sum[chrTerm[t,i,a],{i,Indices[t]}]
-]
+CovariantD[t_Tensor,-a_]:=D[t,-a]+Sum[chrTerm[t,i,-a],{i,Indices[t]}]
+CovariantD[t1_Tensor,a_]:=
+Module[{posInds},
+	posInds=Complement[PossibleIndices[t1],Join[{a},Indices[t1]]/.{-ind_:>ind}];
+	Metric[t1][a,posInds[[1]]]CovariantD[t1,-posInds[[1]]]
+];
 
 
 chrTerm[t_Tensor,tensorInd_,derivInd_]:=
 Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 	inds=Indices[t];
-	tensorIndUp=ToCovariant[tensorInd];
-	dummy=First[Complement[PossibleIndices[t],ToCovariant@Join[{tensorInd,derivInd},inds]]];
+	tensorIndUp=tensorInd/.-sym_:>sym;
+	dummy=First[Complement[PossibleIndices[t],Join[{tensorInd,derivInd},inds]/.-sym_:>sym]];
 	chr=ChristoffelSymbol[Metric[t]];
 	chrDummy=If[MatchQ[tensorInd,-_Symbol],chr[dummy,tensorInd,derivInd],chr[tensorInd,-dummy,derivInd]];
 
@@ -1040,46 +1097,82 @@ Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 ]
 
 
-Clear[FourVelocity]
-FourVelocity[tens_Tensor?MetricQ]:=
+Clear[FourVelocityVector]
+FourVelocityVector[tens_Tensor?MetricQ]:=
 Module[{t,r,th,ph,tau},
 
 	{t,r,th,ph,tau}=Symbol/@{"t","r","\[Theta]","\[Phi]","\[Tau]"};
 	ToTensor[{"FourVelocity"<>TensorName[tens],"u"},tens,{t[tau],r[tau],th[tau],ph[tau]}]
 ]
 
-FourVelocity["Schwarzschild"]:=
+FourVelocityVector["Schwarzschild"]:=
 Module[{t,rp,EE,JJ,M},
 	{t,rp,EE,JJ,M}=Symbol/@{"t","rp","\[ScriptCapitalE]","\[ScriptCapitalJ]","M"};
-	SetTensorValues[FourVelocity[ToMetric["Schwarzschild"]],{EE/(1-(2 M)/rp[t]),(EE rp'[t])/(1-(2 M)/rp[t]),0,JJ/rp[t]^2}]
+	SetTensorValues[FourVelocityVector[ToMetric["Schwarzschild"]],{EE/(1-(2 M)/rp[t]),(EE rp'[t])/(1-(2 M)/rp[t]),0,JJ/rp[t]^2}]
+]
+
+FourVelocityVector["Kerr"]:=
+Module[{t,rp,EE,JJ,M,a},
+	{t,rp,EE,JJ,M,a}=Symbol/@{"t","rp","\[ScriptCapitalE]","\[ScriptCapitalJ]","M","a"};
+	SetTensorValues[FourVelocityVector[ToMetric["Kerr"]],
+		{(-a (a EE-JJ)+((a^2+rp[t]^2) (-a JJ+EE (a^2+rp[t]^2)))/(a^2-2 M rp[t]+rp[t]^2))/rp[t]^2,
+		((-a (a EE-JJ)+((a^2+rp[t]^2) (-a JJ+EE (a^2+rp[t]^2)))/(a^2-2 M rp[t]+rp[t]^2)) rp'[t])/rp[t]^2,
+		0,
+		(-a EE+JJ+(a (-a JJ+EE (a^2+rp[t]^2)))/(a^2-2 M rp[t]+rp[t]^2))/rp[t]^2}]
 ]
 
 
 
 Clear[TensorHarmonic]
 TensorHarmonic[label_]:=
-Module[{Ylm,YAVal,lTemp,mTemp,thTemp,phTemp,l,m,th,ph,A,B,F,G,eps},
+Module[{Ylm,YAVal,thTemp,phTemp,l,th,ph,A,B,F,G,eps},
 
-{Ylm,l,m,th,ph,A,B,F,G}=Symbol/@{"Ylm","l","m","\[Theta]","\[Phi]","A","B","F","G"};
+	{Ylm,l,th,ph,A,B,F,G}=Symbol/@{"Ylm","l","\[Theta]","\[Phi]","A","B","F","G"};
 
-YAVal=Simplify[{D[Ylm[lTemp,mTemp,thTemp,phTemp],thTemp],D[Ylm[l,m,thTemp,phTemp],phTemp]},{\[Pi]>=thTemp>=0,2\[Pi]>=phTemp>=0}]/.{lTemp->l,mTemp->m,thTemp->th,phTemp->ph};
-eps=LeviCivitaSymbol["TwoSphere"];
+	YAVal=Simplify[{D[Ylm[thTemp,phTemp],thTemp],D[Ylm[thTemp,phTemp],phTemp]},{\[Pi]>=thTemp>=0,2\[Pi]>=phTemp>=0}]/.{thTemp->th,phTemp->ph};
+	eps=LeviCivitaSymbol["TwoSphere"];
 
-Switch[label,
-	"YA",
-	ToTensor[{"HarmonicYA","Y"},ToMetric["TwoSphere"],YAVal,{-A}],
-	"XA",
-	ContractIndices[MergeTensors[-eps[-A,F]TensorHarmonic["YA"][-F]],{"HarmonicXA","X"}],
-	"YAB",
-	MergeTensors[CovariantD[TensorHarmonic["YA"][-B],-A]
-				+1/2 l(l+1)Ylm[l,m,th,ph]ToMetric["TwoSphere"][-A,-B],{"HarmonicYAB","Y"}],
-	"XAB",
-	MergeTensors[-(1/2)(eps[-G,F]CovariantD[TensorHarmonic["YA"][-F],-B]
-			+eps[-B,F]CovariantD[TensorHarmonic["YA"][-F],-G]),{"HarmonicXAB","X"}][-A,-B],
-	___,
-	Print["No TensorHarmonic associated with label ", label];
-	Print["Options are: ",{"YA","XA","YAB","XAB"}];
+	Switch[label,
+		"YA",
+		ToTensor[{"HarmonicYA","Y"},ToMetric["TwoSphere"],YAVal,{-A}],
+		"XA",
+		ContractIndices[MergeTensors[-eps[-A,F]TensorHarmonic["YA"][-F]],{"HarmonicXA","X"}],
+		"YAB",
+		MergeTensors[CovariantD[TensorHarmonic["YA"][-B],-A]
+					+1/2 l(l+1)Ylm[th,ph]ToMetric["TwoSphere"][-A,-B],{"HarmonicYAB","Y"}],
+		"XAB",
+		MergeTensors[-(1/2)(eps[-G,F]CovariantD[TensorHarmonic["YA"][-F],-B]
+				+eps[-B,F]CovariantD[TensorHarmonic["YA"][-F],-G]),{"HarmonicXAB","X"}][-A,-B],
+		___,
+		Print["No TensorHarmonic associated with label ", label];
+		Print["Options are: ",{"YA","XA","YAB","XAB"}];
+	]
 ]
+
+
+Clear[M2Amplitude]
+M2Amplitude[label_,metric_String:"SchwarzschildM2"]:=
+Module[{htt,htr,hrr,ht,hr,jt,jr,a,b,t,r,metricStr},
+
+	metricStr=Switch[metric,"RN"|"ReissnerNordstromM2","ReissnerNordstromM2","Schw"|"SchwarzschildM2","SchwarzschildM2",___,
+					Print["Metric ", metric, " is not a valid M2 metric. Options are \"SchwarzschildM2\" (or \"Schw\") or \"ReissnerNordstromM2\" (or \"RN\")"];
+					Abort[];
+				];
+	
+	{htt,htr,hrr,ht,hr,jt,jr,a,b,t,r}=Symbol/@{"htt","htr","hrr","ht","hr","jt","jr","a","b","t","r"};
+
+	Switch[label,
+		"ja",
+		ToTensor[{"ja"<>metricStr,"j"},ToMetric[metricStr],{jt[t,r],jr[t,r]},{-a}],
+		"ha",
+		ToTensor[{"ha"<>metricStr,"h"},ToMetric[metricStr],{ht[t,r],hr[t,r]},{-a}],
+		"hab",
+		ToTensor[{"hab"<>metricStr,"h"},ToMetric[metricStr],{{htt[t,r],htr[t,r]},{htr[t,r],hrr[t,r]}},{-a,-b}],
+		___,
+		Print["No M2Amplitude associated with label ", label];
+		Print["Options are: ",{"hab","ja","ha"}];
+	Abort[];
+	]
 ]
 
 
