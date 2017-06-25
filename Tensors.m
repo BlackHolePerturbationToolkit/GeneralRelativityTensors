@@ -872,10 +872,11 @@ Tensor/:SumTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String}]:=Renam
 
 Clear[validateProductIndices]
 validateProductIndices[inds1_List,inds2_List]:=
-Module[{indsUp,repeatedInds,inds},
+Module[{indsUp,repeatedInds,inds,toCov},
 
+	toCov[expr_]:=expr/.-sym_:>sym;
 	inds=Join[inds1,inds2];
-	indsUp=ToCovariant[inds];
+	indsUp=toCov[inds];
 	repeatedInds=Cases[inds,#|-#]&/@(If[Count[indsUp,#]>1,#,##&[]]&/@DeleteDuplicates[indsUp]);
 
 	If[Union@Join[Count[indsUp,#]&/@DeleteDuplicates[indsUp],{1,2}]=!=Sort@{1,2},
@@ -884,7 +885,7 @@ Module[{indsUp,repeatedInds,inds},
 	];
 
 	If[If[#[[1]]=!=-#[[2]],#,##&[]]&/@repeatedInds=!={},
-		Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],ToCovariant[#[[1]]],##&[]]&/@repeatedInds];
+		Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],toCov[#[[1]]],##&[]]&/@repeatedInds];
 		Abort[]
 	];
 ]
