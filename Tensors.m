@@ -101,9 +101,9 @@ Tensor/:PossibleIndices[t_Tensor]:=(Association@@t)["PossibleIndices"]
 Tensor/:TensorName[t_Tensor]:=(Association@@t)["Name"]
 Tensor/:TensorDisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
 Tensor/:IndexPositions[t_Tensor]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
-Tensor/:RepeatedIndexQ[t_Tensor]:=Length[DeleteDuplicates@(Indices[t]/.-sym_:>sym)]<Length[Indices[t]];
-Tensor/:t_Tensor[inds__]/;Complement[{inds}/.-sym_:>sym,PossibleIndices[t]]==={}:=ShiftIndices[t,{inds}]
-Tensor/:t_Tensor[inds__]/;(Coordinates[t]=!=Undefined)&&Complement[{inds}/.-sym_:>sym,Coordinates[t]]==={}:=Component[t,{inds}]
+Tensor/:RepeatedIndexQ[t_Tensor]:=Length[DeleteDuplicates@(Indices[t]/.-sym_Symbol:>sym)]<Length[Indices[t]];
+Tensor/:t_Tensor[inds__]/;Complement[{inds}/.-sym_Symbol:>sym,PossibleIndices[t]]==={}:=ShiftIndices[t,{inds}]
+Tensor/:t_Tensor[inds__]/;(Coordinates[t]=!=Undefined)&&Complement[{inds}/.-sym_Symbol:>sym,Coordinates[t]]==={}:=Component[t,{inds}]
 Tensor/:t_Tensor[inds__]:=(Print["The given indices ",{inds}, " are neither entirely in the List of PossibleIndices, nor Coordinates of ", t];Abort[])
 MetricQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["IsMetric"]
 
@@ -125,6 +125,7 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Abort[]
 	];
 	If[Not@MatchQ[assoc["Indices"]/.-sym_:>sym,{___Symbol}],Print["Indices must be a list of Symbols (and negative Symbols)"];Abort[]];
+	If[Not@MatchQ[assoc["Indices"]/.-sym_Symbol:>sym,{___Symbol}],Print["Indices must be a list of Symbols (and negative Symbols)"];Abort[]];
 	If[Not@MatchQ[assoc["PossibleIndices"],{___Symbol}],Print["PossibleIndices must be a list of Symbols"];Abort[]];
 
 	indexChoices=Union@Join[assoc["PossibleIndices"],assoc["Indices"]/.-sym_:>sym];
@@ -191,6 +192,7 @@ Module[{coords,vals,posInds,abstr,metric,dims,isMetric},
 	metric=OptionValue["Metric"];
 	isMetric=OptionValue["IsMetric"];
 	dims=OptionValue["Dimensions"];
+	
 	If[MetricQ[metric],
 		If[posInds==={},posInds=PossibleIndices[metric]];
 		If[dims===Undefined,dims=Dimensions[metric],If[dims=!=Dimensions[metric],Print["Given dimensions do not match metric dimensions"];Abort[]]];
@@ -685,7 +687,7 @@ Tensor/:ValidateIndices[t_Tensor,{inds___}]:=
 Module[{posInds,indsUp,repeatedInds},
 
 	posInds=PossibleIndices[t];
-	indsUp={inds}/.-sym_:>sym;
+	indsUp={inds}/.-sym_Symbol:>sym;
 	repeatedInds=Cases[{inds},#|-#]&/@(If[Count[indsUp,#]>1,#,##&[]]&/@DeleteDuplicates[indsUp]);
 
 	If[Complement[indsUp,posInds]=!={},
@@ -702,7 +704,7 @@ Module[{posInds,indsUp,repeatedInds},
 	];
 
 	If[If[#[[1]]=!=-#[[2]],#,##&[]]&/@repeatedInds=!={},
-		Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],#[[1]]/.-sym_:>sym,##&[]]&/@repeatedInds];
+		Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],#[[1]]/.-sym_Symbol:>sym,##&[]]&/@repeatedInds];
 		Abort[]
 	];
 ]
@@ -776,7 +778,7 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 	
 	indPos=IndexPositions[t];
 	inds=Indices[t];
-	indsUp=inds/.-sym_:>sym;
+	indsUp=inds/.-sym_Symbol:>sym;
 	rptInd=First[If[Count[indsUp,#]===2,#,##&[]]&/@DeleteDuplicates@indsUp];
 	rptIndsPos=Flatten@Position[indsUp,rptInd];
 
@@ -806,9 +808,9 @@ Module[{indsPos,indsAbstr,indsAbstrUp,coordsPos,indsUp},
 		Print["Tensor ", t," expected ",Total@Rank[t]," indices to select a component, but ", Length[inds], If[Length[inds]===1," index was ", " indices were "],"given."];
 		Abort[]
 	];
-	indsUp=inds/.-sym_:>sym;
+	indsUp=inds/.-sym_Symbol:>sym;
 	coordsPos=Flatten[Position[Coordinates[t],#]&/@indsUp];
-	indsAbstrUp=Indices[t]/.-sym_:>sym;
+	indsAbstrUp=Indices[t]/.-sym_Symbol:>sym;
 	indsAbstr=MapThread[If[MatchQ[#1,_Symbol],#2,-#2]&,{inds,indsAbstrUp}];
 	Part[TensorValues[t[Sequence@@indsAbstr]],Sequence@@coordsPos]
 ]
@@ -873,7 +875,7 @@ Clear[validateProductIndices]
 validateProductIndices[inds1_List,inds2_List]:=
 Module[{indsUp,repeatedInds,inds,toCov},
 
-	toCov[expr_]:=expr/.-sym_:>sym;
+	toCov[expr_]:=expr/.-sym_Symbol:>sym;
 	inds=Join[inds1,inds2];
 	indsUp=toCov[inds];
 	repeatedInds=Cases[inds,#|-#]&/@(If[Count[indsUp,#]>1,#,##&[]]&/@DeleteDuplicates[indsUp]);
@@ -1086,8 +1088,8 @@ Module[{posInds},
 chrTerm[t_Tensor,tensorInd_,derivInd_]:=
 Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 	inds=Indices[t];
-	tensorIndUp=tensorInd/.-sym_:>sym;
-	dummy=First[Complement[PossibleIndices[t],Join[{tensorInd,derivInd},inds]/.-sym_:>sym]];
+	tensorIndUp=tensorInd/.-sym_Symbol:>sym;
+	dummy=First[Complement[PossibleIndices[t],Join[{tensorInd,derivInd},inds]/.-sym_Symbol:>sym]];
 	chr=ChristoffelSymbol[Metric[t]];
 	chrDummy=If[MatchQ[tensorInd,-_Symbol],chr[dummy,tensorInd,derivInd],chr[tensorInd,-dummy,derivInd]];
 
