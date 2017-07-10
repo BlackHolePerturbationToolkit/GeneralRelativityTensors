@@ -243,7 +243,7 @@ ToMetric[assoc_Association]:=
 Module[{keys,dims,posInds,inds},
 	
 	keys={"Coordinates","Name","Indices","Values","Abstract","PossibleIndices","DisplayName"};
-
+	
 	If[Sort@Keys[assoc]=!=Sort[keys],
 		Print["The following keys are missing in the metric tensor formation: "<>ToString[Complement[keys,Keys[assoc]]]];
 		Print["The following extra keys were in the metric tensor formation: "<>ToString[Complement[Keys[assoc],keys]]];
@@ -251,6 +251,7 @@ Module[{keys,dims,posInds,inds},
 	];
 	posInds=Complement[If[MemberQ[{"Greek","Latin","CapitalLatin"},assoc["PossibleIndices"]],builtInIndices[assoc["PossibleIndices"]],assoc["PossibleIndices"]],
 						Union[If[assoc["Coordinates"]=!=Undefined,assoc["Coordinates"],##&[]],Cases[assoc["Values"],_Symbol,Infinity]]];
+	If[Length[posInds]<8,Print["At least 8 possible indices needed when defining a non-abstract metric"]];
 	inds=If[assoc["Indices"]===Undefined,-Take[posInds,2],assoc["Indices"]];
 
 	If[Not@MatchQ[inds,{-_Symbol,-_Symbol}]||(inds[[1]]===inds[[2]]),Print["Metric indices must be a pair of distinct covariant symbols"];Abort[]];
