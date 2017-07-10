@@ -688,6 +688,10 @@ Module[{r,a,th,M,val,conj,rules,delta,schw},
 ]
 
 
+(*The commented code is for when we add unique indices with dollar signs*)
+(*Tensor/:UniqueIndices[t_Tensor,n_Integer/;n>=0]:=Unique[PadRight[{},n,PossibleIndices[t]]]*)
+
+
 Clear[ValidateIndices]
 Tensor/:ValidateIndices[t_Tensor,{inds___}]:=
 Module[{posInds,indsUp,repeatedInds},
@@ -700,6 +704,11 @@ Module[{posInds,indsUp,repeatedInds},
 		Print["The following indices are not included in the list of PossibleIndices for tensor ", t, ": ", Complement[indsUp,posInds]];
 		Abort[]
 	];
+	(*The commented code is for when we add unique indices with dollar signs*)
+	(*If[Complement[Symbol[StringTrim[ToString[Unique[#]],"$"~~__]]&/@indsUp,posInds]=!={},
+		Print["The following indices are not included in the list of PossibleIndices for tensor ", t, ": ", Complement[indsUp,posInds]];
+		Abort[]
+	];*)
 	If[Length[indsUp]=!=Total[Rank[t]],
 		Print["The tensor ", t, " expects " ,Total[Rank[t]], " indices, but ", Length[indsUp], If[Length[indsUp]===1," index was ", " indices were "],"given."];
 		Abort[]
