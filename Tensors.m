@@ -32,6 +32,7 @@ ShiftIndices::usage="ShiftIndices[t,inds] raises and/or lowers the indices of Te
 ValidateIndices::usage="ValidateIndices[t,{inds}] checks that the list of indices {inds} is valid for Tensor t. An error is printed an operation is aborted if the list is not valid.";
 TensorValues::usage="TensorValues[n,{inds}] returns the cached values of a Tensor with TensorName n and indices in positions {inds} or Undefined if none have been computed. The List {inds} should contain elements \"Up\" and/or \"Down\".
 TensorValues[t] is equivalent to TensorValues[TensorName[t],IndexPositions[t]].";
+TensorRules::usage="TensorRules[t] returns a List of Rules with possible coordinates of Tensor t as keys and TensorValues as values.";
 RenameTensor::usage="RenameTensor[t,n] returns the Tensor t with its TensorName changed to n.";
 MergeTensors::usage="MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, and SumTensors to merge the tensor expression expr into one Tensor with TensorName n.
 MergeTensors[expr] merges the tensor expression expr and forms a new TensorName and TensorDisplayName from a combination of the tensors making up the expression.";
@@ -813,6 +814,14 @@ Module[{indsPos,indsAbstr,indsAbstrUp,coordsPos,indsUp},
 	indsAbstrUp=Indices[t]/.-sym_Symbol:>sym;
 	indsAbstr=MapThread[If[MatchQ[#1,_Symbol],#2,-#2]&,{inds,indsAbstrUp}];
 	Part[TensorValues[t[Sequence@@indsAbstr]],Sequence@@coordsPos]
+]
+
+
+Tensor/:TensorRules[t_Tensor]:=
+Module[{pmList,lhs},
+	pmList=If[#==="Up",1,-1]&/@IndexPositions[t];
+	lhs=pmList #&/@Tuples[Coordinates[t],Total@Rank[t]];
+	(#->Component[t,#])&/@lhs
 ]
 
 
