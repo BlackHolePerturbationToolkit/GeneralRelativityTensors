@@ -125,12 +125,17 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Print["The following extra keys were in the tensor formation: "<>ToString[Complement[Keys[assoc],keys]]];
 		Abort[]
 	];
-	If[Not@MatchQ[assoc["Indices"]/.-sym_:>sym,{___Symbol}],Print["Indices must be a list of Symbols (and negative Symbols)"];Abort[]];
 	If[Not@MatchQ[assoc["Indices"]/.-sym_Symbol:>sym,{___Symbol}],Print["Indices must be a list of Symbols (and negative Symbols)"];Abort[]];
 	If[Not@MatchQ[assoc["PossibleIndices"],{___Symbol}],Print["PossibleIndices must be a list of Symbols"];Abort[]];
 
-	indexChoices=Union@Join[assoc["PossibleIndices"],assoc["Indices"]/.-sym_:>sym];
+	If[assoc["Indices"]=!={}&&assoc["PossibleIndices"]=!={}&&Intersection[assoc["Indices"]/.(-a_Symbol:>a),assoc["PossibleIndices"]]==={},
+		Print["Given Indices ", assoc["Indices"]/.(-a_Symbol:>a), " are not found in List of with PossibleIndices ", assoc["PossibleIndices"]];
+		Abort[];
+	];
 
+	indexChoices=If[assoc["PossibleIndices"]==={},assoc["Indices"],assoc["PossibleIndices"]];
+(*	indexChoices=Union@Join[assoc["PossibleIndices"],assoc["Indices"]/.-sym_Symbol:>sym];
+*)
 	If[DeleteDuplicates[If[assoc[#]=!=Undefined,Head[assoc[#]],##&[]]&/@listKeys]=!={List},
 		Print["The following Options were not given as lists: "<>ToString[If[assoc[#]=!=Undefined&&Head[assoc[#]]=!=List,#,##&[]]&/@listKeys]];
 		Abort[]
