@@ -29,7 +29,7 @@ WeylTensor::usage="WeylTensor[m] returns the Weyl tensor with indices {\"Down\",
 ContractIndices::usage="ContractIndices[t,n] contracts all repeated indices of Tensor t, returning the resulting lower-rank tensor with name n.
 ContractIndices[t] is equivalent to ContractIndices[t,{TensorName[t],TensorDisplayName[t]}].";
 ShiftIndices::usage="ShiftIndices[t,inds] raises and/or lowers the indices of Tensor t according to the given List inds, adjusting the values using the tensor's associated metric.";
-ValidateIndices::usage="ValidateIndices[t,{inds}] checks that the list of indices {inds} is valid for Tensor t. An error is printed an operation is aborted if the list is not valid.";
+ValidateIndices::usage="ValidateIndices[t,{inds}] checks that the list of indices {inds} is valid for Tensor t. An error is printed and operation is aborted if the list is not valid.";
 TensorValues::usage="TensorValues[n,{inds}] returns the cached values of a Tensor with TensorName n and indices in positions {inds} or Undefined if none have been computed. The List {inds} should contain elements \"Up\" and/or \"Down\".
 TensorValues[t] is equivalent to TensorValues[TensorName[t],IndexPositions[t]].";
 TensorRules::usage="TensorRules[t] returns a List of Rules with possible coordinates of Tensor t as keys and TensorValues as values.";
@@ -134,8 +134,7 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 	];
 
 	indexChoices=If[assoc["PossibleIndices"]==={},assoc["Indices"],assoc["PossibleIndices"]];
-(*	indexChoices=Union@Join[assoc["PossibleIndices"],assoc["Indices"]/.-sym_Symbol:>sym];
-*)
+
 	If[DeleteDuplicates[If[assoc[#]=!=Undefined,Head[assoc[#]],##&[]]&/@listKeys]=!={List},
 		Print["The following Options were not given as lists: "<>ToString[If[assoc[#]=!=Undefined&&Head[assoc[#]]=!=List,#,##&[]]&/@listKeys]];
 		Abort[]
