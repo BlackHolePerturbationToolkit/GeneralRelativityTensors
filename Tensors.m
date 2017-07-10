@@ -15,7 +15,8 @@ ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minko
 ToMetric::usage="ToMetric[n,coords,vals,inds] returns an non-Abtract metric Tensor with TensorName n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
 (where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
 ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\" (or \"Mink\"), \"Schwarzschild\" (or \"Schw\"), \"Kerr\", \"ReissnerNordstrom\" \
-(or \"RN\"), \"TwoSphere\" (or \"S2\"), \"SchwarzschildM2\" (or \"SchwM2\"), or \"ReissnerNordstromM2\" (or \"RNM2\").";
+(or \"RN\"), \"TwoSphere\" (or \"S2\"), \"SchwarzschildM2\" (or \"SchwM2\"), \"SchwarzschildS2\" (or \"SchwS2\"), \"ReissnerNordstromM2\" (or \"RNM2\"), \
+or \"ReissnerNordstromS2\" (or \"RNS2\").";
 Coordinates::usage="Coordinates[t] returns a List of symbols used for the coordinates of the Tensor t, or Undefined if coordinates were not set.";
 Metric::usage="Metric[t] returns the metric tensor associated with the Tensor t, or Undefined if no metric was set. Note that t will return itself if it is a metric.";
 InverseMetric::usage="InverseMetric[t] returns the inverse metric tensor associated with the Tensor t, or Undefined if no metric was set.";
@@ -347,6 +348,14 @@ Module[{t,r,M,a,b},
 ToMetric["SchwM2"]:=ToMetric["SchwarzschildM2"];
 
 
+ToMetric["SchwarzschildS2"]:=
+Module[{th,ph,r},
+	{th,ph,r}=Symbol/@{"\[Theta]","\[Phi]","r"};
+	ToMetric[{"SchwarzschildS2Metric","g"},{th,ph},r^2 TensorValues[ToMetric["TwoSphere"]],"CapitalLatin"]
+];
+ToMetric["SchwS2"]:=ToMetric["SchwarzschildS2"];
+
+
 ToMetric["Kerr"]:=
 Module[{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta]},	
 
@@ -403,6 +412,10 @@ Module[{t,r,M,Q,a,b},
 				"Values"->{{-1+(2 M)/r-Q^2/r^2,0},{0,1/(1-(2 M)/r+Q^2/r^2)}}]]
 ];
 ToMetric["RNM2"]:=ToMetric["ReissnerNordstromM2"]
+
+
+ToMetric["ReissnerNordstromS2"]:=SetTensorName[ToMetric["SchwarzschildS2"],{"ReissnerNordstromS2Metric","g"}];
+ToMetric["RNS2"]:=ToMetric["ReissnerNordstromS2"];
 
 
 Clear[LeviCivitaSymbol]
