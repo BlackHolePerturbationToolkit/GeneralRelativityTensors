@@ -65,6 +65,7 @@ KinnersleyDerivative::usage="KinnersleyDerivative[m,s] returns the projected der
 KinnersleyDerivative[builtIn,s] is equivalent to KinnersleyDerivative[ToMetric[builtIn],s], where builtIn can be \"Schwarzschild\" or \"Kerr\"."
 SpinCoefficient::usage="SpinCoefficient[s] returns the Newman-Penrose spin coefficient corresponding to the string s, where possible values of s are \
 \"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\"mu\",\"nu\",\"pi\",\"rho\",\"sigma\", and \"tau\".";
+$CacheTensorValues::usage="$CacheTensorValues is a global boolean specifying whether to cache tensor values in the symbol TensorValues."
 CovariantD;
 FourVelocityVector;
 LeviCivitaSymbol;
@@ -75,6 +76,9 @@ SetTensorValues;
 
 
 Begin["`Private`"];
+
+
+$CacheTensorValues=True;
 
 
 Tensor/:Format[t_Tensor]:=formatTensor[TensorDisplayName@t,Indices@t]
@@ -177,7 +181,7 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Abort[]
 	];
 
-	If[#=!=Undefined&&Not[AutoNameQ[assoc["Name"]]],TensorValues[assoc["Name"],If[MatchQ[#,_Symbol],"Up","Down"]&/@assoc["Indices"]]=#]&[assoc["Values"]];
+	If[#=!=Undefined&&Not[AutoNameQ[assoc["Name"]]]&&$CacheTensorValues,TensorValues[assoc["Name"],If[MatchQ[#,_Symbol],"Up","Down"]&/@assoc["Indices"]]=#]&[assoc["Values"]];
 	Tensor@@(Normal@assoc/.("PossibleIndices"->_):>("PossibleIndices"->indexChoices))
 ]
 
