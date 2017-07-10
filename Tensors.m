@@ -6,12 +6,6 @@ BeginPackage["Tensors`"];
 Tensor::usage="Tensor is a Head created with the command ToTensor.";
 ToTensor::usage="ToTensor[n,{inds}] returns a tensor with TensorName n and indices {inds}.
 ToTensor[n,m,vals] returns a contravariant tensor with TensorName n. The (non-Abstract) metric m and values vals (given as a consistently sized List) are assigned.";
-(*ToMetric::usage="ToMetric[n,coords,inds] returns an Abstract metric Tensor with TensorName n, Coordinates coords and Indices inds.
-ToMetric[n,coords] is equivalent to ToMetric[n,coords,\"Greek\"].
-ToMetric[n,coords,vals,inds] returns an non-Abstract metric Tensor with TensorName n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
-(where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
-ToMetric[n,coords,vals] is equivalent to ToMetric[n,coords,vals \"Greek\"].
-ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\", \"Schwarzschild\", or \"Kerr\".";*)
 ToMetric::usage="ToMetric[n,coords,vals,inds] returns an non-Abstract metric Tensor with TensorName n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
 (where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
 ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\" (or \"Mink\"), \"Schwarzschild\" (or \"Schw\"), \"Kerr\", \"ReissnerNordstrom\" \
