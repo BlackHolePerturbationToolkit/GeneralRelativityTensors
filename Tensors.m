@@ -6,13 +6,13 @@ BeginPackage["Tensors`"];
 Tensor::usage="Tensor is a Head created with the command ToTensor.";
 ToTensor::usage="ToTensor[n,{inds}] returns a tensor with TensorName n and indices {inds}.
 ToTensor[n,m,vals] returns a contravariant tensor with TensorName n. The (non-Abstract) metric m and values vals (given as a consistently sized List) are assigned.";
-(*ToMetric::usage="ToMetric[n,coords,inds] returns an Abtract metric Tensor with TensorName n, Coordinates coords and Indices inds.
+(*ToMetric::usage="ToMetric[n,coords,inds] returns an Abstract metric Tensor with TensorName n, Coordinates coords and Indices inds.
 ToMetric[n,coords] is equivalent to ToMetric[n,coords,\"Greek\"].
-ToMetric[n,coords,vals,inds] returns an non-Abtract metric Tensor with TensorName n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
+ToMetric[n,coords,vals,inds] returns an non-Abstract metric Tensor with TensorName n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
 (where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
 ToMetric[n,coords,vals] is equivalent to ToMetric[n,coords,vals \"Greek\"].
 ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\", \"Schwarzschild\", or \"Kerr\".";*)
-ToMetric::usage="ToMetric[n,coords,vals,inds] returns an non-Abtract metric Tensor with TensorName n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
+ToMetric::usage="ToMetric[n,coords,vals,inds] returns an non-Abstract metric Tensor with TensorName n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
 (where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
 ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\" (or \"Mink\"), \"Schwarzschild\" (or \"Schw\"), \"Kerr\", \"ReissnerNordstrom\" \
 (or \"RN\"), \"TwoSphere\" (or \"S2\"), \"SchwarzschildM2\" (or \"SchwM2\"), \"SchwarzschildS2\" (or \"SchwS2\"), \"ReissnerNordstromM2\" (or \"RNM2\"), \
@@ -73,7 +73,7 @@ LeviCivitaSymbol;
 TensorHarmonic;
 M2Amplitude;
 ActOnTensorValues;
-SetTensorValues;
+(*SetTensorValues;*)
 
 
 Begin["`Private`"];
@@ -261,18 +261,6 @@ Module[{keys,dims,posInds,inds},
 	dims=If[assoc["Coordinates"]=!=Undefined,Length@assoc["Coordinates"],assoc["Coordinates"]];
 	ToTensor[Join[KeyDrop[assoc,{"PossibleIndices","Indices"}],Association["Metric"->"Self","IsMetric"->True,"Dimensions"->dims,"PossibleIndices"->posInds,"Indices"->inds]]]
 ]
-
-
-(*ToMetric[{name_String,dispName_String},coords_,posIndsParam_:"Greek"]:=
-Module[{inds,posInds},
-	posInds=Complement[
-					If[MemberQ[{"Greek","Latin","CapitalLatin"},posIndsParam],builtInIndices[posIndsParam],posIndsParam],
-					If[coords=!=Undefined,coords,{}]
-			];
-	inds=-Take[posInds,2];
-	ToMetric[Association["Coordinates"->coords,"Name"->name,"DisplayName"->dispName,"Indices"->inds,"PossibleIndices"->posInds,"Abstract"->True,"Values"->Undefined]]
-]
-ToMetric[name_String]:=ToMetric[{name,name}]*)
 
 
 ToMetric[{name_String,dispName_String},coords_List,vals_List,posIndsParam_]:=
