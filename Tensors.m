@@ -3,65 +3,83 @@
 BeginPackage["Tensors`"];
 
 
+Tensors`Private`str[a_String]:=ToString[Style[a,Italic],TraditionalForm]
+Tensors`Private`str[args___]:=StringRiffle[Tensors`Private`str/@{args},","]
+
+
 Tensor::usage="Tensor is a Head created with the command ToTensor.";
-ToTensor::usage="ToTensor[n,{inds}] returns a tensor with TensorName n and indices {inds}.
-ToTensor[n,m,vals] returns a contravariant tensor with TensorName n. The (non-Abstract) metric m and values vals (given as a consistently sized List) are assigned.";
-ToMetric::usage="ToMetric[n,coords,vals,inds] returns an non-Abstract metric Tensor with TensorName n, Coordinates coords, TensorValues vals, and PossibleIndices inds \
-(where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a list of Symbols).
-ToMetric[builtIn] returns a built-in metric Tensor, where builtIn can be \"Minkowski\" (or \"Mink\"), \"Schwarzschild\" (or \"Schw\"), \"Kerr\", \"ReissnerNordstrom\" \
+ToTensor::usage="ToTensor["<>Tensors`Private`str["n","{inds}"]<>"] returns a Tensor with TensorName "<>Tensors`Private`str["n"]<>" \
+and indices "<>Tensors`Private`str["{inds}"]<>".
+ToTensor["<>Tensors`Private`str["n","m","vals"]<>"] returns a contravariant Tensor with TensorName "<>Tensors`Private`str["n"]<>". \
+The (non-abstract) metric "<>Tensors`Private`str["m"]<>" and values "<>Tensors`Private`str["vals"]<>" (given as a consistently sized List) are assigned.
+ToTensor["<>Tensors`Private`str["n","m","vals","{inds}"]<>"] returns a Tensor with indices "<>Tensors`Private`str["inds"]<>" and TensorName \
+"<>Tensors`Private`str["n"]<>". The (non-abstract) metric "<>Tensors`Private`str["m"]<>" and values "<>Tensors`Private`str["vals"]<>" \
+(given as a consistently sized List) are assigned.";
+ToMetric::usage="ToMetric["<>Tensors`Private`str["n","coords","vals","inds"]<>"] returns an non-abstract metric Tensor with TensorName \
+"<>Tensors`Private`str["n"]<>", Coordinates "<>Tensors`Private`str["coords"]<>", TensorValues \
+"<>Tensors`Private`str["vals"]<>", and PossibleIndices "<>Tensors`Private`str["inds"]<>" \
+(where inds can be \"Greek\",\"Latin\",\"CaptialLatin\" or a List of Symbols).
+ToMetric["<>Tensors`Private`str["builtIn"]<>"] returns a built-in metric Tensor, where "<>Tensors`Private`str["builtIn"]<>" \
+can be \"Minkowski\" (or \"Mink\"), \"Schwarzschild\" (or \"Schw\"), \"Kerr\", \"ReissnerNordstrom\" \
 (or \"RN\"), \"TwoSphere\" (or \"S2\"), \"SchwarzschildM2\" (or \"SchwM2\"), \"SchwarzschildS2\" (or \"SchwS2\"), \"ReissnerNordstromM2\" (or \"RNM2\"), \
 or \"ReissnerNordstromS2\" (or \"RNS2\").";
-Coordinates::usage="Coordinates[t] returns a List of symbols used for the coordinates of the Tensor t, or Undefined if coordinates were not set.";
-Metric::usage="Metric[t] returns the metric tensor associated with the Tensor t, or Undefined if no metric was set. Note that t will return itself if it is a metric.";
-InverseMetric::usage="InverseMetric[t] returns the inverse metric tensor associated with the Tensor t, or Undefined if no metric was set.";
-Rank::usage="Rank[t] returns the tensor rank of the Tensor t as a List {p,q}, where p is the number of contravariant indices and q the number of covariant indices.";
-Indices::usage="Indices[t] returns a List of Symbols representing the indices of the Tensor t. Positive Symbols are contravariant and negative Symbols are covariant.";
-PossibleIndices::usage="PossibleIndices[t] returns a List of all possible Symbols that can represent the indices of the Tensor t.";
-TensorName::usage="TensorName[t] returns the name of Tensor t which is used for storing cached values in the Symbol TensorValues.";
-TensorDisplayName::usage="TensorDisplayName[t] returns the name of Tensor t that is used for formatted output.";
-IndexPositions::usage="IndexPositions[t] returns a List of elements \"Up\" and \"Down\" which represent (respectively) the contravariant and covariant positions of the indices of Tensor t.";
-ChristoffelSymbol::usage="ChristoffelSymbol[m] returns the Christoffel symbol computed from the metric tensor m.";
-RiemannTensor::usage="RiemannTensor[m] returns the Riemann tensor with indices {\"Up\",\"Down\",\"Down\",\"Down\"} computed from the metric tensor m.";
-RicciTensor::usage="RicciTensor[m] returns the Ricci tensor with indices {\"Down\",\"Down\"} computed from the metric tensor m.";
-RicciScalar::usage="RicciScalar[m] returns the Ricci scalar computed from the metric tensor m.";
-EinsteinTensor::usage="EinsteinTensor[m] returns the Einstein tensor with indices {\"Down\",\"Down\"} computed from the metric tensor m.";
-WeylTensor::usage="WeylTensor[m] returns the Weyl tensor with indices {\"Down\",\"Down\",\"Down\",\"Down\"} computed from the metric tensor m.";
-ContractIndices::usage="ContractIndices[t,n] contracts all repeated indices of Tensor t, returning the resulting lower-rank tensor with name n.
-ContractIndices[t] is equivalent to ContractIndices[t,{TensorName[t],TensorDisplayName[t]}].";
-ShiftIndices::usage="ShiftIndices[t,inds] raises and/or lowers the indices of Tensor t according to the given List inds, adjusting the values using the tensor's associated metric.";
-ValidateIndices::usage="ValidateIndices[t,{inds}] checks that the list of indices {inds} is valid for Tensor t. An error is printed and operation is aborted if the list is not valid.";
-TensorValues::usage="TensorValues[n,{inds}] returns the cached values of a Tensor with TensorName n and indices in positions {inds} or Undefined if none have been computed. The List {inds} should contain elements \"Up\" and/or \"Down\".
-TensorValues[t] is equivalent to TensorValues[TensorName[t],IndexPositions[t]].";
-TensorRules::usage="TensorRules[t] returns a List of Rules with possible coordinates of Tensor t as keys and TensorValues as values.";
-RenameTensor::usage="RenameTensor[t,n] returns the Tensor t with its TensorName changed to n.";
-MergeTensors::usage="MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, and SumTensors to merge the tensor expression expr into one Tensor with TensorName n.
-MergeTensors[expr] merges the tensor expression expr and forms a new TensorName and TensorDisplayName from a combination of the tensors making up the expression.";
-SumTensors::usage="SumTensors[t1,t2,..,n] sums the Tensors t1, t2, etc., forming a new Tensor with TensorName n.
+Coordinates::usage="Coordinates["<>Tensors`Private`str["t"]<>"] returns a List of symbols used for the coordinates of the Tensor \
+"<>Tensors`Private`str["t"]<>", or Undefined if coordinates were not set.";
+Metric::usage="Metric["<>Tensors`Private`str["t"]<>"] returns the metric Tensor associated with the Tensor "<>Tensors`Private`str["t"]<>", or Undefined \
+if no metric was set. Note that t will return itself if it is a metric.";
+InverseMetric::usage="InverseMetric["<>Tensors`Private`str["t"]<>"] returns the inverse metric Tensor associated with the Tensor \
+"<>Tensors`Private`str["t"]<>", or Undefined if no metric was set.";
+Rank::usage="Rank["<>Tensors`Private`str["t"]<>"] returns the Tensor rank of the Tensor "<>Tensors`Private`str["t"]<>" as a List {p,q}, \
+where p is the number of contravariant indices and q the number of covariant indices.";
+Indices::usage="Indices["<>Tensors`Private`str["t"]<>"] returns a List of Symbols representing the indices of the Tensor "<>Tensors`Private`str["t"]<>". \
+Positive Symbols are contravariant and negative Symbols are covariant.";
+PossibleIndices::usage="PossibleIndices["<>Tensors`Private`str["t"]<>"] returns a List of all possible Symbols that can represent the indices of the \
+Tensor "<>Tensors`Private`str["t"]<>".";
+TensorName::usage="TensorName["<>Tensors`Private`str["t"]<>"] returns the name of Tensor "<>Tensors`Private`str["t"]<>" which is used for storing cached values in the Symbol TensorValues.";
+TensorDisplayName::usage="TensorDisplayName["<>Tensors`Private`str["t"]<>"] returns the name of Tensor "<>Tensors`Private`str["t"]<>" that is used for formatted output.";
+IndexPositions::usage="IndexPositions["<>Tensors`Private`str["t"]<>"] returns a List of elements \"Up\" and \"Down\" which represent (respectively) the contravariant and covariant positions of the indices of Tensor "<>Tensors`Private`str["t"]<>".";
+ChristoffelSymbol::usage="ChristoffelSymbol["<>Tensors`Private`str["m"]<>"] returns the Christoffel symbol computed from the metric Tensor "<>Tensors`Private`str["m"]<>".";
+RiemannTensor::usage="RiemannTensor["<>Tensors`Private`str["m"]<>"] returns the Riemann Tensor with index positions {\"Up\",\"Down\",\"Down\",\"Down\"} computed from the metric Tensor "<>Tensors`Private`str["m"]<>".";
+RicciTensor::usage="RicciTensor["<>Tensors`Private`str["m"]<>"] returns the Ricci Tensor with index positions {\"Down\",\"Down\"} computed from the metric Tensor "<>Tensors`Private`str["m"]<>".";
+RicciScalar::usage="RicciScalar["<>Tensors`Private`str["m"]<>"] returns the Ricci scalar computed from the metric Tensor "<>Tensors`Private`str["m"]<>".";
+EinsteinTensor::usage="EinsteinTensor["<>Tensors`Private`str["m"]<>"] returns the Einstein Tensor with index positions {\"Down\",\"Down\"} computed from the metric Tensor "<>Tensors`Private`str["m"]<>".";
+WeylTensor::usage="WeylTensor["<>Tensors`Private`str["m"]<>"] returns the Weyl Tensor with index positions {\"Down\",\"Down\",\"Down\",\"Down\"} computed from the metric Tensor "<>Tensors`Private`str["m"]<>".";
+ContractIndices::usage="ContractIndices[t,n] contracts all repeated indices of Tensor "<>Tensors`Private`str["t"]<>", returning the resulting lower-rank Tensor with name n.
+ContractIndices["<>Tensors`Private`str["t"]<>"] is equivalent to ContractIndices[t,{TensorName["<>Tensors`Private`str["t"]<>"],TensorDisplayName["<>Tensors`Private`str["t"]<>"]}].";
+ShiftIndices::usage="ShiftIndices[t,inds] raises and/or lowers the indices of Tensor "<>Tensors`Private`str["t"]<>" according to the given List inds, adjusting the values using the Tensor's associated metric.";
+ValidateIndices::usage="ValidateIndices[t,{inds}] checks that the list of indices {inds} is valid for Tensor "<>Tensors`Private`str["t"]<>". An error is printed and operation is aborted if the list is not valid.";
+TensorValues::usage="TensorValues[n,{inds}] returns the cached values of a Tensor with TensorName "<>Tensors`Private`str["n"]<>" and indices in positions {inds} or Undefined if none have been computed. The List {inds} should contain elements \"Up\" and/or \"Down\".
+TensorValues["<>Tensors`Private`str["t"]<>"] is equivalent to TensorValues[TensorName["<>Tensors`Private`str["t"]<>"],IndexPositions["<>Tensors`Private`str["t"]<>"]].";
+TensorRules::usage="TensorRules["<>Tensors`Private`str["t"]<>"] returns a List of Rules with possible coordinates of Tensor "<>Tensors`Private`str["t"]<>" as keys and TensorValues as values.";
+RenameTensor::usage="RenameTensor[t,n] returns the Tensor "<>Tensors`Private`str["t"]<>" with its TensorName changed to n.";
+MergeTensors::usage="MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, and SumTensors to merge the Tensor expression expr into one Tensor with TensorName "<>Tensors`Private`str["n"]<>".
+MergeTensors[expr] merges the Tensor expression expr and forms a new TensorName and TensorDisplayName from a combination of the Tensors making up the expression.";
+SumTensors::usage="SumTensors[t1,t2,..,n] sums the Tensors t1, t2, etc., forming a new Tensor with TensorName "<>Tensors`Private`str["n"]<>".
 SumTensors[t1,t2,..] sums the Tensors t1, t2, etc., and forms a new TensorName and TensorDisplayName from a combination of the Tensors making up the expression.";
-MultiplyTensors::usage="MultiplyTensors[t1,t2,..,n] forms the outer product of the Tensors t1, t2, etc., creating a new Tensor with TensorName n.
+MultiplyTensors::usage="MultiplyTensors[t1,t2,..,n] forms the outer product of the Tensors t1, t2, etc., creating a new Tensor with TensorName "<>Tensors`Private`str["n"]<>".
 MultiplyTensors[t1,t2,..] forms the outer product of the Tensors t1, t2, etc., and forms a new TensorName and TensorDisplayName from a combination of the Tensors making up the expression.";
-MultiplyTensorScalar::usage="MultiplyTensorScalar[a, t, n] or MultiplyTensorScalar[t, a, n] forms the product of the scalar a with the Tensor t, creating a new Tensor with TensorName n.
+MultiplyTensorScalar::usage="MultiplyTensorScalar[a, t, n] or MultiplyTensorScalar[t, a, n] forms the product of the scalar a with the Tensor "<>Tensors`Private`str["t"]<>", creating a new Tensor with TensorName "<>Tensors`Private`str["n"]<>".
 MultiplyTensorScalar[a, t] forms the product of the a and t, and forms a new TensorName and TensorDisplayName from a combination of the scalar and Tensor making up the expression.";
-RepeatedIndexQ::usage="RepeatedIndexQ[t] returns True if the Tensor t has repeated indices which can be traced.";
-MetricQ::usage="MetricQ[t] returns True if the Tensor t is a metric.";
-AbstractQ::usage="AbstractQ[t] returns True if the Tensor t is treated as Abstract.";
-ClearCachedTensorValues::usage="ClearCachedTensorValues[n,inds] removes cached expressions stored with the Symbol TensorValues using the TensorName n and IndexPositions inds. Here inds is a List of \"Up\" and \"Down\".
+RepeatedIndexQ::usage="RepeatedIndexQ["<>Tensors`Private`str["t"]<>"] returns True if the Tensor "<>Tensors`Private`str["t"]<>" has repeated indices which can be traced.";
+MetricQ::usage="MetricQ["<>Tensors`Private`str["t"]<>"] returns True if the Tensor "<>Tensors`Private`str["t"]<>" is a metric.";
+AbstractQ::usage="AbstractQ["<>Tensors`Private`str["t"]<>"] returns True if the Tensor "<>Tensors`Private`str["t"]<>" is treated as Abstract.";
+ClearCachedTensorValues::usage="ClearCachedTensorValues[n,inds] removes cached expressions stored with the Symbol TensorValues using the TensorName "<>Tensors`Private`str["n"]<>" and IndexPositions inds. Here inds is a List of \"Up\" and \"Down\".
 ClearCachedTensorValues[n] removes all cached expressions stored with the Symbol TensorValues for any Tensor with name n.
-ClearCachedTensorValues[t] removes all cached expressions stored with the Symbol TensorValues for the Tensor t.
+ClearCachedTensorValues["<>Tensors`Private`str["t"]<>"] removes all cached expressions stored with the Symbol TensorValues for the Tensor "<>Tensors`Private`str["t"]<>".
 ClearCachedTensorValues[All] removes all cached expressions associated with the Symbol TensorValues.";
-CachedTensorValues::usage="CachedTensorValues[n] returns a List of Rules showing all cached expressions for the TensorName n (stored in the Symbol TensorValues).
-CachedTensorValues[t] returns a List of Rules showing all cached expressions for the Tensor t (stored in the Symbol TensorValues).
+CachedTensorValues::usage="CachedTensorValues[n] returns a List of Rules showing all cached expressions for the TensorName "<>Tensors`Private`str["n"]<>" (stored in the Symbol TensorValues).
+CachedTensorValues["<>Tensors`Private`str["t"]<>"] returns a List of Rules showing all cached expressions for the Tensor "<>Tensors`Private`str["t"]<>" (stored in the Symbol TensorValues).
 CachedTensorValues[All] returns a List of Rules showing all cached expressions (stored in the Symbol TensorValues)."
-Component::usage="Component[t,inds] returns the component of Tensor t with (appropriately covariant and contravariant) indices inds. All elements of inds must be Coordinates of t.";
-KinnersleyNullVector::usage="KinnersleyNullVector[m,v] returns the contravariant Kinnersley null vector associated with metric tensor m and string v, where v can be \"l\", \"n\", \"m\", or \"mStar\".
+Component::usage="Component[t,inds] returns the component of Tensor "<>Tensors`Private`str["t"]<>" with (appropriately covariant and contravariant) indices inds. All elements of inds must be Coordinates of t.";
+KinnersleyNullVector::usage="KinnersleyNullVector[m,v] returns the contravariant Kinnersley null vector associated with metric Tensor "<>Tensors`Private`str["m"]<>" and string v, where v can be \"l\", \"n\", \"m\", or \"mStar\".
 KinnersleyNullVector[builtIn,v] is equivalent to KinnersleyNullVector[ToMetric[builtIn],v], where builtIn can be \"Schwarzschild\" or \"Kerr\"."
-KinnersleyNullTetrad::uusage="KinnersleyNullTetrad[m] returns a list of the four KinnersleyNullVector in order {\"l\", \"n\", \"m\", \"mStar\"} for the metric m.
+KinnersleyNullTetrad::uusage="KinnersleyNullTetrad["<>Tensors`Private`str["m"]<>"] returns a list of the four KinnersleyNullVector in order {\"l\", \"n\", \"m\", \"mStar\"} for the metric m.
 KinnersleyNullTetrad[builtIn] is equivalent to KinnersleyNullTetrad[ToMetric[builtIn]], where builtIn can be \"Schwarzschild\" or \"Kerr\"."
 KinnersleyDerivative::usage="KinnersleyDerivative[m,s] returns the projected derivative s being the appropriate Kinnersley null vector contracted with a partial derivative. Values for s are \"D\", \"Delta\", \"delta\", or \"deltaStar\".
 KinnersleyDerivative[builtIn,s] is equivalent to KinnersleyDerivative[ToMetric[builtIn],s], where builtIn can be \"Schwarzschild\" or \"Kerr\"."
 SpinCoefficient::usage="SpinCoefficient[s] returns the Newman-Penrose spin coefficient corresponding to the string s, where possible values of s are \
 \"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\"mu\",\"nu\",\"pi\",\"rho\",\"sigma\", and \"tau\".";
-$CacheTensorValues::usage="$CacheTensorValues is a global boolean specifying whether to cache tensor values in the symbol TensorValues."
+$CacheTensorValues::usage="$CacheTensorValues is a global boolean specifying whether to cache Tensor values in the symbol TensorValues."
 CovariantD;
 FourVelocityVector;
 LeviCivitaSymbol;
