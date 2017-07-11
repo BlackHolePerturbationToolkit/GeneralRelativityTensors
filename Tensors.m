@@ -80,6 +80,9 @@ KinnersleyDerivative[builtIn,s] is equivalent to KinnersleyDerivative[ToMetric[b
 SpinCoefficient::usage="SpinCoefficient[s] returns the Newman-Penrose spin coefficient corresponding to the string s, where possible values of s are \
 \"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\"mu\",\"nu\",\"pi\",\"rho\",\"sigma\", and \"tau\".";
 $CacheTensorValues::usage="$CacheTensorValues is a global boolean specifying whether to cache Tensor values in the symbol TensorValues."
+MaxwellPotential;
+FieldStrengthTensor;
+MaxwellStressEnergyTensor;
 CovariantD;
 FourVelocityVector;
 LeviCivitaSymbol;
@@ -578,6 +581,45 @@ Module[{rie,ricT,ricS,simpFn,dim,i,k,l,m,name},
 			Association["Metric"->g,"IsMetric"->False,"Values"->TensorValues[name,{"Down","Down","Down","Down"}],"DisplayName"->"C","Name"->name,"Indices"->{-i,-k,-l,-m}]]]
 	]
 ]
+
+
+Clear[MaxwellPotential]
+MaxwellPotential["ReissnerNordstrom"]:=
+Module[{QQ,r,ind,met},
+	met=ToMetric["ReissnerNordstrom"];
+	ind=PossibleIndices[met][[1]];
+	{QQ,r}=Symbol/@{"Q","r"};
+	ToTensor[{"MaxwellPotential"<>TensorName[met],"A"},met,{QQ/r,0,0,0},{-ind}]
+];
+MaxwellPotential["RN"]:=MaxwellPotential["ReissnerNordstrom"];
+
+
+Options[FieldStrengthTensor]=Options[ChristoffelSymbol];
+FieldStrengthTensor[AA_Tensor,opts:OptionsPattern[]]:=
+Module[{g,simpFn,name,posInds},
+	If[Total@Rank[AA]=!=1,Print["Field strength tensor must be derived from a Rank 1 tensor"];Abort[]];
+	If[AbstractQ[AA],Print["Field strength tensor requires a non-abstract potential"];Abort[]];
+	simpFn=OptionValue["SimplifyFunction"];
+	g=Metric[AA];	
+	posInds=PossibleIndices[g];
+	name="FieldStrengthTensor"<>TensorName[g];
+	MergeTensors[CovariantD[AA[-posInds[[1]]],-posInds[[2]]]-CovariantD[AA[-posInds[[2]]],-posInds[[1]]],{name,"F"},SimplifyFunction->simpFn]
+];
+FieldStrengthTensor[str_String,opts:OptionsPattern[]]:=FieldStrengthTensor[MaxwellPotential[str],opts];
+
+
+Options[MaxwellStressEnergyTensor]=Options[ChristoffelSymbol];
+MaxwellStressEnergyTensor[FF_Tensor,opts:OptionsPattern[]]:=
+Module[{g,simpFn,name,posInds},
+	If[Total@Rank[FF]=!=2,Print["Maxwell stress energy tensor must be derived from a Rank 2 tensor"];Abort[]];
+	If[AbstractQ[FF],Print["Maxwell stress energy requires a non-abstract field strength tensor"];Abort[]];
+	simpFn=OptionValue["SimplifyFunction"];
+	g=Metric[FF];	
+	posInds=PossibleIndices[g];
+	name="MaxwellStressEnergyTensor"<>TensorName[g];
+	MergeTensors[1/(4\[Pi]) (FF[posInds[[1]],-posInds[[3]]]FF[posInds[[2]],posInds[[3]]]-1/4 g[posInds[[1]],posInds[[2]]]FF[-posInds[[3]],-posInds[[4]]]FF[posInds[[3]],posInds[[4]]]),{name,"T"},SimplifyFunction->simpFn]
+];
+MaxwellStressEnergyTensor[str_String,opts:OptionsPattern[]]:=MaxwellStressEnergyTensor[FieldStrengthTensor[MaxwellPotential[str],opts],opts];
 
 
 Clear[KinnersleyNullVector]
