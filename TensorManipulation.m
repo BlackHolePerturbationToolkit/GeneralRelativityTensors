@@ -17,7 +17,7 @@ TensorRules::usage="TensorRules[t] returns a List of Rules with possible \
 coordinates of Tensor t as keys and TensorValues as values.";
 
 MergeTensors::usage="MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, \
-and SumTensors to merge the Tensor expression expr into one Tensor with TensorName n.
+SumTensors, and ContractIndices to merge the Tensor expression expr into one Tensor with TensorName n.
 MergeTensors[expr] merges the Tensor expression expr and \
 forms a new TensorName and TensorDisplayName from a combination of the Tensors making up the expression.";
 SumTensors::usage="SumTensors[t1,t2,...,n] sums the Tensors t1, t2, \
@@ -47,8 +47,15 @@ Component::usage="Component[t,inds] returns the component of Tensor t \
 with (appropriately covariant and contravariant) List of indices inds. \
 All elements of inds must be Coordinates of t.";
 
-ReorderTensorIndices::usage="ReorderTensorIndices[t,order,n] returns the Tensor t with its indices reordered as given by order, \
-which is a List including all integers from 1 to the rank of the Tensor."
+ReorderTensorIndices::usage="ReorderTensorIndices[t,order,n] returns the Tensor t renamed n with its indices \
+reordered as given by order, which is a List including all integers from 1 to the rank of the Tensor.
+ReorderTensorIndices[t,order] is equivalent, but with an automatically generated name for the new Tensor.";
+AntisymmetrizeTensor::usage="AntisymmetrizeTensor[t,{pos1,pos2},n] returns the Tensor t, antisymmetrized on its indices in \
+positions pos1,pos2.
+AntisymmetrizeTensor[t,{pos1,pos2}] is equivalent, but with an automatically generated name for the new Tensor.";
+SymmetrizeTensor::usage="SymmetrizeTensor[t,{pos1,pos2},n] returns the Tensor t, symmetrized on its indices in \
+positions pos1,pos2.
+SymmetrizeTensor[t,{pos1,pos2}] is equivalent, but with an automatically generated name for the new Tensor.";
 
 
 Begin["`Private`"];
@@ -57,9 +64,13 @@ Begin["`Private`"];
 Options[ShiftIndices]={"SimplifyFunction"->Identity};
 Options[MergeTensors]=Options[ShiftIndices];
 Options[TraceReverse]=Options[ShiftIndices];
+Options[SymmetrizeTensor]=Options[ShiftIndices];
+Options[AntisymmetrizeTensor]=Options[ShiftIndices];
 DocumentationBuilder`OptionDescriptions["ShiftIndices"] = {"SimplifyFunction"->"Function which is applied to the elements of the tensor as they are calculated."};
 DocumentationBuilder`OptionDescriptions["MergeTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["TraceReverse"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
+DocumentationBuilder`OptionDescriptions["SymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
+DocumentationBuilder`OptionDescriptions["AntisymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 
 
 Tensor/:RepeatedIndexQ[t_Tensor]:=Length[DeleteDuplicates@(Indices[t]/.-sym_Symbol:>sym)]<Length[Indices[t]];
@@ -439,6 +450,78 @@ Module[{is,pis},
 ]
 Tensor/:ReorderTensorIndices[t_Tensor,inds_List,name_String]:=ReorderTensorIndices[t,inds,{name,name}]
 Tensor/:ReorderTensorIndices[t_Tensor,inds_List]:=ReorderTensorIndices[t,inds,{TensorName[t]<>"Reorder"<>ToString[inds],TensorDisplayName[t]}]
+
+
+Clear[SymmetrizeTensor]
+Tensor/:SymmetrizeTensor[t_Tensor,{pos1_Integer,pos2_Integer},{name_String,displayName_String},opts:OptionsPattern[]]:=
+Module[{ips,inds,inds2,indsBefore,indsBetween,indsAfter,indsA,indsB},
+	
+	If[pos1>pos2,
+	Print["Indices must be given to SymmetrizeTensor in ascending order. Given as ",{pos1, pos2} ];
+		Abort[]
+	];
+	If[pos1>Total@Rank@t||pos2>Total@Rank@t,
+	Print["Tensor ", t, " is of rank ", Total@Rank@t  ". Cannot symmetrize on indices of positions ",{pos1, pos2} ];
+		Abort[]
+	];
+	If[pos1==pos2,
+	Print["Cannot symmetrize on indices of the same position: ",pos1 ];
+		Abort[]
+	];
+	ips=IndexPositions[t];
+	If[ips[[pos1]]=!=ips[[pos2]],
+		Print["Symmetrize indices must be both contravariant or covariant"];
+		Abort[]
+	];
+
+	indsBefore=Range[1,pos1-1];
+	indsBetween=Range[pos1+1,pos2-1];
+	indsAfter=Range[pos2+1,Total@Rank@t];
+	
+	inds =Indices[t];
+	indsA=Part[inds,#]&/@Flatten[{indsBefore,pos1,indsBetween,pos2,indsAfter }];
+	indsB=Part[inds,#]&/@Flatten[{indsBefore,pos2,indsBetween,pos1,indsAfter }];
+	
+	MergeTensors[1/2 (t@@indsA+t@@indsB),{name,displayName},SimplifyFunction->OptionValue["SimplifyFunction"]]
+]
+Tensor/:SymmetrizeTensor[t_Tensor,{pos1_Integer,pos2_Integer},name_String,opts:OptionsPattern[]]:=SymmetrizeTensor[t,{pos1,pos2},{name,name},opts]
+Tensor/:SymmetrizeTensor[t_Tensor,{pos1_Integer,pos2_Integer},opts:OptionsPattern[]]:=SymmetrizeTensor[t,{pos1,pos2},{TensorName[t]<>"Symmetric"<>ToString[{pos1,pos2}],TensorDisplayName[t]<>"("<>ToString[pos1]<>","<>ToString[pos2]<>")"},opts]
+
+
+Clear[AntisymmetrizeTensor]
+Tensor/:AntisymmetrizeTensor[t_Tensor,{pos1_Integer,pos2_Integer},{name_String,displayName_String},opts:OptionsPattern[]]:=
+Module[{ips,inds,inds2,indsBefore,indsBetween,indsAfter,indsA,indsB},
+	
+	If[pos1>pos2,
+	Print["Indices must be given to AntisymmetrizeTensor in ascending order. Given as ",{pos1, pos2} ];
+		Abort[]
+	];
+	If[pos1>Total@Rank@t||pos2>Total@Rank@t,
+	Print["Tensor ", t, " is of rank ", Total@Rank@t  ". Cannot symmetrize on indices of positions ",{pos1, pos2} ];
+		Abort[]
+	];
+	If[pos1==pos2,
+	Print["Cannot antisymmetrize on indices of the same position: ",pos1 ];
+		Abort[]
+	];
+	ips=IndexPositions[t];
+	If[ips[[pos1]]=!=ips[[pos2]],
+		Print["Antisymmetrize indices must be both contravariant or covariant"];
+		Abort[]
+	];
+
+	indsBefore=Range[1,pos1-1];
+	indsBetween=Range[pos1+1,pos2-1];
+	indsAfter=Range[pos2+1,Total@Rank@t];
+	
+	inds =Indices[t];
+	indsA=Part[inds,#]&/@Flatten[{indsBefore,pos1,indsBetween,pos2,indsAfter }];
+	indsB=Part[inds,#]&/@Flatten[{indsBefore,pos2,indsBetween,pos1,indsAfter }];
+	
+	MergeTensors[1/2 (t@@indsA-t@@indsB),{name,displayName},SimplifyFunction->OptionValue["SimplifyFunction"]]
+]
+Tensor/:AntisymmetrizeTensor[t_Tensor,{pos1_Integer,pos2_Integer},name_String,opts:OptionsPattern[]]:=AntisymmetrizeTensor[t,{pos1,pos2},{name,name},opts]
+Tensor/:AntisymmetrizeTensor[t_Tensor,{pos1_Integer,pos2_Integer},opts:OptionsPattern[]]:=AntisymmetrizeTensor[t,{pos1,pos2},{TensorName[t]<>"Antisymmetric"<>ToString[{pos1,pos2}],TensorDisplayName[t]<>"["<>ToString[pos1]<>","<>ToString[pos2]<>"]"},opts]
 
 
 End[];
