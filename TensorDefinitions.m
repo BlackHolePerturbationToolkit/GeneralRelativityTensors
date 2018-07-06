@@ -3,105 +3,97 @@
 BeginPackage["Tensors`TensorDefinitions`"];
 
 
-TensorDefinitions`Private`str[a_String]:=ToString[Style[a,Italic],TraditionalForm]
-TensorDefinitions`Private`str[args___]:=StringRiffle[TensorDefinitions`Private`str/@{args},","]
-
-
 Tensor::usage="Tensor is a Head created with the command ToTensor.";
-ToTensor::usage="ToTensor["<>TensorDefinitions`Private`str["n","{inds}"]<>"] returns a Tensor with TensorName "<>TensorDefinitions`Private`str["n"]<>" \
-and indices "<>TensorDefinitions`Private`str["inds"]<>".
-ToTensor["<>TensorDefinitions`Private`str["n","m","vals"]<>"] returns a contravariant Tensor with TensorName "<>TensorDefinitions`Private`str["n"]<>". \
-The (non-abstract) metric "<>TensorDefinitions`Private`str["m"]<>" and values "<>TensorDefinitions`Private`str["vals"]<>" (given as a consistently sized List) are assigned.
-ToTensor["<>TensorDefinitions`Private`str["n","m","vals","{inds}"]<>"] returns a Tensor with indices "<>TensorDefinitions`Private`str["inds"]<>" and TensorName \
-"<>TensorDefinitions`Private`str["n"]<>". The (non-abstract) metric "<>TensorDefinitions`Private`str["m"]<>" and values "<>TensorDefinitions`Private`str["vals"]<>" \
-(given as a consistently sized List) are assigned.";
+ToTensor::usage="ToTensor[n,m,vals,inds] returns a Tensor with indices \
+inds and TensorName n. The metric m and values vals \
+(given as a consistently sized List) are assigned.
+ToTensor[n,m,vals] is equivalent, but assumes all contravarient indices.";
+ToCurve::usage="ToCurve[n,m,vals,param] returns a Tensor curve \
+that exists in the metric m The curve has the name n, \
+values vals, and the parameter param."
+ToTensorOnCurve::usage="ToTensorOnCurve[t,c] returns the Tensor t evaluated on the curve c.
+ToTensorOnCurve[n,c,vals,inds] returns a Tensor with indices \
+inds and TensorName n and values vals evaluated on the curve c.
+ToTensorOnCurve[n,c,vals] is equivalent, but assumes all contravarient indices.";
+CurveParameter::usage="CurveParameter[t] returns the parmeter which parametrizes the tensor \
+t along the curve. It returns Undefined if t is not a curve.";
+Curve::usage="Curve[t] returns the curve that  \
+t is defined along.";
+OnCurveQ::usage="OnCurveQ[t] returns True if the Tensor \
+t is defined on a curve. OnCurveQ[t] \
+also returns True if t is a curve";
+CurveQ::usage="CurveQ[t] returns True if the Tensor \
+t is a curve."
+ParametrizedValuesQ::usage="ParametrizedValuesQ[t] returns True if \
+the values of Tensor t are parametrized on a curve."
 
-ToCurve::usage="ToCurve["<>TensorDefinitions`Private`str["n","m","vals","param"]<>"] returns a Tensor curve \
-that exists in the metric "<>TensorDefinitions`Private`str["m"]<>". The curve has the name "<>TensorDefinitions`Private`str["n"]<>", \
-values "<>TensorDefinitions`Private`str["vals"]<>", and the parameter "<>TensorDefinitions`Private`str["param"]<>"."
-TensorOnCurve::usage="TensorOnCurve["<>TensorDefinitions`Private`str["t","c"]<>"] returns the Tensor "<>TensorDefinitions`Private`str["t"]<>" \
-evaluated on the curve "<>TensorDefinitions`Private`str["c"]<>"."
-CurveParameter::usage="CurveParameter["<>TensorDefinitions`Private`str["t"]<>"] returns the parmeter which parametrizes the tensor \
-"<>TensorDefinitions`Private`str["t"]<>" along the curve. It returns Undefined if "<>TensorDefinitions`Private`str["t"]<>" is not a curve.";
-Curve::usage="Curve["<>TensorDefinitions`Private`str["t"]<>"] returns the curve that  \
-"<>TensorDefinitions`Private`str["t"]<>" is defined along. It returns Undefined if "<>TensorDefinitions`Private`str["t"]<>" is not on a curve. \
-Note that Curve["<>TensorDefinitions`Private`str["t"]<>"] will return "<>TensorDefinitions`Private`str["t"]<>" itself if it is a curve.";
-OnCurveQ::usage="OnCurveQ["<>TensorDefinitions`Private`str["t"]<>"] returns True if the Tensor \
-"<>TensorDefinitions`Private`str["t"]<>" is defined on a curve. OnCurveQ["<>TensorDefinitions`Private`str["t"]<>"] \
-also returns True if "<>TensorDefinitions`Private`str["t"]<>" is a curve";
-CurveQ::usage="CurveQ["<>TensorDefinitions`Private`str["t"]<>"] returns True if the Tensor \
-"<>TensorDefinitions`Private`str["t"]<>" is a curve."
-ParametrizedValuesQ::usage="ParametrizedValuesQ["<>TensorDefinitions`Private`str["t"]<>"] returns True if \
-the values of Tensor "<>TensorDefinitions`Private`str["t"]<>" are parametrized on a curve."
-
-ToMetric::usage="ToMetric["<>TensorDefinitions`Private`str["n","coords","vals","inds"]<>"] returns an non-abstract metric Tensor with TensorName \
-"<>TensorDefinitions`Private`str["n"]<>", Coordinates "<>TensorDefinitions`Private`str["coords"]<>", TensorValues \
-"<>TensorDefinitions`Private`str["vals"]<>", and PossibleIndices "<>TensorDefinitions`Private`str["inds"]<>" \
-(where "<>TensorDefinitions`Private`str["inds"]<>" can be \"Greek\",\"Latin\",\"CaptialLatin\" or a List of Symbols).
-ToMetric["<>TensorDefinitions`Private`str["builtIn"]<>"] returns a built-in metric Tensor, where "<>TensorDefinitions`Private`str["builtIn"]<>" \
-can be \"Minkowski\" (or \"Mink\"), \"Schwarzschild\" (or \"Schw\"), \"Kerr\", \"ReissnerNordstrom\" \
-(or \"RN\"), \"TwoSphere\" (or \"S2\"), \"SchwarzschildM2\" (or \"SchwM2\"), \"SchwarzschildS2\" (or \"SchwS2\"), \"ReissnerNordstromM2\" (or \"RNM2\"), \
-or \"ReissnerNordstromS2\" (or \"RNS2\").";
-InverseMetric::usage="InverseMetric["<>TensorDefinitions`Private`str["t"]<>"] returns the inverse metric Tensor associated with the Tensor \
-"<>TensorDefinitions`Private`str["t"]<>", or Undefined if no metric was set. If "<>TensorDefinitions`Private`str["t"]<>" is on a curve, InverseMetric[t] returns \
+ToMetric::usage="ToMetric[n,coords,vals,inds] returns an non-abstract metric Tensor with TensorName \
+n, Coordinates coords, TensorValues \
+vals, and PossibleIndices inds.
+ToMetric[builtIn] returns a built-in metric Tensor, where builtIn is a String such as \"Schwarzschild\".";
+InverseMetric::usage="InverseMetric[t] returns the inverse metric Tensor associated with the Tensor \
+t, or Undefined if no metric was set. If t is on a curve, InverseMetric[t] returns \
 the inverse metric Tensor on the same curve.";
-Metric::usage="Metric["<>TensorDefinitions`Private`str["t"]<>"] returns the metric Tensor associated with the Tensor "<>TensorDefinitions`Private`str["t"]<>", or Undefined \
-if no metric was set. Note that Metric["<>TensorDefinitions`Private`str["t"]<>"] will return "<>TensorDefinitions`Private`str["t"]<>" itself if it is a metric.\
-If "<>TensorDefinitions`Private`str["t"]<>" is on a curve, Metric[t] returns the metric Tensor on the same curve.";
-MetricQ::usage="MetricQ["<>TensorDefinitions`Private`str["t"]<>"] returns True if the Tensor \
-"<>TensorDefinitions`Private`str["t"]<>" is a metric.";
+Metric::usage="Metric[t] returns the metric Tensor associated with the Tensor t.";
+MetricQ::usage="MetricQ[t] returns True if the Tensor \
+t is a metric.";
 
-Coordinates::usage="Coordinates["<>TensorDefinitions`Private`str["t"]<>"] returns a List of symbols used for the coordinates of the Tensor \
-"<>TensorDefinitions`Private`str["t"]<>", or Undefined if coordinates were not set.";
-Rank::usage="Rank["<>TensorDefinitions`Private`str["t"]<>"] returns the Tensor rank of the Tensor "<>TensorDefinitions`Private`str["t"]<>" as a List {p,q}, \
+Coordinates::usage="Coordinates[t] returns a List of symbols used for the coordinates of the Tensor \
+t, or Undefined if coordinates were not set.";
+Rank::usage="Rank[t] returns the Tensor rank of the Tensor t as a List {p,q}, \
 where p is the number of contravariant indices and q the number of covariant indices.";
-Indices::usage="Indices["<>TensorDefinitions`Private`str["t"]<>"] returns a List of Symbols representing the indices of the Tensor "<>TensorDefinitions`Private`str["t"]<>". \
+Indices::usage="Indices[t] returns a List of Symbols representing the indices of the Tensor t. \
 Positive Symbols are contravariant and negative Symbols are covariant.";
-PossibleIndices::usage="PossibleIndices["<>TensorDefinitions`Private`str["t"]<>"] returns a List of all possible Symbols that can represent the indices of the \
-Tensor "<>TensorDefinitions`Private`str["t"]<>".";
-IndexPositions::usage="IndexPositions["<>TensorDefinitions`Private`str["t"]<>"] returns a List of elements \
+PossibleIndices::usage="PossibleIndices[t] returns a List of all possible Symbols that can represent the indices of the \
+Tensor t.";
+IndexPositions::usage="IndexPositions[t] returns a List of elements \
 \"Up\" and \"Down\" which represent (respectively) the contravariant and covariant positions of the \
-indices of Tensor "<>TensorDefinitions`Private`str["t"]<>".";
+indices of Tensor t.";
 
-TensorName::usage="TensorName["<>TensorDefinitions`Private`str["t"]<>"] returns the name of Tensor \
-"<>TensorDefinitions`Private`str["t"]<>" which is used for storing cached values in the Symbol TensorValues.";
-TensorDisplayName::usage="TensorDisplayName["<>TensorDefinitions`Private`str["t"]<>"] returns the name of \
-Tensor "<>TensorDefinitions`Private`str["t"]<>" that is used for formatted output.";
-SetTensorName::usage="SetTensorName["<>TensorDefinitions`Private`str["t","n"]<>"] returns the Tensor "<>TensorDefinitions`Private`str["t"]<>" \
-with its TensorName changed to "<>TensorDefinitions`Private`str["n"]<>".";
+TensorName::usage="TensorName[t] returns the name of Tensor \
+t which is used for storing cached values in the Symbol RawTensorValues.";
+TensorDisplayName::usage="TensorDisplayName[t] returns the name of \
+Tensor t that is used for formatted output.";
+SetTensorName::usage="SetTensorName[t,n] returns the Tensor t \
+with its TensorName changed to n.";
 
-RawTensorValues::usage="RawTensorValues["<>TensorDefinitions`Private`str["n","inds"]<>"] returns the cached values of a Tensor \
-with TensorName "<>TensorDefinitions`Private`str["n"]<>" and indices in positions "<>TensorDefinitions`Private`str["inds"]<>" or \
-Undefined if none have been computed. The List "<>TensorDefinitions`Private`str["inds"]<>" should contain elements \"Up\" and/or \"Down\".
-RawTensorValues["<>TensorDefinitions`Private`str["t"]<>"] is equivalent to RawTensorValues[TensorName["<>TensorDefinitions`Private`str["t"]<>"],\
-IndexPositions["<>TensorDefinitions`Private`str["t"]<>"]].";
-TensorValues::usage="TensorValues["<>TensorDefinitions`Private`str["t"]<>"] returns the RawTensorValues of "<>TensorDefinitions`Private`str["t"]<>". \
-If "<>TensorDefinitions`Private`str["t"]<>" has an associated curve, the values are evaluated along the curve.";
-ClearCachedTensorValues::usage="ClearCachedTensorValues["<>TensorDefinitions`Private`str["n","inds"]<>"] removes cached expressions stored with \
-the Symbol RawTensorValues using the TensorName "<>TensorDefinitions`Private`str["n"]<>" and IndexPositions "<>TensorDefinitions`Private`str["inds"]<>". \
+RawTensorValues::usage="RawTensorValues[n,inds] returns the cached values of a Tensor \
+with TensorName n and indices in positions inds or \
+Undefined if none have been computed. The List inds should contain elements \"Up\" and/or \"Down\".
+RawTensorValues[t] is equivalent to RawTensorValues[TensorName[t],\
+IndexPositions[t]].";
+TensorValues::usage="TensorValues[t] returns the RawTensorValues of t. \
+If t has an associated curve, the values are evaluated along the curve.";
+ClearCachedTensorValues::usage="ClearCachedTensorValues[n,inds] removes cached expressions stored with \
+the Symbol RawTensorValues using the TensorName n and IndexPositions inds. \
 Here inds is a List of \"Up\" and \"Down\".
-ClearCachedTensorValues["<>TensorDefinitions`Private`str["n"]<>"] removes all cached expressions stored with the Symbol \
-RawTensorValues for any Tensor with name "<>TensorDefinitions`Private`str["n"]<>".
-ClearCachedTensorValues["<>TensorDefinitions`Private`str["t"]<>"] removes all cached expressions stored with the Symbol \
-RawTensorValues for the Tensor "<>TensorDefinitions`Private`str["t"]<>".
+ClearCachedTensorValues[n] removes all cached expressions stored with the Symbol \
+RawTensorValues for any Tensor with name n.
+ClearCachedTensorValues[t] removes all cached expressions stored with the Symbol \
+RawTensorValues for the Tensor t.
 ClearCachedTensorValues[All] removes all cached expressions associated with the Symbol RawTensorValues.";
-CachedTensorValues::usage="CachedTensorValues["<>TensorDefinitions`Private`str["n"]<>"] returns a List of Rules showing all cached expressions \
-for the TensorName "<>TensorDefinitions`Private`str["n"]<>" (stored in the Symbol RawTensorValues).
-CachedTensorValues["<>TensorDefinitions`Private`str["t"]<>"] returns a List of Rules showing all cached expressions \
-for the Tensor "<>TensorDefinitions`Private`str["t"]<>" (stored in the Symbol RawTensorValues).
+CachedTensorValues::usage="CachedTensorValues[n] returns a List of Rules showing all cached expressions \
+for the TensorName n (stored in the Symbol RawTensorValues).
+CachedTensorValues[t] returns a List of Rules showing all cached expressions \
+for the Tensor t (stored in the Symbol RawTensorValues).
 CachedTensorValues[All] returns a List of Rules showing all cached expressions (stored in the Symbol RawTensorValues)."
-$CacheTensorValues::usage="$CacheTensorValues is a global boolean (with default value True) specifying whether to cache Tensor values in the symbol RawTensorValues."
-SetRawTensorValues;
-ActOnTensorValues;
+$CacheTensorValues::usage="$CacheTensorValues is a global boolean (with default value False) specifying whether to cache Tensor values in the symbol RawTensorValues."
+SetRawTensorValues::usage="SetRawTensorValues[t,vals] returns the Tensor t with its RawTensorValues set to vals.";
+ActOnTensorValues::usage="ActOnTensorValues[t,f] acts with the functions f on the Tensor t and returns the resulting tensor.";
 
-AbstractQ::usage="AbstractQ["<>TensorDefinitions`Private`str["t"]<>"] returns True if the Tensor \
-"<>TensorDefinitions`Private`str["t"]<>" is treated as Abstract.";
+AbstractQ::usage="AbstractQ[t] returns True if the Tensor \
+t is treated as Abstract.";
 
 
 Begin["`Private`"];
 
 
-$CacheTensorValues=True;
+Options[ToTensorOnCurve]={"ParametrizedValues"->False};
+DocumentationBuilder`OptionDescriptions["ToTensorOnCurve"] = 
+{"ParametrizedValues"->"Boolean stating whether the values of the tensor are to be interprested as explicitly parametrized."}
+
+
+$CacheTensorValues=False;
 
 
 Tensor/:Format[t_Tensor]:=formatTensor[TensorDisplayName@t,Indices@t,CurveParameter@t]
@@ -264,55 +256,32 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 ]
 
 
-Options[ToTensor]={"Coordinates"->Undefined,
-					"DisplayName"->Undefined,
-					"Metric"->Undefined,
-					"IsMetric"->False,
-					"PossibleIndices"->{},
-					"Abstract"->True,
-					"Values"->Undefined,
-					"Dimensions"->Undefined,
-					"CurveParameter"->Undefined,
-					"ParametrizedValues"->False,
-					"Curve"->Undefined,
-					"IsCurve"->False};
-ToTensor[{name_String,dispName_String},{inds___},opts:OptionsPattern[]]:=
+(*ToTensor[{name_String,dispName_String},{inds___}]:=
 Module[{coords,vals,posInds,abstr,metric,dims,isMetric,param,curve,isCurve,pVals},
-	coords=OptionValue["Coordinates"];
-	vals=OptionValue["Values"];
-	posInds=OptionValue["PossibleIndices"];
-	abstr=OptionValue["Abstract"];
-	metric=OptionValue["Metric"];
-	isMetric=OptionValue["IsMetric"];
-	dims=OptionValue["Dimensions"];
-	param=OptionValue["CurveParameter"];
-	pVals=OptionValue["ParametrizedValues"];
-	curve=OptionValue["Curve"];
-	isCurve=OptionValue["IsCurve"];
-	
+
 	If[MetricQ[metric],
 		If[posInds==={},posInds=PossibleIndices[metric]];
 		If[dims===Undefined,dims=Dimensions[metric],If[dims=!=Dimensions[metric],Print["Given dimensions do not match metric dimensions"];Abort[]]];
 		If[coords===Undefined,coords=Coordinates[metric],If[coords=!=Coordinates[metric],Print["Given coordinates do not match metric coordinates"];Abort[]]];
 		If[vals=!=Undefined,abstr=False];
 	];
-	
-	ToTensor[Association["Coordinates"->coords,
-		"Metric"->metric,
-		"IsMetric"->isMetric,
+
+	ToTensor[Association["Coordinates"->Undefined,
+		"Metric"->Undefined,
+		"IsMetric"\[Rule]False,
 		"Name"->name,
 		"DisplayName"->dispName,
 		"Indices"->{inds},
-		"PossibleIndices"->posInds,
-		"Abstract"->abstr,
-		"Values"->vals,
-		"Dimensions"->dims,
-		"CurveParameter"->param,
-		"ParametrizedValues"->pVals,
-		"Curve"->curve,
-		"IsCurve"->isCurve]]
+		"PossibleIndices"\[Rule]{},
+		"Abstract"\[Rule]True,
+		"Values"\[Rule]Undefined,
+		"Dimensions"->Undefined,
+		"CurveParameter"->Undefined,
+		"ParametrizedValues"\[Rule]False,
+		"Curve"->Undefined,
+		"IsCurve"\[Rule]False]]
 ]
-ToTensor[name_String,{inds___},opts:OptionsPattern[]]:=ToTensor[{name,name},{inds},opts]
+ToTensor[name_String,{inds___}]:=ToTensor[{name,name},{inds}]*)
 
 
 ToTensor[{name_String,dispName_String},metric_Tensor?MetricQ,vals_List,indsGiven_:Undefined]:=
@@ -468,7 +437,7 @@ Module[{coordsP,temp,coordsPTemp,coordsPRules,exprTemp,notCurves},
 Tensor/:Metric[t_Tensor]:=Which[(Association@@t)["Metric"]==="Self",
 								t,
 								ParametrizedValuesQ@t,
-								TensorOnCurve[(Association@@t)["Metric"],Curve@t],
+								ToTensorOnCurve[(Association@@t)["Metric"],Curve@t],
 								True,
 								(Association@@t)["Metric"]
 							];
@@ -497,7 +466,7 @@ Module[{assoc,tvStored,tv,posUp},
 ]
 
 
-Tensor/:ActOnTensorValues[t_Tensor,fn_]:=SetRawTensorValues[t,fn@RawTensorValues[t]]
+Tensor/:ActOnTensorValues[t_Tensor,fn_]:=SetRawTensorValues[t,Map[fn,RawTensorValues[t],{Total@Rank[t]}]]
 
 
 Clear[ClearCachedTensorValues]
@@ -556,21 +525,26 @@ Tensor/:SetRawTensorValues[t_Tensor,values_List]:=SetTensorKeyValue[t,"Values",v
 Tensor/:SetRawTensorValues[t_Tensor,values_]/;Rank[t]==={0,0}:=SetTensorKeyValue[t,"Values",values]
 
 
-Clear[TensorOnCurve]
-Options[TensorOnCurve]={"ParametrizedValues"->False};
-TensorOnCurve[t1_Tensor,c1_?CurveQ,opts:OptionsPattern[]]:=
+Clear[ToTensorOnCurve]
+Tensor/:ToTensorOnCurve[t1_Tensor,c1_?CurveQ,opts:OptionsPattern[]]:=
 Module[{params,paramVals},
 	paramVals = OptionValue["ParametrizedValues"];
 	If[Not@BooleanQ@paramVals,
 		Print["\"ParametrizedValues\" must be a boolean"];
 		Abort[]
 	];
+	If[TensorName@Metric@t1=!=TensorName[(Association@@c1)["Metric"]],
+		Print["Cannot put Tensor on a curve with a different metric."];
+		Abort[]
+	];
+	
 	params = {t1,{"Curve",c1},{"CurveParameter",CurveParameter@c1},{"ParametrizedValues",paramVals}};
 	Fold[SetTensorKeyValue[#1,Sequence@@#2]&,params]
-	(*SetTensorKeyValue[
-		SetTensorKeyValue[
-			SetTensorKeyValue[t1,"Curve",c1],"CurveParameter",CurveParameter@c1],"ParametrizedValues",paramVals]*)
 ]
+
+
+ToTensorOnCurve[{name_String,displayName_String},c1_?CurveQ,vals_List,inds_:Undefined,opts:OptionsPattern[]]/;MatchQ[inds,_List|Undefined]:=ToTensorOnCurve[ToTensor[{name,displayName},Metric[c1],vals,inds],c1,opts]
+ToTensorOnCurve[name_String,c1_?CurveQ,vals_List,inds_:Undefined,opts:OptionsPattern[]]/;MatchQ[inds,_List|Undefined]:=ToTensorOnCurve[{name,name},c1,vals,inds,opts]
 
 
 End[];

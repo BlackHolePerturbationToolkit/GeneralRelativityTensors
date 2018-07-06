@@ -6,60 +6,90 @@ BeginPackage["Tensors`CommonTensors`",
 			 "Tensors`TensorManipulation`"}];
 
 
-CommonTensors`Private`str[a_String]:=ToString[Style[a,Italic],TraditionalForm]
-CommonTensors`Private`str[args___]:=StringRiffle[CommonTensors`Private`str/@{args},","]
+RiemannTensor::usage="RiemannTensor[m] returns the Riemann Tensor with \
+index positions {\"Up\",\"Down\",\"Down\",\"Down\"} computed from the metric Tensor m.";
+RicciTensor::usage="RicciTensor[m] returns the Ricci Tensor with index \
+positions {\"Down\",\"Down\"} computed from the metric Tensor m.";
+RicciScalar::usage="RicciScalar[m] returns the Ricci scalar computed from \
+the metric Tensor m.";
+EinsteinTensor::usage="EinsteinTensor[m] returns the Einstein Tensor with \
+index positions {\"Down\",\"Down\"} computed from the metric Tensor m.";
+WeylTensor::usage="WeylTensor[m] returns the Weyl Tensor with index positions \
+{\"Down\",\"Down\",\"Down\",\"Down\"} computed from the metric Tensor m.";
 
-
-RiemannTensor::usage="RiemannTensor["<>CommonTensors`Private`str["m"]<>"] returns the Riemann Tensor with \
-index positions {\"Up\",\"Down\",\"Down\",\"Down\"} computed from the metric Tensor "<>CommonTensors`Private`str["m"]<>".";
-RicciTensor::usage="RicciTensor["<>CommonTensors`Private`str["m"]<>"] returns the Ricci Tensor with index \
-positions {\"Down\",\"Down\"} computed from the metric Tensor "<>CommonTensors`Private`str["m"]<>".";
-RicciScalar::usage="RicciScalar["<>CommonTensors`Private`str["m"]<>"] returns the Ricci scalar computed from \
-the metric Tensor "<>CommonTensors`Private`str["m"]<>".";
-EinsteinTensor::usage="EinsteinTensor["<>CommonTensors`Private`str["m"]<>"] returns the Einstein Tensor with \
-index positions {\"Down\",\"Down\"} computed from the metric Tensor "<>CommonTensors`Private`str["m"]<>".";
-WeylTensor::usage="WeylTensor["<>CommonTensors`Private`str["m"]<>"] returns the Weyl Tensor with index positions \
-{\"Down\",\"Down\",\"Down\",\"Down\"} computed from the metric Tensor "<>CommonTensors`Private`str["m"]<>".";
-
-KinnersleyNullVector::usage="KinnersleyNullVector["<>CommonTensors`Private`str["m","v"]<>"] returns \
-the contravariant Kinnersley null vector associated with metric Tensor "<>CommonTensors`Private`str["m"]<>" and \
-string "<>CommonTensors`Private`str["v"]<>", where "<>CommonTensors`Private`str["v"]<>" can be \"l\", \"n\", \"m\", or \"mStar\".
-KinnersleyNullVector["<>CommonTensors`Private`str["builtIn","v"]<>"] is equivalent to \
-KinnersleyNullVector[ToMetric["<>CommonTensors`Private`str["builtIn"]<>"],"<>CommonTensors`Private`str["v"]<>"], where \
-"<>CommonTensors`Private`str["builtIn"]<>" can be \"Schwarzschild\" or \"Kerr\"."
-KinnersleyNullTetrad::usage="KinnersleyNullTetrad["<>CommonTensors`Private`str["m"]<>"] returns a list of the four \
-KinnersleyNullVector in order {\"l\", \"n\", \"m\", \"mStar\"} for the metric "<>CommonTensors`Private`str["m"]<>".
-KinnersleyNullTetrad["<>CommonTensors`Private`str["builtIn"]<>"] is equivalent to \
-KinnersleyNullTetrad[ToMetric["<>CommonTensors`Private`str["builtIn"]<>"]], where "<>CommonTensors`Private`str["builtIn"]<>" \
+KinnersleyNullVector::usage="KinnersleyNullVector[m,v] returns \
+the contravariant Kinnersley null vector associated with metric Tensor m and \
+string v, where v can be \"l\", \"n\", \"m\", or \"mStar\".
+KinnersleyNullVector[builtIn,v] is equivalent to \
+KinnersleyNullVector[ToMetric[builtIn],v], where \
+builtIn can be \"Schwarzschild\" or \"Kerr\"."
+KinnersleyNullTetrad::usage="KinnersleyNullTetrad[m] returns a list of the four \
+KinnersleyNullVector in order {\"l\", \"n\", \"m\", \"mStar\"} for the metric m.
+KinnersleyNullTetrad[builtIn] is equivalent to \
+KinnersleyNullTetrad[ToMetric[builtIn]], where builtIn \
 can be \"Schwarzschild\" or \"Kerr\"."
-KinnersleyDerivative::usage="KinnersleyDerivative["<>CommonTensors`Private`str["m","s"]<>"] returns the projected \
+KinnersleyDerivative::usage="KinnersleyDerivative[m,s] returns the projected \
 derivative s being the appropriate Kinnersley null vector contracted with a partial derivative. Values for \
-"<>CommonTensors`Private`str["s"]<>" are \"D\", \"Delta\", \"delta\", or \"deltaStar\".
-KinnersleyDerivative["<>CommonTensors`Private`str["builtIn","s"]<>"] is equivalent to \
-KinnersleyDerivative[ToMetric["<>CommonTensors`Private`str["builtIn"]<>"],"<>CommonTensors`Private`str["s"]<>"], \
-where "<>CommonTensors`Private`str["builtIn"]<>" can be \"Schwarzschild\" or \"Kerr\"."
-SpinCoefficient::usage="SpinCoefficient["<>CommonTensors`Private`str["s"]<>"] returns the Newman-Penrose \
-spin coefficient corresponding to the string "<>CommonTensors`Private`str["s"]<>", where possible values of \
-"<>CommonTensors`Private`str["s"]<>" are \"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\
+s are \"D\", \"Delta\", \"delta\", or \"deltaStar\".
+KinnersleyDerivative[builtIn,s] is equivalent to \
+KinnersleyDerivative[ToMetric[builtIn],s], \
+where builtIn can be \"Schwarzschild\" or \"Kerr\"."
+SpinCoefficient::usage="SpinCoefficient[s] returns the Newman-Penrose \
+spin coefficient corresponding to the string s, where possible values of \
+s are \"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\
 \"mu\",\"nu\",\"pi\",\"rho\",\"sigma\", and \"tau\".";
 
-KretschmannScalar::usage="KretschmannScalar["<>CommonTensors`Private`str["m"]<>"] returns the \
-Kretschmann scalar (Riemann tensor squared) associated with the metric "<>CommonTensors`Private`str["m"]<>".";
-BianchiIdentities::usage="BianchiIdentities["<>CommonTensors`Private`str["m","n"]<>"] returns the \
-"<>CommonTensors`Private`str["n-th"]<>" contracted Bianchi identities, where \
-"<>CommonTensors`Private`str["n"]<>" can be 0, 1, or 2.
-BianchiIdentities["<>CommonTensors`Private`str["m"]<>"] is equivalent to BianchiIdentities["<>CommonTensors`Private`str["m"]<>",0].";
+KretschmannScalar::usage="KretschmannScalar[m] returns the \
+Kretschmann scalar (Riemann tensor squared) associated with the metric m.";
+BianchiIdentities::usage="BianchiIdentities[m,n] returns the \
+n-th contracted Bianchi identities, where \
+n can be 0, 1, or 2. BianchiIdentities[m] is equivalent to BianchiIdentities[m,0].";
 
-MaxwellPotential;
-FieldStrengthTensor;
-MaxwellStressEnergyTensor;
-FourVelocity;
-LeviCivitaSymbol;
-TensorHarmonic;
-M2Amplitude;
+MaxwellPotential::usage="MaxwellPotential[builtIn] returns the four-vector A on a built-in background. \
+The only current choice for builtIn is \"ReissnerNordstrom\" (or \"RN\").";
+FieldStrengthTensor::usage="FieldStrengthTensor[A] returns the field strength tensor associated with the \
+electromagnetic vector potential A.";
+MaxwellStressEnergyTensor::usage="MaxwellStressEnergyTensor[F] returns the stress energy tensor associated with the \
+electromagnetic field strength tensor F.";
+
+FourVelocity::usage="FourVelocity[builtIn] returns the four velocity associated with the string builtIn. \
+Choices are \"KerrGeneric\" and \"SchwarzschildGeneric\".";
+
+LeviCivitaSymbol::usage="LeviCivitaSymbol[builtIn] returns the Levi-Civita symbol associated with the 
+built-in spacetime. The only current choice for builtIn is \"TwoSphere\" (or \"S2\").";
+TensorSphericalHarmonic::usage="TensorSphericalHarmonic[builtIn] returns a Martel-Poisson tensor spherical harmonic \
+associated with the string builtIn. Choices are \"YA\", \"XA\", \"YAB\", and \"XAB\".";
+M2Amplitude::usage="M2Amplitude[builtIn] returns a Martel-Poisson metric perturbation amplitude \
+associated with the string builtIn. Choices are \"hab\", \"ha\", and \"ja\".";
 
 
 Begin["`Private`"];
+
+
+Options[RiemannTensor]=Options[ChristoffelSymbol];
+Options[RicciTensor]=Options[ChristoffelSymbol];
+Options[RicciScalar]=Options[ChristoffelSymbol];
+Options[EinsteinTensor]=Options[ChristoffelSymbol];
+Options[WeylTensor]=Options[ChristoffelSymbol];
+Options[FieldStrengthTensor]=Options[ChristoffelSymbol];
+Options[MaxwellStressEnergyTensor]=Options[ChristoffelSymbol];
+Options[KretschmannScalar]=Options[ChristoffelSymbol];
+Options[BianchiIdentities]=Options[ChristoffelSymbol];
+Options[KinnersleyNullTetrad]=Options[KinnersleyNullVector];
+Options[SpinCoefficient]={"Conjugate"->False,"Schwarzschild"->False};
+
+DocumentationBuilder`OptionDescriptions["RiemannTensor"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
+DocumentationBuilder`OptionDescriptions["RicciTensor"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
+DocumentationBuilder`OptionDescriptions["RicciScalar"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
+DocumentationBuilder`OptionDescriptions["EinsteinTensor"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
+DocumentationBuilder`OptionDescriptions["WeylTensor"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
+DocumentationBuilder`OptionDescriptions["FieldStrengthTensor"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
+DocumentationBuilder`OptionDescriptions["MaxwellStressEnergyTensor"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
+DocumentationBuilder`OptionDescriptions["KretschmannScalar"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
+DocumentationBuilder`OptionDescriptions["BianchiIdentities"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
+DocumentationBuilder`OptionDescriptions["SpinCoefficient"] ={"Conjugate"->"Boolean stating whether to return the complex \
+conjugate of the spin coefficient",
+"Schwarzschild"->"Boolean stating whether to return the spin coefficient for Schwarzschild spacetime (as opposed to Kerr)"};
 
 
 ToMetric["Minkowski"]:=
@@ -80,6 +110,26 @@ Module[{t,x,y,z,\[Alpha],\[Beta]},
 				"IsCurve"->False]]
 ];
 ToMetric["Mink"]:=ToMetric["Minkowski"];
+
+
+ToMetric["MinkowskiSpherical"]:=
+Module[{t,r,\[Theta],\[Phi],\[Alpha],\[Beta]},	
+
+	{t,r,\[Theta],\[Phi],\[Alpha],\[Beta]}=Symbol/@{"t","r","\[Theta]","\[Phi]","\[Alpha]","\[Beta]"};
+
+	ToMetric[Association["Name"->"MinkowskiMetric",
+				"Coordinates"->{t,r,\[Theta],\[Phi]},
+				"DisplayName"->"\[Eta]",
+				"Indices"->{-\[Alpha],-\[Beta]},
+				"PossibleIndices"->"Greek",
+				"Abstract"->False,
+				"Values"->{{-1,0,0,0},{0,1,0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},
+				"CurveParameter"->Undefined,
+				"ParametrizedValues"->False,
+				"Curve"->Undefined,
+				"IsCurve"->False]]
+];
+ToMetric["MinkSph"]:=ToMetric["MinkowskiSpherical"];
 
 
 ToMetric["Schwarzschild"]:=
@@ -209,10 +259,11 @@ LeviCivitaSymbol["TwoSphere"]:=
 Module[{th,ph,A,B},
 	{th,ph,A,B}=Symbol/@{"\[Theta]","\[Phi]","A","B"};
 	ToTensor[{"LeviCivitaSymbol","\[CurlyEpsilon]"},ToMetric["TwoSphere"],{{0,Sin[th]},{-Sin[th],0}},{-A,-B}]
-]
+];
+LeviCivitaSymbol["S2"]:=LeviCivitaSymbol["TwoSphere"]
 
 
-Options[RiemannTensor]=Options[ChristoffelSymbol];
+Clear[RiemannTensor]
 Tensor/:RiemannTensor[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
 Module[{n,g,ig,xx,chr,vals,posInds,gT,name,simpFn},
 	simpFn=OptionValue["SimplifyFunction"];
@@ -249,7 +300,7 @@ Module[{n,g,ig,xx,chr,vals,posInds,gT,name,simpFn},
 ]
 
 
-Options[RicciTensor]=Options[ChristoffelSymbol];
+Clear[RicciTensor]
 Tensor/:RicciTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
 Module[{rie,simpFn,name,posInds},
 
@@ -271,7 +322,7 @@ Module[{rie,simpFn,name,posInds},
 ]
 
 
-Options[RicciScalar]=Options[ChristoffelSymbol];
+Clear[RicciScalar]
 Tensor/:RicciScalar[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
 Module[{ric,posInds,simpFn,name},
 
@@ -294,7 +345,7 @@ Module[{ric,posInds,simpFn,name},
 ]
 
 
-Options[EinsteinTensor]=Options[ChristoffelSymbol];
+Clear[EinsteinTensor]
 Tensor/:EinsteinTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
 Module[{ricT,ricS,simpFn,name,posInds},
 	simpFn=OptionValue["SimplifyFunction"];
@@ -317,7 +368,7 @@ Module[{ricT,ricS,simpFn,name,posInds},
 ]
 
 
-Options[WeylTensor]=Options[ChristoffelSymbol];
+Clear[WeylTensor]
 Tensor/:WeylTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
 Module[{rie,ricT,ricS,simpFn,dim,i,k,l,m,name},
 
@@ -358,8 +409,8 @@ Module[{QQ,r,ind,met},
 MaxwellPotential["RN"]:=MaxwellPotential["ReissnerNordstrom"];
 
 
-Options[FieldStrengthTensor]=Options[ChristoffelSymbol];
-FieldStrengthTensor[AA_Tensor,opts:OptionsPattern[]]:=
+Clear[FieldStrengthTensor]
+Tensor/:FieldStrengthTensor[AA_Tensor,opts:OptionsPattern[]]:=
 Module[{g,simpFn,name,posInds},
 	If[Total@Rank[AA]=!=1,Print["Field strength tensor must be derived from a Rank 1 tensor"];Abort[]];
 	If[AbstractQ[AA],Print["Field strength tensor requires a non-abstract potential"];Abort[]];
@@ -372,8 +423,8 @@ Module[{g,simpFn,name,posInds},
 FieldStrengthTensor[str_String,opts:OptionsPattern[]]:=FieldStrengthTensor[MaxwellPotential[str],opts];
 
 
-Options[MaxwellStressEnergyTensor]=Options[ChristoffelSymbol];
-MaxwellStressEnergyTensor[FF_Tensor,opts:OptionsPattern[]]:=
+Clear[MaxwellStressEnergyTensor]
+Tensor/:MaxwellStressEnergyTensor[FF_Tensor,opts:OptionsPattern[]]:=
 Module[{g,simpFn,name,posInds},
 	If[Total@Rank[FF]=!=2,Print["Maxwell stress energy tensor must be derived from a Rank 2 tensor"];Abort[]];
 	If[AbstractQ[FF],Print["Maxwell stress energy requires a non-abstract field strength tensor"];Abort[]];
@@ -386,7 +437,7 @@ Module[{g,simpFn,name,posInds},
 MaxwellStressEnergyTensor[str_String,opts:OptionsPattern[]]:=MaxwellStressEnergyTensor[FieldStrengthTensor[MaxwellPotential[str],opts],opts];
 
 
-Options[KretschmannScalar]=Options[ChristoffelSymbol];
+Clear[KretschmannScalar]
 Tensor/:KretschmannScalar[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
 Module[{rie,simpFn,name,is},
 	simpFn=OptionValue["SimplifyFunction"];
@@ -409,7 +460,6 @@ Module[{rie,simpFn,name,is},
 
 
 Clear[BianchiIdentities]
-Options[BianchiIdentities]={"SimplifyFunction"->Identity};
 Tensor/:BianchiIdentities[t_Tensor?MetricQ,contractions_:0,opts:OptionsPattern[]]/;MemberQ[{0,1,2},contractions]:=
 Module[{rie,ric,ein,simp,is},
 	simp=OptionValue["SimplifyFunction"];
@@ -477,9 +527,8 @@ KinnersleyNullVector["Schwarzschild",vec_String]:=KinnersleyNullVector[ToMetric[
 KinnersleyNullVector["Kerr",vec_String]:=KinnersleyNullVector[ToMetric["Kerr"],vec]
 
 
-Options[KinnersleyNullTetrad]=Options[KinnersleyNullVector];
 Clear[KinnersleyNullTetrad]
-KinnersleyNullTetrad[expr_,opts:OptionsPattern[]]:=KinnersleyNullVector[expr,#,opts]&/@{"l","n","m","mStar"}
+KinnersleyNullTetrad[expr_]:=KinnersleyNullVector[expr,#]&/@{"l","n","m","mStar"}
 
 
 Clear[KinnersleyDerivative]
@@ -512,7 +561,6 @@ KinnersleyDerivative["Schwarzschild",vec_String]:=KinnersleyDerivative[ToMetric[
 KinnersleyDerivative["Kerr",vec_String]:=KinnersleyDerivative[ToMetric["Kerr"],vec]
 
 
-Options[SpinCoefficient]={"Conjugate"->False,"Schwarzschild"->False};
 SpinCoefficient[coeff_String,opts:OptionsPattern[]]:=
 Module[{r,a,th,M,val,conj,rules,delta,schw},
 
@@ -573,7 +621,7 @@ Module[{t,r,th,ph,tau,EE,JJ,M,rhoSq,Delta,ut,ur,uth,uph,QQ,a,x1},
 	uth=1/rhoSq Sqrt[QQ-Cot[th[tau]]^2 JJ^2-a^2 Cos[th[tau]]^2 (1-EE^2)];
 	uph=1/rhoSq (Csc[th[tau]]^2 JJ+a EE((r[tau]^2+a^2)/Delta-1)-(a^2 JJ)/Delta);
 	x1 = ToCurve[{"FourVelocityGenericKerr","x"},ToMetric["Kerr"],{t[tau],r[tau],th[tau],ph[tau]},tau];
-	TensorOnCurve[ToTensor[{"FourVelocityGenericKerr","u"},ToMetric["Kerr"],{ut,ur,uth,uph}],x1,"ParametrizedValues"->True]
+	ToTensorOnCurve[ToTensor[{"FourVelocityGenericKerr","u"},ToMetric["Kerr"],{ut,ur,uth,uph}],x1,"ParametrizedValues"->True]
 ]
 
 
@@ -584,7 +632,7 @@ Module[{t,r,th,ph,tau,EE,JJ,M,x1,ur},
 
 	x1 = ToCurve[{"FourVelocityGenericSchwarzschild","x"},ToMetric["Schwarzschild"],{t[tau],r[tau],\[Pi]/2,ph[tau]},tau];
 	ur = Sqrt[EE^2-(1-(2M)/r[tau])(1+JJ^2/r[tau]^2)];
-	TensorOnCurve[ToTensor[{"FourVelocityGenericSchwarzschild","u"},ToMetric["Schwarzschild"],{EE/(1-(2 M)/r[tau]),ur,0,JJ/r[tau]^2}],x1,"ParametrizedValues"->True]
+	ToTensorOnCurve[ToTensor[{"FourVelocityGenericSchwarzschild","u"},ToMetric["Schwarzschild"],{EE/(1-(2 M)/r[tau]),ur,0,JJ/r[tau]^2}],x1,"ParametrizedValues"->True]
 ]
 
 
@@ -617,8 +665,8 @@ Module[{t,rp,EE,JJ,M,a},
 *)
 
 
-Clear[TensorHarmonic]
-TensorHarmonic[label_]:=
+Clear[TensorSphericalHarmonic]
+TensorSphericalHarmonic[label_String]:=
 Module[{Ylm,YAVal,thTemp,phTemp,l,th,ph,A,B,F,G,eps},
 
 	{Ylm,l,th,ph,A,B,F,G}=Symbol/@{"Ylm","l","\[Theta]","\[Phi]","A","B","F","G"};
@@ -630,15 +678,15 @@ Module[{Ylm,YAVal,thTemp,phTemp,l,th,ph,A,B,F,G,eps},
 		"YA",
 		ToTensor[{"HarmonicYA","Y"},ToMetric["TwoSphere"],YAVal,{-A}],
 		"XA",
-		ContractIndices[MergeTensors[-eps[-A,F]TensorHarmonic["YA"][-F]],{"HarmonicXA","X"}],
+		ContractIndices[MergeTensors[-eps[-A,F]TensorSphericalHarmonic["YA"][-F]],{"HarmonicXA","X"}],
 		"YAB",
-		MergeTensors[CovariantD[TensorHarmonic["YA"][-B],-A]
+		MergeTensors[CovariantD[TensorSphericalHarmonic["YA"][-B],-A]
 					+1/2 l(l+1)Ylm[th,ph]ToMetric["TwoSphere"][-A,-B],{"HarmonicYAB","Y"}],
 		"XAB",
-		MergeTensors[-(1/2)(eps[-G,F]CovariantD[TensorHarmonic["YA"][-F],-B]
-				+eps[-B,F]CovariantD[TensorHarmonic["YA"][-F],-G]),{"HarmonicXAB","X"}][-A,-B],
+		MergeTensors[-(1/2)(eps[-G,F]CovariantD[TensorSphericalHarmonic["YA"][-F],-B]
+				+eps[-B,F]CovariantD[TensorSphericalHarmonic["YA"][-F],-G]),{"HarmonicXAB","X"}][-A,-B],
 		___,
-		Print["No TensorHarmonic associated with label ", label];
+		Print["No TensorSphericalHarmonic associated with label ", label];
 		Print["Options are: ",{"YA","XA","YAB","XAB"}];
 	]
 ]

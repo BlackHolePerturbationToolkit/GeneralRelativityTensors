@@ -1,0 +1,669 @@
+Notebook[{
+Cell[BoxData[
+ RowBox[{"Quit", "[", "]"}]], "Input",
+ CellLabel->"In[8]:=",ExpressionUUID->"a997c1cf-4a1f-46fb-92f6-3ea416448b06"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{"ParentDirectory", "[", 
+    RowBox[{"NotebookDirectory", "[", "]"}], "]"}], "]"}], ";"}]], "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"8bb10079-8c34-404e-ab42-115785414ac6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"docDir", "=", 
+  RowBox[{"FileNameJoin", "[", 
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"FileNameDrop", "[", 
+      RowBox[{
+       RowBox[{"FindFile", "[", "\"\<Tensors`\>\"", "]"}], ",", 
+       RowBox[{"-", "2"}]}], "]"}], ",", "\"\<Documentation\>\""}], "}"}], 
+   "]"}]}]], "Input",
+ CellLabel->"In[2]:=",ExpressionUUID->"8cdfb8f9-f81c-4a89-88df-c8325b76a926"],
+
+Cell[BoxData["\<\"/Users/hoppese/Library/Mathematica/Applications/Tensors/\
+Documentation\"\>"], "Output",
+ CellLabel->"Out[2]=",ExpressionUUID->"1b192189-a248-4968-9c0b-673cf20cb15e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Short", "[", 
+  RowBox[{
+   RowBox[{"docFiles", "=", 
+    RowBox[{"Select", "[", 
+     RowBox[{
+      RowBox[{"FileNames", "[", 
+       RowBox[{"\"\<*\>\"", ",", "docDir", ",", "Infinity"}], "]"}], ",", 
+      RowBox[{
+       RowBox[{"!", 
+        RowBox[{"DirectoryQ", "[", "#", "]"}]}], "&"}]}], "]"}]}], ",", 
+   "10"}], "]"}]], "Input",
+ CellLabel->"In[3]:=",ExpressionUUID->"a53a9b87-93f1-4aad-afec-ae2712eb729c"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{"{", 
+   RowBox[{"\<\"/Users/hoppese/Library/Mathematica/Applications/Tensors/\
+Documentation/English/ReferencePages/Symbols/AbstractQ.nb\"\>", 
+    ",", "\<\"/Users/hoppese/Library/Mathematica/Applications/Tensors/\
+Documentation/English/ReferencePages/Symbols/ActOnTensorValues.nb\"\>", 
+    ",", "\<\"/Users/hoppese/Library/Mathematica/Applications/Tensors/\
+Documentation/English/ReferencePages/Symbols/BianchiIdentities.nb\"\>", ",", 
+    RowBox[{"\[LeftSkeleton]", "56", "\[RightSkeleton]"}], 
+    ",", "\<\"/Users/hoppese/Library/Mathematica/Applications/Tensors/\
+Documentation/English/ReferencePages/Symbols/WeylTensor.nb\"\>", 
+    ",", "\<\"/Users/hoppese/Library/Mathematica/Applications/Tensors/\
+Documentation/English/ReferencePages/Symbols/$CacheTensorValues.nb\"\>"}], 
+   "}"}],
+  Short[#, 10]& ]], "Output",
+ CellLabel->
+  "Out[3]//Short=",ExpressionUUID->"c451efa1-d55a-4901-9681-9c2c73acb586"]
+}, Open  ]],
+
+Cell[BoxData[
+ RowBox[{"DeleteFile", "[", "docFiles", "]"}]], "Input",
+ CellLabel->"In[4]:=",ExpressionUUID->"26118471-3bda-4b76-aa0e-41e8d411037c"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"<<", "\"\<Source/GenerateDocumentation.m\>\""}]], "Input",
+ CellLabel->"In[5]:=",ExpressionUUID->"a090ed56-29bd-41c9-b6d1-12edb7214fd2"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"Building symbol reference pages\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"371ddd20-e0b8-473e-a909-397eb2648d19"],
+
+Cell[BoxData["\<\"AbstractQ\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"cab38002-ecf3-44d0-b94f-b9ac9bd0a1a6"],
+
+Cell[BoxData["\<\"ActOnTensorValues\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"e34ad1cb-f87b-46f2-b6e3-94a0ad08a6f6"],
+
+Cell[BoxData["\<\"CachedTensorValues\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"66787e39-656b-4bb3-b70e-c227717f841b"],
+
+Cell[BoxData["\<\"ClearCachedTensorValues\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"f5deb0cd-5975-470b-ba75-9b0a26cb9b1b"],
+
+Cell[BoxData["\<\"Coordinates\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"950c7d9d-b58f-4492-af58-ad3508390559"],
+
+Cell[BoxData["\<\"Curve\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"f9ae8380-5ad2-4b67-bc00-12db5597ff16"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"c1\"\>", ",", "\<\"e\"\>", 
+     ",", "\<\"gK\"\>", ",", "\<\"gKC\"\>", ",", "\<\"M\"\>", 
+     ",", "\<\"p\"\>", ",", "\<\"r\"\>", ",", "\<\"t\"\>", 
+     ",", "\<\"\[Alpha]\"\>", ",", "\<\"\[Beta]\"\>", ",", "\<\"\[Gamma]\"\>",
+      ",", "\<\"\[Delta]\"\>", ",", "\<\"\[CurlyEpsilon]\"\>", 
+     ",", "\<\"\[Zeta]\"\>", ",", "\<\"\[Eta]\"\>", ",", "\<\"\[Theta]\"\>", 
+     ",", "\<\"\[Iota]\"\>", ",", "\<\"\[Kappa]\"\>", 
+     ",", "\<\"\[Lambda]\"\>", ",", "\<\"\[Mu]\"\>", ",", "\<\"\[Nu]\"\>", 
+     ",", "\<\"\[Xi]\"\>", ",", "\<\"\[Omicron]\"\>", ",", "\<\"\[Rho]\"\>", 
+     ",", "\<\"\[Sigma]\"\>", ",", "\<\"\[FinalSigma]\"\>", 
+     ",", "\<\"\[Upsilon]\"\>", ",", "\<\"\[Phi]\"\>", 
+     ",", "\<\"\[CurlyPhi]\"\>", ",", "\<\"\[Chi]\"\>", ",", "\<\"\[Psi]\"\>",
+      ",", "\<\"\[Omega]\"\>"}], "}"}]}],
+  SequenceForm[
+  "Removing ", {
+   "a", "c1", "e", "gK", "gKC", "M", "p", "r", "t", "\[Alpha]", "\[Beta]", 
+    "\[Gamma]", "\[Delta]", "\[CurlyEpsilon]", "\[Zeta]", "\[Eta]", 
+    "\[Theta]", "\[Iota]", "\[Kappa]", "\[Lambda]", "\[Mu]", "\[Nu]", "\[Xi]",
+     "\[Omicron]", "\[Rho]", "\[Sigma]", "\[FinalSigma]", "\[Upsilon]", 
+    "\[Phi]", "\[CurlyPhi]", "\[Chi]", "\[Psi]", "\[Omega]"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"82944bbe-170a-422b-9a39-ee44517a21b7"],
+
+Cell[BoxData["\<\"CurveParameter\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"f35b051e-c4f5-4703-8490-2d0bc00ad024"],
+
+Cell[BoxData["\<\"CurveQ\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"aed0b661-8271-47fa-90d2-cf62df22e17b"],
+
+Cell[BoxData["\<\"IndexPositions\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"44d794f5-3952-49e2-b5db-d20cf67be78e"],
+
+Cell[BoxData["\<\"Indices\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"b2201920-b5d2-400b-afa3-ff67953ac6cf"],
+
+Cell[BoxData["\<\"InverseMetric\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"5adfe995-b53c-4446-bd82-f41618a6d301"],
+
+Cell[BoxData["\<\"Metric\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"ddf57e2e-2579-4566-818b-58360d30ce95"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"c1\"\>", ",", "\<\"e\"\>", 
+     ",", "\<\"gK\"\>", ",", "\<\"gKC\"\>", ",", "\<\"M\"\>", 
+     ",", "\<\"p\"\>", ",", "\<\"r\"\>", ",", "\<\"t\"\>", 
+     ",", "\<\"\[Alpha]\"\>", ",", "\<\"\[Beta]\"\>", ",", "\<\"\[Gamma]\"\>",
+      ",", "\<\"\[Delta]\"\>", ",", "\<\"\[CurlyEpsilon]\"\>", 
+     ",", "\<\"\[Zeta]\"\>", ",", "\<\"\[Eta]\"\>", ",", "\<\"\[Theta]\"\>", 
+     ",", "\<\"\[Iota]\"\>", ",", "\<\"\[Kappa]\"\>", 
+     ",", "\<\"\[Lambda]\"\>", ",", "\<\"\[Mu]\"\>", ",", "\<\"\[Nu]\"\>", 
+     ",", "\<\"\[Xi]\"\>", ",", "\<\"\[Omicron]\"\>", ",", "\<\"\[Rho]\"\>", 
+     ",", "\<\"\[Sigma]\"\>", ",", "\<\"\[FinalSigma]\"\>", 
+     ",", "\<\"\[Upsilon]\"\>", ",", "\<\"\[Phi]\"\>", 
+     ",", "\<\"\[CurlyPhi]\"\>", ",", "\<\"\[Chi]\"\>", ",", "\<\"\[Psi]\"\>",
+      ",", "\<\"\[Omega]\"\>"}], "}"}]}],
+  SequenceForm[
+  "Removing ", {
+   "a", "c1", "e", "gK", "gKC", "M", "p", "r", "t", "\[Alpha]", "\[Beta]", 
+    "\[Gamma]", "\[Delta]", "\[CurlyEpsilon]", "\[Zeta]", "\[Eta]", 
+    "\[Theta]", "\[Iota]", "\[Kappa]", "\[Lambda]", "\[Mu]", "\[Nu]", "\[Xi]",
+     "\[Omicron]", "\[Rho]", "\[Sigma]", "\[FinalSigma]", "\[Upsilon]", 
+    "\[Phi]", "\[CurlyPhi]", "\[Chi]", "\[Psi]", "\[Omega]"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"7f6f2ac6-aed5-4452-b63f-c6294d9f1094"],
+
+Cell[BoxData["\<\"MetricQ\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"54102395-e31d-4bea-9053-1edf6bfdf452"],
+
+Cell[BoxData["\<\"OnCurveQ\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"c9cb0bc9-4dba-41ac-8bfb-a0ceefa6ff04"],
+
+Cell[BoxData["\<\"ParametrizedValuesQ\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"4562bf57-8c4d-41ca-bf53-75c216c06a3a"],
+
+Cell[BoxData["\<\"PossibleIndices\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"b51ac1f5-84fa-4486-a617-289bfa34e5de"],
+
+Cell[BoxData["\<\"Rank\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"3f60dafd-1cc1-4a85-b4c3-0c3d95f3bc52"],
+
+Cell[BoxData["\<\"RawTensorValues\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"5ac5ee2f-7c83-4888-8b43-4b225db7fad4"],
+
+Cell[BoxData["\<\"SetRawTensorValues\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"9648bec7-2c9d-416f-b233-128599d68b64"],
+
+Cell[BoxData["\<\"SetTensorName\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"534d50b1-d1c2-4fb6-a912-d435cf5e41de"],
+
+Cell[BoxData["\<\"Tensor\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"e8e7ebcd-e65f-4176-a59e-8b6da7d5a60c"],
+
+Cell[BoxData["\<\"TensorDisplayName\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"f8dbcbc2-40ec-4076-bdbe-6ee81cbcdeeb"],
+
+Cell[BoxData["\<\"TensorName\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"e1d68131-749a-45cd-a918-e9f24da209eb"],
+
+Cell[BoxData["\<\"TensorValues\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"8ee1721b-46f8-433c-b12c-73f4ae0775bc"],
+
+Cell[BoxData["\<\"ToCurve\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"a18c0fad-9eca-49d9-a847-677577f68ee8"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"c1\"\>", ",", "\<\"e\"\>", 
+     ",", "\<\"gK\"\>", ",", "\<\"M\"\>", ",", "\<\"p\"\>", ",", "\<\"r\"\>", 
+     ",", "\<\"t\"\>", ",", "\<\"\[Alpha]\"\>", ",", "\<\"\[Beta]\"\>", 
+     ",", "\<\"\[Gamma]\"\>", ",", "\<\"\[Delta]\"\>", 
+     ",", "\<\"\[CurlyEpsilon]\"\>", ",", "\<\"\[Zeta]\"\>", 
+     ",", "\<\"\[Eta]\"\>", ",", "\<\"\[Theta]\"\>", ",", "\<\"\[Iota]\"\>", 
+     ",", "\<\"\[Kappa]\"\>", ",", "\<\"\[Lambda]\"\>", ",", "\<\"\[Mu]\"\>", 
+     ",", "\<\"\[Nu]\"\>", ",", "\<\"\[Xi]\"\>", ",", "\<\"\[Omicron]\"\>", 
+     ",", "\<\"\[Rho]\"\>", ",", "\<\"\[Sigma]\"\>", 
+     ",", "\<\"\[FinalSigma]\"\>", ",", "\<\"\[Upsilon]\"\>", 
+     ",", "\<\"\[Phi]\"\>", ",", "\<\"\[CurlyPhi]\"\>", ",", "\<\"\[Chi]\"\>",
+      ",", "\<\"\[Psi]\"\>", ",", "\<\"\[Omega]\"\>"}], "}"}]}],
+  SequenceForm[
+  "Removing ", {
+   "a", "c1", "e", "gK", "M", "p", "r", "t", "\[Alpha]", "\[Beta]", 
+    "\[Gamma]", "\[Delta]", "\[CurlyEpsilon]", "\[Zeta]", "\[Eta]", 
+    "\[Theta]", "\[Iota]", "\[Kappa]", "\[Lambda]", "\[Mu]", "\[Nu]", "\[Xi]",
+     "\[Omicron]", "\[Rho]", "\[Sigma]", "\[FinalSigma]", "\[Upsilon]", 
+    "\[Phi]", "\[CurlyPhi]", "\[Chi]", "\[Psi]", "\[Omega]"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"21c2597a-37ab-4fa8-84e5-78235f166916"],
+
+Cell[BoxData["\<\"ToMetric\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"ec8a18f3-5f07-4311-a4cf-ec89290e6639"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"A\"\>", ",", "\<\"b\"\>", ",", "\<\"c\"\>",
+      ",", "\<\"d\"\>", ",", "\<\"e\"\>", ",", "\<\"f\"\>", ",", "\<\"F\"\>", 
+     ",", "\<\"g\"\>", ",", "\<\"gK\"\>", ",", "\<\"h\"\>", ",", "\<\"i\"\>", 
+     ",", "\<\"j\"\>", ",", "\<\"k\"\>", ",", "\<\"l\"\>", ",", "\<\"m\"\>", 
+     ",", "\<\"M\"\>", ",", "\<\"n\"\>", ",", "\<\"newMetVals\"\>", 
+     ",", "\<\"o\"\>", ",", "\<\"p\"\>", ",", "\<\"q\"\>", ",", "\<\"r\"\>", 
+     ",", "\<\"s\"\>", ",", "\<\"t\"\>", ",", "\<\"u\"\>", ",", "\<\"v\"\>", 
+     ",", "\<\"w\"\>", ",", "\<\"x\"\>", ",", "\<\"y\"\>", ",", "\<\"z\"\>", 
+     ",", "\<\"\[Alpha]\"\>", ",", "\<\"\[Beta]\"\>", ",", "\<\"\[Gamma]\"\>",
+      ",", "\<\"\[Delta]\"\>", ",", "\<\"\[CurlyEpsilon]\"\>", 
+     ",", "\<\"\[Zeta]\"\>", ",", "\<\"\[Eta]\"\>", ",", "\<\"\[Theta]\"\>", 
+     ",", "\<\"\[Iota]\"\>", ",", "\<\"\[Kappa]\"\>", 
+     ",", "\<\"\[Lambda]\"\>", ",", "\<\"\[Mu]\"\>", ",", "\<\"\[Nu]\"\>", 
+     ",", "\<\"\[Xi]\"\>", ",", "\<\"\[Omicron]\"\>", ",", "\<\"\[Rho]\"\>", 
+     ",", "\<\"\[Sigma]\"\>", ",", "\<\"\[FinalSigma]\"\>", 
+     ",", "\<\"\[Upsilon]\"\>", ",", "\<\"\[Phi]\"\>", 
+     ",", "\<\"\[CurlyPhi]\"\>", ",", "\<\"\[Psi]\"\>", 
+     ",", "\<\"\[Omega]\"\>"}], "}"}]}],
+  SequenceForm[
+  "Removing ", {
+   "a", "A", "b", "c", "d", "e", "f", "F", "g", "gK", "h", "i", "j", "k", "l",
+     "m", "M", "n", "newMetVals", "o", "p", "q", "r", "s", "t", "u", "v", "w",
+     "x", "y", "z", "\[Alpha]", "\[Beta]", "\[Gamma]", "\[Delta]", 
+    "\[CurlyEpsilon]", "\[Zeta]", "\[Eta]", "\[Theta]", "\[Iota]", "\[Kappa]",
+     "\[Lambda]", "\[Mu]", "\[Nu]", "\[Xi]", "\[Omicron]", "\[Rho]", 
+    "\[Sigma]", "\[FinalSigma]", "\[Upsilon]", "\[Phi]", "\[CurlyPhi]", 
+    "\[Psi]", "\[Omega]"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"bdbdb972-7d9c-462e-a361-71715106c744"],
+
+Cell[BoxData["\<\"ToTensor\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"c2bbef7e-45e3-457a-a88c-7b467f9edf61"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"g\"\>", ",", "\<\"gK\"\>", 
+     ",", "\<\"h\"\>", ",", "\<\"k\"\>", ",", "\<\"M\"\>", ",", "\<\"r\"\>", 
+     ",", "\<\"s\"\>", ",", "\<\"t\"\>", ",", "\<\"t1\"\>", ",", "\<\"t2\"\>",
+      ",", "\<\"\[Alpha]\"\>", ",", "\<\"\[Beta]\"\>", 
+     ",", "\<\"\[Gamma]\"\>", ",", "\<\"\[Delta]\"\>", 
+     ",", "\<\"\[CurlyEpsilon]\"\>", ",", "\<\"\[Zeta]\"\>", 
+     ",", "\<\"\[Eta]\"\>", ",", "\<\"\[Theta]\"\>", ",", "\<\"\[Iota]\"\>", 
+     ",", "\<\"\[Kappa]\"\>", ",", "\<\"\[Lambda]\"\>", ",", "\<\"\[Mu]\"\>", 
+     ",", "\<\"\[Nu]\"\>", ",", "\<\"\[Xi]\"\>", ",", "\<\"\[Omicron]\"\>", 
+     ",", "\<\"\[Rho]\"\>", ",", "\<\"\[Sigma]\"\>", 
+     ",", "\<\"\[FinalSigma]\"\>", ",", "\<\"\[Upsilon]\"\>", 
+     ",", "\<\"\[Phi]\"\>", ",", "\<\"\[CurlyPhi]\"\>", ",", "\<\"\[Psi]\"\>",
+      ",", "\<\"\[Omega]\"\>"}], "}"}]}],
+  SequenceForm[
+  "Removing ", {
+   "a", "g", "gK", "h", "k", "M", "r", "s", "t", "t1", "t2", "\[Alpha]", 
+    "\[Beta]", "\[Gamma]", "\[Delta]", "\[CurlyEpsilon]", "\[Zeta]", "\[Eta]",
+     "\[Theta]", "\[Iota]", "\[Kappa]", "\[Lambda]", "\[Mu]", "\[Nu]", 
+    "\[Xi]", "\[Omicron]", "\[Rho]", "\[Sigma]", "\[FinalSigma]", 
+    "\[Upsilon]", "\[Phi]", "\[CurlyPhi]", "\[Psi]", "\[Omega]"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"0e499b59-ad8e-459b-9283-2cc33e564a86"],
+
+Cell[BoxData["\<\"ToTensorOnCurve\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"a783ad51-2224-4f2c-bf5d-446dab880f94"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{"\<\"Removing \"\>", "\[InvisibleSpace]", 
+   RowBox[{"{", 
+    RowBox[{"\<\"a\"\>", ",", "\<\"c1\"\>", ",", "\<\"e\"\>", 
+     ",", "\<\"gK\"\>", ",", "\<\"gKC\"\>", ",", "\<\"gKC2\"\>", 
+     ",", "\<\"M\"\>", ",", "\<\"p\"\>", ",", "\<\"r\"\>", ",", "\<\"t\"\>", 
+     ",", "\<\"vals\"\>", ",", "\<\"\[Alpha]\"\>", ",", "\<\"\[Beta]\"\>", 
+     ",", "\<\"\[Gamma]\"\>", ",", "\<\"\[Delta]\"\>", 
+     ",", "\<\"\[CurlyEpsilon]\"\>", ",", "\<\"\[Zeta]\"\>", 
+     ",", "\<\"\[Eta]\"\>", ",", "\<\"\[Theta]\"\>", ",", "\<\"\[Iota]\"\>", 
+     ",", "\<\"\[Kappa]\"\>", ",", "\<\"\[Lambda]\"\>", ",", "\<\"\[Mu]\"\>", 
+     ",", "\<\"\[Nu]\"\>", ",", "\<\"\[Xi]\"\>", ",", "\<\"\[Omicron]\"\>", 
+     ",", "\<\"\[Rho]\"\>", ",", "\<\"\[Sigma]\"\>", 
+     ",", "\<\"\[FinalSigma]\"\>", ",", "\<\"\[Upsilon]\"\>", 
+     ",", "\<\"\[Phi]\"\>", ",", "\<\"\[CurlyPhi]\"\>", ",", "\<\"\[Chi]\"\>",
+      ",", "\<\"\[Psi]\"\>", ",", "\<\"\[Omega]\"\>"}], "}"}]}],
+  SequenceForm[
+  "Removing ", {
+   "a", "c1", "e", "gK", "gKC", "gKC2", "M", "p", "r", "t", "vals", 
+    "\[Alpha]", "\[Beta]", "\[Gamma]", "\[Delta]", "\[CurlyEpsilon]", 
+    "\[Zeta]", "\[Eta]", "\[Theta]", "\[Iota]", "\[Kappa]", "\[Lambda]", 
+    "\[Mu]", "\[Nu]", "\[Xi]", "\[Omicron]", "\[Rho]", "\[Sigma]", 
+    "\[FinalSigma]", "\[Upsilon]", "\[Phi]", "\[CurlyPhi]", "\[Chi]", 
+    "\[Psi]", "\[Omega]"}],
+  Editable->False]], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"edd6b942-c372-4119-b0bc-d4c79a098f09"],
+
+Cell[BoxData["\<\"$CacheTensorValues\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"683f278f-1cdf-4748-bc69-7cf4e09aec22"],
+
+Cell[BoxData["\<\"ChristoffelSymbol\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"6b42dd18-920b-4c7e-98dc-7e035a92cffb"],
+
+Cell[BoxData["\<\"CovariantD\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"bb9a6105-fd08-4de0-b490-959c205b6fdb"],
+
+Cell[BoxData["\<\"Component\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"568bc2ff-1844-45eb-b55d-e888857bcbbe"],
+
+Cell[BoxData["\<\"ContractIndices\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"60297304-c93e-4aa0-8530-a0220e333d9a"],
+
+Cell[BoxData["\<\"MergeTensors\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"a9b54256-370d-4c7c-a54c-b00e3e8673bf"],
+
+Cell[BoxData["\<\"MultiplyTensors\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"78d94066-97be-4a10-bf23-937d68ad5449"],
+
+Cell[BoxData["\<\"MultiplyTensorScalar\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"0144813c-6de3-43c3-920d-d30e331b7d7d"],
+
+Cell[BoxData["\<\"ReorderTensorIndices\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"2fc2e556-9553-40cd-8499-1d67a4694db1"],
+
+Cell[BoxData["\<\"RepeatedIndexQ\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"0d2fdeb8-8dfd-47fc-88f7-6062c261480b"],
+
+Cell[BoxData["\<\"ShiftIndices\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"91baefa3-55ac-41c1-ad3f-7ab41eb8fbc0"],
+
+Cell[BoxData["\<\"SumTensors\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"e0602bf3-8138-457e-91f6-ea3c4695ca96"],
+
+Cell[BoxData["\<\"TensorRules\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"363fbc2b-32c8-467c-8fc3-acaa4599aec3"],
+
+Cell[BoxData["\<\"TraceReverse\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"018d82d6-3987-464c-9062-c36be258ff9f"],
+
+Cell[BoxData["\<\"ValidateIndices\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"059d7cfd-1d61-49b9-b478-e4dc44b14dfb"],
+
+Cell[BoxData["\<\"BianchiIdentities\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"dcf4f67b-befb-4e6a-b6a0-7ef9399fb212"],
+
+Cell[BoxData["\<\"EinsteinTensor\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"b174d24f-4dd4-463c-bbdf-b3a86e7a251c"],
+
+Cell[BoxData["\<\"FieldStrengthTensor\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"15cde50f-09a4-4605-aef4-12a87ea6d7de"],
+
+Cell[BoxData["\<\"FourVelocity\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"83fc6540-a48e-4357-be3e-9b900b7623b8"],
+
+Cell[BoxData["\<\"KinnersleyDerivative\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"7c5e50a7-c6a2-4479-9671-202255a90fa2"],
+
+Cell[BoxData["\<\"KinnersleyNullTetrad\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"8ad10e38-bc02-45f0-8a3b-9c4d4039e97e"],
+
+Cell[BoxData["\<\"KinnersleyNullVector\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"c3d09239-51c1-49dc-aaa6-4427ebdb1882"],
+
+Cell[BoxData["\<\"KretschmannScalar\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"07447abd-0f1d-43dd-9558-aa60ba54cef6"],
+
+Cell[BoxData["\<\"LeviCivitaSymbol\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"14071df8-a856-4173-abab-d740ed9ab12d"],
+
+Cell[BoxData["\<\"M2Amplitude\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"93e08d0b-9a93-438d-88c7-b0a8fbefe590"],
+
+Cell[BoxData["\<\"MaxwellPotential\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"12a22cc9-dcbc-4dd5-9052-757d943753ca"],
+
+Cell[BoxData["\<\"MaxwellStressEnergyTensor\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"bf7b3fcb-53a0-4e1a-ba0a-c274273103e2"],
+
+Cell[BoxData["\<\"RicciScalar\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"780c8793-c1f3-4612-84ee-5d10fa1c84c3"],
+
+Cell[BoxData["\<\"RicciTensor\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"1dd225b6-7a59-4957-ab68-bdf925401454"],
+
+Cell[BoxData["\<\"RiemannTensor\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"ed2f4cba-3bb4-47a9-9157-93ab78da39c3"],
+
+Cell[BoxData["\<\"SpinCoefficient\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"136f46d3-6239-480c-80b3-6ad46eee70b3"],
+
+Cell[BoxData["\<\"TensorSphericalHarmonic\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"3df0a217-edeb-4adf-bc7c-fe6aa9c349be"],
+
+Cell[BoxData["\<\"WeylTensor\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"7e8a855d-29ca-414a-a228-26824fafc9aa"],
+
+Cell[BoxData["\<\"Building guides\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"5599662c-2823-4f14-832e-7b5e61d0aff5"],
+
+Cell[BoxData["\<\"Building tutorials\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"43dcc9a1-ff81-4374-bab3-1d14b8ff0787"],
+
+Cell[BoxData["\<\"Indexing Documentation\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"8d372f4d-cbe8-4124-901b-2a93cb508c3b"]
+}, Open  ]],
+
+Cell[BoxData[
+ TemplateBox[{
+  "JLink`Java","excptn",
+   "\"A Java exception occurred: \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"java.lang.VerifyError: class \
+com.wolfram.documentationsearch.SynonymAnalyzer overrides final method \
+tokenStream.(Ljava/lang/String;Ljava/io/Reader;)Lorg/apache/lucene/analysis/\
+TokenStream;\\\\\\\\n\\\\\\\\tat java.lang.ClassLoader.defineClass1(Native \
+Method)\\\\\\\\n\\\\\\\\tat \
+java.lang.ClassLoader.defineClass(ClassLoader.java:763)\\\\\\\\n\\\\\\\\tat \
+java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)\\\\\\\
+\\n\\\\\\\\tat java.net.URLClassLoader.defineClass(URLClassLoader.java:467)\\\
+\\\\\\n\\\\\\\\tat java.net.URLClassLoader.access$100(URLClassLoader.java:73)\
+\\\\\\\\n\\\\\\\\tat java.net.URLClassLoader$1.run(URLClassLoader.java:368)\\\
+\\\\\\n\\\\\\\\tat java.net.URLClassLoader$1.run(URLClassLoader.java:362)\\\\\
+\\\\n\\\\\\\\tat java.security.AccessController.doPrivileged(Native Method)\\\
+\\\\\\n\\\\\\\\tat java.net.URLClassLoader.findClass(URLClassLoader.java:361)\
+\\\\\\\\n\\\\\\\\tat \
+java.lang.ClassLoader.loadClass(ClassLoader.java:424)\\\\\\\\n\\\\\\\\tat \
+java.lang.ClassLoader.loadClass(ClassLoader.java:357)\\\\\\\\n\\\\\\\\tat \
+java.lang.Class.getDeclaredConstructors0(Native Method)\\\\\\\\n\\\\\\\\tat \
+java.lang.Class.privateGetDeclaredConstructors(Class.java:2671)\\\\\\\\n\\\\\\\
+\\tat java.lang.Class.getConstructors(Class.java:1651)\\\\\\\"\\\"}]\\).\"",2,
+   5,1,20218390489184669986,"Local","JLink`Java"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"c983c955-873b-4c53-b5c9-2aba0c94eeaa"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "JLink`LoadJavaClass","fail",
+   "\"Java failed to load class \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"com.wolfram.documentationsearch.\
+DocumentationIndexer\\\\\\\"\\\"}]\\).\"",2,5,2,20218390489184669986,"Local",
+   "JLink`LoadJavaClass"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"ae089284-0ce0-4ee3-a794-dd192852a278"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "JLink`KeepJavaObject","obj",
+   "\"At least one argument to KeepJavaObject was not a valid Java object.\"",
+   2,5,3,20218390489184669986,"Local","JLink`KeepJavaObject"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"bcac36e4-5224-46a0-94df-6d4e3a006c57"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "JLink`Java","excptn",
+   "\"A Java exception occurred: \
+\\!\\(\\*RowBox[{\\\"\\\\\\\"java.lang.NoSuchMethodError: \
+org.apache.lucene.index.IndexReader.open(Ljava/lang/String;)Lorg/apache/\
+lucene/index/IndexReader;\\\\\\\\n\\\\\\\\tat \
+com.wolfram.documentationsearch.spelling.DidYouMeanIndexer.createSpellIndex(\
+DidYouMeanIndexer.java:17)\\\\\\\"\\\"}]\\).\"",2,5,4,20218390489184669986,
+   "Local","JLink`Java"},
+  "MessageTemplate2"]], "Message", "MSG",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"8095b3c5-0ce5-4cd3-bffe-5881a38c0b22"],
+
+Cell[BoxData["\<\"Done\"\>"], "Print",
+ CellLabel->
+  "During evaluation of \
+In[5]:=",ExpressionUUID->"f51cf045-3fc7-42a5-aab8-4a0422985c0d"]
+}, Open  ]]
+},
+WindowSize->{840, 1005},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+PrivateNotebookOptions->{"FileOutlineCache"->False,
+"VersionedStylesheet"->{"Default.nb"[8.] -> False}},
+ShowSelection->True,
+TrackCellChangeTimes->False,
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->"Default.nb"
+]
+

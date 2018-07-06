@@ -1,0 +1,343 @@
+Notebook[{
+Cell[" ", "SymbolColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 
+   0}},ExpressionUUID->"304aee6d-010d-48eb-83e3-0a16b48ce4bf"],
+
+Cell[TextData[{
+ ButtonBox["Tensors",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["Tensors`TensorDefinitions",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors`TensorDefinitions"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["Curve",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/ref/Curve"]
+}], "LinkTrail",ExpressionUUID->"36b14f2a-d081-4f61-a916-188d8892058e"],
+
+Cell[BoxData[GridBox[{
+   {Cell["TENSORS`TENSORDEFINITIONS PACLET SYMBOL", "PacletNameCell",
+     ExpressionUUID->"5c455d0b-335b-4841-8d23-aa1d020b57bc"], Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"See Also \[RightGuillemet]\"\>",
+        StripOnInput->False], {"CurveQ":>Documentation`HelpLookup[
+       "paclet:Tensors/ref/CurveQ"], "ToCurve":>Documentation`HelpLookup[
+       "paclet:Tensors/ref/ToCurve"], "ToTensorOnCurve":>
+       Documentation`HelpLookup["paclet:Tensors/ref/ToTensorOnCurve"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "3cca06de-b897-4bfc-b781-8e7cf1a61616"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]"
+    }], "AnchorBar",ExpressionUUID->"543a3196-0ce0-4e56-b07f-b9cb637640fe"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"637b8523-e5b5-4899-be7a-5969f0b22d90"],
+
+Cell[CellGroupData[{
+
+Cell["Curve", \
+"ObjectName",ExpressionUUID->"3916c3a0-8777-4a67-acb5-92f7ab175e30"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["Curve",
+        BaseStyle->"Link",
+        ButtonData->"paclet:Tensors/ref/Curve"], "[", 
+       StyleBox["t", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
+      "40704c86-cfcd-434a-a25d-242488b61736"],
+     "\[LineSeparator]returns the curve that  t is defined along."
+    }],ExpressionUUID->"db622b2a-97d3-4f03-a8ce-b51e5737d36d"]}
+  }]], "Usage",ExpressionUUID->"aa792eb2-7271-4371-9943-37a2b531a1e3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "NotesSection",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->0,
+ "WholeCelGroupOpener" -> 
+ True,ExpressionUUID->"84438a3d-cb6d-48fb-8289-1ebad336ce7e"],
+
+Cell["Curve[t] returns Undefined if t is not on a curve.", \
+"Notes",ExpressionUUID->"5fdf8d03-6dea-451c-8d50-ebac0b4e201e"],
+
+Cell["Curve[t] will return t itself if it is a curve.", \
+"Notes",ExpressionUUID->"639c90fb-1e4f-4432-bb67-8523e9db260d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "PrimaryExamplesSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "EXAMPLES", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Examples"}], 
+        "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0,
+ CellTags->
+  "PrimaryExamplesSection",ExpressionUUID->"eb0774d3-2a42-4ef5-a15b-\
+a3cc0adf6b2b"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(6)", "ExampleCount",ExpressionUUID->
+  "e716860f-c7d2-428c-8bdf-20d472b6e08c"]
+}], "ExampleSection",ExpressionUUID->"105694db-4fc1-404b-9cfd-7883f9f4a7ac"],
+
+Cell[CellGroupData[{
+
+Cell["gK = ToMetric[\"Kerr\"]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"775dfbcf-e131-4a0b-a686-43804494800e"],
+
+Cell[BoxData[
+ TagBox[
+  SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"706e095a-1e1d-4f46-921e-dc8ff6e829b6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+c1 = ToCurve[\"x1\", gK, {t[\[Chi]], (p M)/(1 + e Cos[\[Chi]]), \[Pi]/2, \
+\[Phi][\[Chi]]}, \[Chi]]\
+\>", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"c8d68030-206b-4060-b9b8-d4de696fccc1"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{
+   SubsuperscriptBox["x1", "", "\[Alpha]"], "[", "\<\"\[Chi]\"\>", "]"}],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"f7c8c146-db60-49d1-8189-bbbb42eab002"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["gKC = ToTensorOnCurve[gK, c1]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"5d20f098-6556-48bc-bbd6-59f458d910c2"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{
+   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""], "[", "\<\"\[Chi]\"\>", "]"}],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"3e5033cb-aaa1-41c6-acb7-96aace81016e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Curve[gK]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"d2de0466-4647-4283-ba57-175de4488feb"],
+
+Cell[BoxData["Undefined"], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"cd62524d-5592-4c9b-b960-cdcd2b62257c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Curve[c1]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"88a54386-277e-423e-aa4c-206a6a332723"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{
+   SubsuperscriptBox["x1", "", "\[Alpha]"], "[", "\<\"\[Chi]\"\>", "]"}],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"baa4e111-33f1-4cc0-8e3b-ae9700ada0bb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Curve[gKC]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"23ae46d9-c26f-4fa5-8c91-9abac6099582"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{
+   SubsuperscriptBox["x1", "", "\[Alpha]"], "[", "\<\"\[Chi]\"\>", "]"}],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"5a05eb12-0564-4cb4-b72d-eea2c41445cc"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SeeAlsoSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "SEE ALSO", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "SeeAlsoSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "See Also"}], "SeeAlsoSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"fd5bb022-a90e-44f0-91e4-049ce9a7a64d"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["CurveQ",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/CurveQ"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "ee31afbb-e8de-4474-b99d-163fb30ca8eb"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["ToCurve",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/ToCurve"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "ae65c8d6-3194-4c93-b5f4-5cfae428852a"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["ToTensorOnCurve",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/ToTensorOnCurve"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "1e835e9c-770c-4145-9c43-26adca35d36f"]
+}], "SeeAlso",ExpressionUUID->"9c497488-3cd2-40c8-93f8-194b59264b3a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"e534add2-0077-4c11-9f72-50477755a516"],
+
+Cell[BoxData[""],ExpressionUUID->"f6d9a291-9ed4-4d1a-ba30-a4843fc9034a"]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"Curve",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "Tensors`", "keywords" -> {"Curve", "CURVE", "curve"}, 
+    "index" -> True, "label" -> "Tensors/Tensors`TensorDefinitions Symbol", 
+    "language" -> "en", "paclet" -> "Tensors`TensorDefinitions", "status" -> 
+    "None", "summary" -> 
+    "Curve[t] returns the curve that  t is defined along.", 
+    "synonyms" -> {"Curve", "CURVE", "curve"}, "title" -> "Curve", 
+    "windowTitle" -> "Curve", "type" -> "Symbol", "uri" -> 
+    "Tensors/ref/Curve", "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> 
+  "", "LinkTrails" -> "", "NewStyles" -> False},
+TrackCellChangeTimes->False,
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

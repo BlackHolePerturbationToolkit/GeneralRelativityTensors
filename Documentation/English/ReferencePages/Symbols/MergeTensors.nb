@@ -1,0 +1,159 @@
+Notebook[{
+Cell[" ", "SymbolColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 
+   0}},ExpressionUUID->"b4a8c716-fbc2-4dfe-818a-c8111a1d19e4"],
+
+Cell[TextData[{
+ ButtonBox["Tensors",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["Tensors`TensorManipulation",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors`TensorManipulation"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["MergeTensors",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/ref/MergeTensors"]
+}], "LinkTrail",ExpressionUUID->"4e12137c-554d-4378-ad71-8b6aa0d2a524"],
+
+Cell[CellGroupData[{
+
+Cell["MergeTensors", \
+"ObjectName",ExpressionUUID->"e6ddfe2d-2b6e-409b-aaf6-773e735f174b"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["MergeTensors",
+        BaseStyle->"Link",
+        ButtonData->"paclet:Tensors/ref/MergeTensors"], "[", 
+       StyleBox[
+        RowBox[{"expr", ",", "n"}], "TI"], "]"}]], "InlineFormula",
+      ExpressionUUID->"33c9acd2-9b75-40a3-a4ac-35216ca62bfe"],
+     "\[LineSeparator]calls MultiplyTensors, MultiplyTensorScalar, and \
+SumTensors to merge the Tensor expression expr into one Tensor with \
+TensorName n."
+    }],ExpressionUUID->"380af7a3-3709-4e7b-b244-cb410ab8cfb0"]},
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["MergeTensors",
+        BaseStyle->"Link",
+        ButtonData->"paclet:Tensors/ref/MergeTensors"], "[", 
+       StyleBox["expr", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
+      "22961dd5-4f1b-447b-b7d6-a06a8ea0dd59"],
+     "\[LineSeparator]merges the Tensor expression expr and forms a new \
+TensorName and TensorDisplayName from a combination of the Tensors making up \
+the expression."
+    }],ExpressionUUID->"8032b49b-3837-4db9-864b-23aa02b49420"]}
+  }]], "Usage",ExpressionUUID->"2f1f941f-b7bc-4e5d-817d-5e4029a9a1c9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "NotesSection",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->0,
+ "WholeCelGroupOpener" -> 
+ True,ExpressionUUID->"d301ad4d-0bbd-4a7c-b2d5-f54f342d5506"],
+
+Cell["The following options can be given: ", \
+"Notes",ExpressionUUID->"11c5ed17-eb1b-48f8-afee-1635afc1a659"],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "4c73e72e-0ff5-401f-aa4b-439d6f4b6df6"], "SimplifyFunction", "Identity", 
+    Cell["\<\
+Function which is applied to the elements of the tensor as they are \
+calculated.\
+\>", "TableText",ExpressionUUID->"29f7b459-bfe3-43ff-a4da-ef82a41664d2"]}
+  },
+  GridBoxAlignment->{
+   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
+    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
+ GridBoxOptions->{
+ GridBoxBackground->{
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
+   "RowsIndexed" -> {}},
+ GridBoxDividers->{
+  "Rows" -> {{
+     True, True}}}},ExpressionUUID->"06f5172d-c177-4633-b5fd-44e059dd372d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"5139d8dc-483b-422b-8791-1fb1f43ac4f2"],
+
+Cell[BoxData[""],ExpressionUUID->"b0d59883-698f-4b45-97f2-fea1b8cd1213"]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"MergeTensors",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "Tensors`", 
+    "keywords" -> {"MergeTensors", "MERGETENSORS", "mergetensors"}, "index" -> 
+    True, "label" -> "Tensors/Tensors`TensorManipulation Symbol", "language" -> 
+    "en", "paclet" -> "Tensors`TensorManipulation", "status" -> "None", 
+    "summary" -> 
+    "MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, and \
+SumTensors to merge the Tensor expression expr into one Tensor with \
+TensorName n.\nMergeTensors[expr] merges the Tensor expression expr and forms \
+a new TensorName and TensorDisplayName from a combination of the Tensors \
+making up the expression.", 
+    "synonyms" -> {"MergeTensors", "MERGETENSORS", "mergetensors"}, "title" -> 
+    "MergeTensors", "windowTitle" -> "MergeTensors", "type" -> "Symbol", 
+    "uri" -> "Tensors/ref/MergeTensors", "WorkflowDockedCell" -> ""}, 
+  "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> False},
+TrackCellChangeTimes->False,
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

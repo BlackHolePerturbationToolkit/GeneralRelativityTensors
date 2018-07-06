@@ -3,23 +3,21 @@
 BeginPackage["Tensors`TensorDerivatives`",{"Tensors`TensorDefinitions`"}];
 
 
-TensorDerivatives`Private`str[a_String]:=ToString[Style[a,Italic],TraditionalForm]
-TensorDerivatives`Private`str[args___]:=StringRiffle[TensorDerivatives`Private`str/@{args},","]
-
-
-ChristoffelSymbol::usage="ChristoffelSymbol["<>TensorDerivatives`Private`str["m"]<>"] returns the Christoffel \
-symbol computed from the metric Tensor "<>TensorDerivatives`Private`str["m"]<>".";
-CovariantD::usage="CovariantD["<>TensorDerivatives`Private`str["t","ind"]<>"] returns the covariant derivative of tensor \
-"<>TensorDerivatives`Private`str["t"]<>" with respect to the index "<>TensorDerivatives`Private`str["ind"]<>" as a sum and product of tensors.
-CovariantD["<>TensorDerivatives`Private`str["t","param"]<>"] returns the covariant derivative of tensor \
-"<>TensorDerivatives`Private`str["t"]<>" which parametrized values on a curve with respect to the curve \
-parameter "<>TensorDerivatives`Private`str["param"]<>".";
+ChristoffelSymbol::usage="ChristoffelSymbol[m] returns the Christoffel symbol computed from the metric Tensor m.";
+CovariantD::usage="CovariantD[t,ind] returns the covariant derivative of tensor \
+t with respect to the index ind as a sum and product of tensors.
+CovariantD[t,param] returns the covariant derivative of tensor t with respect to the curve \
+parameter param.";
 
 
 Begin["`Private`"];
 
 
 Options[ChristoffelSymbol]={"SimplifyFunction"->Identity};
+DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"] = 
+{"SimplifyFunction"->"Function which is applied to the elements of the tensor as they are calculated."};
+
+
 Tensor/:ChristoffelSymbol[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
 Module[{n,g,ig,xx,vals,posInds,gT,name,simpFn},
 	simpFn=OptionValue["SimplifyFunction"];
@@ -87,18 +85,13 @@ Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords},
 	itrs={#,1,dims}&/@indsLocal["Tot"];
 	vals=Table[D[tvs[[Sequence@@indsLocal[2]]],coords[[Sequence@@indsLocal[1]]]],Evaluate[Sequence@@itrs]];
 
-	ToTensor[{"(PartialD"<>TensorName[t1]<>")-Auto","(\[PartialD]"<>TensorDisplayName[t1]<>")"},
-			indsFinal,
-			"Values"->vals,
-			"Metric"->Metric[t1],
-			"Coordinates"->Coordinates[t1],
-			"Abstract"->False,
-			"PossibleIndices"->PossibleIndices[t1],
-			"Dimensions"->dims,
-			"CurveParameter"->CurveParameter@t1,
-			"ParametrizedValues"->ParametrizedValuesQ@t1,
-			"Curve"->Curve@t1,
-			"IsCurve"->CurveQ@t1]
+	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","IsMetric","Indices","Values"}],
+					Association["IsMetric"->False,
+								"Values"->vals,
+								"DisplayName"->"(\[PartialD]"<>TensorDisplayName[t1]<>")",
+								"Name"->"(PartialD"<>TensorName[t1]<>")-Auto",
+								"Indices"->indsFinal]]]
+								
 ] /;MemberQ[PossibleIndices[t1],a];
 
 Tensor/:D[t1_Tensor,a_]:=

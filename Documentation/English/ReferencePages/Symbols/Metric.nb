@@ -1,0 +1,348 @@
+Notebook[{
+Cell[" ", "SymbolColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 
+   0}},ExpressionUUID->"3f3f0857-1f19-43ff-a735-4ffb82521420"],
+
+Cell[TextData[{
+ ButtonBox["Tensors",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["Tensors`TensorDefinitions",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors`TensorDefinitions"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["Metric",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/ref/Metric"]
+}], "LinkTrail",ExpressionUUID->"ef39f5f5-8c88-423c-9290-6917f507f367"],
+
+Cell[BoxData[GridBox[{
+   {Cell["TENSORS`TENSORDEFINITIONS PACLET SYMBOL", "PacletNameCell",
+     ExpressionUUID->"99f7cd39-727d-46ec-9644-b3e98f5b2684"], Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"See Also \[RightGuillemet]\"\>",
+        StripOnInput->False], {"ToMetric":>Documentation`HelpLookup[
+       "paclet:Tensors/ref/ToMetric"], "MetricQ":>Documentation`HelpLookup[
+       "paclet:Tensors/ref/MetricQ"], "ToCurve":>Documentation`HelpLookup[
+       "paclet:Tensors/ref/ToCurve"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "8a872116-756e-4b66-9666-eea033df786b"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]"
+    }], "AnchorBar",ExpressionUUID->"cc56e3fa-298f-4cda-b553-477fdd6d870f"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"b0273dbb-34c7-4723-95a5-70dcc27445cb"],
+
+Cell[CellGroupData[{
+
+Cell["Metric", \
+"ObjectName",ExpressionUUID->"aaac4222-afcd-4e08-bb24-789b5d4902fd"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["Metric",
+        BaseStyle->"Link",
+        ButtonData->"paclet:Tensors/ref/Metric"], "[", 
+       StyleBox["t", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
+      "a9ac17e8-0ea5-4f5d-bb92-2046d315cdc8"],
+     "\[LineSeparator]returns the metric Tensor associated with the Tensor \
+t."
+    }],ExpressionUUID->"75cf301b-69c4-4f80-827b-4c86c47590bf"]}
+  }]], "Usage",ExpressionUUID->"fd1fa8ff-3c40-4a91-b72a-7d20237feeb6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "NotesSection",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->0,
+ "WholeCelGroupOpener" -> 
+ True,ExpressionUUID->"74107cb0-13d1-4380-984d-d5adb105889c"],
+
+Cell["Metric[t] will return t itself if it is a metric.", \
+"Notes",ExpressionUUID->"e7c512fb-071a-4696-a409-7ad393645cda"],
+
+Cell["\<\
+If t is on a curve, Metric[t] returns the metric Tensor on the same curve.\
+\>", "Notes",ExpressionUUID->"61caeeb3-e735-4367-a1c0-8478201908fa"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "PrimaryExamplesSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "EXAMPLES", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Examples"}], 
+        "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0,
+ CellTags->
+  "PrimaryExamplesSection",ExpressionUUID->"4c03af97-6dcb-4fea-8da5-\
+67ace716acb6"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(6)", "ExampleCount",ExpressionUUID->
+  "d56f58b0-53f9-46d3-a2bc-ed63e806aa69"]
+}], "ExampleSection",ExpressionUUID->"4efe669f-7c34-44b4-8685-294f0d1d81d9"],
+
+Cell[CellGroupData[{
+
+Cell["gK = ToMetric[\"Kerr\"]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"b4d9fb97-2fc0-4ef7-964c-9af0011f95f6"],
+
+Cell[BoxData[
+ TagBox[
+  SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"5e00f238-795e-43e4-bd15-c4ab72a3d1aa"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+c1 = ToCurve[\"x1\", gK, {t[\[Chi]], (p M)/(1 + e Cos[\[Chi]]), \[Pi]/2, \
+\[Phi][\[Chi]]}, \[Chi]]\
+\>", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"797741e1-983c-4c8e-8d65-f17125a1aee5"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{
+   SubsuperscriptBox["x1", "", "\[Alpha]"], "[", "\<\"\[Chi]\"\>", "]"}],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"616e95c5-8d39-4b30-aa3f-5ccfc30fe885"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["gKC = ToTensorOnCurve[gK, c1]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"3aa5f448-2c5e-4b40-9085-d301d4a5f955"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{
+   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""], "[", "\<\"\[Chi]\"\>", "]"}],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"c4587138-9a9e-442d-95d9-d44b661ad528"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metric[gK]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"9e84f5b6-4e37-438a-bae2-c53ed07b2f55"],
+
+Cell[BoxData[
+ TagBox[
+  SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"479d0cfb-5b5d-4b2a-a767-8b26f3435066"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metric[c1]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"024e23b8-c8b5-4616-9b02-eaadc7d7edc0"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{
+   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""], "[", "\<\"\[Chi]\"\>", "]"}],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"ed6494ab-f549-43fe-8e79-d71934cb39c6"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Metric[gKC]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"7d520f0c-6ed5-42ea-8925-c0b537016bcc"],
+
+Cell[BoxData[
+ TagBox[
+  RowBox[{
+   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""], "[", "\<\"\[Chi]\"\>", "]"}],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"c383385e-eac6-4c7e-8aed-a8c96360995b"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SeeAlsoSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "SEE ALSO", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "SeeAlsoSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "See Also"}], "SeeAlsoSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"3e4c87ca-63e0-4a1c-b678-75bc6da9730b"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["ToMetric",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/ToMetric"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "85693f3f-758b-4a1a-8322-992ce2c9020d"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["MetricQ",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/MetricQ"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "fd804922-8c9a-49d0-bc13-87807c36f3e9"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["ToCurve",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/ToCurve"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "60e978a1-0fc7-43b0-ba0b-35fd368d71a5"]
+}], "SeeAlso",ExpressionUUID->"6eea9dae-6035-4128-a087-2ce3e5a0e3e5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"7e9a01bb-2e2e-495d-a523-10a7192c2aac"],
+
+Cell[BoxData[""],ExpressionUUID->"35ab95fe-f4d5-4f47-8239-4ccf14b14a7b"]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"Metric",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "Tensors`", "keywords" -> {"Metric", "METRIC", "metric"}, 
+    "index" -> True, "label" -> "Tensors/Tensors`TensorDefinitions Symbol", 
+    "language" -> "en", "paclet" -> "Tensors`TensorDefinitions", "status" -> 
+    "None", "summary" -> 
+    "Metric[t] returns the metric Tensor associated with the Tensor t.", 
+    "synonyms" -> {"Metric", "METRIC", "metric"}, "title" -> "Metric", 
+    "windowTitle" -> "Metric", "type" -> "Symbol", "uri" -> 
+    "Tensors/ref/Metric", "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> 
+  "", "LinkTrails" -> "", "NewStyles" -> False},
+TrackCellChangeTimes->False,
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

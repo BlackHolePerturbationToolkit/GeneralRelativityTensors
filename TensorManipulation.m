@@ -3,56 +3,63 @@
 BeginPackage["Tensors`TensorManipulation`",{"Tensors`TensorDefinitions`"}];
 
 
-TensorManipulation`Private`str[a_String]:=ToString[Style[a,Italic],TraditionalForm]
-TensorManipulation`Private`str[args___]:=StringRiffle[TensorManipulation`Private`str/@{args},","]
-
-
-ContractIndices::usage="ContractIndices["<>TensorManipulation`Private`str["t","n"]<>"] contracts all repeated indices of \
-Tensor "<>TensorManipulation`Private`str["t"]<>", returning the resulting lower-rank Tensor with name "<>TensorManipulation`Private`str["n"]<>".
-ContractIndices["<>TensorManipulation`Private`str["t"]<>"] is equivalent to \
-ContractIndices["<>TensorManipulation`Private`str["t"]<>",{TensorName["<>TensorManipulation`Private`str["t"]<>"],TensorDisplayName["<>TensorManipulation`Private`str["t"]<>"]}].";
-ShiftIndices::usage="ShiftIndices["<>TensorManipulation`Private`str["t","inds"]<>"] raises and/or lowers the indices of \
-Tensor "<>TensorManipulation`Private`str["t"]<>" according to the given List "<>TensorManipulation`Private`str["inds"]<>", adjusting \
+ContractIndices::usage="ContractIndices[t,n] contracts all repeated indices of \
+Tensor t, returning the resulting lower-rank Tensor with name n.
+ContractIndices[t] is equivalent to \
+ContractIndices[t,{TensorName[t],TensorDisplayName[t]}].";
+ShiftIndices::usage="ShiftIndices[t,inds] raises and/or lowers the indices of \
+Tensor t according to the given List inds, adjusting \
 the values using the Tensor's associated metric.";
-ValidateIndices::usage="ValidateIndices["<>TensorManipulation`Private`str["t","inds"]<>"] checks that the List of indices \
-"<>TensorManipulation`Private`str["inds"]<>" is valid for Tensor "<>TensorManipulation`Private`str["t"]<>". An error is printed and \
+ValidateIndices::usage="ValidateIndices[t,inds] checks that the List of indices \
+inds is valid for Tensor t. An error is printed and \
 operation is aborted if the list is not valid.";
-TensorRules::usage="TensorRules["<>TensorManipulation`Private`str["t"]<>"] returns a List of Rules with possible \
-coordinates of Tensor "<>TensorManipulation`Private`str["t"]<>" as keys and TensorValues as values.";
+TensorRules::usage="TensorRules[t] returns a List of Rules with possible \
+coordinates of Tensor t as keys and TensorValues as values.";
 
-MergeTensors::usage="MergeTensors["<>TensorManipulation`Private`str["expr","n"]<>"] calls MultiplyTensors, MultiplyTensorScalar, \
-and SumTensors to merge the Tensor expression "<>TensorManipulation`Private`str["expr"]<>" into one Tensor with TensorName "<>TensorManipulation`Private`str["n"]<>".
-MergeTensors["<>TensorManipulation`Private`str["expr"]<>"] merges the Tensor expression "<>TensorManipulation`Private`str["expr"]<>" and \
+MergeTensors::usage="MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, \
+and SumTensors to merge the Tensor expression expr into one Tensor with TensorName n.
+MergeTensors[expr] merges the Tensor expression expr and \
 forms a new TensorName and TensorDisplayName from a combination of the Tensors making up the expression.";
-SumTensors::usage="SumTensors["<>TensorManipulation`Private`str["t1","t2","...","n"]<>"] sums the Tensors "<>TensorManipulation`Private`str["t1","t2"]<>", \
-etc., forming a new Tensor with TensorName "<>TensorManipulation`Private`str["n"]<>".
-SumTensors["<>TensorManipulation`Private`str["t1","t2","..."]<>"] sums the Tensors "<>TensorManipulation`Private`str["t1","t2"]<>", etc., and \
+SumTensors::usage="SumTensors[t1,t2,...,n] sums the Tensors t1, t2, \
+etc., forming a new Tensor with TensorName n.
+SumTensors[t1,t2,...] sums the Tensors t1, t2, etc., and \
 forms a new TensorName and TensorDisplayName from a combination of the Tensors making up the expression.";
-MultiplyTensors::usage="MultiplyTensors["<>TensorManipulation`Private`str["t1","t2","...","n"]<>"] forms the outer product of the \
-Tensors "<>TensorManipulation`Private`str["t1","t2"]<>", etc., creating a new Tensor with TensorName "<>TensorManipulation`Private`str["n"]<>".
-MultiplyTensors["<>TensorManipulation`Private`str["t1","t2","..."]<>"] forms the outer product of the Tensors \
-"<>TensorManipulation`Private`str["t1","t2"]<>", etc., and forms a new TensorName \
+MultiplyTensors::usage="MultiplyTensors[t1,t2,...,n] forms the outer product of the \
+Tensors t1, t2, etc., creating a new Tensor with TensorName n.
+MultiplyTensors[t1,t2,...] forms the outer product of the Tensors \
+t1, t2, etc., and forms a new TensorName \
 and TensorDisplayName from a combination of the Tensors making up the expression.";
-MultiplyTensorScalar::usage="MultiplyTensorScalar["<>TensorManipulation`Private`str["a","t","n"]<>"] \
-or MultiplyTensorScalar["<>TensorManipulation`Private`str["t","a","n"]<>"] forms the product \
-of the scalar "<>TensorManipulation`Private`str["a"]<>" with the Tensor "<>TensorManipulation`Private`str["t"]<>", \
-creating a new Tensor with TensorName "<>TensorManipulation`Private`str["n"]<>".
-MultiplyTensorScalar["<>TensorManipulation`Private`str["a","t"]<>"] forms the product of the "<>TensorManipulation`Private`str["a"]<>" \
-and "<>TensorManipulation`Private`str["t"]<>", and forms a new TensorName and TensorDisplayName from a combination of \
+MultiplyTensorScalar::usage="MultiplyTensorScalar[a,t,n] \
+or MultiplyTensorScalar[t,a,n] forms the product \
+of the scalar a with the Tensor t, \
+creating a new Tensor with TensorName n.
+MultiplyTensorScalar[a,t] forms the product of the a \
+and t, and forms a new TensorName and TensorDisplayName from a combination of \
 the scalar and Tensor making up the expression.";
-TraceReverse::usage="TraceReverse["<>TensorManipulation`Private`str["t","n"]<>"] returns the trace reversed version of \
-the Tensor "<>TensorManipulation`Private`str["t"]<>" with the TensorName "<>TensorManipulation`Private`str["n"]<>".
-TraceReverse["<>TensorManipulation`Private`str["t"]<>"] is equivalent to TraceReverse["<>TensorManipulation`Private`str["t","n"]<>"], \
+TraceReverse::usage="TraceReverse[t,n] returns the trace reversed version of \
+the Tensor t with the TensorName n.
+TraceReverse[t] is equivalent to TraceReverse[t,n], \
 but with the returned TensorName and DisplayTensorName auto-generated.";
 
-RepeatedIndexQ::usage="RepeatedIndexQ["<>TensorManipulation`Private`str["t"]<>"] returns True if the Tensor \
-"<>TensorManipulation`Private`str["t"]<>" has repeated indices which can be traced.";
-Component::usage="Component["<>TensorManipulation`Private`str["t","inds"]<>"] returns the component of Tensor "<>TensorManipulation`Private`str["t"]<>" \
-with (appropriately covariant and contravariant) List of indices "<>TensorManipulation`Private`str["inds"]<>". \
-All elements of "<>TensorManipulation`Private`str["inds"]<>" must be Coordinates of "<>TensorManipulation`Private`str["t"]<>".";
+RepeatedIndexQ::usage="RepeatedIndexQ[t] returns True if the Tensor \
+t has repeated indices which can be traced.";
+Component::usage="Component[t,inds] returns the component of Tensor t \
+with (appropriately covariant and contravariant) List of indices inds. \
+All elements of inds must be Coordinates of t.";
+
+ReorderTensorIndices::usage="ReorderTensorIndices[t,order,n] returns the Tensor t with its indices reordered as given by order, \
+which is a List including all integers from 1 to the rank of the Tensor."
 
 
 Begin["`Private`"];
+
+
+Options[ShiftIndices]={"SimplifyFunction"->Identity};
+Options[MergeTensors]=Options[ShiftIndices];
+Options[TraceReverse]=Options[ShiftIndices];
+DocumentationBuilder`OptionDescriptions["ShiftIndices"] = {"SimplifyFunction"->"Function which is applied to the elements of the tensor as they are calculated."};
+DocumentationBuilder`OptionDescriptions["MergeTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
+DocumentationBuilder`OptionDescriptions["TraceReverse"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 
 
 Tensor/:RepeatedIndexQ[t_Tensor]:=Length[DeleteDuplicates@(Indices[t]/.-sym_Symbol:>sym)]<Length[Indices[t]];
@@ -105,7 +112,6 @@ Module[{posInds,indsUp,repeatedInds},
 
 
 Clear[ShiftIndices]
-Options[ShiftIndices]={"SimplifyFunction"->Simplify};
 Tensor/:ShiftIndices[t_Tensor,inds:{__},opts:OptionsPattern[]]:=
 Module[{},
 	ValidateIndices[t,inds];
@@ -127,7 +133,8 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 	indPosNew=ReplacePart[indPos,pos->newPos];
 	inds=Indices[t];
 	
-	vals=Which[indPos[[pos]]===newPos,
+	vals=simpFn@
+		Which[indPos[[pos]]===newPos,
 			
 			RawTensorValues[t],
 			
@@ -266,20 +273,16 @@ Module[{posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvFunc},
 	itrs={#,1,dims}&/@indsLocal["Tot"];
 	
 	vals=Table[tvs[1][[Sequence@@indsLocal[1]]]+tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]];
-
-	ToTensor[{"("<>TensorName[t1]<>"+"<>TensorName[t2]<>")-Auto","("<>TensorDisplayName[t1]<>"+"<>TensorDisplayName[t2]<>")"},
-			indsFinal,
-			"Values"->vals,
-			"Metric"->Metric[t1],
-			"IsMetric"->False,
-			"Coordinates"->Coordinates[t1],
-			"Abstract"->False,
-			"PossibleIndices"->posInds,
-			"Dimensions"->Dimensions[t1],
-			"CurveParameter"->CurveParameter@t1,
-			"ParametrizedValues"->(ParametrizedValuesQ@t1||ParametrizedValuesQ@t2),
-			"Curve"->Curve@t1,
-			"IsCurve"->CurveQ@t1]
+	
+	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","IsMetric","Values","Indices","ParametrizedValues","PossibleIndices"}],
+					Association["IsMetric"->False,
+								"Metric"->Metric[t1],
+								"Indices"->indsFinal,
+								"Values"->vals,
+								"PossibleIndices"->posInds,
+								"ParametrizedValues"->(ParametrizedValuesQ@t1||ParametrizedValuesQ@t2),
+								"Name"->"("<>TensorName[t1]<>"+"<>TensorName[t2]<>")-Auto",
+								"DisplayName"->"("<>TensorDisplayName[t1]<>"+"<>TensorDisplayName[t2]<>")"]]]
 ]
 Tensor/:SumTensors[t1_Tensor]:=t1;
 Tensor/:SumTensors[t1_Tensor,t2__Tensor]:=Fold[SumTensors,t1,{t2}]
@@ -335,20 +338,17 @@ Module[{posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,t
 	dims=Dimensions[t1];
 	itrs={#,1,dims}&/@indsLocal["Tot"];
 	vals=Table[tvs[1][[Sequence@@indsLocal[1]]]tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]];
+	
+	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","IsMetric","Values","Indices","ParametrizedValues","PossibleIndices"}],
+					Association["IsMetric"->False,
+								"Metric"->Metric[t1],
+								"Indices"->indsFinal,
+								"Values"->vals,
+								"PossibleIndices"->posInds,
+								"ParametrizedValues"->(ParametrizedValuesQ@t1||ParametrizedValuesQ@t2),
+								"Name"->"("<>TensorName[t1]<>"\[CenterDot]"<>TensorName[t2]<>")-Auto",
+								"DisplayName"->"("<>TensorDisplayName[t1]<>"\[CenterDot]"<>TensorDisplayName[t2]<>")"]]]
 
-	ToTensor[{"("<>TensorName[t1]<>"\[CenterDot]"<>TensorName[t2]<>")-Auto","("<>TensorDisplayName[t1]<>"\[CenterDot]"<>TensorDisplayName[t2]<>")"},
-			indsFinal,
-			"Values"->vals,
-			"Metric"->Metric[t1],
-			"IsMetric"->False,
-			"Coordinates"->Coordinates[t1],
-			"Abstract"->False,
-			"PossibleIndices"->posInds,
-			"Dimensions"->dims,
-			"CurveParameter"->CurveParameter@t1,
-			"ParametrizedValues"->(ParametrizedValuesQ@t1||ParametrizedValuesQ@t2),
-			"Curve"->Curve@t1,
-			"IsCurve"->CurveQ@t1]
 ];
 
 Tensor/:MultiplyTensors[t1_Tensor]:=t1;
@@ -360,24 +360,22 @@ Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String}]:=
 Clear[MultiplyTensorScalar]
 Tensor/:MultiplyTensorScalar[t_Tensor,n_]:=MultiplyTensorScalar[n,t];
 Tensor/:MultiplyTensorScalar[n_,t_Tensor]:=
-Module[{vals},
+Module[{vals,name,dispName},
 	If[AbstractQ[t],Print["Cannot multiply Abstract Tensors."];Abort[]];
-	If[Not[MatchQ[n,(_Symbol|_Real|_Complex|_Integer|_Rational|_Times|_Plus)]],Print["Cannot multiply a Tensor by a ", Head[n]];Abort[]];
+	If[Not[MatchQ[n,(_Symbol|_Real|_Complex|_Integer|_Rational|_Times|_Plus|_SeriesData)]],Print["Cannot multiply a Tensor by a ", Head[n]];Abort[]];
 	vals=n RawTensorValues[t];
 
-	ToTensor[{"("<>ToString[n]<>TensorName[t]<>")-Auto","("<>ToString[n]<>"\[CenterDot]"<>TensorDisplayName[t]<>")"},
-			Indices[t],
-			"Values"->vals,
-			"Metric"->Metric[t],
-			"IsMetric"->False,
-			"Coordinates"->Coordinates[t],
-			"Abstract"->False,
-			"PossibleIndices"->PossibleIndices[t],
-			"Dimensions"->Dimensions[t],
-			"CurveParameter"->CurveParameter@t,
-			"ParametrizedValues"->ParametrizedValuesQ@t,
-			"Curve"->Curve@t,
-			"IsCurve"->CurveQ@t]
+	{name,dispName}=
+	If[MatchQ[n,_Plus],
+		{"(("<>ToString[n]<>")"<>TensorName[t]<>")-Auto","(("<>ToString[n]<>")\[CenterDot]"<>TensorDisplayName[t]<>")"},
+		{"("<>ToString[n]<>TensorName[t]<>")-Auto","("<>ToString[n]<>"\[CenterDot]"<>TensorDisplayName[t]<>")"}
+	];
+	ToTensor[Join[KeyDrop[Association@@t,{"DisplayName","Name","IsMetric","Values","Metric"}],
+					Association["IsMetric"->False,
+								"Metric"->Metric[t],
+								"Values"->vals,
+								"DisplayName"->dispName,
+								"Name"->name]]]
 
 ]
 Tensor/:MultiplyTensorScalar[t1_Tensor]:=t1;
@@ -387,17 +385,13 @@ Tensor/:MultiplyTensorScalar[n_,t1_Tensor,{name_String,displayName_String}]:=Set
 Tensor/:MultiplyTensorScalar[t1_Tensor,n_,{name_String,displayName_String}]:=MultiplyTensorScalar[n,t1,{name,displayName}]
 
 
-Options[MergeTensors]={"SimplifyFunction"->Identity};
 Clear[MergeTensors]
 MergeTensors[expr_,opts:OptionsPattern[]]:=
 Module[{expr1,expr2,simpFn,expr3},
 	simpFn=OptionValue["SimplifyFunction"];
 	expr1=Expand[expr]/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2];
-	(*Print[expr1];*)
 	expr2=expr1//.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t];
-	(*Print[expr2];*)
 	expr3=ActOnTensorValues[ContractIndices[expr2]/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2],simpFn];
-	(*Print[expr3];*)
 	expr3	
 ]
 MergeTensors[expr_,name_String,opts:OptionsPattern[]]:=SetTensorName[MergeTensors[expr,opts],name]
@@ -405,7 +399,6 @@ MergeTensors[expr_,{name_String,dispName_String},opts:OptionsPattern[]]:=SetTens
 
 
 Clear[TraceReverse]
-Options[TraceReverse]={"SimplifyFunction"->Identity};
 Tensor/:TraceReverse[t_Tensor,{name_String,dispName_String},opts:OptionsPattern[]]:=
 Module[{met,tTr,pis,is,simpFn},
 
@@ -418,12 +411,34 @@ Module[{met,tTr,pis,is,simpFn},
 	pis=PossibleIndices[t];
 	is=Indices[t];
 	met=Metric[t];
-	tTr=simpFn@TensorValues@ContractIndices[t[pis[[1]],-pis[[1]]]];
+	tTr=simpFn@RawTensorValues@ContractIndices[t[pis[[1]],-pis[[1]]]];
 
 	MergeTensors[t[is[[1]],is[[2]]]-2met tTr/Dimensions[met],{name,dispName},"SimplifyFunction"->simpFn]
 ];
 Tensor/:TraceReverse[t_Tensor,name_String,opts:OptionsPattern[]]:=TraceReverse[t,{name,name},opts]
 Tensor/:TraceReverse[t_Tensor,opts:OptionsPattern[]]:=TraceReverse[t,{TensorName[t]<>"TraceReverse",TensorDisplayName[t]<>"Bar"},opts]
+
+
+Clear[ReorderTensorIndices]
+Tensor/:ReorderTensorIndices[t_Tensor,inds_List,{name_String,displayName_String}]:=
+Module[{is,pis},
+	is=Indices[t];
+
+	If[Sort@inds=!=Range[Total@Rank@t],
+		Print["Tensor ", t, " is of rank ", Total@Rank@t  ". ReorderTensorIndices requires a list of index positions including exactly the numbers ",Range[Total@Rank@t], " in some order." ];
+		Abort[]
+	];
+
+	ToTensor[Join[KeyDrop[Association@@t,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+			Association["Metric"->Metric[t],
+						"IsMetric"->False,
+						"Values"->Transpose[RawTensorValues[t],inds],
+						"DisplayName"->displayName,
+						"Name"->name,
+						"Indices"->(is[[#]]&/@inds)]]]
+]
+Tensor/:ReorderTensorIndices[t_Tensor,inds_List,name_String]:=ReorderTensorIndices[t,inds,{name,name}]
+Tensor/:ReorderTensorIndices[t_Tensor,inds_List]:=ReorderTensorIndices[t,inds,{TensorName[t]<>"Reorder"<>ToString[inds],TensorDisplayName[t]}]
 
 
 End[];
