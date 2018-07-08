@@ -62,11 +62,23 @@ Begin["`Private`"];
 
 
 Options[ShiftIndices]={"SimplifyFunction"->Identity};
+Options[Component]=Options[ShiftIndices];
+Options[TensorRules]=Options[ShiftIndices];
+Options[ContractIndices]=Options[ShiftIndices];
+Options[SumTensors]=Options[ShiftIndices];
+Options[MultiplyTensors]=Options[ShiftIndices];
+Options[MultiplyTensorScalar]=Options[ShiftIndices];
 Options[MergeTensors]=Options[ShiftIndices];
 Options[TraceReverse]=Options[ShiftIndices];
 Options[SymmetrizeTensor]=Options[ShiftIndices];
 Options[AntisymmetrizeTensor]=Options[ShiftIndices];
 DocumentationBuilder`OptionDescriptions["ShiftIndices"] = {"SimplifyFunction"->"Function which is applied to the elements of the tensor as they are calculated."};
+DocumentationBuilder`OptionDescriptions["Component"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
+DocumentationBuilder`OptionDescriptions["TensorRules"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
+DocumentationBuilder`OptionDescriptions["ContractIndices"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
+DocumentationBuilder`OptionDescriptions["SumTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
+DocumentationBuilder`OptionDescriptions["MultiplyTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
+DocumentationBuilder`OptionDescriptions["MultiplyTensorScalar"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["MergeTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["TraceReverse"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["SymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
@@ -146,7 +158,6 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 	
 	vals=simpFn@
 		Which[indPos[[pos]]===newPos,
-			
 			RawTensorValues[t],
 			
 			RawTensorValues[t]===Undefined && Metric[t]===Undefined,
@@ -154,11 +165,9 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 			Abort[],
 				
 			RawTensorValues[t]===Undefined && Metric[t]=!=Undefined,
-			
 			Undefined,
-		
-			RawTensorValues[TensorName[t],indPosNew]===Undefined,
 			
+			RawTensorValues[TensorName[t],indPosNew]===Undefined,
 			tvs=RawTensorValues[t];
 			n=Dimensions[t];
 			indsBefore=Table[itr[ii],{ii,1,pos-1}];
@@ -171,7 +180,6 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 			Table[Sum[gOrInvG[[i,s]]tvs[[Sequence@@indsBefore,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]],
 			
 			True,
-	
 			RawTensorValues[TensorName[t],indPosNew]
 	];
 
@@ -186,14 +194,15 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 
 
 Clear[ContractIndices]
-ContractIndices[expr_]:=expr/.t_Tensor:>ContractIndices[t]
-Tensor/:ContractIndices[t_Tensor]:=NestWhile[contractIndex,t,RepeatedIndexQ]
-Tensor/:ContractIndices[t_Tensor,name_String]:=SetTensorName[ContractIndices[t],name]
-Tensor/:ContractIndices[t_Tensor,{name_String,displayName_String}]:=SetTensorName[ContractIndices[t],{name,displayName}]
+Options[ContractIndices]
+ContractIndices[expr_,opts:OptionsPattern[]]:=expr/.t_Tensor:>ContractIndices[t,opts]
+Tensor/:ContractIndices[t_Tensor,opts:OptionsPattern[]]:=NestWhile[contractIndex[#,OptionValue["SimplifyFunction"]]&,t,RepeatedIndexQ]
+Tensor/:ContractIndices[t_Tensor,name_String,opts:OptionsPattern[]]:=SetTensorName[ContractIndices[t,opts],name]
+Tensor/:ContractIndices[t_Tensor,{name_String,displayName_String},opts:OptionsPattern[]]:=SetTensorName[ContractIndices[t,opts],{name,displayName}]
 
 
 Clear[contractIndex]
-contractIndex[t_Tensor]:=
+contractIndex[t_Tensor,simpFn_]:=
 Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,traceIndex,
 	indsBefore,indsBetween,indsAfter,itrBefore,itrBetween,itrAfter,itrTot,tvs,itr},
 	
@@ -215,10 +224,11 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 	itrBetween=({#,1,n}&/@indsBetween);
 	itrAfter=({#,1,n}&/@indsAfter);
 	itrTot=Join[itrBefore,itrBetween,itrAfter];
-	vals = If[itrTot==={},
-				Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],
-				Table[Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]]
-		];
+	
+	vals = Map[simpFn,
+				Table[Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]],
+				{Length@indsNew}];
+	
 	ToTensor[Join[KeyDrop[Association@@t,{"Indices","Name"}],
 					Association["Name"->TensorName[t]<>"-Auto",
 								"Values"->vals,
@@ -226,7 +236,7 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 ]
 
 
-Tensor/:Component[t_Tensor,inds___List]:=
+Tensor/:Component[t_Tensor,inds___List,opts:OptionsPattern[]]:=
 Module[{indsPos,indsAbstr,indsAbstrUp,coordsPos,indsUp},
 	If[Length[inds]=!=Total@Rank[t],
 		Print["Tensor ", t," expected ",Total@Rank[t]," indices to select a component, but ", Length[inds], If[Length[inds]===1," index was ", " indices were "],"given."];
@@ -236,15 +246,16 @@ Module[{indsPos,indsAbstr,indsAbstrUp,coordsPos,indsUp},
 	coordsPos=Flatten[Position[Coordinates[t],#]&/@indsUp];
 	indsAbstrUp=Indices[t]/.-sym_Symbol:>sym;
 	indsAbstr=MapThread[If[MatchQ[#1,_Symbol],#2,-#2]&,{inds,indsAbstrUp}];
-	Part[TensorValues[t[Sequence@@indsAbstr]],Sequence@@coordsPos]
+	(*Part[TensorValues[t[Sequence@@indsAbstr]],Sequence@@coordsPos]*)
+	Part[TensorValues[ShiftIndices[t,{Sequence@@indsAbstr},opts]],Sequence@@coordsPos]
 ]
 
 
-Tensor/:TensorRules[t_Tensor]:=
+Tensor/:TensorRules[t_Tensor,opts:OptionsPattern[]]:=
 Module[{pmList,lhs},
 	pmList=If[#==="Up",1,-1]&/@IndexPositions[t];
 	lhs=pmList #&/@Tuples[Coordinates[t],Total@Rank[t]];
-	(#->Component[t,#])&/@lhs
+	(#->Component[t,#,opts])&/@lhs
 ]
 
 
@@ -257,13 +268,14 @@ If[Sort[inds1]=!=Sort[inds2],
 
 
 Clear[SumTensors]
-Tensor/:SumTensors[t1_Tensor,t2_Tensor]:=
-Module[{posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvFunc},
+Tensor/:SumTensors[t1_Tensor,t2_Tensor,opts:OptionsPattern[]]:=
+Module[{simpFn,posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvFunc},
 
 	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot sum Abstract Tensors."];Abort[]];
 	If[TensorName@Metric[t1]=!=TensorName@Metric[t2],Print["Cannot sum Tensors with different metrics."];Abort[]];
 	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot sum Tensors on different curves."];Abort[]];
 	
+	simpFn=OptionValue["SimplifyFunction"];
 	tvFunc=If[ParametrizedValuesQ@t1||ParametrizedValuesQ@t2,TensorValues,RawTensorValues];
 			
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
@@ -283,7 +295,9 @@ Module[{posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvFunc},
 	dims=Dimensions[t1];
 	itrs={#,1,dims}&/@indsLocal["Tot"];
 	
-	vals=Table[tvs[1][[Sequence@@indsLocal[1]]]+tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]];
+	vals=Map[simpFn,
+			Table[tvs[1][[Sequence@@indsLocal[1]]]+tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]],
+			{Length@indsFinal}];
 	
 	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","IsMetric","Values","Indices","ParametrizedValues","PossibleIndices"}],
 					Association["IsMetric"->False,
@@ -294,11 +308,11 @@ Module[{posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvFunc},
 								"ParametrizedValues"->(ParametrizedValuesQ@t1||ParametrizedValuesQ@t2),
 								"Name"->"("<>TensorName[t1]<>"+"<>TensorName[t2]<>")-Auto",
 								"DisplayName"->"("<>TensorDisplayName[t1]<>"+"<>TensorDisplayName[t2]<>")"]]]
-]
-Tensor/:SumTensors[t1_Tensor]:=t1;
-Tensor/:SumTensors[t1_Tensor,t2__Tensor]:=Fold[SumTensors,t1,{t2}]
-Tensor/:SumTensors[t1_Tensor,t2__Tensor,name_String]:=SetTensorName[SumTensors[t1,t2],name]
-Tensor/:SumTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String}]:=SetTensorName[SumTensors[t1,t2],{name,displayName}]
+];
+Tensor/:SumTensors[t1_Tensor,opts:OptionsPattern[]]:=t1;
+Tensor/:SumTensors[t1_Tensor,t2__Tensor,opts:OptionsPattern[]]:=Fold[SumTensors[#1,#2,opts]&,t1,{t2}]
+Tensor/:SumTensors[t1_Tensor,t2__Tensor,name_String,opts:OptionsPattern[]]:=SetTensorName[SumTensors[t1,t2,opts],name]
+Tensor/:SumTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String},opts:OptionsPattern[]]:=SetTensorName[SumTensors[t1,t2,opts],{name,displayName}]
 
 
 Clear[validateProductIndices]
@@ -323,13 +337,14 @@ Module[{indsUp,repeatedInds,inds,toCov},
 
 
 Clear[MultiplyTensors]
-Tensor/:MultiplyTensors[t1_Tensor,t2_Tensor]:=
-Module[{posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,tvFunc},
+Tensor/:MultiplyTensors[t1_Tensor,t2_Tensor,opts:OptionsPattern[]]:=
+Module[{simpFn,posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,tvFunc},
 
 	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot multiply Abstract Tensors."];Abort[]];
 	If[TensorName@Metric[t1]=!=TensorName@Metric[t2],Print["Cannot multiply Tensors with different metrics."];Abort[]];
-	
 	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot multiply Tensors on different curves."];Abort[]];
+	
+	simpFn=OptionValue["SimplifyFunction"];
 	tvFunc=If[ParametrizedValuesQ@t1||ParametrizedValuesQ@t2,TensorValues,RawTensorValues];
 
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
@@ -348,7 +363,9 @@ Module[{posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,t
 	tvs[2]=tvFunc[t2];
 	dims=Dimensions[t1];
 	itrs={#,1,dims}&/@indsLocal["Tot"];
-	vals=Table[tvs[1][[Sequence@@indsLocal[1]]]tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]];
+	vals=Map[simpFn,
+			Table[tvs[1][[Sequence@@indsLocal[1]]]tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]],
+			{Length@indsFinal}];
 	
 	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","IsMetric","Values","Indices","ParametrizedValues","PossibleIndices"}],
 					Association["IsMetric"->False,
@@ -362,19 +379,21 @@ Module[{posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,t
 
 ];
 
-Tensor/:MultiplyTensors[t1_Tensor]:=t1;
-Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor]:=Fold[MultiplyTensors,t1,{t2}]
-Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,name_String]:=SetTensorName[MultiplyTensors[t1,t2],name]
-Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String}]:=SetTensorName[MultiplyTensors[t1,t2],{name,displayName}]
+Tensor/:MultiplyTensors[t1_Tensor,opts:OptionsPattern[]]:=t1;
+Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,opts:OptionsPattern[]]:=Fold[MultiplyTensors[#1,#2,opts]&,t1,{t2}]
+Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,name_String,opts:OptionsPattern[]]:=SetTensorName[MultiplyTensors[t1,t2,opts],name]
+Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String},opts:OptionsPattern[]]:=SetTensorName[MultiplyTensors[t1,t2,opts],{name,displayName}]
 
 
 Clear[MultiplyTensorScalar]
-Tensor/:MultiplyTensorScalar[t_Tensor,n_]:=MultiplyTensorScalar[n,t];
-Tensor/:MultiplyTensorScalar[n_,t_Tensor]:=
-Module[{vals,name,dispName},
+Tensor/:MultiplyTensorScalar[t_Tensor,n_,opts:OptionsPattern[]]:=MultiplyTensorScalar[n,t,opts];
+Tensor/:MultiplyTensorScalar[n_,t_Tensor,opts:OptionsPattern[]]:=
+Module[{simpFn,vals,name,dispName},
 	If[AbstractQ[t],Print["Cannot multiply Abstract Tensors."];Abort[]];
 	If[Not[MatchQ[n,(_Symbol|_Real|_Complex|_Integer|_Rational|_Times|_Plus|_SeriesData)]],Print["Cannot multiply a Tensor by a ", Head[n]];Abort[]];
-	vals=n RawTensorValues[t];
+
+	simpFn=OptionValue["SimplifyFunction"];
+	vals= Map[simpFn[n #]&, RawTensorValues[t],{Total@Rank[t]}];
 
 	{name,dispName}=
 	If[MatchQ[n,_Plus],
@@ -389,21 +408,20 @@ Module[{vals,name,dispName},
 								"Name"->name]]]
 
 ]
-Tensor/:MultiplyTensorScalar[t1_Tensor]:=t1;
-Tensor/:MultiplyTensorScalar[n_,t1_Tensor,name_String]:=SetTensorName[MultiplyTensorScalar[n,t1],name]
-Tensor/:MultiplyTensorScalar[t1_Tensor,n_,name_String]:=MultiplyTensorScalar[n,t1,name]
-Tensor/:MultiplyTensorScalar[n_,t1_Tensor,{name_String,displayName_String}]:=SetTensorName[MultiplyTensorScalar[n,t1],{name,displayName}]
-Tensor/:MultiplyTensorScalar[t1_Tensor,n_,{name_String,displayName_String}]:=MultiplyTensorScalar[n,t1,{name,displayName}]
+Tensor/:MultiplyTensorScalar[t1_Tensor,opts:OptionsPattern[]]:=t1;
+Tensor/:MultiplyTensorScalar[n_,t1_Tensor,name_String,opts:OptionsPattern[]]:=SetTensorName[MultiplyTensorScalar[n,t1,opts],name]
+Tensor/:MultiplyTensorScalar[t1_Tensor,n_,name_String,opts:OptionsPattern[]]:=MultiplyTensorScalar[n,t1,name,opts]
+Tensor/:MultiplyTensorScalar[n_,t1_Tensor,{name_String,displayName_String},opts:OptionsPattern[]]:=SetTensorName[MultiplyTensorScalar[n,t1,opts],{name,displayName}]
+Tensor/:MultiplyTensorScalar[t1_Tensor,n_,{name_String,displayName_String},opts:OptionsPattern[]]:=MultiplyTensorScalar[n,t1,{name,displayName},opts]
 
 
 Clear[MergeTensors]
 MergeTensors[expr_,opts:OptionsPattern[]]:=
-Module[{expr1,expr2,simpFn,expr3},
+Module[{expr1,expr2,simpFn},
 	simpFn=OptionValue["SimplifyFunction"];
-	expr1=Expand[expr]/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2];
-	expr2=expr1//.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t];
-	expr3=ActOnTensorValues[ContractIndices[expr2]/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2],simpFn];
-	expr3	
+	expr1=Expand[expr]/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2,opts];
+	expr2=expr1//.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t,opts];
+	ActOnTensorValues[ContractIndices[expr2,opts]/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2,opts],simpFn]
 ]
 MergeTensors[expr_,name_String,opts:OptionsPattern[]]:=SetTensorName[MergeTensors[expr,opts],name]
 MergeTensors[expr_,{name_String,dispName_String},opts:OptionsPattern[]]:=SetTensorName[MergeTensors[expr,opts],{name,dispName}]
@@ -411,20 +429,19 @@ MergeTensors[expr_,{name_String,dispName_String},opts:OptionsPattern[]]:=SetTens
 
 Clear[TraceReverse]
 Tensor/:TraceReverse[t_Tensor,{name_String,dispName_String},opts:OptionsPattern[]]:=
-Module[{met,tTr,pis,is,simpFn},
+Module[{met,tTr,i,simpFn},
 
 	simpFn=OptionValue["SimplifyFunction"];
-	If[Total[Rank[t]]=!=2,
-		Print["TraceReverse is built only for Tensors of Rank 2"];
+	If[Rank[t]=!={0,2},
+		Print["TraceReverse is built only for Tensors of Rank {0,2}"];
 		Abort[]
 	];
 
-	pis=PossibleIndices[t];
-	is=Indices[t];
+	i=First@PossibleIndices[t];
 	met=Metric[t];
-	tTr=simpFn@RawTensorValues@ContractIndices[t[pis[[1]],-pis[[1]]]];
+	tTr=RawTensorValues@ContractIndices[t[i,-i],opts];
 
-	MergeTensors[t[is[[1]],is[[2]]]-2met tTr/Dimensions[met],{name,dispName},"SimplifyFunction"->simpFn]
+	MergeTensors[t - 2 met tTr/Dimensions[met],{name,dispName},"SimplifyFunction"->simpFn]
 ];
 Tensor/:TraceReverse[t_Tensor,name_String,opts:OptionsPattern[]]:=TraceReverse[t,{name,name},opts]
 Tensor/:TraceReverse[t_Tensor,opts:OptionsPattern[]]:=TraceReverse[t,{TensorName[t]<>"TraceReverse",TensorDisplayName[t]<>"Bar"},opts]

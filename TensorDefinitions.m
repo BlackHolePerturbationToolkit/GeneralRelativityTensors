@@ -436,7 +436,8 @@ Module[{coordsP,temp,coordsPTemp,coordsPRules,exprTemp,notCurves},
 
 Tensor/:Metric[t_Tensor]:=Which[(Association@@t)["Metric"]==="Self",
 								t,
-								ParametrizedValuesQ@t,
+								(*ParametrizedValuesQ@t,*)
+								OnCurveQ@t,
 								ToTensorOnCurve[(Association@@t)["Metric"],Curve@t],
 								True,
 								(Association@@t)["Metric"]

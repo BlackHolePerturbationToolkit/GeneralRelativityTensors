@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"c695ecbe-cbec-49f1-a719-63a82940411b"],
+   0}},ExpressionUUID->"78ea0f40-a3b9-4a58-ba8f-b8de7a781a68"],
 
 Cell[TextData[{
  ButtonBox["Tensors",
@@ -15,12 +15,12 @@ Cell[TextData[{
  ButtonBox["SumTensors",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:Tensors/ref/SumTensors"]
-}], "LinkTrail",ExpressionUUID->"69c2a630-f89b-4314-a9f7-3748add5aea2"],
+}], "LinkTrail",ExpressionUUID->"69b61846-e222-49a4-805a-e3bafb506da1"],
 
 Cell[CellGroupData[{
 
 Cell["SumTensors", \
-"ObjectName",ExpressionUUID->"6dfcb8db-250e-4158-a2bb-6c7d96014e0e"],
+"ObjectName",ExpressionUUID->"57cd8a24-08c8-431d-b415-d356fbcd8e54"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -31,11 +31,11 @@ Cell[BoxData[GridBox[{
         ButtonData->"paclet:Tensors/ref/SumTensors"], "[", 
        StyleBox[
         RowBox[{"t1", ",", "t2", ",", "...", ",", "n"}], "TI"], "]"}]], 
-      "InlineFormula",ExpressionUUID->"b3c76794-85ef-4b50-8c6a-2b7b8e496efe"],
+      "InlineFormula",ExpressionUUID->"824d801c-434c-4d7e-9e17-5ed1dbf81a97"],
      
      "\[LineSeparator]sums the Tensors t1, t2, etc., forming a new Tensor \
 with TensorName n."
-    }],ExpressionUUID->"d32e5cbb-4477-4ee4-84b5-1c99c20be8a4"]},
+    }],ExpressionUUID->"95b69c05-609a-400f-a141-28d595c0cb70"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -44,19 +44,87 @@ with TensorName n."
         ButtonData->"paclet:Tensors/ref/SumTensors"], "[", 
        StyleBox[
         RowBox[{"t1", ",", "t2", ",", "..."}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"1a8e9fb7-0450-45a7-9604-23e745d1d302"],
+      ExpressionUUID->"78e7cf38-d182-485d-82e0-d049e86dc99f"],
      "\[LineSeparator]sums the Tensors t1, t2, etc., and forms a new \
 TensorName and TensorDisplayName from a combination of the Tensors making up \
 the expression."
-    }],ExpressionUUID->"89d3872e-de31-4df7-8962-e0d9d8da9282"]}
-  }]], "Usage",ExpressionUUID->"aa118deb-62b1-4f85-9909-ca7d4932d580"]
+    }],ExpressionUUID->"77b9abcb-e294-43d0-9192-fcb3610688ca"]}
+  }]], "Usage",ExpressionUUID->"9d42a5b3-fe6d-474e-aee5-4297b28c5d00"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"2ce14ea7-8c20-47fe-86e6-89702db8ae83"],
+Cell["", "NotesSection",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->0,
+ "WholeCelGroupOpener" -> 
+ True,ExpressionUUID->"c8616b8d-3204-4f57-8a0b-9fd6c87c4c3a"],
 
-Cell[BoxData[""],ExpressionUUID->"be83efb1-67f7-442d-a344-b44558dae4e6"]
+Cell["The following options can be given: ", \
+"Notes",ExpressionUUID->"68d76bbb-8d40-4928-b4bd-8bbede398f7e"],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "742af13d-6f28-499e-893f-2e5d68056495"], "SimplifyFunction", "Identity", 
+    Cell["\<\
+Function which is applied to the elements of the tensor as they are \
+calculated.\
+\>", "TableText",ExpressionUUID->"186af88e-a6ca-4861-a805-fb7d84702a06"]}
+  },
+  GridBoxAlignment->{
+   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
+    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
+ GridBoxOptions->{
+ GridBoxBackground->{
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
+   "RowsIndexed" -> {}},
+ GridBoxDividers->{
+  "Rows" -> {{
+     True, True}}}},ExpressionUUID->"d1e2587a-face-464e-b752-1d64c457523a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"13fad72b-267c-4798-9def-da2a557a7dac"],
+
+Cell[BoxData[""],ExpressionUUID->"95238b53-2730-4245-8ada-df8bbe987cfc"]
 }, Open  ]]
 },
 Saveable->False,
@@ -81,7 +149,7 @@ the Tensors making up the expression.",
     "synonyms" -> {"SumTensors", "SUMTENSORS", "sumtensors"}, "title" -> 
     "SumTensors", "windowTitle" -> "SumTensors", "type" -> "Symbol", "uri" -> 
     "Tensors/ref/SumTensors", "WorkflowDockedCell" -> ""}, 
-  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+  "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

@@ -31,7 +31,7 @@ Module[{n,g,ig,xx,vals,posInds,gT,name,simpFn},
 
 	vals=
 		If[RawTensorValues[name,{"Up","Down","Down"}]===Undefined,
-			simpFn@Table[(1/2)Sum[ig[[i,s]](-D[g[[j,k]],xx[[s]]]+D[g[[j,s]],xx[[k]]]+D[g[[s,k]],xx[[j]]]),{s,1,n}],{i,1,n},{j,1,n},{k,1,n}],
+			Map[simpFn,Table[(1/2)Sum[ig[[i,s]](-D[g[[j,k]],xx[[s]]]+D[g[[j,s]],xx[[k]]]+D[g[[s,k]],xx[[j]]]),{s,1,n}],{i,1,n},{j,1,n},{k,1,n}],{3}],
 			RawTensorValues[name,{"Up","Down","Down"}]
 		];
 
@@ -85,8 +85,9 @@ Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords},
 	itrs={#,1,dims}&/@indsLocal["Tot"];
 	vals=Table[D[tvs[[Sequence@@indsLocal[2]]],coords[[Sequence@@indsLocal[1]]]],Evaluate[Sequence@@itrs]];
 
-	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","IsMetric","Indices","Values"}],
+	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Metric","Name","IsMetric","Indices","Values"}],
 					Association["IsMetric"->False,
+								"Metric"->Metric[t1],
 								"Values"->vals,
 								"DisplayName"->"(\[PartialD]"<>TensorDisplayName[t1]<>")",
 								"Name"->"(PartialD"<>TensorName[t1]<>")-Auto",

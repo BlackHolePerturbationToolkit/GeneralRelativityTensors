@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"c1a42a6d-1c1a-4bd3-8e49-d9635e98603f"],
+   0}},ExpressionUUID->"16035254-67e6-4854-82c4-a2203d9010cf"],
 
 Cell[TextData[{
  ButtonBox["Tensors",
@@ -15,12 +15,12 @@ Cell[TextData[{
  ButtonBox["ContractIndices",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:Tensors/ref/ContractIndices"]
-}], "LinkTrail",ExpressionUUID->"a2d827c5-91d4-4be9-bf2b-25841f4c2cc2"],
+}], "LinkTrail",ExpressionUUID->"d37785f7-2f0c-4062-9500-32d7c753ff6f"],
 
 Cell[CellGroupData[{
 
 Cell["ContractIndices", \
-"ObjectName",ExpressionUUID->"f512d517-6053-494d-aaf9-ffd7541bb428"],
+"ObjectName",ExpressionUUID->"0d4e66d6-8a2d-4545-85a1-34a2a9b04231"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -31,10 +31,10 @@ Cell[BoxData[GridBox[{
         ButtonData->"paclet:Tensors/ref/ContractIndices"], "[", 
        StyleBox[
         RowBox[{"t", ",", "n"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"cfc96772-f3c0-4a69-b23e-4826a31b7fc5"],
+      ExpressionUUID->"f1b4bb6d-1819-4003-99a8-b17bcc6f7fb5"],
      "\[LineSeparator]contracts all repeated indices of Tensor t, returning \
 the resulting lower-rank Tensor with name n."
-    }],ExpressionUUID->"08383bc0-5c82-453d-b148-204ac3240cd9"]},
+    }],ExpressionUUID->"cf92596e-2237-498a-8da0-09bc3f982d44"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -42,18 +42,86 @@ the resulting lower-rank Tensor with name n."
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/ContractIndices"], "[", 
        StyleBox["t", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "2ea6cde0-9036-4c04-a923-4404911f16fc"],
+      "c4665ad6-2493-4942-b754-bcfa4c7d08e5"],
      "\[LineSeparator]is equivalent to \
 ContractIndices[t,{TensorName[t],TensorDisplayName[t]}]."
-    }],ExpressionUUID->"2c3e9f38-ee05-43cb-871d-0a47f1f66325"]}
-  }]], "Usage",ExpressionUUID->"f5b21753-81a9-4410-bd04-796b2719696d"]
+    }],ExpressionUUID->"4ec51483-7670-4f82-9ef7-ac03648d2f34"]}
+  }]], "Usage",ExpressionUUID->"cbd8aef2-1b2d-4fc9-aa18-ab18f951cdc0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"21432f87-d534-4b17-81eb-1c3c50e36b64"],
+Cell["", "NotesSection",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->0,
+ "WholeCelGroupOpener" -> 
+ True,ExpressionUUID->"6a8418c3-790a-45dc-910c-e8d83144ace6"],
 
-Cell[BoxData[""],ExpressionUUID->"c385c038-39d0-4682-92eb-1837b765ee83"]
+Cell["The following options can be given: ", \
+"Notes",ExpressionUUID->"674ceb76-f355-4532-8a94-c1f335ceb391"],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "5a616f58-3ef5-499f-b826-9a69f29733dd"], "SimplifyFunction", "Identity", 
+    Cell["\<\
+Function which is applied to the elements of the tensor as they are \
+calculated.\
+\>", "TableText",ExpressionUUID->"5864e2fe-9836-4251-8184-e239c5418065"]}
+  },
+  GridBoxAlignment->{
+   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
+    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
+ GridBoxOptions->{
+ GridBoxBackground->{
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
+   "RowsIndexed" -> {}},
+ GridBoxDividers->{
+  "Rows" -> {{
+     True, True}}}},ExpressionUUID->"a31361de-c604-41bc-8d8c-9e0d4b05a930"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"b7b5cbd1-4b17-42ea-8c3a-b4e92b95e3fd"],
+
+Cell[BoxData[""],ExpressionUUID->"6416dc14-7af1-477f-98ae-9536ac98c93c"]
 }, Open  ]]
 },
 Saveable->False,
@@ -77,7 +145,8 @@ equivalent to ContractIndices[t,{TensorName[t],TensorDisplayName[t]}].",
     "synonyms" -> {"ContractIndices", "CONTRACTINDICES", "contractindices"}, 
     "title" -> "ContractIndices", "windowTitle" -> "ContractIndices", "type" -> 
     "Symbol", "uri" -> "Tensors/ref/ContractIndices", "WorkflowDockedCell" -> 
-    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
+  False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

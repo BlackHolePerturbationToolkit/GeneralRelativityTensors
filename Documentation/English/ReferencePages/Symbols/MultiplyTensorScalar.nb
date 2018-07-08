@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"30f7e36b-15e2-4410-b9ff-3d4cfcf4bba0"],
+   0}},ExpressionUUID->"ade7545a-1922-4665-9a75-8583e4858a3f"],
 
 Cell[TextData[{
  ButtonBox["Tensors",
@@ -15,12 +15,12 @@ Cell[TextData[{
  ButtonBox["MultiplyTensorScalar",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:Tensors/ref/MultiplyTensorScalar"]
-}], "LinkTrail",ExpressionUUID->"749a76b7-9318-4d49-8904-d092c716b83c"],
+}], "LinkTrail",ExpressionUUID->"93ab8669-9aa5-4fa1-b811-70cfa3dd6188"],
 
 Cell[CellGroupData[{
 
 Cell["MultiplyTensorScalar", \
-"ObjectName",ExpressionUUID->"6f2e0a30-5093-478d-be28-dbb23bd654c2"],
+"ObjectName",ExpressionUUID->"ce8ab056-d7b1-4c92-b104-336c63566fd8"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -31,10 +31,10 @@ Cell[BoxData[GridBox[{
         ButtonData->"paclet:Tensors/ref/MultiplyTensorScalar"], "[", 
        StyleBox[
         RowBox[{"a", ",", "t", ",", "n"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"12816175-9c2f-4e46-a3a9-b60140b98990"],
+      ExpressionUUID->"d29a3ad1-dac2-49b9-b0e0-efbae37a9862"],
      "\[LineSeparator]or MultiplyTensorScalar[t,a,n] forms the product of the \
 scalar a with the Tensor t, creating a new Tensor with TensorName n."
-    }],ExpressionUUID->"4af4cca9-719d-472a-bd7d-38d0e6277f18"]},
+    }],ExpressionUUID->"2cd22989-fd8c-4ea2-ace5-1d08e7f43d48"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -43,19 +43,87 @@ scalar a with the Tensor t, creating a new Tensor with TensorName n."
         ButtonData->"paclet:Tensors/ref/MultiplyTensorScalar"], "[", 
        StyleBox[
         RowBox[{"a", ",", "t"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"2e3e03b6-c8f3-4fe7-96e2-4c0819435091"],
+      ExpressionUUID->"b1b21d8b-2396-494b-9b27-6937c77e8e86"],
      "\[LineSeparator]forms the product of the a and t, and forms a new \
 TensorName and TensorDisplayName from a combination of the scalar and Tensor \
 making up the expression."
-    }],ExpressionUUID->"98109cfb-bb50-4f8f-95f7-cc8595d7bc98"]}
-  }]], "Usage",ExpressionUUID->"3670ae9f-20f2-4818-9011-87be6680841f"]
+    }],ExpressionUUID->"db2a92c4-8b03-4816-985c-91e89f02ea29"]}
+  }]], "Usage",ExpressionUUID->"5b1c04da-4e2e-42a7-b297-3dd4eced26c3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"bd077902-fe8c-4956-a6cd-1694bc27d9ac"],
+Cell["", "NotesSection",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->0,
+ "WholeCelGroupOpener" -> 
+ True,ExpressionUUID->"36dd908d-18bf-4ad3-ba40-43123e384211"],
 
-Cell[BoxData[""],ExpressionUUID->"7c5a9554-43c8-4cc6-9503-94abd13506af"]
+Cell["The following options can be given: ", \
+"Notes",ExpressionUUID->"89b2b622-eb16-4ee9-8f94-8caa18e69e90"],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "877edffd-047d-4600-a099-85f253976dc2"], "SimplifyFunction", "Identity", 
+    Cell["\<\
+Function which is applied to the elements of the tensor as they are \
+calculated.\
+\>", "TableText",ExpressionUUID->"856aacfd-b41e-4eee-9321-49b37cb07664"]}
+  },
+  GridBoxAlignment->{
+   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
+    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
+ GridBoxOptions->{
+ GridBoxBackground->{
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
+   "RowsIndexed" -> {}},
+ GridBoxDividers->{
+  "Rows" -> {{
+     True, True}}}},ExpressionUUID->"4cbe95f6-080c-4d99-9a4d-7b9e64faa6c3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"bc9124e3-5339-410e-b43a-94e0f1e4c084"],
+
+Cell[BoxData[""],ExpressionUUID->"bc623500-78ad-4398-86ab-addc5a138116"]
 }, Open  ]]
 },
 Saveable->False,
@@ -84,7 +152,7 @@ scalar and Tensor making up the expression.",
     "title" -> "MultiplyTensorScalar", "windowTitle" -> 
     "MultiplyTensorScalar", "type" -> "Symbol", "uri" -> 
     "Tensors/ref/MultiplyTensorScalar", "WorkflowDockedCell" -> ""}, 
-  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+  "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

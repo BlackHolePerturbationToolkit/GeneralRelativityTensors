@@ -1,0 +1,165 @@
+Notebook[{
+Cell[" ", "SymbolColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 
+   0}},ExpressionUUID->"75194d86-62c0-49d1-90fc-ad79bb8b8317"],
+
+Cell[TextData[{
+ ButtonBox["Tensors",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["Tensors`TensorManipulation",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors`TensorManipulation"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["SymmetrizeTensor",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/ref/SymmetrizeTensor"]
+}], "LinkTrail",ExpressionUUID->"245f6fec-3e8f-46f8-b037-9f74098844a0"],
+
+Cell[CellGroupData[{
+
+Cell["SymmetrizeTensor", \
+"ObjectName",ExpressionUUID->"cf96288b-4f3c-43fc-b06d-ef3dbb49342d"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["SymmetrizeTensor",
+        BaseStyle->"Link",
+        ButtonData->"paclet:Tensors/ref/SymmetrizeTensor"], "[", 
+       StyleBox[
+        RowBox[{"t", ",", 
+         RowBox[{"{", 
+          RowBox[{"pos1", ",", "pos2"}], "}"}], ",", "n"}], "TI"], "]"}]], 
+      "InlineFormula",ExpressionUUID->"d5f46604-709d-4b43-969e-f8f827927a52"],
+     
+     "\[LineSeparator]returns the Tensor t, symmetrized on its indices in \
+positions pos1,pos2."
+    }],ExpressionUUID->"bb4e4cde-5191-4d3f-82e9-d5d0d2256983"]},
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["SymmetrizeTensor",
+        BaseStyle->"Link",
+        ButtonData->"paclet:Tensors/ref/SymmetrizeTensor"], "[", 
+       StyleBox[
+        RowBox[{"t", ",", 
+         RowBox[{"{", 
+          RowBox[{"pos1", ",", "pos2"}], "}"}]}], "TI"], "]"}]], 
+      "InlineFormula",ExpressionUUID->"37d6b8df-75be-4b1c-9b95-e7f59cf84d4f"],
+     
+     "\[LineSeparator]is equivalent, but with an automatically generated name \
+for the new Tensor."
+    }],ExpressionUUID->"a4799e9b-f209-45a2-b3e0-8aae97278222"]}
+  }]], "Usage",ExpressionUUID->"06919f7f-2140-45c4-8b57-918d79e3d5eb"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "NotesSection",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->0,
+ "WholeCelGroupOpener" -> 
+ True,ExpressionUUID->"02118b3b-cd76-441d-9177-a5d3905b510a"],
+
+Cell["The following options can be given: ", \
+"Notes",ExpressionUUID->"4ba223fb-d93e-49c5-878e-10260320acc0"],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "1705608e-fc0f-4eb2-ab56-cfcfb68d2f7d"], "SimplifyFunction", "Identity", 
+    Cell["\<\
+Function which is applied to the elements of the tensor as they are \
+calculated.\
+\>", "TableText",ExpressionUUID->"cf82bb6a-efc2-4d7b-b1c0-405490727d90"]}
+  },
+  GridBoxAlignment->{
+   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
+    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
+ GridBoxOptions->{
+ GridBoxBackground->{
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
+   "RowsIndexed" -> {}},
+ GridBoxDividers->{
+  "Rows" -> {{
+     True, True}}}},ExpressionUUID->"4049419a-d528-40c5-89f6-debbb33efdd9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"f5e9d3aa-e70e-44c0-8a52-72996ebb86a6"],
+
+Cell[BoxData[""],ExpressionUUID->"7a6a6f80-ea90-423f-b417-34e87ca2d3a5"]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"SymmetrizeTensor",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "Tensors`", 
+    "keywords" -> {
+     "SymmetrizeTensor", "SYMMETRIZETENSOR", "symmetrizetensor"}, "index" -> 
+    True, "label" -> "Tensors/Tensors`TensorManipulation Symbol", "language" -> 
+    "en", "paclet" -> "Tensors`TensorManipulation", "status" -> "None", 
+    "summary" -> 
+    "SymmetrizeTensor[t,{pos1,pos2},n] returns the Tensor t, symmetrized on \
+its indices in positions pos1,pos2.\nSymmetrizeTensor[t,{pos1,pos2}] is \
+equivalent, but with an automatically generated name for the new Tensor.", 
+    "synonyms" -> {
+     "SymmetrizeTensor", "SYMMETRIZETENSOR", "symmetrizetensor"}, "title" -> 
+    "SymmetrizeTensor", "windowTitle" -> "SymmetrizeTensor", "type" -> 
+    "Symbol", "uri" -> "Tensors/ref/SymmetrizeTensor", "WorkflowDockedCell" -> 
+    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
+  False},
+TrackCellChangeTimes->False,
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

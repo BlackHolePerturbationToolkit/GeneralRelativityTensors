@@ -1,0 +1,166 @@
+Notebook[{
+Cell[" ", "SymbolColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 
+   0}},ExpressionUUID->"74222a45-933b-4719-9e64-8d0dcae5d277"],
+
+Cell[TextData[{
+ ButtonBox["Tensors",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["Tensors`TensorManipulation",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors`TensorManipulation"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["AntisymmetrizeTensor",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/ref/AntisymmetrizeTensor"]
+}], "LinkTrail",ExpressionUUID->"8874c112-bfde-4918-ab60-e250b175eef3"],
+
+Cell[CellGroupData[{
+
+Cell["AntisymmetrizeTensor", \
+"ObjectName",ExpressionUUID->"6fd4e3f5-f28c-4736-bee1-d9a35ce7fad5"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["AntisymmetrizeTensor",
+        BaseStyle->"Link",
+        ButtonData->"paclet:Tensors/ref/AntisymmetrizeTensor"], "[", 
+       StyleBox[
+        RowBox[{"t", ",", 
+         RowBox[{"{", 
+          RowBox[{"pos1", ",", "pos2"}], "}"}], ",", "n"}], "TI"], "]"}]], 
+      "InlineFormula",ExpressionUUID->"f55ba2cb-c3de-4b14-a038-d65e811b9a41"],
+     
+     "\[LineSeparator]returns the Tensor t, antisymmetrized on its indices in \
+positions pos1,pos2."
+    }],ExpressionUUID->"e417200f-e036-4c5a-9e34-3d459393a7cf"]},
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["AntisymmetrizeTensor",
+        BaseStyle->"Link",
+        ButtonData->"paclet:Tensors/ref/AntisymmetrizeTensor"], "[", 
+       StyleBox[
+        RowBox[{"t", ",", 
+         RowBox[{"{", 
+          RowBox[{"pos1", ",", "pos2"}], "}"}]}], "TI"], "]"}]], 
+      "InlineFormula",ExpressionUUID->"48d72c98-34ec-4fa3-bf91-385913a61b03"],
+     
+     "\[LineSeparator]is equivalent, but with an automatically generated name \
+for the new Tensor."
+    }],ExpressionUUID->"9ae3df81-6b32-41be-9f9c-9c24152d3678"]}
+  }]], "Usage",ExpressionUUID->"d96c73a9-081d-48c4-ab37-0b3358d60754"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "NotesSection",
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->0,
+ "WholeCelGroupOpener" -> 
+ True,ExpressionUUID->"f322f893-a27a-40f1-950b-d1440c5f70e3"],
+
+Cell["The following options can be given: ", \
+"Notes",ExpressionUUID->"8e05f0d5-a1ca-4eca-96a1-b29df2ab76d3"],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "eebd702c-2911-47b0-b759-1b2d348607b4"], "SimplifyFunction", "Identity", 
+    Cell["\<\
+Function which is applied to the elements of the tensor as they are \
+calculated.\
+\>", "TableText",ExpressionUUID->"5fca388f-c028-4a13-850b-b25348af2abe"]}
+  },
+  GridBoxAlignment->{
+   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
+    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
+ GridBoxOptions->{
+ GridBoxBackground->{
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
+   "RowsIndexed" -> {}},
+ GridBoxDividers->{
+  "Rows" -> {{
+     True, True}}}},ExpressionUUID->"1cb60538-a3a8-4544-be51-0683d40ccbde"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"2b5d3dd8-188e-44ef-833a-32200dcd7d01"],
+
+Cell[BoxData[""],ExpressionUUID->"29e1b1bf-f397-426a-8b5e-9c9550ed7e56"]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"AntisymmetrizeTensor",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "Tensors`", 
+    "keywords" -> {
+     "AntisymmetrizeTensor", "ANTISYMMETRIZETENSOR", "antisymmetrizetensor"}, 
+    "index" -> True, "label" -> "Tensors/Tensors`TensorManipulation Symbol", 
+    "language" -> "en", "paclet" -> "Tensors`TensorManipulation", "status" -> 
+    "None", "summary" -> 
+    "AntisymmetrizeTensor[t,{pos1,pos2},n] returns the Tensor t, \
+antisymmetrized on its indices in positions pos1,pos2.\n\
+AntisymmetrizeTensor[t,{pos1,pos2}] is equivalent, but with an automatically \
+generated name for the new Tensor.", 
+    "synonyms" -> {
+     "AntisymmetrizeTensor", "ANTISYMMETRIZETENSOR", "antisymmetrizetensor"}, 
+    "title" -> "AntisymmetrizeTensor", "windowTitle" -> 
+    "AntisymmetrizeTensor", "type" -> "Symbol", "uri" -> 
+    "Tensors/ref/AntisymmetrizeTensor", "WorkflowDockedCell" -> ""}, 
+  "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> False},
+TrackCellChangeTimes->False,
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

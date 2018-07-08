@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"b4a8c716-fbc2-4dfe-818a-c8111a1d19e4"],
+   0}},ExpressionUUID->"9a03869c-0e51-4531-b0c0-75ae20487848"],
 
 Cell[TextData[{
  ButtonBox["Tensors",
@@ -15,12 +15,12 @@ Cell[TextData[{
  ButtonBox["MergeTensors",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:Tensors/ref/MergeTensors"]
-}], "LinkTrail",ExpressionUUID->"4e12137c-554d-4378-ad71-8b6aa0d2a524"],
+}], "LinkTrail",ExpressionUUID->"4d74f3e8-ed99-47f2-bad4-c37c1d4b88be"],
 
 Cell[CellGroupData[{
 
 Cell["MergeTensors", \
-"ObjectName",ExpressionUUID->"e6ddfe2d-2b6e-409b-aaf6-773e735f174b"],
+"ObjectName",ExpressionUUID->"4be495a0-7452-4099-95e3-f1a3b5e26f79"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -31,11 +31,11 @@ Cell[BoxData[GridBox[{
         ButtonData->"paclet:Tensors/ref/MergeTensors"], "[", 
        StyleBox[
         RowBox[{"expr", ",", "n"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"33c9acd2-9b75-40a3-a4ac-35216ca62bfe"],
-     "\[LineSeparator]calls MultiplyTensors, MultiplyTensorScalar, and \
-SumTensors to merge the Tensor expression expr into one Tensor with \
-TensorName n."
-    }],ExpressionUUID->"380af7a3-3709-4e7b-b244-cb410ab8cfb0"]},
+      ExpressionUUID->"305e0355-09d8-40f4-ae83-38c83f37513b"],
+     "\[LineSeparator]calls MultiplyTensors, MultiplyTensorScalar, \
+SumTensors, and ContractIndices to merge the Tensor expression expr into one \
+Tensor with TensorName n."
+    }],ExpressionUUID->"18987b9f-f122-4748-8b61-3bb644542c13"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -43,12 +43,12 @@ TensorName n."
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/MergeTensors"], "[", 
        StyleBox["expr", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "22961dd5-4f1b-447b-b7d6-a06a8ea0dd59"],
+      "8f0d8361-9a4d-4452-bc4b-e323c909ce8b"],
      "\[LineSeparator]merges the Tensor expression expr and forms a new \
 TensorName and TensorDisplayName from a combination of the Tensors making up \
 the expression."
-    }],ExpressionUUID->"8032b49b-3837-4db9-864b-23aa02b49420"]}
-  }]], "Usage",ExpressionUUID->"2f1f941f-b7bc-4e5d-817d-5e4029a9a1c9"]
+    }],ExpressionUUID->"fc8a2db1-d33c-4983-ae22-f03d0b43d5a4"]}
+  }]], "Usage",ExpressionUUID->"7ad747a5-916e-415b-bf79-6cfe5ffc3afe"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -94,18 +94,18 @@ Cell["", "NotesSection",
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->0,
  "WholeCelGroupOpener" -> 
- True,ExpressionUUID->"d301ad4d-0bbd-4a7c-b2d5-f54f342d5506"],
+ True,ExpressionUUID->"6fef8805-4b70-45d3-a3aa-f04c0d8b0b2e"],
 
 Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"11c5ed17-eb1b-48f8-afee-1635afc1a659"],
+"Notes",ExpressionUUID->"d97bcfad-dd9e-4dcd-a9a7-d2215941032f"],
 
 Cell[BoxData[GridBox[{
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "4c73e72e-0ff5-401f-aa4b-439d6f4b6df6"], "SimplifyFunction", "Identity", 
+     "96028f63-ef5c-423f-98f9-44e08377364a"], "SimplifyFunction", "Identity", 
     Cell["\<\
 Function which is applied to the elements of the tensor as they are \
 calculated.\
-\>", "TableText",ExpressionUUID->"29f7b459-bfe3-43ff-a4da-ef82a41664d2"]}
+\>", "TableText",ExpressionUUID->"a6c742f4-400c-4101-b351-a777a5bfcc6d"]}
   },
   GridBoxAlignment->{
    "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
@@ -116,14 +116,14 @@ calculated.\
    "RowsIndexed" -> {}},
  GridBoxDividers->{
   "Rows" -> {{
-     True, True}}}},ExpressionUUID->"06f5172d-c177-4633-b5fd-44e059dd372d"]
+     True, True}}}},ExpressionUUID->"4eb61ef4-ad0c-4087-b005-c1899ff74264"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"5139d8dc-483b-422b-8791-1fb1f43ac4f2"],
+Cell[" ", "FooterCell",ExpressionUUID->"5e4f8e2a-86d3-48f6-8994-567abdb49575"],
 
-Cell[BoxData[""],ExpressionUUID->"b0d59883-698f-4b45-97f2-fea1b8cd1213"]
+Cell[BoxData[""],ExpressionUUID->"58142f35-4ac1-43dd-8b69-c114c8a85323"]
 }, Open  ]]
 },
 Saveable->False,
@@ -141,11 +141,11 @@ TaggingRules->{
     True, "label" -> "Tensors/Tensors`TensorManipulation Symbol", "language" -> 
     "en", "paclet" -> "Tensors`TensorManipulation", "status" -> "None", 
     "summary" -> 
-    "MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, and \
-SumTensors to merge the Tensor expression expr into one Tensor with \
-TensorName n.\nMergeTensors[expr] merges the Tensor expression expr and forms \
-a new TensorName and TensorDisplayName from a combination of the Tensors \
-making up the expression.", 
+    "MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, \
+SumTensors, and ContractIndices to merge the Tensor expression expr into one \
+Tensor with TensorName n.\nMergeTensors[expr] merges the Tensor expression \
+expr and forms a new TensorName and TensorDisplayName from a combination of \
+the Tensors making up the expression.", 
     "synonyms" -> {"MergeTensors", "MERGETENSORS", "mergetensors"}, "title" -> 
     "MergeTensors", "windowTitle" -> "MergeTensors", "type" -> "Symbol", 
     "uri" -> "Tensors/ref/MergeTensors", "WorkflowDockedCell" -> ""}, 
