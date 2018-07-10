@@ -42,7 +42,7 @@ Test[
 ]
 
 Test[
-	Simplify[TensorValues@MergeTensors@CovariantD[uS,\[Tau]]-
+	Simplify[TensorValues@MergeTensors@CovariantD[uS,uS]-
 	{(2 M \[ScriptCapitalE] (Sqrt[\[ScriptCapitalE]^2 - ((-2 M + 
         r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/r[\[Tau]]^3] -
      Derivative[1][r][\[Tau]]))/(-2 M + 

@@ -104,6 +104,21 @@ Module[{posInds},
 Tensor/:D[t1_Tensor,a_Symbol]:=SetTensorName[ActOnTensorValues[t1,D[#,a]&],{"(PartialD"<>TensorName[t1]<>")-Auto","(\[PartialD]"<>TensorDisplayName[t1]<>")"}]
 
 
+Tensor/:D[t1_Tensor?CurveQ,param_Symbol] :=
+Module[{vals},
+
+	vals=RawTensorValues[t1];
+
+	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","Values","IsCurve","Curve"}],
+					Association["IsCurve"->False,
+								"Curve"->Curve[t1],
+								"Values"->(D[#,param]&/@vals),
+								"DisplayName"->"(d"<>TensorDisplayName[t1]<>"/d"<>ToString[param]<>")",
+								"Name"->"(d"<>TensorName[t1]<>"/d"<>ToString[param]<>")-Auto"]]]
+								
+] /;(CurveParameter[t1]===param);
+
+
 Clear[chrTerm]
 chrTerm[t_Tensor,tensorInd_,derivInd_,avoidInds_:{}]:=
 Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
@@ -132,14 +147,65 @@ Module[{posInds},
 ]/; MemberQ[PossibleIndices[t1],a] ;
 
 
-Tensor/:CovariantD[t1_Tensor,param_Symbol,avoidInds_:{}]:=
+(*Tensor/:CovariantD[t1_Tensor,param_Symbol,avoidInds_:{}]:=
 Module[{chr,chrC,a,b,c,x1},
 	{a,b,c}=Take[PossibleIndices[t1],3];
 	x1=Curve[t1];
 	chr=ToTensorOnCurve[ChristoffelSymbol[Metric[x1]],x1];
 
-	D[t1[a],param]+chr[a,-b,-c]t1[b]t1[c]
-]/;OnCurveQ[t1]&&Not@MemberQ[PossibleIndices[t1],param]&&CurveParameter[t1]===param
+	D[t1[a],param]+chr[a,-b,-c]t1[b]D[x1[c],param]
+]/;OnCurveQ[t1]&&Not@MemberQ[PossibleIndices[t1],param]&&CurveParameter[t1]===param*)
+
+
+Tensor/:CovariantD[t1_Tensor?OnCurveQ,u_Tensor?OnCurveQ,avoidInds_:{}]:=
+Module[{chr,chrC,a,b,c,x1,x2,param},
+	x1=Curve[t1];
+	x2=Curve[u];
+	If[TensorName[x1]=!=TensorName[x2],
+		Print["Cannot take covariant derivative along 4-velocity from different curves."]; 
+		Abort[]
+	];
+	If[Not[Rank[u]==={1,0}],
+		Print["Four velocity that we differentiate along must be rank {1,0}."];
+		Abort[]
+	];
+	If[Not[Total@Rank[t1]===1],
+		Print["For now, covariant differentiation on Curves is only possible for vectors."];
+		Abort[]
+	];
+
+	param=CurveParameter[x2];
+	
+	{a,b,c}=Select[PossibleIndices[t1],Not[MemberQ[{avoidInds}/.(-nn_Symbol:>nn),#]]&,3];
+	
+	chr=ToTensorOnCurve[ChristoffelSymbol[Metric[x1]],x1];
+
+	D[t1[a],param]+chr[a,-b,-c]t1[b]u[c]
+]
+
+
+Tensor/:CovariantD[t1_Tensor,u_Tensor?OnCurveQ,avoidInds_:{}]:=
+Module[{chr,chrC,inds,a,covD},
+	
+	If[TensorName[Metric@t1]=!=TensorName[Metric@u],
+		Print["Cannot take covariant derivative along 4-velocity from different metric."]; 
+		Abort[]
+	];
+	If[Not[Rank[u]==={1,0}],
+		Print["Four velocity that we differentiate along must be rank {1,0}."];
+		Abort[]
+	];
+	If[Curve[t1]=!=Undefined&&(TensorName[Curve[t1]]=!=TensorName[Curve[u]]),
+		Print["Cannot take covariant derivative along 4-velocity from different curves."]; 
+		Abort[]
+	];
+	inds=Indices[t1];
+	a=SelectFirst[PossibleIndices[t1],Not[MemberQ[Join[inds,{avoidInds}]/.(-n_Symbol:>n),#]]&];
+
+	covD=CovariantD[t1,-a]/.t_Tensor:>ToTensorOnCurve[t,Curve[u]];
+	
+	u[a]covD
+]
 
 
 End[];

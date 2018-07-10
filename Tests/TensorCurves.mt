@@ -78,24 +78,13 @@ Test[
 
 Test[
 	OnCurveQ[gKC],
-	True,
+	False,
 	TestID->"Curve-OnCurveQ2"	
 ]
 
 Test[
-	ParametrizedValuesQ[c1],
+	OnCurveQ[gKC2],
 	True,
-	TestID->"Curve-ParametrizedValuesQ1"	
+	TestID->"Curve-OnCurveQ3"	
 ]
 
-Test[
-	ParametrizedValuesQ[gKC],
-	False,
-	TestID->"Curve-ParametrizedValuesQ2"	
-]
-
-Test[
-	ParametrizedValuesQ[gKC2],
-	True,
-	TestID->"Curve-ParametrizedValuesQ3"	
-]

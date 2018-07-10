@@ -21,13 +21,9 @@ CurveParameter::usage="CurveParameter[t] returns the parmeter which parametrizes
 t along the curve. It returns Undefined if t is not a curve.";
 Curve::usage="Curve[t] returns the curve that  \
 t is defined along.";
-OnCurveQ::usage="OnCurveQ[t] returns True if the Tensor \
-t is defined on a curve. OnCurveQ[t] \
-also returns True if t is a curve";
-CurveQ::usage="CurveQ[t] returns True if the Tensor \
-t is a curve."
-ParametrizedValuesQ::usage="ParametrizedValuesQ[t] returns True if \
-the values of Tensor t are parametrized on a curve."
+OnCurveQ::usage="OnCurveQ[t] returns True if the values of Tensor t are evaluatated along on a Curve. \
+OnCurveQ[t] also returns True if t is a Curve";
+CurveQ::usage="CurveQ[t] returns True if the Tensor t is a Curve."
 TensorFieldQ::usage="TensorFieldQ[t] returns True if \
 the values of Tensor t are functions of the manifold's coordinates.";
 CurveRules::usage="CurveRules[c] returns a list of rules sending the coordinates \
@@ -125,8 +121,7 @@ Tensor/:Indices[t_Tensor]:=(Association@@t)["Indices"]
 Tensor/:PossibleIndices[t_Tensor]:=(Association@@t)["PossibleIndices"]
 Tensor/:CurveParameter[t_Tensor]:=(Association@@t)["CurveParameter"]
 CurveQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["IsCurve"]
-ParametrizedValuesQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["CurveParameter"]=!=Undefined
-OnCurveQ[t_]:=MatchQ[t,_Tensor]&&((Association@@t)["Curve"]=!=Undefined)
+OnCurveQ[t_]:=MatchQ[t,_Tensor]&&(CurveParameter[t]=!=Undefined)
 Tensor/:TensorName[t_Tensor]:=(Association@@t)["Name"]
 Tensor/:TensorDisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
 Tensor/:IndexPositions[t_Tensor]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
@@ -141,9 +136,9 @@ TensorValues[___]:=Undefined;
 TensorValues[t_Tensor]:=
 Module[{vals},
 	vals = RawTensorValues[t];
-	If[OnCurveQ[t]&&Not@CurveQ@t&&Not@ParametrizedValuesQ[t],
-		vals /. CurveRules[Curve[t]],
-		vals
+	If[OnCurveQ[t]||Curve[t]===Undefined,
+		vals,
+		vals /. CurveRules[Curve[t]]
 	]
 ]
 
@@ -404,8 +399,7 @@ Module[{coordsP,temp,coordsPTemp,coordsPRules,exprTemp,notCurves},
 
 Tensor/:Metric[t_Tensor]:=Which[(Association@@t)["Metric"]==="Self",
 								t,
-								(*ParametrizedValuesQ@t,*)
-								OnCurveQ@t,
+								Curve@t=!=Undefined,
 								ToTensorFieldOnCurve[(Association@@t)["Metric"],Curve@t],
 								True,
 								(Association@@t)["Metric"]

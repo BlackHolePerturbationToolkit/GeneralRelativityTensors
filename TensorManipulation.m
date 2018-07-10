@@ -178,7 +178,7 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 			itrAfter=({#,1,n}&/@indsAfter);
 			itrTot=Join[itrBefore,{{i,1,n}},itrAfter];
 			
-			gOrInvG = If[ParametrizedValuesQ[t],TensorValues,RawTensorValues][If[newPos==="Up",InverseMetric[t],Metric[t]]];
+			gOrInvG = If[OnCurveQ[t],TensorValues,RawTensorValues][If[newPos==="Up",InverseMetric[t],Metric[t]]];
 			Table[Sum[gOrInvG[[i,s]]tvs[[Sequence@@indsBefore,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]],
 			
 			True,
@@ -280,7 +280,7 @@ Module[{simpFn,posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvF
 	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot sum Tensors on different curves."];Abort[]];
 	
 	simpFn=OptionValue["ActWith"];
-	tvFunc=If[ParametrizedValuesQ@t1||ParametrizedValuesQ@t2,TensorValues,RawTensorValues];
+	tvFunc=If[OnCurveQ@t1||OnCurveQ@t2,TensorValues,RawTensorValues];
 			
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
 
@@ -348,7 +348,7 @@ Module[{simpFn,posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,inds
 	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot multiply Tensors on different curves."];Abort[]];
 	
 	simpFn=OptionValue["ActWith"];
-	tvFunc=If[ParametrizedValuesQ@t1||ParametrizedValuesQ@t2,TensorValues,RawTensorValues];
+	tvFunc=If[OnCurveQ@t1||OnCurveQ@t2,TensorValues,RawTensorValues];
 
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
 	
