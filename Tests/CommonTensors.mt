@@ -1,6 +1,6 @@
 gRN = ToMetric["ReissnerNordstrom"];
 c1 = ToCurve["x1", gRN, {t[\[Chi]], (p M)/(1 + e Cos[\[Chi]]), \[Pi]/2, \[Phi][\[Chi]]}, \[Chi]];
-gRNC = ToTensorOnCurve[gRN, c1];
+gRNC = ToTensorFieldOnCurve[gRN, c1];
 
 ricSRN = RicciScalar[gRN];
 ricSRNC = RicciScalar[gRNC];
@@ -23,8 +23,8 @@ Test[
 	TestID->"ChristoffelSymbol1"	
 ];
 
-Test[
-	Simplify@TensorValues@ChristoffelSymbol[gRNC],
+Test[Simplify@TensorValues@ChristoffelSymbol[gRNC]
+	,
 	{{{0, -(((1 + e Cos[\[Chi]])^2 (-M^2 p + Q^2 + e Q^2 Cos[\[Chi]]))/(
     M p (M^2 (-2 + p) p + Q^2 - 2 e (M^2 p - Q^2) Cos[\[Chi]] + 
        e^2 Q^2 Cos[\[Chi]]^2))), 0, 
@@ -362,7 +362,7 @@ Test[
 ];
 
 ARN = MaxwellPotential["ReissnerNordstrom"];
-ARNC = ToTensorOnCurve[ARN,c1];
+ARNC = ToTensorFieldOnCurve[ARN,c1];
 FRN = FieldStrengthTensor[ARN];
 FRNC = FieldStrengthTensor[ARNC];
 seRN = MaxwellStressEnergyTensor[FRN];

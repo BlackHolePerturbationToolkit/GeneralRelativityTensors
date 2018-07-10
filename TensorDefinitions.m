@@ -30,6 +30,8 @@ ParametrizedValuesQ::usage="ParametrizedValuesQ[t] returns True if \
 the values of Tensor t are parametrized on a curve."
 TensorFieldQ::usage="TensorFieldQ[t] returns True if \
 the values of Tensor t are functions of the manifold's coordinates.";
+CurveRules::usage="CurveRules[c] returns a list of rules sending the coordinates \
+of a Curve c to its values."
 
 ToMetric::usage="ToMetric[n,coords,vals,posInds] returns a metric Tensor with TensorName \
 n, Coordinates coords, TensorValues \
@@ -92,11 +94,6 @@ t is treated as Abstract.";
 Begin["`Private`"];
 
 
-(*Options[ToTensorOnCurve]={"ParametrizedValues"->False};
-DocumentationBuilder`OptionDescriptions["ToTensorOnCurve"] = 
-{"ParametrizedValues"->"Boolean stating whether the values of the tensor are to be interprested as explicitly parametrized."}*)
-
-
 $CacheTensorValues=False;
 
 
@@ -128,7 +125,7 @@ Tensor/:Indices[t_Tensor]:=(Association@@t)["Indices"]
 Tensor/:PossibleIndices[t_Tensor]:=(Association@@t)["PossibleIndices"]
 Tensor/:CurveParameter[t_Tensor]:=(Association@@t)["CurveParameter"]
 CurveQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["IsCurve"]
-ParametrizedValuesQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["ParametrizedValues"]
+ParametrizedValuesQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["CurveParameter"]=!=Undefined
 OnCurveQ[t_]:=MatchQ[t,_Tensor]&&((Association@@t)["Curve"]=!=Undefined)
 Tensor/:TensorName[t_Tensor]:=(Association@@t)["Name"]
 Tensor/:TensorDisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
@@ -145,16 +142,20 @@ TensorValues[t_Tensor]:=
 Module[{vals},
 	vals = RawTensorValues[t];
 	If[OnCurveQ[t]&&Not@CurveQ@t&&Not@ParametrizedValuesQ[t],
-		vals /. Thread[Coordinates@Curve[t]->RawTensorValues@Curve[t]],
+		vals /. CurveRules[Curve[t]],
 		vals
 	]
 ]
 
 
+Clear[CurveRules]
+Tensor/:CurveRules[c1_Tensor?CurveQ]:=Thread[Coordinates@c1->RawTensorValues@c1]
+
+
 Clear[ToTensor]
 ToTensor[assoc_Association]:=
 Module[{keys,nullKeys,listKeys,indexChoices},
-	keys={"IsMetric","Metric","Coordinates","Name","DisplayName","Indices","Values","ParametrizedValues",
+	keys={"IsMetric","Metric","Coordinates","Name","DisplayName","Indices","Values",
 			"Abstract","Dimensions","PossibleIndices","IsCurve","Curve","CurveParameter"};
 	nullKeys={"Metric","Coordinates","Values","PossibleIndices","Dimensions"};
 	listKeys={"Coordinates","PossibleIndices","Indices"};
@@ -231,12 +232,7 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Abort[]
 	];
 
-	If[Not@BooleanQ[assoc["ParametrizedValues"]],
-		Print["\"ParametrizedValues\" must be True or False."];
-		Abort[]
-	];
-
-	If[assoc["IsCurve"]&&(Not@assoc["ParametrizedValues"]||assoc["CurveParameter"]===Undefined),
+	If[assoc["IsCurve"]&&(assoc["CurveParameter"]===Undefined),
 		Print["Curves must be parametrized."];
 		Abort[]
 	];
@@ -251,7 +247,7 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Abort[]
 	];
 	
-	If[assoc["ParametrizedValues"],
+	If[assoc["CurveParameter"]=!=Undefined,
 		checkForParam[assoc["Values"],assoc["Coordinates"],assoc["CurveParameter"]];
 	];
 
@@ -280,7 +276,6 @@ Module[{coords,posInds,dims,inds},
 						"Values"->vals,
 						"Dimensions"->dims,
 						"CurveParameter"->Undefined,
-						"ParametrizedValues"->False,
 						"Curve"->Undefined,
 						"IsCurve"->False]]
 ]
@@ -305,7 +300,7 @@ Clear[ToMetric]
 ToMetric[assoc_Association]:=
 Module[{keys,dims,posInds,inds},
 	
-	keys={"Coordinates","Name","Indices","Values","Abstract","PossibleIndices","DisplayName","ParametrizedValues","CurveParameter","Curve","IsCurve"};
+	keys={"Coordinates","Name","Indices","Values","Abstract","PossibleIndices","DisplayName","CurveParameter","Curve","IsCurve"};
 	
 	If[Sort@Keys[assoc]=!=Sort[keys],
 		Print["The following keys are missing in the metric tensor formation: "<>ToString[Complement[keys,Keys[assoc]]]];
@@ -331,7 +326,6 @@ Module[{keys,dims,posInds,inds},
 								"PossibleIndices"->posInds,
 								"Indices"->inds,
 								"CurveParameter"->Undefined,
-								"ParametrizedValues"->False,
 								"Curve"->Undefined,
 								"IsCurve"->False]]]
 ]
@@ -356,7 +350,6 @@ Module[{inds,posInds},
 					"Abstract"->False,
 					"Values"->vals,
 					"CurveParameter"->Undefined,
-					"ParametrizedValues"->False,
 					"Curve"->Undefined,
 					"IsCurve"->False]
 		]
@@ -389,8 +382,7 @@ Module[{posInds,coords,dims},
 					"Dimensions"->dims,
 					"IsCurve"->True,
 					"Curve"->"Self",
-					"CurveParameter"->param,
-					"ParametrizedValues"->True]]
+					"CurveParameter"->param]]
 ]
 ToCurve[name_String,metric_Tensor?MetricQ,vals_List,param_Symbol]:=ToCurve[{name,name},metric,vals,param];
 
@@ -511,7 +503,7 @@ Module[{params,paramVals},
 		Abort[]
 	];
 	
-	params = {t1,{"Curve",c1},{"CurveParameter",CurveParameter@c1}};
+	params = {t1,{"Curve",c1}};
 	Fold[SetTensorKeyValue[#1,Sequence@@#2]&,params]
 ]
 
@@ -526,47 +518,18 @@ Module[{params,vals},
 	];
 	
 	vals=TensorValues@ToTensorFieldOnCurve[t1,c1];
-	Print@vals;
-	params = {t1,{"Values",vals},{"Curve",c1},{"CurveParameter",CurveParameter@c1},{"ParametrizedValues",True}};
+	params = {t1,{"Values",vals},{"Curve",c1},{"CurveParameter",CurveParameter@c1}};
 	Fold[SetTensorKeyValue[#1,Sequence@@#2]&,params]
 ]
 
 
 ToTensorOnCurve[{name_String,displayName_String},c1_?CurveQ,vals_List,inds_:Undefined]/;MatchQ[inds,_List|Undefined]:=
 Module[{t1,params},
-	
-	If[TensorName@Metric@t1=!=TensorName[(Association@@c1)["Metric"]],
-		Print["Cannot put Tensor on a curve with a different metric."];
-		Abort[]
-	];
-	
 	t1=ToTensor[{name,displayName},Metric[c1],vals,inds];
-	params = {t1,{"Curve",c1},{"CurveParameter",CurveParameter@c1},{"ParametrizedValues",True}};
+	params = {t1,{"Curve",c1},{"CurveParameter",CurveParameter@c1}};
 	Fold[SetTensorKeyValue[#1,Sequence@@#2]&,params]
 ]
 ToTensorOnCurve[name_String,c1_?CurveQ,vals_List,inds_:Undefined]/;MatchQ[inds,_List|Undefined]:=ToTensorOnCurve[{name,name},c1,vals,inds]
-
-
-(*Clear[ToTensorOnCurve]
-Tensor/:ToTensorOnCurve[t1_Tensor,c1_?CurveQ,opts:OptionsPattern[]]:=
-Module[{params,paramVals},
-	paramVals = OptionValue["ParametrizedValues"];
-	If[Not@BooleanQ@paramVals,
-		Print["\"ParametrizedValues\" must be a boolean"];
-		Abort[]
-	];
-	If[TensorName@Metric@t1=!=TensorName[(Association@@c1)["Metric"]],
-		Print["Cannot put Tensor on a curve with a different metric."];
-		Abort[]
-	];
-	
-	params = {t1,{"Curve",c1},{"CurveParameter",CurveParameter@c1},{"ParametrizedValues",paramVals}};
-	Fold[SetTensorKeyValue[#1,Sequence@@#2]&,params]
-]*)
-
-
-(*ToTensorOnCurve[{name_String,displayName_String},c1_?CurveQ,vals_List,inds_:Undefined,opts:OptionsPattern[]]/;MatchQ[inds,_List|Undefined]:=ToTensorOnCurve[ToTensor[{name,displayName},Metric[c1],vals,inds],c1,opts]
-ToTensorOnCurve[name_String,c1_?CurveQ,vals_List,inds_:Undefined,opts:OptionsPattern[]]/;MatchQ[inds,_List|Undefined]:=ToTensorOnCurve[{name,name},c1,vals,inds,opts]*)
 
 
 End[];

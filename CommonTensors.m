@@ -115,7 +115,6 @@ Module[{t,x,y,z,\[Alpha],\[Beta]},
 				"Abstract"->False,
 				"Values"->{{-1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}},
 				"CurveParameter"->Undefined,
-				"ParametrizedValues"->False,
 				"Curve"->Undefined,
 				"IsCurve"->False]]
 ];
@@ -135,7 +134,6 @@ Module[{t,r,\[Theta],\[Phi],\[Alpha],\[Beta]},
 				"Abstract"->False,
 				"Values"->{{-1,0,0,0},{0,1,0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},
 				"CurveParameter"->Undefined,
-				"ParametrizedValues"->False,
 				"Curve"->Undefined,
 				"IsCurve"->False]]
 ];
@@ -155,7 +153,6 @@ Module[{t,r,\[Theta],\[Phi],M,\[Alpha],\[Beta]},
 				"Abstract"->False,
 				"Values"->{{-1+(2 M)/r,0,0,0},{0,1/(1-(2 M)/r),0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},
 				"CurveParameter"->Undefined,
-				"ParametrizedValues"->False,
 				"Curve"->Undefined,
 				"IsCurve"->False]]
 ];
@@ -175,7 +172,6 @@ Module[{t,r,M,a,b},
 				"Abstract"->False,
 				"Values"->{{-1+(2 M)/r,0},{0,1/(1-(2 M)/r)}},
 				"CurveParameter"->Undefined,
-				"ParametrizedValues"->False,
 				"Curve"->Undefined,
 				"IsCurve"->False]]
 ];
@@ -206,7 +202,6 @@ Module[{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta]},
 							{0,0,r^2+a^2 Cos[\[Theta]]^2,0},
 							{-((2 a M r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2)),0,0,(Sin[\[Theta]]^2 ((a^2+r^2)^2-a^2 (a^2-2 M r+r^2) Sin[\[Theta]]^2))/(r^2+a^2 Cos[\[Theta]]^2)}},
 				"CurveParameter"->Undefined,
-				"ParametrizedValues"->False,
 				"Curve"->Undefined,
 				"IsCurve"->False]]
 ];
@@ -233,7 +228,6 @@ Module[{t,r,\[Theta],\[Phi],M,Q,\[Alpha],\[Beta]},
 				"Abstract"->False,
 				"Values"->{{-1+(2 M)/r-Q^2/r^2,0,0,0},{0,1/(1-(2 M)/r+Q^2/r^2),0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},
 				"CurveParameter"->Undefined,
-				"ParametrizedValues"->False,
 				"Curve"->Undefined,
 				"IsCurve"->False]]
 ];
@@ -253,7 +247,6 @@ Module[{t,r,M,Q,a,b},
 				"Abstract"->False,
 				"Values"->{{-1+(2 M)/r-Q^2/r^2,0},{0,1/(1-(2 M)/r+Q^2/r^2)}},
 				"CurveParameter"->Undefined,
-				"ParametrizedValues"->False,
 				"Curve"->Undefined,
 				"IsCurve"->False]]
 ];
@@ -281,7 +274,6 @@ Module[{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta],rhoSq,capDelta,QQ},
 							{0,0,rhoSq,0},
 							{(a Sin[\[Theta]]^2 (capDelta-r^2-a^2))/rhoSq,0,0,-((Sin[\[Theta]]^2 (a^2 capDelta Sin[\[Theta]]^2-r^4-2r^2 a^2-a^4))/rhoSq)}},
 				"CurveParameter"->Undefined,
-				"ParametrizedValues"->False,
 				"Curve"->Undefined,
 				"IsCurve"->False]]
 ];
@@ -740,7 +732,8 @@ Module[{t,r,th,ph,tau,EE,JJ,M,rhoSq,Delta,ut,ur,uth,uph,QQ,a,x1},
 	uth=1/rhoSq Sqrt[QQ-Cot[th[tau]]^2 JJ^2-a^2 Cos[th[tau]]^2 (1-EE^2)];
 	uph=1/rhoSq (Csc[th[tau]]^2 JJ+a EE((r[tau]^2+a^2)/Delta-1)-(a^2 JJ)/Delta);
 	x1 = ToCurve[{"FourVelocityGenericKerr","x"},ToMetric["Kerr"],{t[tau],r[tau],th[tau],ph[tau]},tau];
-	ToTensorOnCurve[ToTensor[{"FourVelocityGenericKerr","u"},ToMetric["Kerr"],{ut,ur,uth,uph}],x1,"ParametrizedValues"->True]
+	
+	ToTensorOnCurve[{"FourVelocityGenericKerr","u"},x1,{ut,ur,uth,uph}]
 ]
 
 
@@ -751,7 +744,8 @@ Module[{t,r,th,ph,tau,EE,JJ,M,x1,ur},
 
 	x1 = ToCurve[{"FourVelocityGenericSchwarzschild","x"},ToMetric["Schwarzschild"],{t[tau],r[tau],\[Pi]/2,ph[tau]},tau];
 	ur = Sqrt[EE^2-(1-(2M)/r[tau])(1+JJ^2/r[tau]^2)];
-	ToTensorOnCurve[ToTensor[{"FourVelocityGenericSchwarzschild","u"},ToMetric["Schwarzschild"],{EE/(1-(2 M)/r[tau]),ur,0,JJ/r[tau]^2}],x1,"ParametrizedValues"->True]
+
+	ToTensorOnCurve[{"FourVelocityGenericSchwarzschild","u"},x1,{EE/(1-(2 M)/r[tau]),ur,0,JJ/r[tau]^2}]
 ]
 
 

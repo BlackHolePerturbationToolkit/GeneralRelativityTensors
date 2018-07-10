@@ -133,12 +133,12 @@ Module[{posInds},
 
 
 Tensor/:CovariantD[t1_Tensor,param_Symbol,avoidInds_:{}]:=
-Module[{chr,chrC,inds,x1},
-	inds=PossibleIndices[t1];
+Module[{chr,chrC,a,b,c,x1},
+	{a,b,c}=Take[PossibleIndices[t1],3];
 	x1=Curve[t1];
-	chr=ChristoffelSymbol[Metric[x1]];
+	chr=ToTensorOnCurve[ChristoffelSymbol[Metric[x1]],x1];
 
-	D[t1[inds[[1]]],param]+chr[inds[[1]],-inds[[2]],-inds[[3]]]t1[inds[[2]]]t1[inds[[3]]]
+	D[t1[a],param]+chr[a,-b,-c]t1[b]t1[c]
 ]/;OnCurveQ[t1]&&Not@MemberQ[PossibleIndices[t1],param]&&CurveParameter[t1]===param
 
 

@@ -303,13 +303,12 @@ Module[{simpFn,posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvF
 			Table[tvs[1][[Sequence@@indsLocal[1]]]+tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]],
 			{Length@indsFinal}];
 	
-	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","IsMetric","Values","Indices","ParametrizedValues","PossibleIndices"}],
+	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","IsMetric","Values","Indices","PossibleIndices"}],
 					Association["IsMetric"->False,
 								"Metric"->Metric[t1],
 								"Indices"->indsFinal,
 								"Values"->vals,
 								"PossibleIndices"->posInds,
-								"ParametrizedValues"->(ParametrizedValuesQ@t1||ParametrizedValuesQ@t2),
 								"Name"->"("<>TensorName[t1]<>"+"<>TensorName[t2]<>")-Auto",
 								"DisplayName"->"("<>TensorDisplayName[t1]<>"+"<>TensorDisplayName[t2]<>")"]]]
 ];
@@ -371,13 +370,12 @@ Module[{simpFn,posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,inds
 			Table[tvs[1][[Sequence@@indsLocal[1]]]tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]],
 			{Length@indsFinal}];
 	
-	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","IsMetric","Values","Indices","ParametrizedValues","PossibleIndices"}],
+	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","IsMetric","Values","Indices","PossibleIndices"}],
 					Association["IsMetric"->False,
 								"Metric"->Metric[t1],
 								"Indices"->indsFinal,
 								"Values"->vals,
 								"PossibleIndices"->posInds,
-								"ParametrizedValues"->(ParametrizedValuesQ@t1||ParametrizedValuesQ@t2),
 								"Name"->"("<>TensorName[t1]<>"\[CenterDot]"<>TensorName[t2]<>")-Auto",
 								"DisplayName"->"("<>TensorDisplayName[t1]<>"\[CenterDot]"<>TensorDisplayName[t2]<>")"]]]
 

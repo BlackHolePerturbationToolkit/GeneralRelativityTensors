@@ -1,7 +1,7 @@
 gK = ToMetric["Kerr"];
 c1 = ToCurve["x1", gK, {t[\[Chi]], (p M)/(1 + e Cos[\[Chi]]), \[Pi]/2, \[Phi][\[Chi]]}, \[Chi]];
-gKC = ToTensorOnCurve[gK, c1];
-gKC2 = ToTensorOnCurve["gCurve", c1, TensorValues[gKC], {-\[Alpha], -\[Beta]}, "ParametrizedValues" -> True];
+gKC = ToTensorFieldOnCurve[gK, c1];
+gKC2 = ToTensorOnCurve["gCurve", c1, TensorValues[gKC], {-\[Alpha], -\[Beta]}];
 
 Test[
 	TensorValues[c1],
