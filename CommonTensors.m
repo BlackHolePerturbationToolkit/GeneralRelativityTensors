@@ -16,6 +16,8 @@ EinsteinTensor::usage="EinsteinTensor[m] returns the Einstein Tensor with \
 index positions {\"Down\",\"Down\"} computed from the metric Tensor m.";
 WeylTensor::usage="WeylTensor[m] returns the Weyl Tensor with index positions \
 {\"Down\",\"Down\",\"Down\",\"Down\"} computed from the metric Tensor m.";
+CottonTensor::usage="CottonTensor[m] returns the Cotton Tensor with index positions \
+{\"Down\",\"Down\",\"Down\",} computed from the metric Tensor m.";
 
 KinnersleyNullVector::usage="KinnersleyNullVector[m,v] returns \
 the contravariant Kinnersley null vector associated with metric Tensor m and \
@@ -49,9 +51,14 @@ MaxwellPotential::usage="MaxwellPotential[builtIn] returns the four-vector A on 
 built-in background index position \"Down\" . \
 The current choices for builtIn are \"ReissnerNordstrom\" (or \"RN\") and \"KerrNewman\" (or \"KN\").";
 FieldStrengthTensor::usage="FieldStrengthTensor[A] returns the field strength tensor associated with the \
-electromagnetic vector potential A with index positions {\"Down\",\"Down\"} .";
+electromagnetic vector potential A with index positions {\"Down\",\"Down\"}.
+FieldStrengthTensor[builtIn] is equivalent to FieldStrengthTensor[MaxwellPotential[builtIn]]. \
+The current choices for builtIn are \"ReissnerNordstrom\" (or \"RN\") and \"KerrNewman\" (or \"KN\").";
 MaxwellStressEnergyTensor::usage="MaxwellStressEnergyTensor[F] returns the stress energy tensor associated with the \
-electromagnetic field strength tensor F with index positions {\"Up\",\"Up\"}.";
+electromagnetic field strength tensor F with index positions {\"Up\",\"Up\"}.
+MaxwellStressEnergyTensor[builtIn] is equivalent to MaxwellStressEnergyTensor[FieldStrengthTensor[MaxwellPotential[builtIn]]]. \
+The current choices for builtIn are \"ReissnerNordstrom\" (or \"RN\") and \"KerrNewman\" (or \"KN\").";
+
 
 FourVelocity::usage="FourVelocity[builtIn] returns the four velocity associated with the string builtIn. \
 Choices are \"KerrGeneric\" and \"SchwarzschildGeneric\".";
@@ -67,27 +74,29 @@ associated with the string builtIn. Choices are \"hab\", \"ha\", and \"ja\".";
 Begin["`Private`"];
 
 
-Options[RiemannTensor]=Options[ChristoffelSymbol];
-Options[RicciTensor]=Options[ChristoffelSymbol];
-Options[RicciScalar]=Options[ChristoffelSymbol];
-Options[EinsteinTensor]=Options[ChristoffelSymbol];
-Options[WeylTensor]=Options[ChristoffelSymbol];
-Options[FieldStrengthTensor]=Options[ChristoffelSymbol];
-Options[MaxwellStressEnergyTensor]=Options[ChristoffelSymbol];
-Options[KretschmannScalar]=Options[ChristoffelSymbol];
-Options[BianchiIdentities]=Options[ChristoffelSymbol];
+Options[RiemannTensor]=Options[MergeTensors];
+Options[RicciTensor]=Options[MergeTensors];
+Options[RicciScalar]=Options[MergeTensors];
+Options[EinsteinTensor]=Options[MergeTensors];
+Options[WeylTensor]=Options[MergeTensors];
+Options[CottonTensor]=Options[MergeTensors];
+Options[FieldStrengthTensor]=Options[MergeTensors];
+Options[MaxwellStressEnergyTensor]=Options[MergeTensors];
+Options[KretschmannScalar]=Options[MergeTensors];
+Options[BianchiIdentities]=Options[MergeTensors];
 Options[KinnersleyNullTetrad]=Options[KinnersleyNullVector];
 Options[SpinCoefficient]={"Conjugate"->False,"Schwarzschild"->False};
 
-DocumentationBuilder`OptionDescriptions["RiemannTensor"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
-DocumentationBuilder`OptionDescriptions["RicciTensor"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
-DocumentationBuilder`OptionDescriptions["RicciScalar"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
-DocumentationBuilder`OptionDescriptions["EinsteinTensor"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
-DocumentationBuilder`OptionDescriptions["WeylTensor"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
-DocumentationBuilder`OptionDescriptions["FieldStrengthTensor"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
-DocumentationBuilder`OptionDescriptions["MaxwellStressEnergyTensor"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
-DocumentationBuilder`OptionDescriptions["KretschmannScalar"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
-DocumentationBuilder`OptionDescriptions["BianchiIdentities"] = DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"];
+DocumentationBuilder`OptionDescriptions["RiemannTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["RicciTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["RicciScalar"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["EinsteinTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["WeylTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["CottonTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["FieldStrengthTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["MaxwellStressEnergyTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["KretschmannScalar"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["BianchiIdentities"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
 DocumentationBuilder`OptionDescriptions["SpinCoefficient"] ={"Conjugate"->"Boolean stating whether to return the complex \
 conjugate of the spin coefficient",
 "Schwarzschild"->"Boolean stating whether to return the spin coefficient for Schwarzschild spacetime (as opposed to Kerr)"};
@@ -290,12 +299,15 @@ LeviCivitaSymbol["S2"]:=LeviCivitaSymbol["TwoSphere"]
 
 Clear[RiemannTensor]
 Tensor/:RiemannTensor[gT_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{n,xx,chr,vals,name,simpFn,valsTemp,a,b,c,d},
-	simpFn=OptionValue["SimplifyFunction"];
+Module[{n,xx,chr,vals,name,simpFn,simpFnNest,valsTemp,a,b,c,d},
+	
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+
 	xx=Coordinates[gT];
 	{a,b,c,d}=Take[PossibleIndices[gT],4];
 	n=Dimensions[gT];
-	chr=RawTensorValues@ChristoffelSymbol[gT,opts];
+	chr=RawTensorValues@ChristoffelSymbol[gT,"ActWith"->simpFnNest];
 
 	name="RiemannTensor"<>TensorName[gT];
 
@@ -320,14 +332,17 @@ Module[{n,xx,chr,vals,name,simpFn,valsTemp,a,b,c,d},
 
 Clear[RicciTensor]
 Tensor/:RicciTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{rie,name,i,j,k},
+Module[{rie,name,i,j,k,simpFnNest,simpFn},
 
-	rie=RiemannTensor[g,opts];
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+
+	rie=RiemannTensor[g,"ActWithNested"->simpFnNest];
 	name="RicciTensor"<>TensorName[g];
 	{i,j,k}=Take[PossibleIndices[rie],3];
 	
 	If[RawTensorValues[name,{"Down","Down"}]===Undefined,
-		ContractIndices[rie[i,-j,-i,-k],{name,"R"},opts],
+		ContractIndices[rie[i,-j,-i,-k],{name,"R"},"ActWith"->simpFn],
 		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
 						Association["Metric"->g,
 									"IsMetric"->False,
@@ -341,14 +356,17 @@ Module[{rie,name,i,j,k},
 
 Clear[RicciScalar]
 Tensor/:RicciScalar[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{ric,i,name},
+Module[{ric,i,name,simpFnNest,simpFn},
 
-	ric=RicciTensor[g,opts];
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+
+	ric=RicciTensor[g,"ActWithNested"->simpFnNest];
 	name="RicciScalar"<>TensorName[g];
 	i=First[PossibleIndices[ric]];
 	
 	If[RawTensorValues[name,{}]===Undefined,
-		ContractIndices[ShiftIndices[ric,{-i,i},opts],{name,"R"},opts],
+		ContractIndices[ShiftIndices[ric,{-i,i},"ActWith"->simpFnNest],{name,"R"},"ActWith"->simpFn],
 		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
 					Association["Metric"->g,
 								"IsMetric"->False,
@@ -363,15 +381,19 @@ Module[{ric,i,name},
 
 Clear[EinsteinTensor]
 Tensor/:EinsteinTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{ricT,ricS,name,i,j},
-	ricT=RicciTensor[g,opts];
-	ricS=RicciScalar[g,opts];
+Module[{ricT,ricS,name,i,j,simpFnNest,simpFn},
+
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+	
+	ricT=RicciTensor[g,"ActWithNested"->simpFnNest];
+	ricS=RicciScalar[g,"ActWithNested"->simpFnNest];
 	{i,j}=Take[PossibleIndices[ricT],2];
 		
 	name="EinsteinTensor"<>TensorName[g];
 	
 	If[RawTensorValues[name,{"Down","Down"}]===Undefined,
-		MergeTensors[ricT[-i,-j]-1/2 ricS g[-i,-j],{name,"G"},opts],
+		MergeTensors[ricT[-i,-j]-1/2 ricS g[-i,-j],{name,"G"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
 		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
 					Association["Metric"->g,
 								"IsMetric"->False,
@@ -385,22 +407,25 @@ Module[{ricT,ricS,name,i,j},
 
 Clear[WeylTensor]
 Tensor/:WeylTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{rie,ricT,ricS,dim,i,k,l,m,name},
+Module[{rie,ricT,ricS,dim,i,k,l,m,name,simpFnNest,simpFn},
+
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
 
 	dim = Dimensions[g];
 	If[dim <= 2, Print["Weyl tensor requires dimensions of at least 3"]; Abort[]];
 
 	{i,k,l,m}=Take[PossibleIndices[g],4];
-	rie=RiemannTensor[g,opts];
-	ricT=RicciTensor[g,opts];
-	ricS=RicciScalar[g,opts];
+	rie=RiemannTensor[g,"ActWithNested"->simpFnNest];
+	ricT=RicciTensor[g,"ActWithNested"->simpFnNest];
+	ricS=RicciScalar[g,"ActWithNested"->simpFnNest];
 
 	name = "WeylTensor"<>TensorName[g];
 	
 	If[RawTensorValues[name,{"Down","Down","Down","Down"}]===Undefined,
-		MergeTensors[ShiftIndices[rie,{-i,-k,-l,-m},opts]+
+		MergeTensors[ShiftIndices[rie,{-i,-k,-l,-m},"ActWith"->simpFnNest]+
 				1/(dim-2) (ricT[-i,-m]g[-k,-l]-ricT[-i,-l]g[-k,-m]+ricT[-k,-l]g[-i,-m]-ricT[-k,-m]g[-i,-l])
-				+ricS/((dim-1)(dim-2)) (g[-i,-l]g[-k,-m]-g[-i,-m]g[-k,-l]),{name,"C"},opts],
+				+ricS/((dim-1)(dim-2)) (g[-i,-l]g[-k,-m]-g[-i,-m]g[-k,-l]),{name,"C"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
 		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
 					Association["Metric"->g,
 								"IsMetric"->False,
@@ -408,6 +433,38 @@ Module[{rie,ricT,ricS,dim,i,k,l,m,name},
 								"DisplayName"->"C",
 								"Name"->name,
 								"Indices"->{-i,-k,-l,-m}]]]
+	]
+]
+
+
+Clear[CottonTensor]
+Tensor/:CottonTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
+Module[{ricT,ricS,dim,i,j,k,name,simpFnNest,simpFn},
+
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+
+	dim = Dimensions[g];
+	If[dim <= 2, Print["Cotton tensor requires dimensions of at least 3"]; Abort[]];
+
+	{i,j,k}=Take[PossibleIndices[g],3];
+	ricT=RicciTensor[g,"ActWithNested"->simpFnNest];
+	ricS=RicciScalar[g,"ActWithNested"->simpFnNest];
+
+	name = "CottonTensor"<>TensorName[g];
+	
+	If[RawTensorValues[name,{"Down","Down","Down"}]===Undefined,
+		MergeTensors[CovariantD[ricT[-i,-j],-k]-CovariantD[ricT[-i,-k],-j]
+			+1/(2(Dimensions[g]-1)) (CovariantD[MergeTensors[ricS g[-i,-k],"ActWithNested"->simpFnNest],-j]
+								- CovariantD[MergeTensors[ricS g[-i,-j],"ActWithNested"->simpFnNest],-k]),
+								{name,"C"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
+		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+					Association["Metric"->g,
+								"IsMetric"->False,
+								"Values"->RawTensorValues[name,{"Down","Down","Down"}],
+								"DisplayName"->"C",
+								"Name"->name,
+								"Indices"->{-i,-j,-k}]]]
 	]
 ]
 
@@ -436,15 +493,20 @@ MaxwellPotential["KN"]:=MaxwellPotential["KerrNewman"];
 
 Clear[FieldStrengthTensor]
 Tensor/:FieldStrengthTensor[AA_Tensor,opts:OptionsPattern[]]:=
-Module[{g,name,i,j},
+Module[{g,name,i,j,simpFnNest,simpFn},
+
 	If[Total@Rank[AA]=!=1,Print["Field strength tensor must be derived from a Rank 1 tensor"];Abort[]];
 	If[AbstractQ[AA],Print["Field strength tensor requires a non-abstract potential"];Abort[]];
+
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+
 	g=Metric[AA];	
 	{i,j}=Take[PossibleIndices[g],2];
 	name="FieldStrengthTensor"<>TensorName[g];
 	
 	If[RawTensorValues[name,{"Down","Down"}]===Undefined,
-		MergeTensors[CovariantD[AA[-i],-j]-CovariantD[AA[-j],-i],{name,"F"},opts],
+		MergeTensors[CovariantD[AA[-i],-j]-CovariantD[AA[-j],-i],{name,"F"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
 		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
 					Association["Metric"->g,
 								"IsMetric"->False,
@@ -459,17 +521,22 @@ FieldStrengthTensor[str_String,opts:OptionsPattern[]]:=FieldStrengthTensor[Maxwe
 
 Clear[MaxwellStressEnergyTensor]
 Tensor/:MaxwellStressEnergyTensor[FF_Tensor,opts:OptionsPattern[]]:=
-Module[{g,name,i,k,l,m},
+Module[{g,name,i,k,l,m,simpFnNest,simpFn},
+
 	If[Total@Rank[FF]=!=2,Print["Maxwell stress energy tensor must be derived from a Rank 2 tensor"];Abort[]];
 	If[AbstractQ[FF],Print["Maxwell stress energy requires a non-abstract field strength tensor"];Abort[]];
+
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+
 	g=Metric[FF];	
 	{i,k,l,m}=Take[PossibleIndices[g],4];
 	name="MaxwellStressEnergyTensor"<>TensorName[g];
 	
 	If[RawTensorValues[name,{"Up","Up"}]===Undefined,
-		MergeTensors[1/(4\[Pi]) (ShiftIndices[FF,{i,-k},opts] ShiftIndices[FF,{l,k},opts]
-								-1/4 ShiftIndices[g,{i,l},opts]FF[-k,-m]ShiftIndices[FF,{k,m},opts]),
-								{name,"T"},opts],
+		MergeTensors[1/(4\[Pi]) (ShiftIndices[FF,{i,-k},"ActWith"->simpFnNest] ShiftIndices[FF,{l,k},"ActWith"->simpFnNest]
+								-1/4 ShiftIndices[g,{i,l},"ActWith"->simpFnNest]FF[-k,-m]ShiftIndices[FF,{k,m},"ActWith"->simpFnNest]),
+								{name,"T"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
 		(*MergeTensors[1/(4\[Pi]) (FF[i,-k]FF[l,k]-1/4 g[i,l]FF[-k,-m]FF[k,m]),{name,"T"},opts],*)
 		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
 					Association["Metric"->g,
@@ -485,14 +552,19 @@ MaxwellStressEnergyTensor[str_String,opts:OptionsPattern[]]:=MaxwellStressEnergy
 
 Clear[KretschmannScalar]
 Tensor/:KretschmannScalar[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{rie,name,i,j,k,l},
-	rie=RiemannTensor[g,opts];
+Module[{rie,name,i,j,k,l,simpFnNest,simpFn},
+
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+
+	rie=RiemannTensor[g,"ActWithNested"->simpFnNest];
 	{i,j,k,l}=Take[PossibleIndices[rie],4];
 		
 	name="KretschmannScalar"<>TensorName[g];
 	
 	If[RawTensorValues[name,{}]===Undefined,
-		MergeTensors[ShiftIndices[rie,{i,j,k,l},opts]ShiftIndices[rie,{-i,-j,-k,-l},opts],{name,"K"},opts],
+		MergeTensors[ShiftIndices[rie,{i,j,k,l},"ActWith"->simpFnNest]ShiftIndices[rie,{-i,-j,-k,-l},"ActWith"->simpFnNest],
+				{name,"K"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
 		ToTensor[Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
 					Association["Metric"->g,
 								"IsMetric"->False,
@@ -506,12 +578,15 @@ Module[{rie,name,i,j,k,l},
 
 Clear[BianchiIdentities]
 Tensor/:BianchiIdentities[t_Tensor?MetricQ,contractions_:0,opts:OptionsPattern[]]/;MemberQ[{0,1,2},contractions]:=
-Module[{rie,ric,ein,i,j,k,l,m},
+Module[{rie,ric,ein,i,j,k,l,m,simpFnNest,simpFn},
+
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
 	
 	{i,j,k,l,m}=Take[PossibleIndices[t],5];
-	rie=RiemannTensor[t,opts];
-	ric=RicciTensor[t,opts];
-	ein=EinsteinTensor[t,opts];
+	rie=RiemannTensor[t,"ActWithNested"->simpFnNest];
+	ric=RicciTensor[t,"ActWithNested"->simpFnNest];
+	ein=EinsteinTensor[t,"ActWithNested"->simpFnNest];
 
 	Switch[contractions,
 		0,
@@ -678,35 +753,6 @@ Module[{t,r,th,ph,tau,EE,JJ,M,x1,ur},
 	ur = Sqrt[EE^2-(1-(2M)/r[tau])(1+JJ^2/r[tau]^2)];
 	ToTensorOnCurve[ToTensor[{"FourVelocityGenericSchwarzschild","u"},ToMetric["Schwarzschild"],{EE/(1-(2 M)/r[tau]),ur,0,JJ/r[tau]^2}],x1,"ParametrizedValues"->True]
 ]
-
-
-(*Clear[FourVelocityVector]
-FourVelocityVector[tens_Tensor?MetricQ]:=
-Module[{r,th,rp,thp,tau,EE,JJ,vals1,ind,temp1,temp2,u1},
-
-	{r,th,rp,thp,tau,EE,JJ,temp1,temp2}=Symbol/@{"r","\[Theta]","rp","\[Theta]p","\[Tau]","\[ScriptCapitalE]","\[ScriptCapitalJ]","temp1","temp2"};
-	ind=PossibleIndices[tens][[1]];
-	u1=ToTensor[{"FourVelocity"<>TensorName[tens],"u"},tens,{-EE,temp1,temp2,JJ},{-ind}];
-	vals1=TensorValues[u1[ind]]/.{r->rp[tau],th->thp[tau]};
-	SetTensorValues[u1[ind],{First@vals1,rp'[tau],thp'[tau],Last@vals1}]
-]
-
-FourVelocityVector["Schwarzschild"]:=
-Module[{t,rp,EE,JJ,M},
-	{t,rp,EE,JJ,M}=Symbol/@{"t","rp","\[ScriptCapitalE]","\[ScriptCapitalJ]","M"};
-	SetTensorValues[FourVelocityVector[ToMetric["Schwarzschild"]],{EE/(1-(2 M)/rp[t]),(EE rp'[t])/(1-(2 M)/rp[t]),0,JJ/rp[t]^2}]
-]
-
-FourVelocityVector["Kerr"]:=
-Module[{t,rp,EE,JJ,M,a},
-	{t,rp,EE,JJ,M,a}=Symbol/@{"t","rp","\[ScriptCapitalE]","\[ScriptCapitalJ]","M","a"};
-	SetTensorValues[FourVelocityVector[ToMetric["Kerr"]],
-		{(-a (a EE-JJ)+((a^2+rp[t]^2) (-a JJ+EE (a^2+rp[t]^2)))/(a^2-2 M rp[t]+rp[t]^2))/rp[t]^2,
-		((-a (a EE-JJ)+((a^2+rp[t]^2) (-a JJ+EE (a^2+rp[t]^2)))/(a^2-2 M rp[t]+rp[t]^2)) rp'[t])/rp[t]^2,
-		0,
-		(-a EE+JJ+(a (-a JJ+EE (a^2+rp[t]^2)))/(a^2-2 M rp[t]+rp[t]^2))/rp[t]^2}]
-]
-*)
 
 
 Clear[TensorSphericalHarmonic]

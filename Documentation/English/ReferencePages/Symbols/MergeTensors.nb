@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"9a03869c-0e51-4531-b0c0-75ae20487848"],
+   0}},ExpressionUUID->"dd7f5c15-d5d7-4fed-aed0-2b235f7fff4b"],
 
 Cell[TextData[{
  ButtonBox["Tensors",
@@ -15,12 +15,12 @@ Cell[TextData[{
  ButtonBox["MergeTensors",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:Tensors/ref/MergeTensors"]
-}], "LinkTrail",ExpressionUUID->"4d74f3e8-ed99-47f2-bad4-c37c1d4b88be"],
+}], "LinkTrail",ExpressionUUID->"e32b0103-db0a-42fb-88b5-dd5792c1fbd5"],
 
 Cell[CellGroupData[{
 
 Cell["MergeTensors", \
-"ObjectName",ExpressionUUID->"4be495a0-7452-4099-95e3-f1a3b5e26f79"],
+"ObjectName",ExpressionUUID->"9ed7a6ba-ba76-483f-82ac-51ddd38dfc70"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -31,11 +31,11 @@ Cell[BoxData[GridBox[{
         ButtonData->"paclet:Tensors/ref/MergeTensors"], "[", 
        StyleBox[
         RowBox[{"expr", ",", "n"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"305e0355-09d8-40f4-ae83-38c83f37513b"],
+      ExpressionUUID->"b52ece17-59c5-4a65-afc6-f52ba929f133"],
      "\[LineSeparator]calls MultiplyTensors, MultiplyTensorScalar, \
 SumTensors, and ContractIndices to merge the Tensor expression expr into one \
 Tensor with TensorName n."
-    }],ExpressionUUID->"18987b9f-f122-4748-8b61-3bb644542c13"]},
+    }],ExpressionUUID->"c6282fb5-02f1-41d4-a2a8-6f74b904631f"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -43,17 +43,18 @@ Tensor with TensorName n."
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/MergeTensors"], "[", 
        StyleBox["expr", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "8f0d8361-9a4d-4452-bc4b-e323c909ce8b"],
+      "e51d396f-434d-4c93-afab-04348b3148c5"],
      "\[LineSeparator]merges the Tensor expression expr and forms a new \
 TensorName and TensorDisplayName from a combination of the Tensors making up \
 the expression."
-    }],ExpressionUUID->"fc8a2db1-d33c-4983-ae22-f03d0b43d5a4"]}
-  }]], "Usage",ExpressionUUID->"7ad747a5-916e-415b-bf79-6cfe5ffc3afe"]
+    }],ExpressionUUID->"e688b252-8338-4d57-899e-66211e3b2cb6"]}
+  }]], "Usage",ExpressionUUID->"bb724559-893a-43e4-a36c-bde1fa1e8b23"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["", "NotesSection",
+ WholeCellGroupOpener->True,
  CellGroupingRules->{"SectionGrouping", 50},
  CellFrameLabels->{{
     FEPrivate`If[
@@ -92,38 +93,43 @@ Cell["", "NotesSection",
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
- CellFrameLabelMargins->0,
- "WholeCelGroupOpener" -> 
- True,ExpressionUUID->"6fef8805-4b70-45d3-a3aa-f04c0d8b0b2e"],
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"e4e0522d-d521-457a-a033-08549afb031f"],
 
 Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"d97bcfad-dd9e-4dcd-a9a7-d2215941032f"],
+"Notes",ExpressionUUID->"d6d5adde-9a6c-437d-869d-9b6205f6f9e2"],
 
 Cell[BoxData[GridBox[{
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "96028f63-ef5c-423f-98f9-44e08377364a"], "SimplifyFunction", "Identity", 
+     "64977f43-d6e9-445d-bc0d-2ecf303e5f3c"], "ActWith", "Identity", 
     Cell["\<\
-Function which is applied to the elements of the tensor as they are \
-calculated.\
-\>", "TableText",ExpressionUUID->"a6c742f4-400c-4101-b351-a777a5bfcc6d"]}
+Function that is applied to the elements of the tensor as they are calculated.\
+\>", "TableText",ExpressionUUID->"2ac15ef7-7c82-473e-b36f-868e630b80a6"]},
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "03eae01e-931c-4643-a625-9fe8d1813941"], "ActWithNested", "Identity", 
+    Cell["\<\
+Function that is applied to the elements of the tensor and also passed to any \
+other functions called internally.\
+\>", "TableText",ExpressionUUID->"ca23010b-e7af-419e-a341-607f534c0615"]}
   },
   GridBoxAlignment->{
    "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
     "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
  GridBoxOptions->{
  GridBoxBackground->{
-  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {None, {None}}, 
    "RowsIndexed" -> {}},
  GridBoxDividers->{
   "Rows" -> {{
-     True, True}}}},ExpressionUUID->"4eb61ef4-ad0c-4087-b005-c1899ff74264"]
+     True, True, 
+      True}}}},ExpressionUUID->"fb3f47d7-d77c-4132-bd6a-e2a178090276"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"5e4f8e2a-86d3-48f6-8994-567abdb49575"],
+Cell[" ", "FooterCell",ExpressionUUID->"9710085d-3a7d-4568-b4f2-e1ba5f4404b0"],
 
-Cell[BoxData[""],ExpressionUUID->"58142f35-4ac1-43dd-8b69-c114c8a85323"]
+Cell[BoxData[""],ExpressionUUID->"21fff866-92dc-456d-ba44-b76f3bfa81e3"]
 }, Open  ]]
 },
 Saveable->False,

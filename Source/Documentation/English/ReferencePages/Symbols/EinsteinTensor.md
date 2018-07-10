@@ -4,11 +4,11 @@
 
   "Basic Examples" -> {
     "gS = ToMetric[\"Schwarzschild\"]",
-    "einS = EinsteinTensor[gS, SimplifyFunction -> Simplify]",
+    "einS = EinsteinTensor[gS, \"ActWith\" -> Simplify]",
     "TensorValues[einS]"
     },
 
     "See Also" ->
-    {"ChristoffelSymbol","RiemannTensor","RicciTensor","RicciTensor"}
+    {"ChristoffelSymbol","RiemannTensor","RicciTensor","RicciScalar"}
 
 }

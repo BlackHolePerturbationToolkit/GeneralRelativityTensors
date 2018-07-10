@@ -4,7 +4,7 @@
 
   "Basic Examples" -> {
     "gS = ToMetric[\"Schwarzschild\"]",
-    "chrS = ChristoffelSymbol[gS, SimplifyFunction -> Simplify]",
+    "chrS = ChristoffelSymbol[gS, \"ActWith\" -> Simplify]",
     "chrS[t,-t,-r]"
     },
 

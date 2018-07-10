@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"83b3170e-8500-48f4-907f-22a85ea6df42"],
+   0}},ExpressionUUID->"94a2de57-df18-4d70-8c42-e37736295eca"],
 
 Cell[TextData[{
  ButtonBox["Tensors",
@@ -15,11 +15,11 @@ Cell[TextData[{
  ButtonBox["RiemannTensor",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:Tensors/ref/RiemannTensor"]
-}], "LinkTrail",ExpressionUUID->"13ae529f-6878-4561-b82f-e95c4ec3a375"],
+}], "LinkTrail",ExpressionUUID->"9c5dec55-6188-40f3-b855-46d45b84a65c"],
 
 Cell[BoxData[GridBox[{
    {Cell["TENSORS`COMMONTENSORS PACLET SYMBOL", "PacletNameCell",
-     ExpressionUUID->"fd37aef1-4226-4b77-bc7b-ef573e0970d0"], Cell[TextData[{
+     ExpressionUUID->"ce87343a-2c67-4d19-b011-c5cd2434b173"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
@@ -32,16 +32,16 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "cbb87efe-bdb9-4467-ad40-806e5f3ab1db"],
+      "e078abba-c417-42b4-856e-a4b4e21b7a3f"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"88666fb5-4f01-4022-b6aa-4e2c91cb08f0"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"a133c5a4-f60a-4884-b182-9d793b1af6de"],
+    }], "AnchorBar",ExpressionUUID->"e738c0ab-65f7-4860-88ed-f3743b7495e2"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"8dc37507-b14e-421d-ab28-80f1e6b30114"],
 
 Cell[CellGroupData[{
 
 Cell["RiemannTensor", \
-"ObjectName",ExpressionUUID->"ff60a03d-69af-43f8-ab23-ef2399d6ecea"],
+"ObjectName",ExpressionUUID->"e1c12613-2f80-415f-a53d-e542a6461a50"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -51,16 +51,17 @@ Cell[BoxData[GridBox[{
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/RiemannTensor"], "[", 
        StyleBox["m", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "ed12880a-281e-4c19-9027-adb8a3300add"],
+      "db83de6b-fbd6-47e9-92d2-eb54a01ed81e"],
      "\[LineSeparator]returns the Riemann Tensor with index positions \
 {\"Up\",\"Down\",\"Down\",\"Down\"} computed from the metric Tensor m."
-    }],ExpressionUUID->"c1ab1fff-6a42-4f9f-a617-174c312f79a8"]}
-  }]], "Usage",ExpressionUUID->"92104fb8-88ed-481a-b4bf-f17420b8e80b"]
+    }],ExpressionUUID->"96a45bc3-4377-4a14-b1b9-4b5b4675e73a"]}
+  }]], "Usage",ExpressionUUID->"e8583e2a-f359-4641-bae9-a3a0e94d3448"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["", "NotesSection",
+ WholeCellGroupOpener->True,
  CellGroupingRules->{"SectionGrouping", 50},
  CellFrameLabels->{{
     FEPrivate`If[
@@ -99,31 +100,36 @@ Cell["", "NotesSection",
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
- CellFrameLabelMargins->0,
- "WholeCelGroupOpener" -> 
- True,ExpressionUUID->"e50d0d1f-ed4c-4a7b-aaf2-781e167a3d93"],
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"03929d43-1699-4e60-a9e6-57db42e4bb0a"],
 
 Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"0b820a28-ff8d-43a0-abac-f89b949c6624"],
+"Notes",ExpressionUUID->"8efd3910-a863-4581-8ef0-e3018880cc61"],
 
 Cell[BoxData[GridBox[{
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "b8ff5034-ee5a-41d6-92c8-833b6591fa1f"], "SimplifyFunction", "Identity", 
+     "71ad7c85-00a0-4c4d-817a-2076d59c901d"], "ActWith", "Identity", 
     Cell["\<\
-Function which is applied to the elements of the tensor as they are \
-calculated.\
-\>", "TableText",ExpressionUUID->"63d84edd-87e8-4cae-ba28-2e6474e72859"]}
+Function that is applied to the elements of the tensor as they are calculated.\
+\>", "TableText",ExpressionUUID->"76533f72-6c17-459c-8fd3-fbf0a46edef3"]},
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "4c122358-8a03-42e1-8287-3891e1f3f085"], "ActWithNested", "Identity", 
+    Cell["\<\
+Function that is applied to the elements of the tensor and also passed to any \
+other functions called internally.\
+\>", "TableText",ExpressionUUID->"ea6b3da6-8390-4847-86d1-6fba405d6b21"]}
   },
   GridBoxAlignment->{
    "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
     "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
  GridBoxOptions->{
  GridBoxBackground->{
-  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {None, {None}}, 
    "RowsIndexed" -> {}},
  GridBoxDividers->{
   "Rows" -> {{
-     True, True}}}},ExpressionUUID->"681775cc-781c-4a03-ad4c-f0c362eba1cc"]
+     True, True, 
+      True}}}},ExpressionUUID->"404ae7b9-33d7-4ccb-b2c1-1cde5509d1bf"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -165,8 +171,8 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"8cef2890-efd3-47ec-a410-\
-300ba6a7ecef"],
+  "PrimaryExamplesSection",ExpressionUUID->"5a1a93be-7274-40ca-89c1-\
+a7ae9195f5e6"],
 
 Cell[CellGroupData[{
 
@@ -174,25 +180,25 @@ Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(3)", "ExampleCount",ExpressionUUID->
-  "ac5c89b0-ee0f-45f2-97c2-48aafcc4a0ae"]
-}], "ExampleSection",ExpressionUUID->"9b570a00-644d-4408-977b-e52adc096405"],
+  "ad172e34-b762-4177-9e29-9c48ae3fe779"]
+}], "ExampleSection",ExpressionUUID->"4efece37-ebd8-4463-af6a-589ce1f50193"],
 
 Cell[CellGroupData[{
 
 Cell["gS = ToMetric[\"Schwarzschild\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"1d745afd-1b77-4ff5-adaf-442d34a21436"],
+ CellLabel->"In[1]:=",ExpressionUUID->"6d821cb5-ebec-4276-9774-d82b3caa1892"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"6e0686e5-ae37-49db-ad8a-53e907a62d49"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"85cda23f-646c-446b-8bf9-0c034251c5cd"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["rieS = RiemannTensor[gS, SimplifyFunction -> Simplify]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"d39eb397-735e-4ba8-bc09-03c09fc97857"],
+Cell["rieS = RiemannTensor[gS, \"ActWith\" -> Simplify]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"59b42695-b9de-403a-a0c0-404966c9a9c7"],
 
 Cell[BoxData[
  TagBox[
@@ -200,13 +206,13 @@ Cell[BoxData[
    RowBox[{"  ", "\[Beta]\[Gamma]\[Delta]"}], 
    RowBox[{"\[Alpha]", "      "}]],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"a66d7df0-dfcb-4180-bad8-cd0de8610bc9"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"877a3671-8189-4f1e-a0ec-6f486194b400"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["rieS[t,-r,-t,-r]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"d3dfc911-6e32-4956-ae76-5b5f8f95388b"],
+ CellLabel->"In[1]:=",ExpressionUUID->"2ba1653c-2365-4d28-94dc-f0919113eb4f"],
 
 Cell[BoxData[
  RowBox[{"-", 
@@ -217,7 +223,7 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"2", " ", "M"}], "-", "r"}], ")"}], " ", 
     SuperscriptBox["r", "2"]}]]}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"54cb1758-fd2d-43e4-a41c-871bc7b8eb08"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"57c58dfa-0329-44a4-9b15-37aef5f6f475"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -259,7 +265,7 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"b6460697-d54d-4804-903c-a2f767b1b995"],
+  0,ExpressionUUID->"b727a52c-d907-490a-9cae-ac64faf5272f"],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -268,7 +274,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:Tensors/ref/ChristoffelSymbol"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "2a052b14-e7e4-4d90-9467-65443f945618"],
+  "67a586e7-d1b9-4ae0-aedf-0d108e3df7e6"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -279,7 +285,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:Tensors/ref/RicciTensor"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "2f89f844-7280-4b1d-a323-436cae2408a4"],
+  "9c9b5c97-8a31-4263-9bd5-c7cf59594535"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -290,7 +296,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:Tensors/ref/RicciScalar"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "b6bc4b46-0549-4e26-86b2-6ca53ed48611"],
+  "4c016221-4c78-4a5e-87d2-f841b5fd55d9"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -301,15 +307,15 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:Tensors/ref/EinsteinTensor"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "01c7cc3f-b534-42e0-ad71-c5452eae7e4d"]
-}], "SeeAlso",ExpressionUUID->"2d372f14-d65b-4a3e-bae1-906bbc3df5aa"]
+  "cf0282da-d8f9-40fa-baf9-b754394ac849"]
+}], "SeeAlso",ExpressionUUID->"2e2da872-2384-4417-94b2-9d71a6a0a5de"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"bc2fd927-75b1-4437-b1e5-222ba652d6f7"],
+Cell[" ", "FooterCell",ExpressionUUID->"f0745dfe-f807-4115-86a6-7e8f3cae2b6d"],
 
-Cell[BoxData[""],ExpressionUUID->"fd91a20b-475a-41db-b239-421af79550a1"]
+Cell[BoxData[""],ExpressionUUID->"a9ddbe09-0eb9-49a9-8768-437c614eef49"]
 }, Open  ]]
 },
 Saveable->False,

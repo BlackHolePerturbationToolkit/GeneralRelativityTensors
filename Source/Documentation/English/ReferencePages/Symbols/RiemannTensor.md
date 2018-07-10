@@ -4,7 +4,7 @@
 
   "Basic Examples" -> {
     "gS = ToMetric[\"Schwarzschild\"]",
-    "rieS = RiemannTensor[gS, SimplifyFunction -> Simplify]",
+    "rieS = RiemannTensor[gS, \"ActWith\" -> Simplify]",
     "rieS[t,-r,-t,-r]"
     },
 

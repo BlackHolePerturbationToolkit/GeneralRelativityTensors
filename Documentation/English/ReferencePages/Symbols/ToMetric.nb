@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"b950cd0e-a730-446e-9a32-d1563f84d903"],
+   0}},ExpressionUUID->"ec3acc27-ad1f-491d-8cc3-d44150af2275"],
 
 Cell[TextData[{
  ButtonBox["Tensors",
@@ -15,11 +15,11 @@ Cell[TextData[{
  ButtonBox["ToMetric",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:Tensors/ref/ToMetric"]
-}], "LinkTrail",ExpressionUUID->"418db84a-9955-49f0-861b-f5045ca6fa19"],
+}], "LinkTrail",ExpressionUUID->"4e7eb729-7ab7-4a3b-a667-576351f6e69a"],
 
 Cell[BoxData[GridBox[{
    {Cell["TENSORS`TENSORDEFINITIONS PACLET SYMBOL", "PacletNameCell",
-     ExpressionUUID->"d9296a80-a5e7-4058-a2e4-a3f9b5f37ad2"], Cell[TextData[{
+     ExpressionUUID->"28ec3bde-9fe5-43f8-9c79-52529e039f46"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
@@ -32,16 +32,16 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "fe98ae3e-7cae-4299-a0aa-00f755eaafff"],
+      "93970acb-ac70-4d9d-ac92-974f3dfb321d"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"87e6cd04-7d8c-463a-93aa-ad698764e414"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"ba25780d-d963-4610-9dc1-a4b296cd70d8"],
+    }], "AnchorBar",ExpressionUUID->"244a6cf2-4ca5-4fac-b769-2d05e77ce470"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"fb4a6994-3920-46c7-a8a5-b5956cdab428"],
 
 Cell[CellGroupData[{
 
 Cell["ToMetric", \
-"ObjectName",ExpressionUUID->"d70178e0-1152-490d-81ca-b26bff76be67"],
+"ObjectName",ExpressionUUID->"cfecfe6d-cbe0-4125-83f0-93f39546534b"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -51,11 +51,12 @@ Cell[BoxData[GridBox[{
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/ToMetric"], "[", 
        StyleBox[
-        RowBox[{"n", ",", "coords", ",", "vals", ",", "inds"}], "TI"], "]"}]],
-       "InlineFormula",ExpressionUUID->"86f8675d-2f0f-4a59-9fb4-7aa647355cb2"],
-     "\[LineSeparator]returns an non-abstract metric Tensor with TensorName \
-n, Coordinates coords, TensorValues vals, and PossibleIndices inds."
-    }],ExpressionUUID->"17d863e8-b588-4a8f-a46e-552eff318c4b"]},
+        RowBox[{"n", ",", "coords", ",", "vals", ",", "posInds"}], "TI"], 
+       "]"}]], "InlineFormula",ExpressionUUID->
+      "ce4fe596-ef9e-477b-8634-8b5c511196f2"],
+     "\[LineSeparator]returns a metric Tensor with TensorName n, Coordinates \
+coords, TensorValues vals, and PossibleIndices posInds."
+    }],ExpressionUUID->"c5d1a1ce-7267-4d1d-8513-805683dcc45a"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -63,16 +64,17 @@ n, Coordinates coords, TensorValues vals, and PossibleIndices inds."
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/ToMetric"], "[", 
        StyleBox["builtIn", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "d1bc05d1-27e1-4b86-a81e-0bf09f83e8e6"],
+      "a330d438-4edd-4494-a6b5-5d6f729dfc3a"],
      "\[LineSeparator]returns a built-in metric Tensor, where builtIn is a \
 String such as \"Schwarzschild\"."
-    }],ExpressionUUID->"d6b703a4-db7f-4ebc-9fa3-1143102000f8"]}
-  }]], "Usage",ExpressionUUID->"3db9603d-9eb5-49b5-bfb3-57d78791b567"]
+    }],ExpressionUUID->"be122f2a-bfa3-4322-b14b-514340c5ce93"]}
+  }]], "Usage",ExpressionUUID->"0397ae11-7940-424e-b6a7-3311d6c02191"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["", "NotesSection",
+ WholeCellGroupOpener->True,
  CellGroupingRules->{"SectionGrouping", 50},
  CellFrameLabels->{{
     FEPrivate`If[
@@ -111,15 +113,14 @@ Cell["", "NotesSection",
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
- CellFrameLabelMargins->0,
- "WholeCelGroupOpener" -> 
- True,ExpressionUUID->"a1205c58-7bca-4afa-b0f9-98e68b3653d5"],
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"2c57828b-1377-43ef-8d44-bb5614cf3914"],
 
 Cell["\<\
 The metric name n can be a two element List. The first element is the actual \
 \"Name\" (used for internal purposes) while the second is the \"DisplayName\" \
 which is used for formatted output in a notebook.\
-\>", "Notes",ExpressionUUID->"5c62c082-2216-4d06-9f8b-52ad6fd1efcc"],
+\>", "Notes",ExpressionUUID->"65a58808-a91f-42dd-94d7-8de43612bd3c"],
 
 Cell["\<\
 Choices for builtIn are \"Minkowski\" (or \"Mink\"),\"MinkowskiSpherical\" \
@@ -128,28 +129,28 @@ Choices for builtIn are \"Minkowski\" (or \"Mink\"),\"MinkowskiSpherical\" \
 \"TwoSphere\" (or \"S2\"), \"SchwarzschildM2\" (or \"SchwM2\"), \
 \"SchwarzschildS2\" (or \"SchwS2\"), \"ReissnerNordstromM2\" (or \"RNM2\"),   \
 and \"ReissnerNordstromS2\" (or \"RNS2\").\
-\>", "Notes",ExpressionUUID->"25f05281-72ee-4456-9462-52f937ae3fdd"],
+\>", "Notes",ExpressionUUID->"b43bebdb-f09a-45df-8c2c-7031c0524aa9"],
 
 Cell["\<\
 Possible indices inds can be \"Greek\", \"Latin\", \"CaptialLatin\" or a List \
 of Symbols.\
-\>", "Notes",ExpressionUUID->"5d49fdd8-5102-47ea-b3b3-5d926bc7ccb0"],
+\>", "Notes",ExpressionUUID->"19dfcb85-ea9a-4919-8635-6532df7d8870"],
 
 Cell["\<\
 Default coordinates for builtIn metrics are Schwarzschild or Boyer-Lindquist.\
 \
-\>", "Notes",ExpressionUUID->"cfddefbb-a788-471b-8c0e-4a6c4e187604"],
+\>", "Notes",ExpressionUUID->"645f1b9c-269e-4b7f-bc7b-2bf5a9b04b1a"],
 
 Cell["\<\
 Default indices for four built-in four-dimensional metrics are lower-case \
 Greek.\
-\>", "Notes",ExpressionUUID->"17d3af4f-b514-4505-9bf3-ef3deaf6ede9"],
+\>", "Notes",ExpressionUUID->"e5b75cc9-c3fe-43f6-a69e-43190ee7bbcb"],
 
 Cell["Default indices for the S2 sector are upper-case Latin.", \
-"Notes",ExpressionUUID->"de3ec5c8-ce3e-4f57-a3fb-f524d4d7d99f"],
+"Notes",ExpressionUUID->"22a6732c-f95a-4af8-89d8-57291344de23"],
 
 Cell["Default indices for the M2 sector are lower-case Latin.", \
-"Notes",ExpressionUUID->"8b0b8147-f774-489b-a4d6-7b511c9e77cf"]
+"Notes",ExpressionUUID->"56b4f4ba-ac30-4828-aa67-5f31fdbacc7f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -191,8 +192,8 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"1da318f1-dc19-4206-9f7c-\
-dd7cc138365b"],
+  "PrimaryExamplesSection",ExpressionUUID->"2c0d1b2d-eb2d-4471-8e62-\
+2eb03774e1f1"],
 
 Cell[CellGroupData[{
 
@@ -200,25 +201,25 @@ Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(4)", "ExampleCount",ExpressionUUID->
-  "3bb3c9d8-bdaf-4b3d-96c4-22343b4f8886"]
-}], "ExampleSection",ExpressionUUID->"ce14ed84-6d9a-49c0-86e5-55dff46ade41"],
+  "800de5ef-6717-4504-94db-be0a4aaf0e69"]
+}], "ExampleSection",ExpressionUUID->"29b1d786-2ab9-4d6b-8c93-a7e15bb31874"],
 
 Cell[CellGroupData[{
 
 Cell["gK = ToMetric[\"Kerr\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"6c105bb9-eda1-482c-8484-fa6f069e718c"],
+ CellLabel->"In[1]:=",ExpressionUUID->"2d04e914-6fe7-49aa-84c6-4c145cda36ce"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"10ea1cd7-42e5-4dba-865c-b05e13f147f0"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"f95d9a1a-8128-4fa4-a06d-a3614cb6fb40"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["TensorValues[gK] // TableForm", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"3dcd986f-dcad-4323-920b-bd00f77e1a07"],
+ CellLabel->"In[1]:=",ExpressionUUID->"5eb7b022-29ff-4062-a2be-25663ec8fb41"],
 
 Cell[BoxData[
  TagBox[GridBox[{
@@ -320,7 +321,7 @@ Cell[BoxData[
        Offset[0.2]}, "RowsIndexed" -> {}}],
   Function[BoxForm`e$, 
    TableForm[BoxForm`e$]]]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"b3a39d1b-78e4-4336-b935-ffb35193289b"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"669a3782-78a1-4f4a-a5a8-c53b641b1730"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -331,7 +332,7 @@ MatrixForm[
     x y F[r[x, y]]/r[x, y]^2}, {0, x y F[r[x, y]]/r[x, y]^2,
     1 + F[r[x, y]] y^2/r[x, y]^2}}]\
 \>", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"f34b6352-b105-46ab-a81e-d90f5afa2c3f"],
+ CellLabel->"In[1]:=",ExpressionUUID->"1dac6a35-745d-44ac-aa3c-6a77a1626502"],
 
 Cell[BoxData[
  TagBox[
@@ -392,7 +393,7 @@ Cell[BoxData[
         Offset[0.2]}, "RowsIndexed" -> {}}], "\[NoBreak]", ")"}],
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"4b582fc7-49e2-4170-a1cb-b4a527e9406c"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"162c01ae-6955-4a55-aaca-7f7507c8cabf"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -401,14 +402,14 @@ Cell["\<\
 ToMetric[{\"g3\", \"\!\(\*SuperscriptBox[\(g\), \(new\)]\)\"}, {t, x, y}, \
 newMetVals, \"Latin\"]\
 \>", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"6aa4d36a-f119-4dac-95ff-5fc26612db06"],
+ CellLabel->"In[1]:=",ExpressionUUID->"5a60149b-80e0-4568-8fdb-1a51f72846c1"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox[
    SuperscriptBox["g", "new"], "ab", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"4c6c0be8-5a07-44a8-8d11-14182710c9e9"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"a709c6a5-482d-4a13-bf5d-ea9852a5b0eb"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -450,7 +451,7 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"3d08f4bf-027d-467d-8e7e-afe853c2ae44"],
+  0,ExpressionUUID->"0523188d-4344-4726-bd15-e20f1ba99203"],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -459,7 +460,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:Tensors/ref/ToTensor"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "4b872b57-c83c-4225-a85f-03790fe67008"],
+  "68616c0b-8697-4b1e-ad8d-7938619ef2e6"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -470,7 +471,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:Tensors/ref/ToCurve"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "27d04d5b-0fcb-4954-875f-437dec25fee0"],
+  "325c6d49-2167-48cc-b638-343061f029d3"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -481,7 +482,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:Tensors/ref/ToTensorOnCurve"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "bbe3998e-8ee1-45e1-b94d-5b0b7c6c98cc"],
+  "25d25cb6-5cb6-4e36-9c71-5475d330b9a6"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -492,15 +493,15 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:Tensors/ref/TensorValues"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "51bbee66-fc84-42ab-970c-41213f45966f"]
-}], "SeeAlso",ExpressionUUID->"68980d94-1bd2-4658-b431-f1be61340a74"]
+  "50fdbde8-8373-405d-addd-295edad024a7"]
+}], "SeeAlso",ExpressionUUID->"26b0f197-0c95-411d-b51e-a3dbe4e8c777"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"a24ec473-f043-4168-89f2-e65cb27d18de"],
+Cell[" ", "FooterCell",ExpressionUUID->"26b5ae58-6f24-4f27-82ca-e73ab4effaf9"],
 
-Cell[BoxData[""],ExpressionUUID->"27da8f64-ebd0-4a04-be7e-5fd8a2f39fe2"]
+Cell[BoxData[""],ExpressionUUID->"0f973601-71d6-4045-88ef-758cbaca28eb"]
 }, Open  ]]
 },
 Saveable->False,
@@ -517,10 +518,10 @@ TaggingRules->{
     "keywords" -> {"ToMetric", "TOMETRIC", "tometric"}, "index" -> True, 
     "label" -> "Tensors/Tensors`TensorDefinitions Symbol", "language" -> "en",
      "paclet" -> "Tensors`TensorDefinitions", "status" -> "None", "summary" -> 
-    "ToMetric[n,coords,vals,inds] returns an non-abstract metric Tensor with \
-TensorName n, Coordinates coords, TensorValues vals, and PossibleIndices \
-inds.\nToMetric[builtIn] returns a built-in metric Tensor, where builtIn is a \
-String such as \"Schwarzschild\".", 
+    "ToMetric[n,coords,vals,posInds] returns a metric Tensor with TensorName \
+n, Coordinates coords, TensorValues vals, and PossibleIndices posInds.\n\
+ToMetric[builtIn] returns a built-in metric Tensor, where builtIn is a String \
+such as \"Schwarzschild\".", 
     "synonyms" -> {"ToMetric", "TOMETRIC", "tometric"}, "title" -> "ToMetric",
      "windowTitle" -> "ToMetric", "type" -> "Symbol", "uri" -> 
     "Tensors/ref/ToMetric", "WorkflowDockedCell" -> ""}, 

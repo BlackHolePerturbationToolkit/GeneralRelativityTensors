@@ -5,7 +5,7 @@
 
   "Basic Examples" -> {
     "gS = ToMetric[\"Schwarzschild\"]",
-    "ricSS = RicciScalar[gS, SimplifyFunction -> Simplify]",
+    "ricSS = RicciScalar[gS, \"ActWith\" -> Simplify]",
     "TensorValues[ricSS]"
     },
 

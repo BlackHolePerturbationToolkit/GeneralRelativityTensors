@@ -12,6 +12,8 @@ using TensorName and IndexPositions as Keys.",
     "TensorValues[gK]",
     "CachedTensorValues[gK]",
     "$CacheTensorValues = False",
+    "CachedTensorValues[gK]",
+    "ClearCachedTensorValues[gK]",
     "CachedTensorValues[gK]"
     },
 

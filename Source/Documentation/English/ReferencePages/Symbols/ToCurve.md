@@ -9,6 +9,6 @@
     },
 
     "See Also" ->
-    {"ToMetric","ToTensor","TensorValues","ToTensorOnCurve","Curve","CurveQ","CurveQ","ParametrizedValuesQ"}
+    {"ToMetric","ToTensor","TensorValues","ToTensorOnCurve","Curve","CurveQ","ParametrizedValuesQ"}
 
 }

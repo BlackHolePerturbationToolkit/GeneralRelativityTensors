@@ -13,17 +13,16 @@ parameter param.";
 Begin["`Private`"];
 
 
-Options[ChristoffelSymbol]={"SimplifyFunction"->Identity};
-DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"] = 
-{"SimplifyFunction"->"Function which is applied to the elements of the tensor as they are calculated."};
+Options[ChristoffelSymbol]={"ActWith"->Identity};
+DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"] = {"ActWith"->"Function which is applied to the elements of ChristoffelSymbol after they are calculated."};
 
 
 Tensor/:ChristoffelSymbol[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{n,g,ig,xx,vals,posInds,gT,name,simpFn},
-	simpFn=OptionValue["SimplifyFunction"];
+Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c},
+	simpFn=OptionValue["ActWith"];
 	gT=Metric[t];
 	xx=Coordinates[gT];
-	posInds=PossibleIndices[gT];
+	{a,b,c}=Take[PossibleIndices[gT],3];
 	n=Dimensions[gT];
 	g=RawTensorValues[gT];
 	ig=RawTensorValues@InverseMetric[gT];
@@ -41,7 +40,7 @@ Module[{n,g,ig,xx,vals,posInds,gT,name,simpFn},
 						"Values"->vals,
 						"DisplayName"->"\[CapitalGamma]",
 						"Name"->name,
-						"Indices"->{posInds[[1]],-posInds[[2]],-posInds[[3]]}]]]
+						"Indices"->{a,-b,-c}]]]
 ]
 
 

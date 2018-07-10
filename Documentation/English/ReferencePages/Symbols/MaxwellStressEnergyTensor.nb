@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"359e0d8e-d43b-4492-b360-dfb2a2224c1e"],
+   0}},ExpressionUUID->"35ea4448-33aa-4b99-9ffc-7fa3f9b268e6"],
 
 Cell[TextData[{
  ButtonBox["Tensors",
@@ -15,12 +15,12 @@ Cell[TextData[{
  ButtonBox["MaxwellStressEnergyTensor",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:Tensors/ref/MaxwellStressEnergyTensor"]
-}], "LinkTrail",ExpressionUUID->"3ce83259-ea66-479c-87fe-3f75b76f6fbe"],
+}], "LinkTrail",ExpressionUUID->"7d58bad2-2a83-49e8-8990-0f428c53d096"],
 
 Cell[CellGroupData[{
 
 Cell["MaxwellStressEnergyTensor", \
-"ObjectName",ExpressionUUID->"30fd11b0-da8b-42ce-954f-87153a573fae"],
+"ObjectName",ExpressionUUID->"7b10a625-39db-4e43-8528-5b7fbfd40c83"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -30,17 +30,31 @@ Cell[BoxData[GridBox[{
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/MaxwellStressEnergyTensor"], "[", 
        StyleBox["F", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "719fb0db-c2b7-4ee5-81e4-f9cbd158ef6b"],
+      "714f9d1d-9f9a-441c-b841-cca94dcf7fb5"],
      "\[LineSeparator]returns the stress energy tensor associated with the \
 electromagnetic field strength tensor F with index positions \
 {\"Up\",\"Up\"}."
-    }],ExpressionUUID->"51cc021b-dc4b-49d7-84e9-648e09c85549"]}
-  }]], "Usage",ExpressionUUID->"b85ce272-8682-48cf-8b37-139d9f8cecdd"]
+    }],ExpressionUUID->"2ee389dd-7674-4630-88b2-67b14b574d0a"]},
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["MaxwellStressEnergyTensor",
+        BaseStyle->"Link",
+        ButtonData->"paclet:Tensors/ref/MaxwellStressEnergyTensor"], "[", 
+       StyleBox["builtIn", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
+      "ce0aec3b-108b-4020-9a91-1ed83b608d2d"],
+     "\[LineSeparator]is equivalent to \
+MaxwellStressEnergyTensor[FieldStrengthTensor[MaxwellPotential[builtIn]]]. \
+The current choices for builtIn are \"ReissnerNordstrom\" (or \"RN\") and \
+\"KerrNewman\" (or \"KN\")."
+    }],ExpressionUUID->"c0da3498-5b90-4e33-9c29-6cf4f72586e4"]}
+  }]], "Usage",ExpressionUUID->"12e2bd2a-9d09-4428-9ec3-7c4e638d3d86"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["", "NotesSection",
+ WholeCellGroupOpener->True,
  CellGroupingRules->{"SectionGrouping", 50},
  CellFrameLabels->{{
     FEPrivate`If[
@@ -79,38 +93,43 @@ Cell["", "NotesSection",
           FrontEnd`SelectionMove[
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
- CellFrameLabelMargins->0,
- "WholeCelGroupOpener" -> 
- True,ExpressionUUID->"0a5e15e7-9099-4d17-84bc-d7e79a97e8fb"],
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"9a391eb6-00bd-4e95-af6f-5561f14b6198"],
 
 Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"fc0f98ea-6928-4727-9048-59cca852a216"],
+"Notes",ExpressionUUID->"da43d19e-fd30-45be-bd16-a72cc0272086"],
 
 Cell[BoxData[GridBox[{
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "7319b6ed-9f39-4d85-a2db-cd675394b24f"], "SimplifyFunction", "Identity", 
+     "bbb7225f-22f0-4163-b39c-1a9db34d948b"], "ActWith", "Identity", 
     Cell["\<\
-Function which is applied to the elements of the tensor as they are \
-calculated.\
-\>", "TableText",ExpressionUUID->"8d8abbf1-c29a-468c-a713-96af29ae822a"]}
+Function that is applied to the elements of the tensor as they are calculated.\
+\>", "TableText",ExpressionUUID->"4825ecee-eb34-4326-9d5c-a05f231586ae"]},
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "bfd90c93-9955-4277-b6e9-e129316d029c"], "ActWithNested", "Identity", 
+    Cell["\<\
+Function that is applied to the elements of the tensor and also passed to any \
+other functions called internally.\
+\>", "TableText",ExpressionUUID->"cf2fdafd-3404-412e-8bd7-53de27008eba"]}
   },
   GridBoxAlignment->{
    "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
     "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
  GridBoxOptions->{
  GridBoxBackground->{
-  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {None, {None}}, 
    "RowsIndexed" -> {}},
  GridBoxDividers->{
   "Rows" -> {{
-     True, True}}}},ExpressionUUID->"286a1c67-c7b7-433b-83ec-f7676f95dab3"]
+     True, True, 
+      True}}}},ExpressionUUID->"c2efb3de-c3b0-4ba0-b613-84cef5b23c3e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"39f3fe52-7ca5-4604-ad67-e7680506f40d"],
+Cell[" ", "FooterCell",ExpressionUUID->"8656b9a3-00f9-4f83-b7d0-56c4f2fd20b3"],
 
-Cell[BoxData[""],ExpressionUUID->"1ba74263-96d2-4fb5-92d6-c72e0eccb922"]
+Cell[BoxData[""],ExpressionUUID->"22aab8a6-e3d5-4769-946a-56d1b0086878"]
 }, Open  ]]
 },
 Saveable->False,
@@ -131,7 +150,10 @@ TaggingRules->{
     "Tensors`CommonTensors", "status" -> "None", "summary" -> 
     "MaxwellStressEnergyTensor[F] returns the stress energy tensor associated \
 with the electromagnetic field strength tensor F with index positions \
-{\"Up\",\"Up\"}.", 
+{\"Up\",\"Up\"}.\nMaxwellStressEnergyTensor[builtIn] is equivalent to \
+MaxwellStressEnergyTensor[FieldStrengthTensor[MaxwellPotential[builtIn]]]. \
+The current choices for builtIn are \"ReissnerNordstrom\" (or \"RN\") and \
+\"KerrNewman\" (or \"KN\").", 
     "synonyms" -> {
      "MaxwellStressEnergyTensor", "MAXWELLSTRESSENERGYTENSOR", 
       "maxwellstressenergytensor"}, "title" -> "MaxwellStressEnergyTensor", 

@@ -61,28 +61,30 @@ SymmetrizeTensor[t,{pos1,pos2}] is equivalent, but with an automatically generat
 Begin["`Private`"];
 
 
-Options[ShiftIndices]={"SimplifyFunction"->Identity};
+Options[ShiftIndices]={"ActWith"->Identity};
 Options[Component]=Options[ShiftIndices];
 Options[TensorRules]=Options[ShiftIndices];
 Options[ContractIndices]=Options[ShiftIndices];
 Options[SumTensors]=Options[ShiftIndices];
 Options[MultiplyTensors]=Options[ShiftIndices];
 Options[MultiplyTensorScalar]=Options[ShiftIndices];
-Options[MergeTensors]=Options[ShiftIndices];
-Options[TraceReverse]=Options[ShiftIndices];
-Options[SymmetrizeTensor]=Options[ShiftIndices];
-Options[AntisymmetrizeTensor]=Options[ShiftIndices];
-DocumentationBuilder`OptionDescriptions["ShiftIndices"] = {"SimplifyFunction"->"Function which is applied to the elements of the tensor as they are calculated."};
+Options[MergeTensors]=Join[Options[ShiftIndices],{"ActWithNested"->Identity}];
+Options[TraceReverse]=Options[MergeTensors];
+Options[SymmetrizeTensor]=Options[MergeTensors];
+Options[AntisymmetrizeTensor]=Options[MergeTensors];
+
+DocumentationBuilder`OptionDescriptions["ShiftIndices"] = {"ActWith"->"Function that is applied to the elements of the tensor as they are calculated."};
 DocumentationBuilder`OptionDescriptions["Component"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["TensorRules"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["ContractIndices"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["SumTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["MultiplyTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["MultiplyTensorScalar"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
-DocumentationBuilder`OptionDescriptions["MergeTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
-DocumentationBuilder`OptionDescriptions["TraceReverse"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
-DocumentationBuilder`OptionDescriptions["SymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
-DocumentationBuilder`OptionDescriptions["AntisymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
+DocumentationBuilder`OptionDescriptions["MergeTensors"] = Join[DocumentationBuilder`OptionDescriptions["ShiftIndices"],
+{"ActWithNested"->"Function that is applied to the elements of the tensor and also passed to any other functions called internally."}];
+DocumentationBuilder`OptionDescriptions["TraceReverse"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["SymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["AntisymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
 
 
 Tensor/:RepeatedIndexQ[t_Tensor]:=Length[DeleteDuplicates@(Indices[t]/.-sym_Symbol:>sym)]<Length[Indices[t]];
@@ -139,7 +141,7 @@ Tensor/:ShiftIndices[t_Tensor,inds:{__},opts:OptionsPattern[]]:=
 Module[{},
 	ValidateIndices[t,inds];
 	
-	Fold[shiftIndex[#1,#2,OptionValue["SimplifyFunction"]]&,t,Thread[{Range@Length[inds],inds}]]
+	Fold[shiftIndex[#1,#2,OptionValue["ActWith"]]&,t,Thread[{Range@Length[inds],inds}]]
 ]
 
 
@@ -147,7 +149,7 @@ Clear[shiftIndex]
 shiftIndex[t_Tensor,{pos_Integer,ind_},simpFn_]:=
 Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 		coordsPTemp,temp,coords,param,itrBefore,itrAfter,vals,i,itrTot,itr,newPos,
-		newMet,newInds,coordsP,coordsPRules},
+		newMet,newInds,coordsP,coordsPRules,newCurve},
 	
 	newPos=If[MatchQ[ind,_Symbol],"Up","Down"];
 	indPos=IndexPositions[t];
@@ -185,18 +187,20 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 
 	newInds=Flatten@{Take[inds,pos-1],ind,Drop[inds,pos]};
 	newMet=If[MetricQ[t]&&(If[MatchQ[#,_Symbol],"Up","Down"]&/@newInds)==={"Down","Down"},"Self",Metric[t]];
+	newCurve=If[CurveQ[t]&&(If[MatchQ[#,_Symbol],"Up","Down"]&/@newInds)==={"Up"},"Self",Curve[t]];
 
-	ToTensor[Join[KeyDrop[Association@@t,{"Indices","Metric"}],
+	ToTensor[Join[KeyDrop[Association@@t,{"Indices","Metric","Values","Curve"}],
 					Association["Values"->vals,
 								"Metric"->newMet,
-								"Indices"->newInds]]]
+								"Indices"->newInds,
+								"Curve"->newCurve]]]
 ]
 
 
 Clear[ContractIndices]
 Options[ContractIndices]
 ContractIndices[expr_,opts:OptionsPattern[]]:=expr/.t_Tensor:>ContractIndices[t,opts]
-Tensor/:ContractIndices[t_Tensor,opts:OptionsPattern[]]:=NestWhile[contractIndex[#,OptionValue["SimplifyFunction"]]&,t,RepeatedIndexQ]
+Tensor/:ContractIndices[t_Tensor,opts:OptionsPattern[]]:=NestWhile[contractIndex[#,OptionValue["ActWith"]]&,t,RepeatedIndexQ]
 Tensor/:ContractIndices[t_Tensor,name_String,opts:OptionsPattern[]]:=SetTensorName[ContractIndices[t,opts],name]
 Tensor/:ContractIndices[t_Tensor,{name_String,displayName_String},opts:OptionsPattern[]]:=SetTensorName[ContractIndices[t,opts],{name,displayName}]
 
@@ -246,7 +250,7 @@ Module[{indsPos,indsAbstr,indsAbstrUp,coordsPos,indsUp},
 	coordsPos=Flatten[Position[Coordinates[t],#]&/@indsUp];
 	indsAbstrUp=Indices[t]/.-sym_Symbol:>sym;
 	indsAbstr=MapThread[If[MatchQ[#1,_Symbol],#2,-#2]&,{inds,indsAbstrUp}];
-	(*Part[TensorValues[t[Sequence@@indsAbstr]],Sequence@@coordsPos]*)
+	
 	Part[TensorValues[ShiftIndices[t,{Sequence@@indsAbstr},opts]],Sequence@@coordsPos]
 ]
 
@@ -275,7 +279,7 @@ Module[{simpFn,posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvF
 	If[TensorName@Metric[t1]=!=TensorName@Metric[t2],Print["Cannot sum Tensors with different metrics."];Abort[]];
 	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot sum Tensors on different curves."];Abort[]];
 	
-	simpFn=OptionValue["SimplifyFunction"];
+	simpFn=OptionValue["ActWith"];
 	tvFunc=If[ParametrizedValuesQ@t1||ParametrizedValuesQ@t2,TensorValues,RawTensorValues];
 			
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
@@ -344,7 +348,7 @@ Module[{simpFn,posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,inds
 	If[TensorName@Metric[t1]=!=TensorName@Metric[t2],Print["Cannot multiply Tensors with different metrics."];Abort[]];
 	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot multiply Tensors on different curves."];Abort[]];
 	
-	simpFn=OptionValue["SimplifyFunction"];
+	simpFn=OptionValue["ActWith"];
 	tvFunc=If[ParametrizedValuesQ@t1||ParametrizedValuesQ@t2,TensorValues,RawTensorValues];
 
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
@@ -388,17 +392,18 @@ Tensor/:MultiplyTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String},op
 Clear[MultiplyTensorScalar]
 Tensor/:MultiplyTensorScalar[t_Tensor,n_,opts:OptionsPattern[]]:=MultiplyTensorScalar[n,t,opts];
 Tensor/:MultiplyTensorScalar[n_,t_Tensor,opts:OptionsPattern[]]:=
-Module[{simpFn,vals,name,dispName},
+Module[{simpFn,vals,name,dispName,ratStr},
 	If[AbstractQ[t],Print["Cannot multiply Abstract Tensors."];Abort[]];
 	If[Not[MatchQ[n,(_Symbol|_Real|_Complex|_Integer|_Rational|_Times|_Plus|_SeriesData)]],Print["Cannot multiply a Tensor by a ", Head[n]];Abort[]];
 
-	simpFn=OptionValue["SimplifyFunction"];
+	simpFn=OptionValue["ActWith"];
 	vals= Map[simpFn[n #]&, RawTensorValues[t],{Total@Rank[t]}];
-
+	
+	ratStr=If[MatchQ[n,_Rational],n/.Rational[a_,b_]:>ToString[a]<>"/"<>ToString[b],ToString[n]];
 	{name,dispName}=
 	If[MatchQ[n,_Plus],
-		{"(("<>ToString[n]<>")"<>TensorName[t]<>")-Auto","(("<>ToString[n]<>")\[CenterDot]"<>TensorDisplayName[t]<>")"},
-		{"("<>ToString[n]<>TensorName[t]<>")-Auto","("<>ToString[n]<>"\[CenterDot]"<>TensorDisplayName[t]<>")"}
+		{"(("<>ToString[n]<>")"<>TensorName[t]<>")-Auto","(("<>ratStr<>")\[CenterDot]"<>TensorDisplayName[t]<>")"},
+		{"("<>ToString[n]<>TensorName[t]<>")-Auto","("<>ratStr<>"\[CenterDot]"<>TensorDisplayName[t]<>")"}
 	];
 	ToTensor[Join[KeyDrop[Association@@t,{"DisplayName","Name","IsMetric","Values","Metric"}],
 					Association["IsMetric"->False,
@@ -406,8 +411,7 @@ Module[{simpFn,vals,name,dispName},
 								"Values"->vals,
 								"DisplayName"->dispName,
 								"Name"->name]]]
-
-]
+];
 Tensor/:MultiplyTensorScalar[t1_Tensor,opts:OptionsPattern[]]:=t1;
 Tensor/:MultiplyTensorScalar[n_,t1_Tensor,name_String,opts:OptionsPattern[]]:=SetTensorName[MultiplyTensorScalar[n,t1,opts],name]
 Tensor/:MultiplyTensorScalar[t1_Tensor,n_,name_String,opts:OptionsPattern[]]:=MultiplyTensorScalar[n,t1,name,opts]
@@ -417,11 +421,12 @@ Tensor/:MultiplyTensorScalar[t1_Tensor,n_,{name_String,displayName_String},opts:
 
 Clear[MergeTensors]
 MergeTensors[expr_,opts:OptionsPattern[]]:=
-Module[{expr1,expr2,simpFn},
-	simpFn=OptionValue["SimplifyFunction"];
-	expr1=Expand[expr]/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2,opts];
-	expr2=expr1//.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t,opts];
-	ActOnTensorValues[ContractIndices[expr2,opts]/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2,opts],simpFn]
+Module[{expr1,expr2,simpFn,simpFnNest},
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+	expr1=Expand[expr]/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2,"ActWith"->simpFnNest];
+	expr2=expr1//.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t,"ActWith"->simpFnNest];
+	ActOnTensorValues[ContractIndices[expr2,"ActWith"->simpFnNest]/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2,"ActWith"->simpFnNest],simpFn]
 ]
 MergeTensors[expr_,name_String,opts:OptionsPattern[]]:=SetTensorName[MergeTensors[expr,opts],name]
 MergeTensors[expr_,{name_String,dispName_String},opts:OptionsPattern[]]:=SetTensorName[MergeTensors[expr,opts],{name,dispName}]
@@ -429,19 +434,16 @@ MergeTensors[expr_,{name_String,dispName_String},opts:OptionsPattern[]]:=SetTens
 
 Clear[TraceReverse]
 Tensor/:TraceReverse[t_Tensor,{name_String,dispName_String},opts:OptionsPattern[]]:=
-Module[{met,tTr,i,simpFn},
+Module[{met,tTr,simpFn,simpFnNest,a,b,c},
 
-	simpFn=OptionValue["SimplifyFunction"];
 	If[Rank[t]=!={0,2},
 		Print["TraceReverse is built only for Tensors of Rank {0,2}"];
 		Abort[]
 	];
 
-	i=First@PossibleIndices[t];
-	met=Metric[t];
-	tTr=RawTensorValues@ContractIndices[t[i,-i],opts];
-
-	MergeTensors[t - 2 met tTr/Dimensions[met],{name,dispName},"SimplifyFunction"->simpFn]
+	{a,b}=Indices[t];
+	c=SelectFirst[PossibleIndices[t],Not@MemberQ[({a,b}/.-n_:>n),#]&];
+	MergeTensors[t[a,b] - 2 Metric[t][a,b] t[c,-c]/Dimensions[t],{name,dispName},opts]
 ];
 Tensor/:TraceReverse[t_Tensor,name_String,opts:OptionsPattern[]]:=TraceReverse[t,{name,name},opts]
 Tensor/:TraceReverse[t_Tensor,opts:OptionsPattern[]]:=TraceReverse[t,{TensorName[t]<>"TraceReverse",TensorDisplayName[t]<>"Bar"},opts]
@@ -499,7 +501,7 @@ Module[{ips,inds,inds2,indsBefore,indsBetween,indsAfter,indsA,indsB},
 	indsA=Part[inds,#]&/@Flatten[{indsBefore,pos1,indsBetween,pos2,indsAfter }];
 	indsB=Part[inds,#]&/@Flatten[{indsBefore,pos2,indsBetween,pos1,indsAfter }];
 	
-	MergeTensors[1/2 (t@@indsA+t@@indsB),{name,displayName},SimplifyFunction->OptionValue["SimplifyFunction"]]
+	MergeTensors[1/2 (t@@indsA+t@@indsB),{name,displayName},opts]
 ]
 Tensor/:SymmetrizeTensor[t_Tensor,{pos1_Integer,pos2_Integer},name_String,opts:OptionsPattern[]]:=SymmetrizeTensor[t,{pos1,pos2},{name,name},opts]
 Tensor/:SymmetrizeTensor[t_Tensor,{pos1_Integer,pos2_Integer},opts:OptionsPattern[]]:=SymmetrizeTensor[t,{pos1,pos2},{TensorName[t]<>"Symmetric"<>ToString[{pos1,pos2}],TensorDisplayName[t]<>"("<>ToString[pos1]<>","<>ToString[pos2]<>")"},opts]
@@ -535,7 +537,7 @@ Module[{ips,inds,inds2,indsBefore,indsBetween,indsAfter,indsA,indsB},
 	indsA=Part[inds,#]&/@Flatten[{indsBefore,pos1,indsBetween,pos2,indsAfter }];
 	indsB=Part[inds,#]&/@Flatten[{indsBefore,pos2,indsBetween,pos1,indsAfter }];
 	
-	MergeTensors[1/2 (t@@indsA-t@@indsB),{name,displayName},SimplifyFunction->OptionValue["SimplifyFunction"]]
+	MergeTensors[1/2 (t@@indsA-t@@indsB),{name,displayName},opts]
 ]
 Tensor/:AntisymmetrizeTensor[t_Tensor,{pos1_Integer,pos2_Integer},name_String,opts:OptionsPattern[]]:=AntisymmetrizeTensor[t,{pos1,pos2},{name,name},opts]
 Tensor/:AntisymmetrizeTensor[t_Tensor,{pos1_Integer,pos2_Integer},opts:OptionsPattern[]]:=AntisymmetrizeTensor[t,{pos1,pos2},{TensorName[t]<>"Antisymmetric"<>ToString[{pos1,pos2}],TensorDisplayName[t]<>"["<>ToString[pos1]<>","<>ToString[pos2]<>"]"},opts]

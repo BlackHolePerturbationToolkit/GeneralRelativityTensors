@@ -1,0 +1,613 @@
+Notebook[{
+Cell[" ", "GuideColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 
+   0}},ExpressionUUID->"a3996920-373b-442a-9264-9f840c2ba67b"],
+
+Cell[TextData[{
+ ButtonBox["Tensors",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["Tensor package for black hole calculations",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors"]
+}], "LinkTrail",ExpressionUUID->"91901c07-8962-4f78-8deb-ab9505ceb438"],
+
+Cell[BoxData[GridBox[{
+   {Cell["TENSORS GUIDE", "PacletNameCell",ExpressionUUID->
+     "7a82e5a6-4e25-4c65-9ab7-1c185627b13a"], Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
+        StripOnInput->False], {
+       RowBox[{"Introduction", " ", "to", " ", "Tensors"}]:>
+       Documentation`HelpLookup[
+       "paclet:Tensors/tutorial/Introduction to Tensors"], 
+       RowBox[{"Introduction", " ", "to", " ", "Tensor", " ", "Curves"}]:>
+       Documentation`HelpLookup[
+       "paclet:Tensors/tutorial/Introduction to Tensor Curves"], 
+       RowBox[{"Built", " ", "in", " ", "common", " ", "Tensors"}]:>
+       Documentation`HelpLookup[
+       "paclet:Tensors/tutorial/Built in common Tensors"], 
+       RowBox[{"Caching", " ", "Tensor", " ", "values"}]:>
+       Documentation`HelpLookup[
+       "paclet:Tensors/tutorial/Caching Tensor values"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "c994151f-0164-4d61-9225-775470d96eb7"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"URL \[RightGuillemet]\"\>",
+        StripOnInput->False], {"\<\"Go to Tensors website\"\>":>
+       FrontEndExecute[{
+         NotebookLocate[{
+           URL["http://bitbucket.org/hoppese/Tensors"], None}]}], 
+       Delimiter, "\<\"Go to wolfram Mathematica website\"\>":>
+       FrontEndExecute[{
+         NotebookLocate[{
+           URL[
+           "http://reference.wolfram.com/mathematica/guide/Mathematica.html"],
+            None}]}]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "198bbd38-ff9a-494c-8398-ff29c9cc04fd"]
+    }], "AnchorBar",ExpressionUUID->"6f0d060f-fb0f-4dc1-b569-9e539dd7efa2"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"1f7474ee-6e33-4693-97bc-5bbc086cc553"],
+
+Cell[CellGroupData[{
+
+Cell["Tensor package for black hole calculations", \
+"GuideTitle",ExpressionUUID->"c14be06b-a30f-4ab2-9c97-1e525683c7f9"],
+
+Cell["\<\
+The Tensors package provides functions for computing coordinate based for \
+black hole calculations.\
+\>", "GuideAbstract",ExpressionUUID->"11912c5d-c221-4e43-98d8-1f3b8d779ba3"],
+
+Cell[CellGroupData[{
+
+Cell["Tensor creation and common functions", \
+"GuideFunctionsSubsection",ExpressionUUID->"29ceab13-47a4-4fff-86a5-\
+7e4fcdd653a8"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["ToTensor",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/ToTensor"]], "InlineFunctionSans",
+  ExpressionUUID->"39db00aa-6492-43d2-8ed6-521d567e6197"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Form a new Tensor"
+}], "GuideText",ExpressionUUID->"e3e797b1-20c6-4fe5-9bc2-18a6f1c9b0c4"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["ToMetric",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/ToMetric"]], "InlineFunctionSans",
+  ExpressionUUID->"2977218f-d1f5-440d-8ce3-93abd0ebfb1c"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Form a new metric Tensor"
+}], "GuideText",ExpressionUUID->"5033cec6-0bc0-4355-96ef-10a2df5c5225"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["ToCurve",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/ToCurve"]], "InlineFunctionSans",
+  ExpressionUUID->"120b0afe-ec76-488d-b611-6d05c1de1e2c"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Form a new Curve Tensor"
+}], "GuideText",ExpressionUUID->"cdccb8fe-089a-4872-b766-95f90e54d299"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["ToTensorOnCurve",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/ToTensorOnCurve"]], "InlineFunctionSans",
+  ExpressionUUID->"e84bdff5-536d-4edb-9231-8d2c7f71b7ba"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Form a new Tensor on a Curve"
+}], "GuideText",ExpressionUUID->"1e37475f-9f4a-4ba4-82fe-b377c96b774c"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["RawTensorValues",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/RawTensorValues"]], "InlineFunctionSans",
+  ExpressionUUID->"24a87a1f-4bc6-40a8-8910-50ab0259d0ed"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Values stored internally by Tensor"
+}], "GuideText",ExpressionUUID->"1a3e9547-55df-4688-bbb6-a718fc303750"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["TensorValues",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/TensorValues"]], "InlineFunctionSans",
+  ExpressionUUID->"b1509bdd-ea5b-4013-aed3-15360c28bd4a"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Values stored internally by Tensor, potentially evaluated on a Curve"
+}], "GuideText",ExpressionUUID->"215f8157-8277-418b-93b4-bda016f0e094"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["Rank",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/Rank"]], "InlineFunctionSans",
+  ExpressionUUID->"54a42170-cfeb-4557-b8e9-10ee28b9ee1f"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Rank of Tensor"
+}], "GuideText",ExpressionUUID->"b114cc7b-15f2-41ff-95d6-a93020d99ac0"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["Indices",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/Indices"]], "InlineFunctionSans",
+  ExpressionUUID->"a94c9ae1-a2c7-4735-b844-afb65827172f"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "List of Indices of Tensor"
+}], "GuideText",ExpressionUUID->"56b8ef0b-f6fb-416b-889a-093521303e4a"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["PossibleIndices",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/PossibleIndices"]], "InlineFunctionSans",
+  ExpressionUUID->"02b2dcdf-f517-472f-80f2-0853a784d860"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "List of all possible indices of Tensor"
+}], "GuideText",ExpressionUUID->"d9d204e1-96ce-43dd-89fc-05276e0ff3f9"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["IndexPositions",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/IndexPositions"]], "InlineFunctionSans",
+  ExpressionUUID->"5d1a01d1-9408-41a7-a439-ac42906b5cbb"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "List of elements \"Up\" and \"Down\" giving the positions of Tensor \
+indices"
+}], "GuideText",ExpressionUUID->"9de0123a-3f4c-4343-a574-fb2ce7eb34c5"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["Dimensions",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/Dimensions"]], "InlineFunctionSans",
+  ExpressionUUID->"5d3b2e69-b74a-4509-a16a-b5d5f8038c28"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Dimensions is overloaded. For Tensors it gives the number of dimensions of \
+the manifold."
+}], "GuideText",ExpressionUUID->"8abf5cf1-0f08-472c-bdaf-43065a2f2e6f"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["Coordinates",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/Coordinates"]], "InlineFunctionSans",
+  ExpressionUUID->"f2b84419-82d1-4f77-bf2b-092f929b0c6c"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "List of the coordinates of the Tensor"
+}], "GuideText",ExpressionUUID->"f3ca5857-0753-4df6-8dea-0e59e17720e0"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["TensorRules",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/TensorRules"]], "InlineFunctionSans",
+  ExpressionUUID->"e176da1e-3e22-47d9-b5ce-9cc609a2682e"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "List of Rules showing Tensor values for given components"
+}], "GuideText",ExpressionUUID->"a94ba52b-2f68-4a4f-a813-80f11b368b61"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["TensorName",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/TensorName"]], "InlineFunctionSans",
+  ExpressionUUID->"412e41cd-bb2a-4c08-b3b0-70805558d130"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Internal name of Tensor"
+}], "GuideText",ExpressionUUID->"6814baba-2929-4984-8f1e-03a7de972cad"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["TensorDisplayName",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/TensorDisplayName"]], "InlineFunctionSans",
+  ExpressionUUID->"7e975b3b-7970-43cf-b9d1-9fd82ba75ba6"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Name used for display of Tensor in notebook"
+}], "GuideText",ExpressionUUID->"775a62e7-56ad-4d3c-a06d-ffe605d41a71"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["Metric",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/Metric"]], "InlineFunctionSans",
+  ExpressionUUID->"54f6f5d8-e77d-4ccd-b5fe-b3a4666dc94d"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Metric associated with the Tensor"
+}], "GuideText",ExpressionUUID->"e7ae8c1b-6b30-4562-b0f0-b56b630fd6e9"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["MetricQ",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/MetricQ"]], "InlineFunctionSans",
+  ExpressionUUID->"51f424ad-abb7-4501-b8e2-4387895b1d52"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Test whether a Tensor is a metric"
+}], "GuideText",ExpressionUUID->"12e31d27-5931-4dfa-aa95-dfb9befb329d"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["RepeatedIndexQ",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/RepeatedIndexQ"]], "InlineFunctionSans",
+  ExpressionUUID->"a33126cc-e723-433c-80c4-61509166fcf5"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Check whether a Tensor has repeated indices"
+}], "GuideText",ExpressionUUID->"8e7350a4-e5c3-44f2-af79-6a7042a3c834"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["InverseMetric",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/InverseMetric"]], "InlineFunctionSans",
+  ExpressionUUID->"8e4138dc-63eb-4173-b0f6-5ec5c56318e6"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Inverse metric associated with the Tensor"
+}], "GuideText",ExpressionUUID->"be4942b7-43f9-4005-935e-1c67f1eefd07"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["SetTensorName",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/SetTensorName"]], "InlineFunctionSans",
+  ExpressionUUID->"0b8643ea-5608-4e48-99e5-55c2b1e36a9e"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Change the name of Tensor"
+}], "GuideText",ExpressionUUID->"e42e02e0-ce59-4bf7-a775-915c6aab285c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tensor manipulation", \
+"GuideFunctionsSubsection",ExpressionUUID->"0a96c772-788c-48f5-aace-\
+28c4fd06a424"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["ShiftIndices",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/ShiftIndices"]], "InlineFunctionSans",
+  ExpressionUUID->"f41b41bb-7411-4808-a055-b57e547f9656"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Raise and lower indices on a Tensor"
+}], "GuideText",ExpressionUUID->"43ab3d6b-f3a1-49f4-b7e0-e15971da1352"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["ContractIndices",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/ContractIndices"]], "InlineFunctionSans",
+  ExpressionUUID->"28e5770a-f7aa-403b-9fc9-a9a83c22f555"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Trace over repeated indices"
+}], "GuideText",ExpressionUUID->"cdda7c70-d344-41dc-b40a-fdc6e9b42df8"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["MergeTensors",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/MergeTensors"]], "InlineFunctionSans",
+  ExpressionUUID->"d3274494-4099-454e-82fd-b97a7b6dd7e8"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Combine an expression into a single Tensor"
+}], "GuideText",ExpressionUUID->"3f2ee5a2-7bc1-4c38-88eb-f45d3884a233"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["MultiplyTensors",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/MultiplyTensors"]], "InlineFunctionSans",
+  ExpressionUUID->"f133251a-2525-44f6-99d5-d0ce6521ed29"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Outer product of Tensors"
+}], "GuideText",ExpressionUUID->"accafdf0-e87c-4f0f-9627-8cf0eafe2652"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["MultiplyTensorScalar",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/MultiplyTensorScalar"]], 
+  "InlineFunctionSans",ExpressionUUID->"799932dd-6ac7-4250-9284-dbf943957e66"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Product of Tensor and a scalar"
+}], "GuideText",ExpressionUUID->"a35acaff-8da4-423c-bb45-150843624afe"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["SumTensors",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/SumTensors"]], "InlineFunctionSans",
+  ExpressionUUID->"7e7fc87b-62ce-4475-8ee4-72a61f1ff3d7"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Sum of Tensors"
+}], "GuideText",ExpressionUUID->"83306e4c-ce0e-42c5-b3fa-1accdc6e38db"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Common Tensors", \
+"GuideFunctionsSubsection",ExpressionUUID->"36f5e974-22f7-4fac-a586-\
+90d09bde4eaa"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["ChristoffelSymbol",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/ChristoffelSymbol"]], "InlineFunctionSans",
+  ExpressionUUID->"ce340613-76c7-4542-8b42-7be33d2957ed"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Connection coefficients for a metric"
+}], "GuideText",ExpressionUUID->"5991f3c4-2d42-44b4-8d02-a652f81d799b"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["RiemannTensor",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/RiemannTensor"]], "InlineFunctionSans",
+  ExpressionUUID->"df3daad2-6aab-45ca-8610-11aac4b9c164"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Riemann tensor for a metric"
+}], "GuideText",ExpressionUUID->"b94fd761-3995-470f-9362-270d8c3adb6e"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["RicciTensor",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/RicciTensor"]], "InlineFunctionSans",
+  ExpressionUUID->"e74c68e5-c948-44f7-b3e4-8950ee4831f0"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Ricci tensor for a metric"
+}], "GuideText",ExpressionUUID->"8c6b00be-f5d6-43ad-a8d9-7bd736fecdc3"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["RicciScalar",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/RicciScalar"]], "InlineFunctionSans",
+  ExpressionUUID->"8cc9f89c-8326-4127-a76c-3ffcd0e8b01f"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Ricci scalar for a metric"
+}], "GuideText",ExpressionUUID->"b884a0ca-9cd2-42c9-9594-22035114befd"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["EinsteinTensor",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/EinsteinTensor"]], "InlineFunctionSans",
+  ExpressionUUID->"17286427-bada-4762-bd9c-cd24346485d3"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Einstein tensor for a metric"
+}], "GuideText",ExpressionUUID->"fdf307c6-31de-4273-95a4-54ade43e2166"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["WeylTensor",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/WeylTensor"]], "InlineFunctionSans",
+  ExpressionUUID->"d4f339bb-40e8-4819-bb0f-da1edaf0e88f"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Weyl Tensor for a metric"
+}], "GuideText",ExpressionUUID->"3967be97-1f7c-4fe0-8686-fb549a0f76e7"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["CottonTensor",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/CottonTensor"]], "InlineFunctionSans",
+  ExpressionUUID->"27995708-6aaf-43b6-a89e-a54e239c50aa"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Cotton Tensor for a metric"
+}], "GuideText",ExpressionUUID->"26b36159-cf2c-4b72-ba03-46ba131830b4"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["KretschmannScalar",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/KretschmannScalar"]], "InlineFunctionSans",
+  ExpressionUUID->"df6f9e77-9fcd-4f87-9d6e-382bea2eff0f"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Kretschmann scalar for a metric"
+}], "GuideText",ExpressionUUID->"0794d568-8abe-404a-b1ba-6174012edef7"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["MaxwellPotential",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/MaxwellPotential"]], "InlineFunctionSans",
+  ExpressionUUID->"aa52f0ae-51ee-419d-a065-f5a5b8f01efa"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Four vector potential for a metric"
+}], "GuideText",ExpressionUUID->"6dd1f86a-c47c-4c09-bba2-8e24f0f48e57"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["FieldStrengthTensor",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/FieldStrengthTensor"]], 
+  "InlineFunctionSans",ExpressionUUID->"a6e45b85-a8e5-4e1e-9391-cfe2fab01c8f"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Field strength tensor for a vector potential"
+}], "GuideText",ExpressionUUID->"ddbbe8aa-22ae-4774-ba40-ea171ed3a582"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["MaxwellStressEnergyTensor",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/MaxwellStressEnergyTensor"]], 
+  "InlineFunctionSans",ExpressionUUID->"e2caac2f-2364-4adf-a6a8-8fc688a99d90"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Stress energy tensor for a field strength tensor"
+}], "GuideText",ExpressionUUID->"28adc687-2258-4631-8cde-1ab25f11039a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Caching Tensor values", \
+"GuideFunctionsSubsection",ExpressionUUID->"98cdc5ea-8e34-42e0-ae92-\
+53ff6e13b83b"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["$CacheTensorValues",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/$CacheTensorValues"]], "InlineFunctionSans",
+  ExpressionUUID->"8d8df328-5ee1-4b29-86aa-a60fdea6e2f4"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Global variable for caching"
+}], "GuideText",ExpressionUUID->"f2625e44-87a5-4ad5-8360-36a93ed0953b"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["CachedTensorValues",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/CachedTensorValues"]], "InlineFunctionSans",
+  ExpressionUUID->"38323bef-b9f3-4045-9631-86b8150fd471"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Values that are cached internally"
+}], "GuideText",ExpressionUUID->"761d365f-94a8-4309-96fb-89b75d67b874"],
+
+Cell[TextData[{
+ Cell[TextData[ButtonBox["CachedTensorValues",
+  BaseStyle->"Link",
+  ButtonData->"paclet:Tensors/ref/CachedTensorValues"]], "InlineFunctionSans",
+  ExpressionUUID->"1d76fa5e-3a72-4ebd-9f5d-f444c2debd56"],
+ " ",
+ StyleBox["\[LongDash]", "GuideEmDash"],
+ " ",
+ "Remove internally cached values"
+}], "GuideText",ExpressionUUID->"b84a4d48-3f4a-4029-bb21-c9d422a605ec"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "GuideTutorialsSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell["TUTORIALS", "GuideTutorialsSection"], 
+     Cell["Tutorials", "GuideTutorialsSection"]], None}, {None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"f931d978-0ce0-4c7a-a0c6-3407e4cca866"],
+
+Cell[TextData[ButtonBox["Introduction to Tensors",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:Tensors/tutorial/Introduction to Tensors"]], \
+"GuideTutorial",ExpressionUUID->"2d556421-b7c0-41c4-a31f-a68b268c5448"],
+
+Cell[TextData[ButtonBox["Introduction to Tensor Curves",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:Tensors/tutorial/Introduction to Tensor Curves"]], \
+"GuideTutorial",ExpressionUUID->"53a175ee-dd58-48d3-9361-fff6ea0fcab0"],
+
+Cell[TextData[ButtonBox["Built in common Tensors",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:Tensors/tutorial/Built in common Tensors"]], \
+"GuideTutorial",ExpressionUUID->"a2bf7ab8-90a2-4b9a-a3e5-ffc4181f4a49"],
+
+Cell[TextData[ButtonBox["Caching Tensor values",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:Tensors/tutorial/Caching Tensor values"]], \
+"GuideTutorial",ExpressionUUID->"919a743b-b4f5-423d-87a1-a40fb90750a5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"9370d5ea-cd3f-4c7a-aa1f-800218ab58c3"],
+
+Cell[BoxData[""],ExpressionUUID->"f2323fd0-adde-4a38-90f4-316af158b61a"]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"Tensor package for black hole calculations",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "Tensors`", "keywords" -> {"Tensors"}, "index" -> True, 
+    "label" -> "Tensors Application", "language" -> "en", "paclet" -> 
+    "Tensors", "status" -> "None", "summary" -> 
+    "Tensor package providing functions for black hole calculations.", 
+    "synonyms" -> {"Tensors"}, "title" -> 
+    "Tensor package for black hole calculations", "windowTitle" -> 
+    "Tensor package for black hole calculations", "type" -> "Guide", "uri" -> 
+    "Tensors/guide/Tensors", "WorkflowDockedCell" -> ""}, 
+  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+TrackCellChangeTimes->False,
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

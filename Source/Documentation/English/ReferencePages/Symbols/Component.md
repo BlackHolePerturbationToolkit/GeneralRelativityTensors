@@ -1,21 +1,21 @@
 {
   "More Information" -> {
-      "DownValues of Tensors call ShiftIndices if the values are from the list of PossibleIndices.",
+      "DownValues of Tensors call Component if the values are from the list of Coordinates.",
       "It is usually easier to raise and lower indices with DownValues.",
-      "In order to act with a function on the values using the Option SimplifyFunction, \
-call ShiftIndices explicitly, not with DownValues."
+      "In order to act with a function on the values using the Option ActWith, \
+call Component explicitly, not with DownValues."
   },
 
   "Basic Examples" -> {
     "gK = ToMetric[\"Kerr\"]",
     "Component[gK, {t, t}]",
-    "gK[\[Alpha], \[Beta]]",
-    "(* By default the values computed by ShiftIndices are not simplified. *)",
-    "gK[\[Alpha], -\[Beta]] // TensorValues",
-    "ShiftIndices[gK, {\[Alpha], -\[Beta]}, SimplifyFunction -> Simplify] // TensorValues"
+    "gK[t, t]",
+    "(* By default the values computed by Component are not simplified. *)",
+    "gK[t, -t]",
+    "Component[gK, {t, -t}, \"ActWith\" -> Simplify]"
     },
 
     "See Also" ->
-    {"Component","TensorValues"}
+    {"ShiftIndices","TensorValues"}
 
 }
