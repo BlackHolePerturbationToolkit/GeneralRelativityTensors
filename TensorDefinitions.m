@@ -250,15 +250,16 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 ]
 
 
-ToTensor[{name_String,dispName_String},metric_Tensor?MetricQ,vals_List,indsGiven_:Undefined]:=
-Module[{coords,posInds,dims,inds},
+ToTensor[{name_String,dispName_String},metric_Tensor?MetricQ,vals_,indsGiven_:Undefined]:=
+Module[{coords,posInds,dims,inds,nInds},
 
 	If[AbstractQ[metric],Print["Tensor with values cannot be defined using \"Abstract\" metric."];Abort[]];
 
 	coords=Coordinates[metric];	
 	posInds=PossibleIndices[metric];
 	dims=Dimensions[metric];
-	inds=If[indsGiven===Undefined,Take[posInds,Length@Dimensions[vals]],indsGiven];
+	nInds=If[MatchQ[vals,_List],Length@Dimensions[vals],0];
+	inds=If[indsGiven===Undefined,Take[posInds,nInds],indsGiven];
 	ToTensor[Association["Coordinates"->coords,
 						"Metric"->metric,
 						"IsMetric"->False,
