@@ -81,10 +81,9 @@ for the Tensor t (stored in the Symbol RawTensorValues).
 CachedTensorValues[All] returns a List of Rules showing all cached expressions (stored in the Symbol RawTensorValues)."
 $CacheTensorValues::usage="$CacheTensorValues is a global boolean (with default value False) specifying whether to cache Tensor values in the symbol RawTensorValues."
 SetRawTensorValues::usage="SetRawTensorValues[t,vals] returns the Tensor t with its RawTensorValues set to vals.";
-ActOnTensorValues::usage="ActOnTensorValues[t,f] acts with the functions f on the Tensor t and returns the resulting tensor.";
+ActOnTensorValues::usage="ActOnTensorValues[f,t] acts with the functions f on the values of Tensor t and returns the resulting tensor.";
 
-AbstractQ::usage="AbstractQ[t] returns True if the Tensor \
-t is treated as Abstract.";
+AbstractQ::usage="AbstractQ[t] returns True if the Tensor t is treated as Abstract.";
 
 
 Begin["`Private`"];
@@ -429,7 +428,7 @@ Module[{assoc,tvStored,tv,posUp},
 ]
 
 
-Tensor/:ActOnTensorValues[t_Tensor,fn_]:=SetRawTensorValues[t,Map[fn,RawTensorValues[t],{Total@Rank[t]}]]
+Tensor/:ActOnTensorValues[fn_,t_Tensor]:=SetRawTensorValues[t,Map[fn,RawTensorValues[t],{Total@Rank[t]}]]
 
 
 Clear[ClearCachedTensorValues]

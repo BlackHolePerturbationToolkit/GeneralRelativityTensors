@@ -143,7 +143,7 @@ Clear[CovariantD]
 Tensor/: CovariantD[t1_Tensor,-a_Symbol,avoidInds_:{},opts:OptionsPattern[]] := 
 Module[{simpFn,t1Simp},
 	simpFn=OptionValue["ActWith"];
-	t1Simp=ActOnTensorValues[t1,simpFn];
+	t1Simp=ActOnTensorValues[simpFn,t1];
 	D[t1Simp,-a,simpFn]+Sum[chrTerm[t1Simp,i,-a,simpFn,avoidInds],{i,Indices[t1]}]/; MemberQ[PossibleIndices[t1],a]
 ]
 
@@ -179,9 +179,9 @@ Module[{chr,chrC,a,b,c,x1,x2,param,simpFn},
 	
 	{a,b,c}=Select[PossibleIndices[t1],Not[MemberQ[{avoidInds}/.(-nn_Symbol:>nn),#]]&,3];
 	
-	chr=ActOnTensorValues[ToTensorOnCurve[ChristoffelSymbol[Metric[x1]],x1],simpFn];
+	chr=ActOnTensorValues[simpFn,ToTensorOnCurve[ChristoffelSymbol[Metric[x1]],x1]];
 
-	D[t1[a],param,simpFn]+chr[a,-b,-c]ActOnTensorValues[t1[b],simpFn]ActOnTensorValues[u[c],simpFn]
+	D[t1[a],param,simpFn]+chr[a,-b,-c]ActOnTensorValues[simpFn,t1[b]]ActOnTensorValues[simpFn,u[c]]
 ];
 
 
@@ -207,7 +207,7 @@ Module[{chr,chrC,inds,a,covD,simpFn},
 
 	covD=CovariantD[t1,-a]/.t_Tensor:>ToTensorOnCurve[t,Curve[u]];
 	
-	ActOnTensorValues[u[a],simpFn]ActOnTensorValues[covD,simpFn]
+	ActOnTensorValues[simpFn,u[a]]ActOnTensorValues[simpFn,covD]
 ];
 
 
