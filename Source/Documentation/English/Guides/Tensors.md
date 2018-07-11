@@ -45,7 +45,7 @@
       {"SumTensors", "Sum of Tensors"}
     }
    },
-   {"Title" -> "Common Tensors",
+   {"Title" -> "Common Tensors and functions",
     "DetailedFunctions" -> {
       {"ChristoffelSymbol", "Connection coefficients for a metric"},
       {"RiemannTensor", "Riemann tensor for a metric"},
@@ -55,22 +55,29 @@
       {"WeylTensor", "Weyl Tensor for a metric"},
       {"CottonTensor", "Cotton Tensor for a metric"},
       {"KretschmannScalar", "Kretschmann scalar for a metric"},
-      {"MaxwellPotential", "Four vector potential for a metric"},
+      {"MaxwellPotential", "Electromagnetic four vector potential"},
       {"FieldStrengthTensor","Field strength tensor for a vector potential"},
-      {"MaxwellStressEnergyTensor","Stress energy tensor for a field strength tensor"}
+      {"MaxwellStressEnergyTensor","Stress energy tensor for a field strength tensor"},
+      {"FourVelocity","Four-velocity for common spacetimes"},
+      {"KinnersleyNullVector","Null vector common in Newman-Penrose calculations"},
+      {"KinnersleyNullTetrad","The four Kinnersley null vectors"},
+      {"KinnersleyDerivative","Derivative associated with a Kinnersley null vector"},
+      {"SpinCoefficient","One of 12 Newman-Penrose spin coefficients"},
+      {"BianchiIdentities", "Bianchi identities for a metric"}
     }
    },
    {"Title" -> "Caching Tensor values",
     "DetailedFunctions" -> {
       {"$CacheTensorValues", "Global variable for caching"},
       {"CachedTensorValues", "Values that are cached internally"},
-      {"CachedTensorValues", "Remove internally cached values"}
+      {"ClearCachedTensorValues", "Remove internally cached values"}
      }
    }
- },
+  },
  "Tutorials" -> {
    "Introduction to Tensors",
    "Introduction to Tensor Curves",
+   "Manipulating and differentiating Tensors",
    "Built in common Tensors",
    "Caching Tensor values"
  }

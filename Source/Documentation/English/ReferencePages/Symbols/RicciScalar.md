@@ -10,6 +10,6 @@
     },
 
     "See Also" ->
-    {"ChristoffelSymbol","RiemannTensor","RicciTensor","EinsteinTensor"}
+    {"ChristoffelSymbol","RiemannTensor","RicciTensor","EinsteinTensor","WeylTensor","KretschmannScalar"}
 
 }

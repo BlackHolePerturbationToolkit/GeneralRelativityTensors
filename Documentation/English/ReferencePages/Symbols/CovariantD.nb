@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"cb367aae-a254-4904-9021-5ecb873786eb"],
+   0}},ExpressionUUID->"0d8a9946-9b82-49a0-83af-bc324224612f"],
 
 Cell[TextData[{
  ButtonBox["Tensors",
@@ -15,12 +15,12 @@ Cell[TextData[{
  ButtonBox["CovariantD",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:Tensors/ref/CovariantD"]
-}], "LinkTrail",ExpressionUUID->"b4685c22-bc75-4f0b-9845-cafb62e435ff"],
+}], "LinkTrail",ExpressionUUID->"356ccb2d-0fc6-4c98-96cd-631ef16dda84"],
 
 Cell[CellGroupData[{
 
 Cell["CovariantD", \
-"ObjectName",ExpressionUUID->"59ef0526-0220-4efb-a5c8-9b83164ef8f3"],
+"ObjectName",ExpressionUUID->"c66a09aa-0fd8-4608-8f75-703349d2c12c"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -31,10 +31,10 @@ Cell[BoxData[GridBox[{
         ButtonData->"paclet:Tensors/ref/CovariantD"], "[", 
        StyleBox[
         RowBox[{"t", ",", "ind"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"9eaeca62-1753-44e6-8f10-5f28bff3ddad"],
+      ExpressionUUID->"c891ff43-7001-48e9-b998-1bd2dba2d0bc"],
      "\[LineSeparator]returns the covariant derivative of tensor t with \
 respect to the index ind as a sum and product of tensors."
-    }],ExpressionUUID->"034c6e9e-e11c-44e0-8f2b-b58502fb0ae4"]},
+    }],ExpressionUUID->"7d4cbca6-86d4-4f0e-bd17-2f9ed934889d"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -42,19 +42,86 @@ respect to the index ind as a sum and product of tensors."
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/CovariantD"], "[", 
        StyleBox[
-        RowBox[{"t", ",", "param"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"3ca8ebd7-ff86-4784-a8e6-dd350b7138b3"],
-     "\[LineSeparator]returns the covariant derivative of tensor t with \
-respect to the curve parameter param."
-    }],ExpressionUUID->"bc6ed8c6-2b8a-4a7d-a0ea-e30661c1435e"]}
-  }]], "Usage",ExpressionUUID->"df86177c-0933-4be8-af49-a1592b1bc288"]
+        RowBox[{"t", ",", "u"}], "TI"], "]"}]], "InlineFormula",
+      ExpressionUUID->"2f94aabe-c1a7-4c86-9d5f-46d4738104a3"],
+     "\[LineSeparator]returns the covariant derivative of tensor t with along \
+a four-velocity u."
+    }],ExpressionUUID->"f7f81615-5922-4b16-9553-24cce1105ae6"]}
+  }]], "Usage",ExpressionUUID->"a61dbf3a-6430-4001-b048-0cacbb47a0a3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"31cec81d-51ca-4d96-9ae1-90a26fe366b2"],
+Cell["", "NotesSection",
+ WholeCellGroupOpener->True,
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"d435b790-f25e-4605-833b-aa707ab98791"],
 
-Cell[BoxData[""],ExpressionUUID->"fd8163a3-4a92-4e55-a0ea-7bf933997f24"]
+Cell["The following options can be given: ", \
+"Notes",ExpressionUUID->"85cd0dcb-65ae-402d-9ef1-ead8c4bc00cf"],
+
+Cell[BoxData[GridBox[{
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "5a80ae70-e03e-4dee-9047-0e2990174761"], "ActWith", "Identity", 
+    Cell["\<\
+Function which is applied to the values that CovariantD produces.\
+\>", "TableText",ExpressionUUID->"fdd7502e-a0e3-48eb-8022-c686f3201b67"]}
+  },
+  GridBoxAlignment->{
+   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
+    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
+ GridBoxOptions->{
+ GridBoxBackground->{
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
+   "RowsIndexed" -> {}},
+ GridBoxDividers->{
+  "Rows" -> {{
+     True, True}}}},ExpressionUUID->"25141a96-3ec4-46ed-a058-465a6db4c051"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"e1dc8dc5-ae0c-444b-95ee-558438c0297f"],
+
+Cell[BoxData[""],ExpressionUUID->"4608112f-ccbb-4673-b748-56a6a43da62f"]
 }, Open  ]]
 },
 Saveable->False,
@@ -73,13 +140,12 @@ TaggingRules->{
     "en", "paclet" -> "Tensors`TensorDerivatives", "status" -> "None", 
     "summary" -> 
     "CovariantD[t,ind] returns the covariant derivative of tensor t with \
-respect to the index ind as a sum and product of tensors.\n\
-CovariantD[t,param] returns the covariant derivative of tensor t with respect \
-to the curve parameter param.", 
+respect to the index ind as a sum and product of tensors.\nCovariantD[t,u] \
+returns the covariant derivative of tensor t with along a four-velocity u.", 
     "synonyms" -> {"CovariantD", "COVARIANTD", "covariantd"}, "title" -> 
     "CovariantD", "windowTitle" -> "CovariantD", "type" -> "Symbol", "uri" -> 
     "Tensors/ref/CovariantD", "WorkflowDockedCell" -> ""}, 
-  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+  "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

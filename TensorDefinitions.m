@@ -8,18 +8,18 @@ ToTensor::usage="ToTensor[n,m,vals,inds] returns a Tensor with indices \
 inds and TensorName n. The metric m and values vals \
 (given as a consistently sized List) are assigned.
 ToTensor[n,m,vals] is equivalent, but assumes all contravariant indices.";
-ToCurve::usage="ToCurve[n,m,vals,param] returns a Tensor curve \
-that exists on the metric m. The curve has the name n, \
+ToCurve::usage="ToCurve[n,m,vals,param] returns a Tensor Curve \
+that exists on the metric m. The Curve has the name n, \
 values vals, and the parameter param."
-ToTensorOnCurve::usage="ToTensorOnCurve[t,c] returns the Tensor t evaluated on the curve c.
+ToTensorOnCurve::usage="ToTensorOnCurve[t,c] returns the Tensor t evaluated on the Curve c.
 ToTensorOnCurve[n,c,vals,inds] returns a Tensor with indices \
 inds and TensorName n and values vals evaluated on the curve c.
 ToTensorOnCurve[n,c,vals] is equivalent, but assumes all contravariant indices.";
-ToTensorFieldOnCurve::usage="ToTensorFieldOnCurve[t,c] returns the Tensor t on the curve c. \
+ToTensorFieldOnCurve::usage="ToTensorFieldOnCurve[t,c] returns the Tensor t with associated Curve c. \
 Internally t is still treated as a function of the manifold's coordinates.";
-CurveParameter::usage="CurveParameter[t] returns the parmeter which parametrizes the tensor \
-t along the curve. It returns Undefined if t is not a curve.";
-Curve::usage="Curve[t] returns the curve that  \
+CurveParameter::usage="CurveParameter[t] returns the parmeter which parametrizes the Tensor \
+t along the Curve. It returns Undefined if t is not on a Curve.";
+Curve::usage="Curve[t] returns the curve that \
 t is defined along.";
 OnCurveQ::usage="OnCurveQ[t] returns True if the values of Tensor t are evaluatated along on a Curve. \
 OnCurveQ[t] also returns True if t is a Curve";

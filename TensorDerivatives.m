@@ -6,8 +6,7 @@ BeginPackage["Tensors`TensorDerivatives`",{"Tensors`TensorDefinitions`"}];
 ChristoffelSymbol::usage="ChristoffelSymbol[m] returns the Christoffel symbol computed from the metric Tensor m.";
 CovariantD::usage="CovariantD[t,ind] returns the covariant derivative of tensor \
 t with respect to the index ind as a sum and product of tensors.
-CovariantD[t,param] returns the covariant derivative of tensor t with respect to the curve \
-parameter param.";
+CovariantD[t,u] returns the covariant derivative of tensor t with along a four-velocity u.";
 
 
 Begin["`Private`"];
@@ -15,6 +14,10 @@ Begin["`Private`"];
 
 Options[ChristoffelSymbol]={"ActWith"->Identity};
 DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"] = {"ActWith"->"Function which is applied to the elements of ChristoffelSymbol after they are calculated."};
+
+
+Options[CovariantD]=Options[ChristoffelSymbol];
+DocumentationBuilder`OptionDescriptions["CovariantD"] = {"ActWith"->"Function which is applied to the values that CovariantD produces."};
 
 
 Tensor/:ChristoffelSymbol[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
@@ -65,8 +68,8 @@ Module[{indsUp,repeatedInds,inds,toCov},
 ]
 
 
-Tensor/:D[t1_Tensor,-a_Symbol] :=
-Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords},
+Tensor/:D[t1_Tensor,-a_Symbol,simpFn_:Identity] :=
+Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords,valsSimp},
 
 	inds[1]={-a};
 	inds[2]=Indices[t1];
@@ -83,36 +86,35 @@ Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords},
 	coords=Coordinates[t1];
 	itrs={#,1,dims}&/@indsLocal["Tot"];
 	vals=Table[D[tvs[[Sequence@@indsLocal[2]]],coords[[Sequence@@indsLocal[1]]]],Evaluate[Sequence@@itrs]];
+	valsSimp=Map[simpFn,vals,{Length@indsFinal}];
 
 	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Metric","Name","IsMetric","Indices","Values"}],
 					Association["IsMetric"->False,
 								"Metric"->Metric[t1],
-								"Values"->vals,
+								"Values"->valsSimp,
 								"DisplayName"->"(\[PartialD]"<>TensorDisplayName[t1]<>")",
 								"Name"->"(PartialD"<>TensorName[t1]<>")-Auto",
 								"Indices"->indsFinal]]]
 								
 ] /;MemberQ[PossibleIndices[t1],a];
 
-Tensor/:D[t1_Tensor,a_]:=
-Module[{posInds},
-	posInds=Complement[PossibleIndices[t1],Join[{a},Indices[t1]]/.{-ind_:>ind}];
-	Metric[t1][a,posInds[[1]]]D[t1,-posInds[[1]]]
+
+Tensor/:D[t1_Tensor,a_Symbol,simpFn_:Identity]:=
+Module[{b},
+	b=First[Complement[PossibleIndices[t1],Join[{a},Indices[t1]]/.{-ind_:>ind}]];
+	Metric[t1][a,b]D[t1,-b,simpFn]
 ] /;MemberQ[PossibleIndices[t1],a];
 
 
-Tensor/:D[t1_Tensor,a_Symbol]:=SetTensorName[ActOnTensorValues[t1,D[#,a]&],{"(PartialD"<>TensorName[t1]<>")-Auto","(\[PartialD]"<>TensorDisplayName[t1]<>")"}]
-
-
-Tensor/:D[t1_Tensor?CurveQ,param_Symbol] :=
+Tensor/:D[t1_Tensor?OnCurveQ,param_Symbol,simpFn_:Identity] :=
 Module[{vals},
 
-	vals=RawTensorValues[t1];
+	vals=Map[simpFn[D[#,param]]&,RawTensorValues[t1],{Total@Rank@t1}];
 
 	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","Values","IsCurve","Curve"}],
 					Association["IsCurve"->False,
 								"Curve"->Curve[t1],
-								"Values"->(D[#,param]&/@vals),
+								"Values"->vals,
 								"DisplayName"->"(d"<>TensorDisplayName[t1]<>"/d"<>ToString[param]<>")",
 								"Name"->"(d"<>TensorName[t1]<>"/d"<>ToString[param]<>")-Auto"]]]
 								
@@ -120,12 +122,12 @@ Module[{vals},
 
 
 Clear[chrTerm]
-chrTerm[t_Tensor,tensorInd_,derivInd_,avoidInds_:{}]:=
+chrTerm[t_Tensor,tensorInd_,derivInd_,simpFn_,avoidInds_:{}]:=
 Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 	inds=Indices[t];
 	tensorIndUp=tensorInd/.-sym_Symbol:>sym;
 	dummy=First[Complement[PossibleIndices[t],Join[{tensorInd,derivInd},inds,avoidInds]/.-sym_Symbol:>sym]];
-	chr=ChristoffelSymbol[Metric[t]];
+	chr=ChristoffelSymbol[Metric[t],"ActWith"->simpFn];
 	chrDummy=If[MatchQ[tensorInd,-_Symbol],chr[dummy,tensorInd,derivInd],chr[tensorInd,-dummy,derivInd]];
 
 	newInds=inds/.tensorIndUp->dummy;
@@ -138,27 +140,26 @@ Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 
 
 Clear[CovariantD]
-Tensor/: CovariantD[t1_Tensor,-a_Symbol,avoidInds_:{}] :=
-D[t1,-a]+Sum[chrTerm[t1,i,-a,avoidInds],{i,Indices[t1]}]/; MemberQ[PossibleIndices[t1],a]
-Tensor/: CovariantD[t1_Tensor,a_Symbol,avoidInds_:{}] :=
-Module[{posInds},
-	posInds=Complement[PossibleIndices[t1],Join[{a},Indices[t1],avoidInds]/.{-ind_:>ind}];
-	Metric[t1][a,posInds[[1]]]CovariantD[t1,-posInds[[1]],{a}]
+Tensor/: CovariantD[t1_Tensor,-a_Symbol,avoidInds_:{},opts:OptionsPattern[]] := 
+Module[{simpFn,t1Simp},
+	simpFn=OptionValue["ActWith"];
+	t1Simp=ActOnTensorValues[t1,simpFn];
+	D[t1Simp,-a,simpFn]+Sum[chrTerm[t1Simp,i,-a,simpFn,avoidInds],{i,Indices[t1]}]/; MemberQ[PossibleIndices[t1],a]
+]
+
+
+Tensor/: CovariantD[t1_Tensor,a_Symbol,avoidInds_:{},opts:OptionsPattern[]] :=
+Module[{b},
+	b=First[Complement[PossibleIndices[t1],Join[{a},Indices[t1],avoidInds]/.{-ind_:>ind}]];
+	Metric[t1][a,b]CovariantD[t1,-b,{a},opts]
 ]/; MemberQ[PossibleIndices[t1],a] ;
 
 
-(*Tensor/:CovariantD[t1_Tensor,param_Symbol,avoidInds_:{}]:=
-Module[{chr,chrC,a,b,c,x1},
-	{a,b,c}=Take[PossibleIndices[t1],3];
-	x1=Curve[t1];
-	chr=ToTensorOnCurve[ChristoffelSymbol[Metric[x1]],x1];
+Tensor/:CovariantD[t1_Tensor?OnCurveQ,u_Tensor?OnCurveQ,avoidInds_:{},opts:OptionsPattern[]]:=
+Module[{chr,chrC,a,b,c,x1,x2,param,simpFn},
+	
+	simpFn=OptionValue["ActWith"];
 
-	D[t1[a],param]+chr[a,-b,-c]t1[b]D[x1[c],param]
-]/;OnCurveQ[t1]&&Not@MemberQ[PossibleIndices[t1],param]&&CurveParameter[t1]===param*)
-
-
-Tensor/:CovariantD[t1_Tensor?OnCurveQ,u_Tensor?OnCurveQ,avoidInds_:{}]:=
-Module[{chr,chrC,a,b,c,x1,x2,param},
 	x1=Curve[t1];
 	x2=Curve[u];
 	If[TensorName[x1]=!=TensorName[x2],
@@ -178,14 +179,16 @@ Module[{chr,chrC,a,b,c,x1,x2,param},
 	
 	{a,b,c}=Select[PossibleIndices[t1],Not[MemberQ[{avoidInds}/.(-nn_Symbol:>nn),#]]&,3];
 	
-	chr=ToTensorOnCurve[ChristoffelSymbol[Metric[x1]],x1];
+	chr=ActOnTensorValues[ToTensorOnCurve[ChristoffelSymbol[Metric[x1]],x1],simpFn];
 
-	D[t1[a],param]+chr[a,-b,-c]t1[b]u[c]
-]
+	D[t1[a],param,simpFn]+chr[a,-b,-c]ActOnTensorValues[t1[b],simpFn]ActOnTensorValues[u[c],simpFn]
+];
 
 
-Tensor/:CovariantD[t1_Tensor,u_Tensor?OnCurveQ,avoidInds_:{}]:=
-Module[{chr,chrC,inds,a,covD},
+Tensor/:CovariantD[t1_Tensor,u_Tensor?OnCurveQ,avoidInds_:{},opts:OptionsPattern[]]:=
+Module[{chr,chrC,inds,a,covD,simpFn},
+
+	simpFn=OptionValue["ActWith"];
 	
 	If[TensorName[Metric@t1]=!=TensorName[Metric@u],
 		Print["Cannot take covariant derivative along 4-velocity from different metric."]; 
@@ -204,8 +207,8 @@ Module[{chr,chrC,inds,a,covD},
 
 	covD=CovariantD[t1,-a]/.t_Tensor:>ToTensorOnCurve[t,Curve[u]];
 	
-	u[a]covD
-]
+	ActOnTensorValues[u[a],simpFn]ActOnTensorValues[covD,simpFn]
+];
 
 
 End[];
