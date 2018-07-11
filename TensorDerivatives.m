@@ -139,23 +139,67 @@ Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 ]
 
 
+Clear[covDProd]
+Tensor/:covDProd[t1_Tensor,-a_Symbol,simpFn_]:=CovariantD[t1,-a,"ActWith"->simpFn];
+Tensor/:covDProd[t1_Tensor,t2__Tensor,-a_Symbol,simpFn_]:=CovariantD[t1,-a,"ActWith"->simpFn]Times[t2]+t1 covDProd[First[{t2}],Sequence@@Rest[{t2}],-a,simpFn];
+
+
 Clear[CovariantD]
-Tensor/: CovariantD[t1_Tensor,-a_Symbol,avoidInds_:{},opts:OptionsPattern[]] := 
+(*CovariantD[expr_,inds__,opts:OptionsPattern[]]:=CovariantD[expr,inds,{},opts]
+CovariantD[expr_,inds__,avoidInds_List,opts:OptionsPattern[]]:=Fold[CovariantD[#1,#2,avoidInds,opts]&,expr,{inds}]*)
+
+
+CovariantD[expr_,-a_Symbol,avoidInds_List,opts:OptionsPattern[]] := 
+Module[{simpFn,t1Simp,expr1,expr2,firstT,tempD},
+	simpFn=OptionValue["ActWith"];
+	firstT=FirstCase[expr,_Tensor,"NoTensor",Infinity];
+	If[Not[MatchQ[firstT,_Tensor]],Print["Expression ", expr, " does not appear to contain Tensors"]; Abort[]];
+	If[Not[MemberQ[PossibleIndices[firstT],a]],Print["Index ", a, " is not in the list of PossibleIndices of ",firstT]; Abort[]];
+
+	expr1=Which[MatchQ[Expand[expr],_Times],tempD[Expand[expr],-a],
+			MatchQ[Expand[expr],_Plus],tempD[#,-a]&/@Expand[expr],
+			True,
+			Print["Expression ", Expand[expr], " does not have Head Plus or Times. Cannot differentiate."];
+			Abort[]
+	];
+
+	expr2=expr1/.(tempD[coeff_ t:(_Tensor|Times[_Tensor, __Tensor]),-a]/;Not@MatchQ[coeff,_Tensor|Times[_Tensor, __Tensor] ]):>coeff covDProd[Sequence@t,-a,simpFn];
+	expr2/.{tempD[t_Tensor,-a]:>CovariantD[t,-a,"ActWith"->simpFn],tempD[t:Times[_Tensor, __Tensor],-a]:>covDProd[Sequence@@t,-a,simpFn]}
+]
+CovariantD[expr_,-a_Symbol,opts:OptionsPattern[]] := CovariantD[expr,-a,{},opts];
+
+
+CovariantD[expr_,a_Symbol,avoidInds_List,opts:OptionsPattern[]] :=
+Module[{b,firstT},
+	firstT=FirstCase[expr,_Tensor];
+	If[Not[MatchQ[firstT,_Tensor]],Print["Expression ", expr, " does not appear to contain Tensors"]; Abort[]];
+	If[Not[MemberQ[PossibleIndices[firstT],a]],Print["Index ", a, " is not in the list of PossibleIndices of ",firstT]; Abort[]];
+
+	b=SelectFirst[PossibleIndices[firstT],Not[MemberQ[{avoidInds}/.(-nn_Symbol:>nn),#]]&];
+
+	Metric[firstT][a,b]CovariantD[expr,-b,{a},opts]
+];
+CovariantD[expr_,a_Symbol,opts:OptionsPattern[]] :=CovariantD[expr,a,{},opts];
+
+
+CovariantD[t1_Tensor,-a_Symbol,avoidInds_List,opts:OptionsPattern[]] := 
 Module[{simpFn,t1Simp},
 	simpFn=OptionValue["ActWith"];
 	t1Simp=ActOnTensorValues[simpFn,t1];
 	D[t1Simp,-a,simpFn]+Sum[chrTerm[t1Simp,i,-a,simpFn,avoidInds],{i,Indices[t1]}]/; MemberQ[PossibleIndices[t1],a]
-]
+];
+CovariantD[t1_Tensor,-a_Symbol,opts:OptionsPattern[]] := CovariantD[t1,-a,{},opts]
 
 
-Tensor/: CovariantD[t1_Tensor,a_Symbol,avoidInds_:{},opts:OptionsPattern[]] :=
+CovariantD[t1_Tensor,a_Symbol,avoidInds_List,opts:OptionsPattern[]] :=
 Module[{b},
 	b=First[Complement[PossibleIndices[t1],Join[{a},Indices[t1],avoidInds]/.{-ind_:>ind}]];
 	Metric[t1][a,b]CovariantD[t1,-b,{a},opts]
 ]/; MemberQ[PossibleIndices[t1],a] ;
+CovariantD[t1_Tensor,a_Symbol,opts:OptionsPattern[]] := CovariantD[t1,a,{},opts]/; MemberQ[PossibleIndices[t1],a] ;
 
 
-Tensor/:CovariantD[t1_Tensor?OnCurveQ,u_Tensor?OnCurveQ,avoidInds_:{},opts:OptionsPattern[]]:=
+CovariantD[t1_Tensor?OnCurveQ,u_Tensor?OnCurveQ,avoidInds_List,opts:OptionsPattern[]]:=
 Module[{chr,chrC,a,b,c,x1,x2,param,simpFn},
 	
 	simpFn=OptionValue["ActWith"];
@@ -183,9 +227,10 @@ Module[{chr,chrC,a,b,c,x1,x2,param,simpFn},
 
 	D[t1[a],param,simpFn]+chr[a,-b,-c]ActOnTensorValues[simpFn,t1[b]]ActOnTensorValues[simpFn,u[c]]
 ];
+CovariantD[t1_Tensor?OnCurveQ,u_Tensor?OnCurveQ,opts:OptionsPattern[]]:=CovariantD[t1,u,{},opts]
 
 
-Tensor/:CovariantD[t1_Tensor,u_Tensor?OnCurveQ,avoidInds_:{},opts:OptionsPattern[]]:=
+CovariantD[t1_Tensor,u_Tensor?OnCurveQ,avoidInds_List,opts:OptionsPattern[]]:=
 Module[{chr,chrC,inds,a,covD,simpFn},
 
 	simpFn=OptionValue["ActWith"];
@@ -209,6 +254,7 @@ Module[{chr,chrC,inds,a,covD,simpFn},
 	
 	ActOnTensorValues[simpFn,u[a]]ActOnTensorValues[simpFn,covD]
 ];
+CovariantD[t1_Tensor,u_Tensor?OnCurveQ,opts:OptionsPattern[]]:=CovariantD[t1,u,{},opts]
 
 
 End[];

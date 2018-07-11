@@ -41,8 +41,10 @@
       {"ContractIndices", "Trace over repeated indices"},
       {"MergeTensors", "Combine an expression into a single Tensor"},
       {"MultiplyTensors", "Outer product of Tensors"},
-      {"MultiplyTensorScalar", "Product of Tensor and a scalar"},
-      {"SumTensors", "Sum of Tensors"}
+      {"MultiplyTensorScalar", "Product of a Tensor and a scalar"},
+      {"SumTensors", "Sum of Tensors"},
+      {"D","D is overloaded. It takes the partial derivative of a Tensor."},
+      {"CovariantD", "Covariant derivative of a Tensor"}
     }
    },
    {"Title" -> "Common Tensors and functions",
