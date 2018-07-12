@@ -85,6 +85,10 @@ ActOnTensorValues::usage="ActOnTensorValues[f,t] acts with the functions f on th
 
 AbstractQ::usage="AbstractQ[t] returns True if the Tensor t is treated as Abstract.";
 
+ValidTensorExpressionQ::usage="ValidTensorExpressionQ[expr] tests whether a Tensor expression is valid are returns True if it is and False otherwise.";
+ValidateTensorExpression::usage="ValidateTensorExpression[expr] checks whether a Tensor expression is valid and prints an error message and \
+aborts if it is not.";
+
 
 Begin["`Private`"];
 
@@ -524,6 +528,134 @@ Module[{t1,params},
 	Fold[SetTensorKeyValue[#1,Sequence@@#2]&,params]
 ]
 ToTensorOnCurve[name_String,c1_?CurveQ,vals_List,inds_:Undefined]/;MatchQ[inds,_List|Undefined]:=ToTensorOnCurve[{name,name},c1,vals,inds]
+
+
+Metric[expr_]:=
+Module[{metrics,metricNames},
+
+	metrics=Cases[{expr},m_Tensor/;MetricQ[m],Infinity];
+	If[metrics==={},Print["Expression ",expr, " does not contain a metric."] ;Abort[]];
+	metricNames=DeleteDuplicates[TensorName/@metrics];
+	If[Not[SameQ@@metricNames],Print["Expression contains Tensors with different metrics: ",metricNames ]; Abort[]];
+
+	First@metrics
+]
+
+
+Indices[expr_]:=
+Module[{terms,indicesList,tfList,sumQ,exprExpand},
+	exprExpand=Expand[expr];
+	terms=tensorExprTerms[exprExpand];
+	indicesList=indicesInProduct/@terms;
+	tfList=validateIndices[#,True]&/@indicesList;
+	sumQ=SameQ@@(Sort/@deleteRepeatedIndices/@indicesList);
+	If[DeleteDuplicates[tfList]=!={True},
+		MapThread[If[Not@#1,Print["The expression ",#2," has invalid indices."],Nothing]&,{tfList,terms}];
+		Abort[]
+	];
+	If[Not@sumQ,Print["Cannot add Tensors with different indices."];Abort[]];
+	First[Sort/@deleteRepeatedIndices/@indicesList]
+]
+
+
+PossibleIndices[expr_]:=PossibleIndices[Metric[expr]]
+
+
+Clear[ValidTensorExpressionQ]
+ValidTensorExpressionQ[expr_]:=ValidateTensorExpression[expr,True]
+
+
+Clear[ValidateTensorExpression]
+ValidateTensorExpression[expr_,test_?BooleanQ]:=
+Module[{exprExpand,tfList,terms,indicesList,sumQ,metricQ},
+	exprExpand=Expand[expr];
+	terms=tensorExprTerms[exprExpand,test];
+	If[test&&Not@terms,Return@False];
+	indicesList=indicesInProduct[#,test]&/@terms;
+	If[test&&Cases[indicesList,False]=!={},Return@False];
+	tfList=validateIndices[#,True]&/@indicesList;
+	
+	sumQ=SameQ@@(Sort/@deleteRepeatedIndices/@indicesList);
+		
+	metricQ=SameQ@@DeleteDuplicates@Cases[exprExpand,m_Tensor/;MetricQ[m]:>TensorName[m],Infinity];
+
+	If[Not@test,
+		If[DeleteDuplicates[tfList]=!={True},
+			MapThread[If[Not@#1,Print["The expression ",#2," has invalid indices."],Nothing]&,{tfList,terms}];
+			Abort[]
+		];
+		If[Not@sumQ,Print["Cannot add Tensors with different indices."];Abort[]];
+		If[Not@metricQ,Print["Cannot combine Tensors with different metrics."]; Abort[]],
+		DeleteDuplicates[tfList]==={True}&&sumQ&&metricQ
+	]
+]
+ValidateTensorExpression[expr_]:=ValidateTensorExpression[expr,False];
+
+
+Clear[tensorExprTerms]
+tensorExprTerms[expr_,test_?BooleanQ]:=
+Module[{exprExpand},
+	exprExpand=Expand[expr];
+	Which[MatchQ[exprExpand,_Plus],List@@exprExpand,
+		MatchQ[exprExpand,_Tensor]||MatchQ[exprExpand,_Times],{exprExpand},
+		True,If[test,False,Print["Expression should be a Tensor, a Tensor product, or a sum of Tensor (products), but is ", exprExpand]; Abort[]]
+	]
+];
+tensorExprTerms[expr_]:=tensorExprTerms[expr,False];
+
+
+Clear[indicesInProduct]
+indicesInProduct[expr_,test_?BooleanQ]:=
+Module[{exprExpand},
+	exprExpand=Expand[expr];
+	Which[
+		MatchQ[exprExpand,Power[_Tensor,_]|__ Power[_Tensor,_]],If[test,False,Print["Tensors cannot be raised to a power as in ", exprExpand]; Abort[]],
+		MatchQ[exprExpand,_Times],Join@@Cases[exprExpand,t_Tensor:>Indices[t],{1}],
+		MatchQ[exprExpand,_Tensor],Indices[exprExpand],
+		True,If[test,False,Print["Expression should be a Tensor or a Tensor product, but is ", exprExpand]; Abort[]]
+	]
+];
+indicesInProduct[expr_]:=indicesInProduct[expr,False];
+
+
+Clear[validateIndices]
+validateIndices[inds_List,test_?BooleanQ]:=
+Module[{indsUp,repeatedInds,toCov},
+
+	toCov[expr_]:=expr/.-sym_Symbol:>sym;
+	indsUp=toCov[inds];
+	repeatedInds=repeatedIndices[inds];
+	
+	If[Union@Join[Count[indsUp,#]&/@DeleteDuplicates[indsUp],{1,2}]=!=Sort@{1,2},
+		If[test,Return[False],
+			Print["The following indices were repeated more than twice: ",If[Count[indsUp,#]>2,#,##&[]]&/@DeleteDuplicates[indsUp]];
+			Abort[]
+		]
+	];
+
+	If[If[#[[1]]=!=-#[[2]],#,##&[]]&/@repeatedInds=!={},
+		If[test,Return[False],
+			Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],toCov[#[[1]]],##&[]]&/@repeatedInds];
+			Abort[]
+		]
+	];
+	
+	If[test,True]
+];
+validateIndices[inds_List]:=validateIndices[inds,False]
+
+
+Clear[repeatedIndices]
+repeatedIndices[inds_]:=
+Module[{toCov,indsUp},
+	toCov[expr_]:=expr/.-sym_Symbol:>sym;
+	indsUp=toCov[inds];
+	Cases[inds,#|-#]&/@(If[Count[indsUp,#]>1,#,##&[]]&/@DeleteDuplicates[indsUp])
+]
+
+
+Clear[deleteRepeatedIndices]
+deleteRepeatedIndices[inds_]:=DeleteCases[inds,Alternatives@@Flatten@repeatedIndices[inds]]
 
 
 End[];

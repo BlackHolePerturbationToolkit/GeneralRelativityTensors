@@ -140,8 +140,8 @@ Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 
 
 Clear[covDProd]
-Tensor/:covDProd[t1_Tensor,-a_Symbol,simpFn_]:=CovariantD[t1,-a,"ActWith"->simpFn];
-Tensor/:covDProd[t1_Tensor,t2__Tensor,-a_Symbol,simpFn_]:=CovariantD[t1,-a,"ActWith"->simpFn]Times[t2]+t1 covDProd[First[{t2}],Sequence@@Rest[{t2}],-a,simpFn];
+covDProd[t1_Tensor,-a_Symbol,avoidInds_List,simpFn_]:=CovariantD[t1,-a,avoidInds,"ActWith"->simpFn];
+covDProd[t1_Tensor,t2__Tensor,-a_Symbol,avoidInds_List,simpFn_]:=CovariantD[t1,-a,avoidInds,"ActWith"->simpFn]Times[t2]+t1 covDProd[First[{t2}],Sequence@@Rest[{t2}],-a,avoidInds,simpFn];
 
 
 Clear[CovariantD]
@@ -163,21 +163,23 @@ Module[{simpFn,t1Simp,expr1,expr2,firstT,tempD},
 			Abort[]
 	];
 
-	expr2=expr1/.(tempD[coeff_ t:(_Tensor|Times[_Tensor, __Tensor]),-a]/;Not@MatchQ[coeff,_Tensor|Times[_Tensor, __Tensor] ]):>coeff covDProd[Sequence@t,-a,simpFn];
-	expr2/.{tempD[t_Tensor,-a]:>CovariantD[t,-a,"ActWith"->simpFn],tempD[t:Times[_Tensor, __Tensor],-a]:>covDProd[Sequence@@t,-a,simpFn]}
+	expr2=expr1/.(tempD[coeff_ t:(_Tensor|Times[_Tensor, __Tensor]),-a]/;Not@MatchQ[coeff,_Tensor|Times[_Tensor, __Tensor] ]):>coeff covDProd[Sequence@t,-a,avoidInds,simpFn];
+	expr2/.{tempD[t_Tensor,-a]:>CovariantD[t,-a,avoidInds,"ActWith"->simpFn],tempD[t:Times[_Tensor, __Tensor],-a]:>covDProd[Sequence@@t,-a,avoidInds,simpFn]}
 ]
 CovariantD[expr_,-a_Symbol,opts:OptionsPattern[]] := CovariantD[expr,-a,{},opts];
 
 
 CovariantD[expr_,a_Symbol,avoidInds_List,opts:OptionsPattern[]] :=
-Module[{b,firstT},
-	firstT=FirstCase[expr,_Tensor];
-	If[Not[MatchQ[firstT,_Tensor]],Print["Expression ", expr, " does not appear to contain Tensors"]; Abort[]];
-	If[Not[MemberQ[PossibleIndices[firstT],a]],Print["Index ", a, " is not in the list of PossibleIndices of ",firstT]; Abort[]];
+Module[{b,aInds,met,pis},
+	aInds=Join[Indices[expr],avoidInds,{a}]/.-aa_Symbol:>aa;
+	met=Metric[expr];
+	pis=PossibleIndices[expr];
+	
+	If[Not[MemberQ[pis,a]],Print["Index ", a, " is not in the list of PossibleIndices of ",met]; Abort[]];
 
-	b=SelectFirst[PossibleIndices[firstT],Not[MemberQ[{avoidInds}/.(-nn_Symbol:>nn),#]]&];
+	b=SelectFirst[pis,Not[MemberQ[aInds,#]]&];
 
-	Metric[firstT][a,b]CovariantD[expr,-b,{a},opts]
+	met[a,b]CovariantD[expr,-b,aInds,opts]
 ];
 CovariantD[expr_,a_Symbol,opts:OptionsPattern[]] :=CovariantD[expr,a,{},opts];
 

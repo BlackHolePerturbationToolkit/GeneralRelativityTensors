@@ -10,9 +10,6 @@ ContractIndices[t,{TensorName[t],TensorDisplayName[t]}].";
 ShiftIndices::usage="ShiftIndices[t,inds] raises and/or lowers the indices of \
 Tensor t according to the given List inds, adjusting \
 the values using the Tensor's associated metric.";
-ValidateIndices::usage="ValidateIndices[t,inds] checks that the List of indices \
-inds is valid for Tensor t. An error is printed and \
-operation is aborted if the list is not valid.";
 TensorRules::usage="TensorRules[t] returns a List of Rules with possible \
 coordinates of Tensor t as keys and TensorValues as values.";
 
@@ -97,8 +94,8 @@ Tensor/:t_Tensor[inds__]:=(Print["The given indices ",{inds}, " are neither enti
 (*Tensor/:UniqueIndices[t_Tensor,n_Integer/;n>=0]:=Unique[PadRight[{},n,PossibleIndices[t]]]*)
 
 
-Clear[ValidateIndices]
-Tensor/:ValidateIndices[t_Tensor,{inds___}]:=
+Clear[validateTensorIndices]
+Tensor/:validateTensorIndices[t_Tensor,{inds___}]:=
 Module[{posInds,indsUp,repeatedInds},
 
 	posInds=PossibleIndices[t];
@@ -139,7 +136,7 @@ Module[{posInds,indsUp,repeatedInds},
 Clear[ShiftIndices]
 Tensor/:ShiftIndices[t_Tensor,inds:{__},opts:OptionsPattern[]]:=
 Module[{},
-	ValidateIndices[t,inds];
+	validateTensorIndices[t,inds];
 	
 	Fold[shiftIndex[#1,#2,OptionValue["ActWith"]]&,t,Thread[{Range@Length[inds],inds}]]
 ]
