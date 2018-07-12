@@ -45,7 +45,11 @@ t, or Undefined if coordinates were not set.";
 Rank::usage="Rank[t] returns the Tensor rank of the Tensor t as a List {p,q}, \
 where p is the number of contravariant indices and q the number of covariant indices.";
 Indices::usage="Indices[t] returns a List of Symbols representing the indices of the Tensor t. \
-Positive Symbols are contravariant and negative Symbols are covariant.";
+Positive Symbols are contravariant and negative Symbols are covariant.
+Indices[expr] will return a uniqe list of indices if each term in the Tensor expression expr \
+has the same indices.";
+IndicesTraced::usage="IndicesTraced[expr] returns a unique list of indices that each term \
+in the Tensor expression expr would have if all dummy indices were traced out.";
 PossibleIndices::usage="PossibleIndices[t] returns a List of all possible Symbols that can represent the indices of the \
 Tensor t.";
 IndexPositions::usage="IndexPositions[t] returns a List of elements \
@@ -543,6 +547,22 @@ Module[{metrics,metricNames},
 
 
 Indices[expr_]:=
+Module[{terms,indicesList,tfList,sumQ,exprExpand},
+	exprExpand=Expand[expr];
+	terms=tensorExprTerms[exprExpand];
+	indicesList=indicesInProduct/@terms;
+	tfList=validateIndices[#,True]&/@indicesList;
+	sumQ=SameQ@@(Sort/@indicesList);
+	If[DeleteDuplicates[tfList]=!={True},
+		MapThread[If[Not@#1,Print["The expression ",#2," has invalid indices."],Nothing]&,{tfList,terms}];
+		Abort[]
+	];
+	If[Not@sumQ,Print["The expression does not have unique indices. Call IndicesTraced to get a unique list."];Abort[]];
+	First[Sort/@indicesList]
+]
+
+
+IndicesTraced[expr_]:=
 Module[{terms,indicesList,tfList,sumQ,exprExpand},
 	exprExpand=Expand[expr];
 	terms=tensorExprTerms[exprExpand];
