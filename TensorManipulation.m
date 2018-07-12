@@ -65,10 +65,10 @@ Options[ContractIndices]=Options[ShiftIndices];
 Options[SumTensors]=Options[ShiftIndices];
 Options[MultiplyTensors]=Options[ShiftIndices];
 Options[MultiplyTensorScalar]=Options[ShiftIndices];
-Options[MergeTensors]=Join[Options[ShiftIndices],{"ActWithNested"->Identity}];
-Options[TraceReverse]=Options[MergeTensors];
-Options[SymmetrizeTensor]=Options[MergeTensors];
-Options[AntisymmetrizeTensor]=Options[MergeTensors];
+Options[TraceReverse]=Join[Options[ShiftIndices],{"ActWithNested"->Identity}];
+Options[SymmetrizeTensor]=Options[TraceReverse];
+Options[AntisymmetrizeTensor]=Options[TraceReverse];
+Options[MergeTensors]=Join[Options[TraceReverse],{"NestQuantity"->3}];
 
 DocumentationBuilder`OptionDescriptions["ShiftIndices"] = {"ActWith"->"Function that is applied to the elements of the tensor as they are calculated."};
 DocumentationBuilder`OptionDescriptions["Component"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
@@ -77,11 +77,12 @@ DocumentationBuilder`OptionDescriptions["ContractIndices"] = DocumentationBuilde
 DocumentationBuilder`OptionDescriptions["SumTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["MultiplyTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["MultiplyTensorScalar"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
-DocumentationBuilder`OptionDescriptions["MergeTensors"] = Join[DocumentationBuilder`OptionDescriptions["ShiftIndices"],
+DocumentationBuilder`OptionDescriptions["TraceReverse"] = Join[DocumentationBuilder`OptionDescriptions["ShiftIndices"],
 {"ActWithNested"->"Function that is applied to the elements of the tensor and also passed to any other functions called internally."}];
-DocumentationBuilder`OptionDescriptions["TraceReverse"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
-DocumentationBuilder`OptionDescriptions["SymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
-DocumentationBuilder`OptionDescriptions["AntisymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["SymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
+DocumentationBuilder`OptionDescriptions["AntisymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
+DocumentationBuilder`OptionDescriptions["MergeTensors"] = Join[DocumentationBuilder`OptionDescriptions["TraceReverse"],
+{"NestQuantity"->"Number of times MergeTensors can call itself as it continues to try to create one Tensor from an expression"}];
 
 
 Tensor/:RepeatedIndexQ[t_Tensor]:=Length[DeleteDuplicates@(Indices[t]/.-sym_Symbol:>sym)]<Length[Indices[t]];
@@ -416,12 +417,15 @@ Tensor/:MultiplyTensorScalar[t1_Tensor,n_,{name_String,displayName_String},opts:
 
 Clear[MergeTensors]
 MergeTensors[expr_,opts:OptionsPattern[]]:=
-Module[{expr1,expr2,simpFn,simpFnNest},
+Module[{expr1,expr2,expr3,expr4,simpFn,simpFnNest,nestNum},
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+	nestNum=OptionValue["NestQuantity"];
 	expr1=Expand[expr]/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2,"ActWith"->simpFnNest];
 	expr2=expr1//.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t,"ActWith"->simpFnNest];
-	ActOnTensorValues[simpFn,ContractIndices[expr2,"ActWith"->simpFnNest]/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2,"ActWith"->simpFnNest]]
+	expr3=ContractIndices[expr2,"ActWith"->simpFnNest]//.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2,"ActWith"->simpFnNest];
+	expr4=If[MatchQ[expr3,_Tensor]||nestNum==0,expr3,MergeTensors[expr3,"ActWithNested"->simpFnNest,"ActWith"->simpFn,"NestQuantity"->(nestNum-1)]];
+	If[MatchQ[expr4,_Tensor],ActOnTensorValues[simpFn,expr4],expr4]
 ]
 MergeTensors[expr_,name_String,opts:OptionsPattern[]]:=SetTensorName[MergeTensors[expr,opts],name]
 MergeTensors[expr_,{name_String,dispName_String},opts:OptionsPattern[]]:=SetTensorName[MergeTensors[expr,opts],{name,dispName}]
