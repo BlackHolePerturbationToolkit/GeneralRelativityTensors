@@ -122,7 +122,7 @@ Module[{vals},
 
 
 Clear[chrTerm]
-chrTerm[t_Tensor,tensorInd_,derivInd_,simpFn_,avoidInds_:{}]:=
+chrTerm[t_Tensor,tensorInd_,derivInd_,simpFn_,avoidInds_]:=
 Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 	inds=Indices[t];
 	tensorIndUp=tensorInd/.-sym_Symbol:>sym;
@@ -139,41 +139,43 @@ Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 ]
 
 
-Clear[covDProd]
-covDProd[t1_Tensor,-a_Symbol,avoidInds_List,simpFn_]:=CovariantD[t1,-a,avoidInds,"ActWith"->simpFn];
-covDProd[t1_Tensor,t2__Tensor,-a_Symbol,avoidInds_List,simpFn_]:=CovariantD[t1,-a,avoidInds,"ActWith"->simpFn]Times[t2]+t1 covDProd[First[{t2}],Sequence@@Rest[{t2}],-a,avoidInds,simpFn];
-
-
 Clear[CovariantD]
-(*CovariantD[expr_,inds__,opts:OptionsPattern[]]:=CovariantD[expr,inds,{},opts]
-CovariantD[expr_,inds__,avoidInds_List,opts:OptionsPattern[]]:=Fold[CovariantD[#1,#2,avoidInds,opts]&,expr,{inds}]*)
+CovariantD[expr_,inds__,avoidInds_List,opts:OptionsPattern[]]:=Fold[CovariantD[#1,#2,avoidInds,opts]&,expr,{inds}]
+CovariantD[expr_,inds__,opts:OptionsPattern[]]:=CovariantD[expr,inds,{},opts]
 
 
 CovariantD[expr_,-a_Symbol,avoidInds_List,opts:OptionsPattern[]] := 
-Module[{simpFn,t1Simp,expr1,expr2,firstT,tempD},
-	simpFn=OptionValue["ActWith"];
-	firstT=FirstCase[expr,_Tensor,"NoTensor",Infinity];
-	If[Not[MatchQ[firstT,_Tensor]],Print["Expression ", expr, " does not appear to contain Tensors"]; Abort[]];
-	If[Not[MemberQ[PossibleIndices[firstT],a]],Print["Index ", a, " is not in the list of PossibleIndices of ",firstT]; Abort[]];
+Module[{simpFn,t1Simp,expr1,expr2,aInds,met,pis,tempD,exprExpand},
 
-	expr1=Which[MatchQ[Expand[expr],_Times],tempD[Expand[expr],-a],
-			MatchQ[Expand[expr],_Plus],tempD[#,-a]&/@Expand[expr],
+	ValidateTensorExpression[expr];
+	simpFn=OptionValue["ActWith"];
+	exprExpand=Expand[expr];
+	aInds=DeleteDuplicates@Flatten[Join[Indices/@List@@(exprExpand),avoidInds]/.-aa_Symbol:>aa];
+	met=Metric[expr];
+	pis=PossibleIndices[met];
+	
+	If[Not[MemberQ[pis,a]],Print["Index ", a, " is not in the list of PossibleIndices of ",met]; Abort[]];
+
+	expr1=Which[MatchQ[Expand[expr],_Times],tempD[exprExpand,-a],
+			MatchQ[exprExpand,_Plus],tempD[#,-a]&/@exprExpand,
 			True,
-			Print["Expression ", Expand[expr], " does not have Head Plus or Times. Cannot differentiate."];
+			Print["Expression ", exprExpand, " does not have Head Plus or Times. Cannot differentiate."];
 			Abort[]
 	];
 
-	expr2=expr1/.(tempD[coeff_ t:(_Tensor|Times[_Tensor, __Tensor]),-a]/;Not@MatchQ[coeff,_Tensor|Times[_Tensor, __Tensor] ]):>coeff covDProd[Sequence@t,-a,avoidInds,simpFn];
-	expr2/.{tempD[t_Tensor,-a]:>CovariantD[t,-a,avoidInds,"ActWith"->simpFn],tempD[t:Times[_Tensor, __Tensor],-a]:>covDProd[Sequence@@t,-a,avoidInds,simpFn]}
+	expr2=expr1/.(tempD[coeff_ t:(_Tensor|Times[_Tensor, __Tensor]),-a]/;Not@MatchQ[coeff,_Tensor|Times[_Tensor, __Tensor] ]):>coeff covDProd[Sequence@t,-a,aInds,simpFn];
+	expr2/.{tempD[t_Tensor,-a]:>CovariantD[t,-a,aInds,"ActWith"->simpFn],tempD[t:Times[_Tensor, __Tensor],-a]:>covDProd[Sequence@@t,-a,aInds,simpFn]}
 ]
 CovariantD[expr_,-a_Symbol,opts:OptionsPattern[]] := CovariantD[expr,-a,{},opts];
 
 
 CovariantD[expr_,a_Symbol,avoidInds_List,opts:OptionsPattern[]] :=
 Module[{b,aInds,met,pis},
-	aInds=Join[Indices[expr],avoidInds,{a}]/.-aa_Symbol:>aa;
+	
+	ValidateTensorExpression[expr];
+	aInds=DeleteDuplicates@Flatten[Join[Indices/@List@@(Expand[expr]),avoidInds,{a}]/.-aa_Symbol:>aa];
 	met=Metric[expr];
-	pis=PossibleIndices[expr];
+	pis=PossibleIndices[met];
 	
 	If[Not[MemberQ[pis,a]],Print["Index ", a, " is not in the list of PossibleIndices of ",met]; Abort[]];
 
@@ -257,6 +259,11 @@ Module[{chr,chrC,inds,a,covD,simpFn},
 	ActOnTensorValues[simpFn,u[a]]ActOnTensorValues[simpFn,covD]
 ];
 CovariantD[t1_Tensor,u_Tensor?OnCurveQ,opts:OptionsPattern[]]:=CovariantD[t1,u,{},opts]
+
+
+Clear[covDProd]
+covDProd[t1_Tensor,-a_Symbol,avoidInds_List,simpFn_]:=CovariantD[t1,-a,avoidInds,"ActWith"->simpFn];
+covDProd[t1_Tensor,t2__Tensor,-a_Symbol,avoidInds_List,simpFn_]:=CovariantD[t1,-a,avoidInds,"ActWith"->simpFn]Times[t2]+t1 covDProd[First[{t2}],Sequence@@Rest[{t2}],-a,avoidInds,simpFn];
 
 
 End[];
