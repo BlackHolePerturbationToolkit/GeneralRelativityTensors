@@ -1,0 +1,324 @@
+Notebook[{
+Cell[" ", "SymbolColorBar",
+ CellMargins->{{Inherited, Inherited}, {-5, 
+   0}},ExpressionUUID->"3246cbd8-f2ca-40b9-b716-ae163b907ca6"],
+
+Cell[TextData[{
+ ButtonBox["Tensors",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["Tensors`TensorDefinitions",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/guide/Tensors`TensorDefinitions"],
+ StyleBox[" > ", "LinkTrailSeparator"],
+ ButtonBox["ValidTensorExpressionQ",
+  BaseStyle->{"Link", "LinkTrail"},
+  ButtonData->"paclet:Tensors/ref/ValidTensorExpressionQ"]
+}], "LinkTrail",ExpressionUUID->"5c4bcf47-3e16-4c33-b0e4-2c5439602b7f"],
+
+Cell[BoxData[GridBox[{
+   {Cell["TENSORS`TENSORDEFINITIONS PACLET SYMBOL", "PacletNameCell",
+     ExpressionUUID->"cd7719e1-0dcc-4bd7-be42-e6bc98deb941"], Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"See Also \[RightGuillemet]\"\>",
+        StripOnInput->False], {"ValidateTensorExpression":>
+       Documentation`HelpLookup[
+       "paclet:Tensors/ref/ValidateTensorExpression"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "cce1cb08-f721-4219-a2e6-509561b937fe"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]"
+    }], "AnchorBar",ExpressionUUID->"c3b0fd26-d8b6-4636-b839-ba5b35af112e"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"33f1936a-ff18-484d-9e21-647eac843806"],
+
+Cell[CellGroupData[{
+
+Cell["ValidTensorExpressionQ", \
+"ObjectName",ExpressionUUID->"95444e80-f654-4360-b7d0-dd990a1e9b2e"],
+
+Cell[BoxData[GridBox[{
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["ValidTensorExpressionQ",
+        BaseStyle->"Link",
+        ButtonData->"paclet:Tensors/ref/ValidTensorExpressionQ"], "[", 
+       StyleBox["expr", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
+      "25563615-90c0-4ccf-bb86-d0b4cbef3cba"],
+     "\[LineSeparator]tests whether a Tensor expression is valid are returns \
+True if it is and False otherwise."
+    }],ExpressionUUID->"127928a0-e60d-4d69-8fa5-cbbd50c9ef47"]}
+  }]], "Usage",ExpressionUUID->"3d7df9e5-67a6-43ac-814e-cfe062860a29"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "NotesSection",
+ WholeCellGroupOpener->True,
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"e4ccca18-5eea-40b1-b00b-1b3c1dd5a638"],
+
+Cell["\<\
+ValidTensorExpressionQ only returns True/False. It does not explain what is \
+wrong with the expression.\
+\>", "Notes",ExpressionUUID->"242eb804-22f4-4957-b5e7-1b31c8ce7352"],
+
+Cell["\<\
+ValidateTensorExpression is like ValidTensorExpressionQ, but will give error \
+messages and Abort.\
+\>", "Notes",ExpressionUUID->"e8562b7d-1dfc-4b33-a433-d686f251533d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "PrimaryExamplesSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "EXAMPLES", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Examples"}], 
+        "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0,
+ CellTags->
+  "PrimaryExamplesSection",ExpressionUUID->"37da6884-1769-46b4-a000-\
+83ffe76a266b"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(6)", "ExampleCount",ExpressionUUID->
+  "d0747412-8361-441f-8d2b-a8c74c8db039"]
+}], "ExampleSection",ExpressionUUID->"3c2457f4-6b5c-45ce-8cb1-d57675663848"],
+
+Cell[CellGroupData[{
+
+Cell["gS = ToMetric[\"Schwarzschild\"]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"ac150c33-9e8e-49be-8402-5ad95485ab75"],
+
+Cell[BoxData[
+ TagBox[
+  SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"1be450ac-dcd8-4020-bb9c-1f06cc7f09db"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ricS = RicciTensor[gS]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"c12b0b25-3738-4f28-9af4-e48e28fb7788"],
+
+Cell[BoxData[
+ TagBox[
+  SubsuperscriptBox["R", "\[Beta]\[Gamma]", ""],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"8b39d78c-41e9-445b-a569-709ac1373303"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ValidTensorExpressionQ[gS[-\[Alpha],-\[Beta]]+ricS[-\[Alpha],-\[Beta]]]\
+", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"6ef06626-b0e7-49dc-9142-d7fa374509de"],
+
+Cell[BoxData["True"], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"f75d063a-b112-4cc0-aa6e-0a7c85766edc"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ValidTensorExpressionQ[gS[-\[Alpha],-\[Beta]]ricS[-\[Alpha],-\[Beta]]]",\
+ "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"9c3c0e8c-6009-42d9-b493-32947ba511ac"],
+
+Cell[BoxData["False"], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"f28151b3-ad5f-4be4-b66d-62892f1f7740"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["gRN = ToMetric[\"ReissnerNordstrom\"]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"d6e7b0ed-abce-425e-8bbd-51317b2171fc"],
+
+Cell[BoxData[
+ TagBox[
+  SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"72d11dc7-0644-43d9-8fa9-4293903b8a12"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["ValidTensorExpressionQ[gS[-\[Alpha],-\[Beta]]+gRN[-\[Alpha],-\[Beta]]]",\
+ "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"75ba5708-b758-4454-a72a-be9e95c70f1a"],
+
+Cell[BoxData["False"], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"18b809b9-58fa-48aa-9c3b-14d434e13877"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SeeAlsoSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "SEE ALSO", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "SeeAlsoSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "See Also"}], "SeeAlsoSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"322db3df-6b7e-41e8-a6cf-7e687db6d017"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["ValidateTensorExpression",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/ValidateTensorExpression"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "cafd1c91-5fb1-4f39-9bbb-fa80e3490ab6"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " "
+}], "SeeAlso",ExpressionUUID->"6d3e205a-2022-46a1-89b0-8835f02af5ae"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"394d7140-b053-428b-b8e5-b211adb3e064"],
+
+Cell[BoxData[""],ExpressionUUID->"f4c70c81-eebc-4a8c-886b-44a610985200"]
+}, Open  ]]
+},
+Saveable->False,
+ScreenStyleEnvironment->"Working",
+WindowSize->{725, 750},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowTitle->"ValidTensorExpressionQ",
+Visible->True,
+PrivateNotebookOptions->{"FileOutlineCache"->False},
+TaggingRules->{
+ "ModificationHighlight" -> False, 
+  "Metadata" -> {
+   "context" -> "Tensors`", 
+    "keywords" -> {
+     "ValidTensorExpressionQ", "VALIDTENSOREXPRESSIONQ", 
+      "validtensorexpressionq"}, "index" -> True, "label" -> 
+    "Tensors/Tensors`TensorDefinitions Symbol", "language" -> "en", "paclet" -> 
+    "Tensors`TensorDefinitions", "status" -> "None", "summary" -> 
+    "ValidTensorExpressionQ[expr] tests whether a Tensor expression is valid \
+are returns True if it is and False otherwise.", 
+    "synonyms" -> {
+     "ValidTensorExpressionQ", "VALIDTENSOREXPRESSIONQ", 
+      "validtensorexpressionq"}, "title" -> "ValidTensorExpressionQ", 
+    "windowTitle" -> "ValidTensorExpressionQ", "type" -> "Symbol", "uri" -> 
+    "Tensors/ref/ValidTensorExpressionQ", "WorkflowDockedCell" -> ""}, 
+  "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> False},
+TrackCellChangeTimes->False,
+FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
+2018)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "Reference.nb", 
+  CharacterEncoding -> "UTF-8"]
+]
+

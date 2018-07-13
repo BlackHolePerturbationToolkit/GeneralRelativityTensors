@@ -1,8 +1,9 @@
 {
   "More Information" -> {
+      "CachedTensorValues are stored as Values in the Symbol RawTensorValues \
+using TensorName and IndexPositions as Keys.",
       "Simply re-setting $CacheTensorValues to False does not remove already cached values.",
       "Instead, call ClearCachedTensorValues."
-
   },
 
   "Basic Examples" -> {
@@ -17,6 +18,6 @@
     },
 
     "See Also" ->
-    {"CachedTensorValues","ClearCachedTensorValues"}
+    {"TensorValues","RawTensorValues","CachedTensorValues","ClearCachedTensorValues"}
 
 }

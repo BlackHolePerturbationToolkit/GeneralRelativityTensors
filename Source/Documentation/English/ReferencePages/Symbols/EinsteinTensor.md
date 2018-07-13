@@ -9,6 +9,6 @@
     },
 
     "See Also" ->
-    {"ChristoffelSymbol","RiemannTensor","RicciTensor","RicciScalar"}
+    {"ChristoffelSymbol","RiemannTensor","RicciTensor","RicciScalar","WeylTensor"}
 
 }

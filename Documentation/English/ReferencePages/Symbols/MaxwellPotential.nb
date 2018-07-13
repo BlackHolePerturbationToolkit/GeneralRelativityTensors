@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"e6ba1650-5f4a-4b67-a05b-8d1636467420"],
+   0}},ExpressionUUID->"9b5f1932-019e-45d5-895a-a27227e197d1"],
 
 Cell[TextData[{
  ButtonBox["Tensors",
@@ -15,12 +15,31 @@ Cell[TextData[{
  ButtonBox["MaxwellPotential",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:Tensors/ref/MaxwellPotential"]
-}], "LinkTrail",ExpressionUUID->"72ae5393-e8c2-4310-a757-e426ff886cc0"],
+}], "LinkTrail",ExpressionUUID->"b57c1e0e-3e09-4ed4-a628-e02db30d356b"],
+
+Cell[BoxData[GridBox[{
+   {Cell["TENSORS`COMMONTENSORS PACLET SYMBOL", "PacletNameCell",
+     ExpressionUUID->"d887ece2-7ef1-4f55-8594-0ee6e74681b7"], Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"See Also \[RightGuillemet]\"\>",
+        StripOnInput->False], {"FieldStrengthTensor":>
+       Documentation`HelpLookup["paclet:Tensors/ref/FieldStrengthTensor"], 
+       "MaxwellStressEnergyTensor":>Documentation`HelpLookup[
+       "paclet:Tensors/ref/MaxwellStressEnergyTensor"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "51133089-5860-4389-a4bd-72be3456e59c"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]"
+    }], "AnchorBar",ExpressionUUID->"cb3cc01a-30c2-41b3-a0ff-629348c9a4fe"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"28a5cb8a-e695-419f-be0a-ff7934ff2fe5"],
 
 Cell[CellGroupData[{
 
 Cell["MaxwellPotential", \
-"ObjectName",ExpressionUUID->"589849c3-a9e8-4191-8960-d5dec660976c"],
+"ObjectName",ExpressionUUID->"486bda10-0841-43b4-91ee-5c0869de7927"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -30,19 +49,200 @@ Cell[BoxData[GridBox[{
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/MaxwellPotential"], "[", 
        StyleBox["builtIn", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "329eceac-f913-4223-8061-34afd8dc581c"],
+      "a0ccb298-b430-4c40-b477-ecdc18cd2851"],
      "\[LineSeparator]returns the four-vector A on a built-in background \
 index position \"Down\" . The current choices for builtIn are \
 \"ReissnerNordstrom\" (or \"RN\") and \"KerrNewman\" (or \"KN\")."
-    }],ExpressionUUID->"71b52ec0-e7ce-48c4-b41c-d14dcceabcc1"]}
-  }]], "Usage",ExpressionUUID->"9063bfe0-30ae-4c03-8e54-bf9d5713c074"]
+    }],ExpressionUUID->"c2749370-0755-4ca3-b7bb-a95df36b4456"]}
+  }]], "Usage",ExpressionUUID->"b0ffd0ae-069f-4149-b28b-8387e9214ce2"]
+}, Open  ]],
+
+Cell["", "NotesSection",
+ WholeCellGroupOpener->True,
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"77f253e7-f155-41f5-a386-13f0de05c048"],
+
+Cell[CellGroupData[{
+
+Cell["", "PrimaryExamplesSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "EXAMPLES", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Examples"}], 
+        "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0,
+ CellTags->
+  "PrimaryExamplesSection",ExpressionUUID->"39126940-2d6f-4ef1-927f-\
+504ef643ff79"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(2)", "ExampleCount",ExpressionUUID->
+  "61db708d-95a6-4dff-8748-c117321644eb"]
+}], "ExampleSection",ExpressionUUID->"9c5c68e2-ebbc-4064-9e97-e4d8ac7edd98"],
+
+Cell[CellGroupData[{
+
+Cell["ARN = MaxwellPotential[\"ReissnerNordstrom\"]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"b307e5f0-5568-4960-a492-9cd7b5a4afd6"],
+
+Cell[BoxData[
+ TagBox[
+  SubsuperscriptBox["A", "\[Alpha]", ""],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"46fa3f15-57ca-4bb7-8849-7f5e14441b65"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"68822566-22d2-4644-9c22-a51c356db602"],
+Cell["TensorValues[ARN]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"5c16215f-565b-41bb-8f1f-7b75c1980efa"],
 
-Cell[BoxData[""],ExpressionUUID->"948420a6-b713-430f-9694-d67654d26aad"]
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   FractionBox["Q", "r"], ",", "0", ",", "0", ",", "0"}], "}"}]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"67b92ebe-09a5-4cc4-8b07-84c6e5e95940"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SeeAlsoSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "SEE ALSO", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "SeeAlsoSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "See Also"}], "SeeAlsoSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"7880696c-6330-4ef9-9156-3d80287273e6"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["FieldStrengthTensor",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/FieldStrengthTensor"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "8b4a7961-7ac0-4691-8170-97cb046cc8b6"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["MaxwellStressEnergyTensor",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/MaxwellStressEnergyTensor"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "3dd6137c-c048-4b15-a139-1c0738ba6e91"]
+}], "SeeAlso",ExpressionUUID->"7850fd1c-df55-45ac-af8f-bef549cccf4f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"a040b654-54f1-407f-9bc0-f0c6dda7b318"],
+
+Cell[BoxData[""],ExpressionUUID->"63870797-c25e-4b87-b67f-aaef814dd076"]
 }, Open  ]]
 },
 Saveable->False,
@@ -67,7 +267,8 @@ background index position \"Down\" . The current choices for builtIn are \
      "MaxwellPotential", "MAXWELLPOTENTIAL", "maxwellpotential"}, "title" -> 
     "MaxwellPotential", "windowTitle" -> "MaxwellPotential", "type" -> 
     "Symbol", "uri" -> "Tensors/ref/MaxwellPotential", "WorkflowDockedCell" -> 
-    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
+  False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

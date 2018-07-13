@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"3de319fc-6e04-4f80-ae53-5550019e4d2e"],
+   0}},ExpressionUUID->"3a5500c6-86ec-4d05-a5cf-11da7f50de70"],
 
 Cell[TextData[{
  ButtonBox["Tensors",
@@ -15,12 +15,32 @@ Cell[TextData[{
  ButtonBox["IndexPositions",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:Tensors/ref/IndexPositions"]
-}], "LinkTrail",ExpressionUUID->"ac18c115-f03d-4d04-a9ab-0968ac79f81c"],
+}], "LinkTrail",ExpressionUUID->"47c1d575-ff92-4f75-9b46-e2e08d1002e1"],
+
+Cell[BoxData[GridBox[{
+   {Cell["TENSORS`TENSORDEFINITIONS PACLET SYMBOL", "PacletNameCell",
+     ExpressionUUID->"ea26808c-a165-4f85-bdc3-532bff53ade3"], Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"See Also \[RightGuillemet]\"\>",
+        StripOnInput->False], {"PossibleIndices":>Documentation`HelpLookup[
+       "paclet:Tensors/ref/PossibleIndices"], "Indices":>
+       Documentation`HelpLookup["paclet:Tensors/ref/Indices"], "Rank":>
+       Documentation`HelpLookup["paclet:Tensors/ref/Rank"], "Coordinates":>
+       Documentation`HelpLookup["paclet:Tensors/ref/Coordinates"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "b05942c8-b749-4852-b788-c6dd4848e433"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]"
+    }], "AnchorBar",ExpressionUUID->"06a53a7f-9a8a-45e4-ba88-bc476be7b76a"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"6e8aebe8-437d-436e-9ebb-b305dff1c348"],
 
 Cell[CellGroupData[{
 
 Cell["IndexPositions", \
-"ObjectName",ExpressionUUID->"1d6683b2-6435-469c-81a5-a0958b75978d"],
+"ObjectName",ExpressionUUID->"250e5b3d-1587-479b-aed4-a81a429e8b8c"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -30,19 +50,247 @@ Cell[BoxData[GridBox[{
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/IndexPositions"], "[", 
        StyleBox["t", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "3636d3e6-2077-43ed-bdc0-87cae71f735c"],
+      "5ffcf56d-363d-433a-9ab3-1000a38f85c7"],
      "\[LineSeparator]returns a List of elements \"Up\" and \"Down\" which \
 represent (respectively) the contravariant and covariant positions of the \
 indices of Tensor t."
-    }],ExpressionUUID->"6ca0c29e-07e6-4e30-b2c1-aee1b78d9477"]}
-  }]], "Usage",ExpressionUUID->"e31145c3-2cb9-4d7c-92c1-9ec6b0b456b5"]
+    }],ExpressionUUID->"2bb67f44-e548-4eb5-8feb-0abc7fafb879"]}
+  }]], "Usage",ExpressionUUID->"aed15b9f-6426-43a7-8032-74a32e96f7c4"]
+}, Open  ]],
+
+Cell["", "NotesSection",
+ WholeCellGroupOpener->True,
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"2a9823e3-6bea-4a82-b680-a99ab855716f"],
+
+Cell[CellGroupData[{
+
+Cell["", "PrimaryExamplesSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "EXAMPLES", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Examples"}], 
+        "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0,
+ CellTags->
+  "PrimaryExamplesSection",ExpressionUUID->"b2204bce-aa10-456a-973e-\
+9728dfaa54f1"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(4)", "ExampleCount",ExpressionUUID->
+  "51c7615c-712f-4c41-8d96-96a2f590a92a"]
+}], "ExampleSection",ExpressionUUID->"7e89fb3d-d1f4-4633-bc74-3885b4fc301d"],
+
+Cell[CellGroupData[{
+
+Cell["gS = ToMetric[\"Schwarzschild\"]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"84b2909d-a98d-4e75-906b-eaf77e159bb7"],
+
+Cell[BoxData[
+ TagBox[
+  SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"5e8d2234-dc9d-4653-8250-18fead518fcb"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"356e3429-62d3-46fe-b5d1-b0ea573613e6"],
+Cell["IndexPositions[gS]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"2f91cbbd-7543-495c-8d57-f0b6eb03ba97"],
 
-Cell[BoxData[""],ExpressionUUID->"02cdb6da-b8a8-454a-bd38-4806fcfaa4e0"]
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"Down\"\>", ",", "\<\"Down\"\>"}], "}"}]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"53e7ea7f-0c2a-46d7-b3a0-1075fedcde4b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["rieS = RiemannTensor[gS]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"df29799b-b144-4d3b-a7f5-e975a377def8"],
+
+Cell[BoxData[
+ TagBox[
+  SubsuperscriptBox["R", 
+   RowBox[{"  ", "\[Beta]\[Gamma]\[Delta]"}], 
+   RowBox[{"\[Alpha]", "      "}]],
+  DisplayForm]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"ebc827a8-922c-45e3-abd6-4add7cf9fa06"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["IndexPositions[rieS]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"059d4899-36a2-4223-9a9b-ab70c707b7a4"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"Up\"\>", ",", "\<\"Down\"\>", ",", "\<\"Down\"\>", 
+   ",", "\<\"Down\"\>"}], "}"}]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"189a7600-13b4-46b3-b41e-9ecdf8f492f7"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SeeAlsoSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "SEE ALSO", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "SeeAlsoSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "See Also"}], "SeeAlsoSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"ac56a457-6058-4e04-9a73-5bd6d5f50fd5"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["PossibleIndices",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/PossibleIndices"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "c53791ea-1092-4740-bebf-584ec2f3545f"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["Indices",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/Indices"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "c4c7c009-31da-479a-bf49-8d6f7b06cfee"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["Rank",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/Rank"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "f4c27e7b-3a13-451f-a8ab-0a90bb97fd97"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["Coordinates",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/Coordinates"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "854fe9e2-e3d6-4602-bb49-147933f365a2"]
+}], "SeeAlso",ExpressionUUID->"6dfa4f44-1263-4b9d-9025-d1d6b59c3b0e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"7a365a0d-a553-47e0-9e58-9a398cf18d68"],
+
+Cell[BoxData[""],ExpressionUUID->"14136a6a-9b3c-4b1d-80ef-cdbb1ef418ca"]
 }, Open  ]]
 },
 Saveable->False,
@@ -66,7 +314,8 @@ indices of Tensor t.",
     "synonyms" -> {"IndexPositions", "INDEXPOSITIONS", "indexpositions"}, 
     "title" -> "IndexPositions", "windowTitle" -> "IndexPositions", "type" -> 
     "Symbol", "uri" -> "Tensors/ref/IndexPositions", "WorkflowDockedCell" -> 
-    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
+  False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

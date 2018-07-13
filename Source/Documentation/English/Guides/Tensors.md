@@ -29,22 +29,25 @@
       {"TensorName", "Internal name of Tensor"},
       {"TensorDisplayName", "Name used for display of Tensor in notebook"},
       {"Metric", "Metric associated with the Tensor"},
-      {"MetricQ", "Test whether a Tensor is a metric"},
-      {"RepeatedIndexQ", "Check whether a Tensor has repeated indices"},
       {"InverseMetric", "Inverse metric associated with the Tensor"},
-      {"SetTensorName", "Change the name of Tensor"}
+      {"Curve", "Curve associated with the Tensor"},
+      {"MetricQ", "Test whether a Tensor is a metric"},
+      {"CurveQ", "Test whether a Tensor is a Curve"},
+      {"OnCurveQ", "Test whether a Tensor is on a Curve"},
+      {"ValidTensorExpressionQ", "Test whether a Tensor expression is valid (in indices and metrics)"},
+      {"ValidateTensorExpression", "Similar to ValidTensorExpressionQ, but aborts and prints error messages"}
     }
    },
    {"Title" -> "Tensor manipulation",
     "DetailedFunctions" -> {
       {"ShiftIndices", "Raise and lower indices on a Tensor"},
-      {"ContractIndices", "Trace over repeated indices"},
       {"MergeTensors", "Combine an expression into a single Tensor"},
+      {"ContractIndices", "Trace over repeated indices"},
       {"MultiplyTensors", "Outer product of Tensors"},
       {"MultiplyTensorScalar", "Product of a Tensor and a scalar"},
       {"SumTensors", "Sum of Tensors"},
       {"D","D is overloaded. It takes the partial derivative of a Tensor."},
-      {"CovariantD", "Covariant derivative of a Tensor"}
+      {"CovariantD", "Covariant derivative of a Tensor expression"}
     }
    },
    {"Title" -> "Common Tensors and functions",

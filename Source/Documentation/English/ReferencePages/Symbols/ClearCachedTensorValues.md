@@ -1,5 +1,6 @@
 {
-  "More Information" -> {
+  "More Information" -> {"CachedTensorValues are stored as Values in the Symbol RawTensorValues \
+using TensorName and IndexPositions as Keys."
   },
 
   "Basic Examples" -> {
@@ -13,6 +14,6 @@
     },
 
     "See Also" ->
-    {"$CacheTensorValues","CachedTensorValues"}
+    {"TensorValues","RawTensorValues","$CacheTensorValues","CachedTensorValues"}
 
 }

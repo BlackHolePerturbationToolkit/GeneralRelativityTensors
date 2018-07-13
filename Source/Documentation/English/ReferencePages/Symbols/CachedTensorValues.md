@@ -18,6 +18,6 @@ using TensorName and IndexPositions as Keys.",
     },
 
     "See Also" ->
-    {"$CacheTensorValues","ClearCachedTensorValues"}
+    {"TensorValues","RawTensorValues","$CacheTensorValues","ClearCachedTensorValues"}
 
 }

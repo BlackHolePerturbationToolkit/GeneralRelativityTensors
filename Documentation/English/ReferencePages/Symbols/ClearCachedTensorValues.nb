@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"0dead3b4-4e3a-4fab-b967-61fdcd89d8a7"],
+   0}},ExpressionUUID->"e9fe5051-9147-4242-99ea-10e722730fc4"],
 
 Cell[TextData[{
  ButtonBox["Tensors",
@@ -15,30 +15,33 @@ Cell[TextData[{
  ButtonBox["ClearCachedTensorValues",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:Tensors/ref/ClearCachedTensorValues"]
-}], "LinkTrail",ExpressionUUID->"452857ad-7676-49ff-913a-d802f88e2db8"],
+}], "LinkTrail",ExpressionUUID->"6c50c1ff-a28e-42ee-81d0-537b9ebcba83"],
 
 Cell[BoxData[GridBox[{
    {Cell["TENSORS`TENSORDEFINITIONS PACLET SYMBOL", "PacletNameCell",
-     ExpressionUUID->"dd3128a1-bbdb-439a-a462-8a1ab1e81664"], Cell[TextData[{
+     ExpressionUUID->"ced15322-73b4-49e0-b64f-9b38ea636a8f"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
-        StripOnInput->False], {"$CacheTensorValues":>Documentation`HelpLookup[
+        StripOnInput->False], {"TensorValues":>Documentation`HelpLookup[
+       "paclet:Tensors/ref/TensorValues"], "RawTensorValues":>
+       Documentation`HelpLookup["paclet:Tensors/ref/RawTensorValues"], 
+       "$CacheTensorValues":>Documentation`HelpLookup[
        "paclet:Tensors/ref/$CacheTensorValues"], "CachedTensorValues":>
        Documentation`HelpLookup["paclet:Tensors/ref/CachedTensorValues"]},
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "832d66ff-6613-4fd6-a978-c4988ec7bf8a"],
+      "7f7db241-32f2-418e-a797-82b87a985ae2"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"d969ee8f-50ae-4930-83d6-3e99920b57a4"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"b1b0203b-3543-441b-ba19-ecaa475ef46e"],
+    }], "AnchorBar",ExpressionUUID->"9c0156c9-2eaf-4501-a9b7-b625614a70ce"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"beb445bb-a0d5-4379-976b-47cd0a8dedf3"],
 
 Cell[CellGroupData[{
 
 Cell["ClearCachedTensorValues", \
-"ObjectName",ExpressionUUID->"acf083a8-0dd0-4c15-9231-21e8137c9863"],
+"ObjectName",ExpressionUUID->"d915bb54-5b3b-495d-b1ce-b938b6025669"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -49,11 +52,11 @@ Cell[BoxData[GridBox[{
         ButtonData->"paclet:Tensors/ref/ClearCachedTensorValues"], "[", 
        StyleBox[
         RowBox[{"n", ",", "inds"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"9daae8dc-869f-4d6b-977c-cae62ac8c3c1"],
+      ExpressionUUID->"e157d6a6-3707-4b5a-b3c2-03519e017c96"],
      "\[LineSeparator]removes cached expressions stored with the Symbol \
 RawTensorValues using the TensorName n and IndexPositions inds. Here inds is \
 a List of \"Up\" and \"Down\"."
-    }],ExpressionUUID->"76f195d4-6c91-45ed-81db-2afd7274bf68"]},
+    }],ExpressionUUID->"0a2adea2-ca2f-4d19-924e-e8868f2b0137"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -61,10 +64,10 @@ a List of \"Up\" and \"Down\"."
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/ClearCachedTensorValues"], "[", 
        StyleBox["n", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "3863d694-68f6-48aa-9ed9-d8421dab698e"],
+      "f552e9ea-47dd-46a8-8017-b5774e44ad9c"],
      "\[LineSeparator]removes all cached expressions stored with the Symbol \
 RawTensorValues for any Tensor with name n."
-    }],ExpressionUUID->"50a2692e-e3b9-4581-b30d-d0d1626bb638"]},
+    }],ExpressionUUID->"5dc85f05-9813-48b0-b4e2-fb1710285ddb"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -72,10 +75,10 @@ RawTensorValues for any Tensor with name n."
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/ClearCachedTensorValues"], "[", 
        StyleBox["t", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "1ea2f091-b679-478e-afe9-0926d724a1c2"],
+      "c2d2f261-0b00-45c4-9686-374b992ef8a3"],
      "\[LineSeparator]removes all cached expressions stored with the Symbol \
 RawTensorValues for the Tensor t."
-    }],ExpressionUUID->"f1d21e5f-1e9e-49c7-a162-650655e03d97"]},
+    }],ExpressionUUID->"ef13156a-66ff-4776-841f-c05d1623bf5d"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -83,12 +86,14 @@ RawTensorValues for the Tensor t."
         BaseStyle->"Link",
         ButtonData->"paclet:Tensors/ref/ClearCachedTensorValues"], "[", 
        StyleBox["All", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "dd579f1d-1241-4319-b75a-2e47edc76bbe"],
+      "bf1db58e-4f7e-4b63-8495-56ece59f2062"],
      "\[LineSeparator]removes all cached expressions associated with the \
 Symbol RawTensorValues."
-    }],ExpressionUUID->"3e3ba597-fa10-4e11-8bc6-77f56996380c"]}
-  }]], "Usage",ExpressionUUID->"2e366565-4a94-4b98-8c5c-a7164d15e7b5"]
+    }],ExpressionUUID->"2f62aa2c-e3b5-47a5-9d86-17a2f82b2706"]}
+  }]], "Usage",ExpressionUUID->"f8078668-1091-4ae9-a465-c47a32fd6964"]
 }, Open  ]],
+
+Cell[CellGroupData[{
 
 Cell["", "NotesSection",
  WholeCellGroupOpener->True,
@@ -131,7 +136,13 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"7000a904-68d1-4be1-9950-87e9930bf6ba"],
+  0,ExpressionUUID->"b5416398-63d2-42dd-beff-0e6cdbe05d42"],
+
+Cell["\<\
+CachedTensorValues are stored as Values in the Symbol RawTensorValues using \
+TensorName and IndexPositions as Keys.\
+\>", "Notes",ExpressionUUID->"cd6c4949-aa1d-4f5e-b5f5-a038fd71e343"]
+}, Open  ]],
 
 Cell[CellGroupData[{
 
@@ -172,8 +183,8 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"ce0c2ebb-f05d-4b6c-8df1-\
-8a7b2369fd97"],
+  "PrimaryExamplesSection",ExpressionUUID->"052b9ce7-2788-4411-9061-\
+e9bd8b4da79c"],
 
 Cell[CellGroupData[{
 
@@ -181,34 +192,34 @@ Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(7)", "ExampleCount",ExpressionUUID->
-  "e19e6660-7909-4891-b22f-ebc7df8f5bd9"]
-}], "ExampleSection",ExpressionUUID->"c166e4d7-8825-4228-9827-455d5eb68afc"],
+  "339f311e-2438-4a39-b216-11129e6cc45b"]
+}], "ExampleSection",ExpressionUUID->"87ebb174-e1c0-43ec-b42c-f52525106584"],
 
 Cell[CellGroupData[{
 
 Cell["$CacheTensorValues = True", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"9337f320-3108-434b-8934-f7a7d666f4f1"],
+ CellLabel->"In[1]:=",ExpressionUUID->"75dcd813-2cda-4d65-b74c-a0408d1d9f5d"],
 
 Cell[BoxData["True"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"dd35b38b-175c-4872-92f3-09ab5971fb8f"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"538eb1e6-3edb-44f1-b785-2e90e30d230c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["gK = ToMetric[\"Kerr\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"cbfb0194-f469-4ef3-9205-58dff23ba0c8"],
+ CellLabel->"In[1]:=",ExpressionUUID->"a90effeb-e091-4d0e-944c-939022a34442"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"35f8ed93-d21a-4425-b4f3-d1baa529cbd5"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"b8620c63-22db-4d9f-bdc5-45eda601fbd0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["TensorValues[gK]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"3f568322-233d-4a9a-87e6-d63c231ab14b"],
+ CellLabel->"In[1]:=",ExpressionUUID->"ebb4d8e0-f4ff-42d6-9bcb-092bf289ca1b"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -306,13 +317,13 @@ Cell[BoxData[
         SuperscriptBox[
          RowBox[{"Cos", "[", "\[Theta]", "]"}], "2"]}]}]]}], "}"}]}], 
   "}"}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"5b884330-2349-4607-b1af-bcff772adfa0"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"60aadbc3-302d-43ae-8fbe-d093ecb9f3f8"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["CachedTensorValues[gK]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"b5d76975-4cbd-4d06-a978-c86dd2d1a287"],
+ CellLabel->"In[1]:=",ExpressionUUID->"d4b0e437-113f-4e0f-9ba3-89c0e179ace0"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -418,35 +429,35 @@ Cell[BoxData[
           SuperscriptBox[
            RowBox[{"Cos", "[", "\[Theta]", "]"}], "2"]}]}]]}], "}"}]}], 
     "}"}]}], "}"}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"48e98604-7de6-412f-a108-5df0e779ffe6"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"9503c7b6-49cb-4911-84f9-ee3be4bb4024"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["ClearCachedTensorValues[gK]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"377cc324-859d-49bb-bab1-b712093501dd"],
+ CellLabel->"In[1]:=",ExpressionUUID->"91dd5d1d-2c15-474b-9a15-a83c2460890e"],
 
 Cell[BoxData["Null"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"de7a9958-30c5-4f3d-be7d-bfe067355665"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"d3920e0d-103b-4ddf-8173-ecda0b67ed84"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["CachedTensorValues[gK]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"3f738256-2dea-431e-94ba-8c2a5d531861"],
+ CellLabel->"In[1]:=",ExpressionUUID->"1a0d4d02-0a99-4c15-8a5e-92898e10250b"],
 
 Cell[BoxData[
  RowBox[{"{", "}"}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"c0f4be7a-ac08-4a9c-8f76-1cab72bddafd"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"f5fec6a3-8c9f-45c0-a300-8e61b72c8b0f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["$CacheTensorValues = False", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"c64d6ab8-ee0f-4e7e-a498-ba42b647b4e1"],
+ CellLabel->"In[1]:=",ExpressionUUID->"b757080c-8bb5-43b0-99b9-ed0c575556d1"],
 
 Cell[BoxData["False"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"86c7cc2d-c471-4203-a36f-099743a7a256"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"1daf9a7b-3d63-4f20-bf26-60a306b773b3"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -488,16 +499,38 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"280c598a-b2af-4d6e-8dae-6c3e15292927"],
+  0,ExpressionUUID->"bcc9104a-75f2-4964-9e58-582ae9e0d413"],
 
 Cell[TextData[{
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["TensorValues",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/TensorValues"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "9042b380-0a36-4671-9116-4df1f27c986d"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["RawTensorValues",
+    BaseStyle->"Link",
+    ButtonData->"paclet:Tensors/ref/RawTensorValues"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "e60da3e7-697d-4689-a313-248e2a69a894"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
  Cell[BoxData[
   StyleBox[
    ButtonBox["$CacheTensorValues",
     BaseStyle->"Link",
     ButtonData->"paclet:Tensors/ref/$CacheTensorValues"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "d22e1446-3fbb-4a12-875d-ef481a75efa7"],
+  "1e4b1048-262a-4970-8bfc-c8507401851e"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -508,15 +541,15 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:Tensors/ref/CachedTensorValues"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "af90f6f3-14f5-49e9-b7bc-1863fd673f64"]
-}], "SeeAlso",ExpressionUUID->"cffd234a-5a61-434b-a614-786963d954cb"]
+  "6494863f-b31d-462a-a07a-ae8af9c14ec4"]
+}], "SeeAlso",ExpressionUUID->"c87e7e5d-38dd-4845-8102-6b6ad8c8d727"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"49b5c3a1-4744-4109-b698-adeb66790897"],
+Cell[" ", "FooterCell",ExpressionUUID->"6bc323b1-94c6-4136-b240-d060f3002394"],
 
-Cell[BoxData[""],ExpressionUUID->"d5f3fe09-d526-47c0-a295-deab8f580f47"]
+Cell[BoxData[""],ExpressionUUID->"fae02135-f2d2-414e-8c6d-1a71d75cae4f"]
 }, Open  ]]
 },
 Saveable->False,

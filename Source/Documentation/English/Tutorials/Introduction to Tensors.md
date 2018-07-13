@@ -1,7 +1,7 @@
 {
  "Application" -> "Tensors",
  "Title" -> "Introduction to Tensors",
- "Related Tutorials" -> {"Introduction to Tensor Curves","Caching Tensor values","Manipulating and Differentiating Tensors"},
+ "Related Tutorials" -> {"Introduction to Tensor Curves","Caching Tensor values","Manipulating and Differentiating Tensors","Built in common Tensors"},
  "Keywords" -> {"Tensors"},
  "Label" -> "Tensors intro",
  "Package" -> "Introduction to Tensors",
