@@ -45,7 +45,8 @@ KretschmannScalar::usage="KretschmannScalar[m] returns the \
 Kretschmann scalar (Riemann tensor squared) associated with the metric m.";
 BianchiIdentities::usage="BianchiIdentities[m,n] returns the \
 n-th contracted Bianchi identities, where \
-n can be 0, 1, or 2. BianchiIdentities[m] is equivalent to BianchiIdentities[m,0].";
+n can be 0, 1, or 2. 
+BianchiIdentities[m] is equivalent to BianchiIdentities[m,0].";
 
 MaxwellPotential::usage="MaxwellPotential[builtIn] returns the four-vector A on a \
 built-in background index position \"Down\" . \
@@ -74,29 +75,29 @@ associated with the string builtIn. Choices are \"hab\", \"ha\", and \"ja\".";
 Begin["`Private`"];
 
 
-Options[RiemannTensor]=Options[MergeTensors];
-Options[RicciTensor]=Options[MergeTensors];
-Options[RicciScalar]=Options[MergeTensors];
-Options[EinsteinTensor]=Options[MergeTensors];
-Options[WeylTensor]=Options[MergeTensors];
-Options[CottonTensor]=Options[MergeTensors];
-Options[FieldStrengthTensor]=Options[MergeTensors];
-Options[MaxwellStressEnergyTensor]=Options[MergeTensors];
-Options[KretschmannScalar]=Options[MergeTensors];
-Options[BianchiIdentities]=Options[MergeTensors];
+Options[RiemannTensor]=Options[TraceReverse];
+Options[RicciTensor]=Options[TraceReverse];
+Options[RicciScalar]=Options[TraceReverse];
+Options[EinsteinTensor]=Options[TraceReverse];
+Options[WeylTensor]=Options[TraceReverse];
+Options[CottonTensor]=Options[TraceReverse];
+Options[FieldStrengthTensor]=Options[TraceReverse];
+Options[MaxwellStressEnergyTensor]=Options[TraceReverse];
+Options[KretschmannScalar]=Options[TraceReverse];
+Options[BianchiIdentities]=Options[TraceReverse];
 Options[KinnersleyNullTetrad]=Options[KinnersleyNullVector];
 Options[SpinCoefficient]={"Conjugate"->False,"Schwarzschild"->False};
 
-DocumentationBuilder`OptionDescriptions["RiemannTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
-DocumentationBuilder`OptionDescriptions["RicciTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
-DocumentationBuilder`OptionDescriptions["RicciScalar"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
-DocumentationBuilder`OptionDescriptions["EinsteinTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
-DocumentationBuilder`OptionDescriptions["WeylTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
-DocumentationBuilder`OptionDescriptions["CottonTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
-DocumentationBuilder`OptionDescriptions["FieldStrengthTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
-DocumentationBuilder`OptionDescriptions["MaxwellStressEnergyTensor"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
-DocumentationBuilder`OptionDescriptions["KretschmannScalar"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
-DocumentationBuilder`OptionDescriptions["BianchiIdentities"] = DocumentationBuilder`OptionDescriptions["MergeTensors"];
+DocumentationBuilder`OptionDescriptions["RiemannTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
+DocumentationBuilder`OptionDescriptions["RicciTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
+DocumentationBuilder`OptionDescriptions["RicciScalar"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
+DocumentationBuilder`OptionDescriptions["EinsteinTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
+DocumentationBuilder`OptionDescriptions["WeylTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
+DocumentationBuilder`OptionDescriptions["CottonTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
+DocumentationBuilder`OptionDescriptions["FieldStrengthTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
+DocumentationBuilder`OptionDescriptions["MaxwellStressEnergyTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
+DocumentationBuilder`OptionDescriptions["KretschmannScalar"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
+DocumentationBuilder`OptionDescriptions["BianchiIdentities"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
 DocumentationBuilder`OptionDescriptions["SpinCoefficient"] ={"Conjugate"->"Boolean stating whether to return the complex \
 conjugate of the spin coefficient",
 "Schwarzschild"->"Boolean stating whether to return the spin coefficient for Schwarzschild spacetime (as opposed to Kerr)"};
