@@ -581,6 +581,12 @@ Module[{terms,indicesList,tfList,sumQ,exprExpand},
 PossibleIndices[expr_]:=PossibleIndices[Metric[expr]]
 
 
+Coordinates[expr_]:=Coordinates[Metric[expr]]
+
+
+IndexPositions[expr_]:=IndexPositions[Metric[expr]]
+
+
 Clear[ValidTensorExpressionQ]
 ValidTensorExpressionQ[expr_]:=ValidateTensorExpression[expr,True]
 
