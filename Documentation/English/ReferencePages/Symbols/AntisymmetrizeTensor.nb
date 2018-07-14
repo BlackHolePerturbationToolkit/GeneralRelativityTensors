@@ -1,26 +1,29 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"2c4fe0e7-d7b6-470d-91e1-e55ef5e369b7"],
+   0}},ExpressionUUID->"7f9057cb-daf1-4112-ace8-b94f84a70a87"],
 
 Cell[TextData[{
- ButtonBox["Tensors",
+ ButtonBox["GeneralRelativityTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["Tensors`TensorManipulation",
+ ButtonBox["GeneralRelativityTensors`TensorManipulation",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors`TensorManipulation"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors`\
+TensorManipulation"],
  StyleBox[" > ", "LinkTrailSeparator"],
  ButtonBox["AntisymmetrizeTensor",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/ref/AntisymmetrizeTensor"]
-}], "LinkTrail",ExpressionUUID->"1338dbcf-d3d4-472e-850b-0e8bfc0ab1a4"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/AntisymmetrizeTensor"]
+}], "LinkTrail",ExpressionUUID->"78110c0c-652b-435e-b835-7b8e6c481274"],
 
 Cell[CellGroupData[{
 
 Cell["AntisymmetrizeTensor", \
-"ObjectName",ExpressionUUID->"e898c0ce-8c3b-4a50-9c8b-8d1acc5343b7"],
+"ObjectName",ExpressionUUID->"09f95454-a92f-42c1-a9a2-f616b21a8bfe"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -28,32 +31,34 @@ Cell[BoxData[GridBox[{
       RowBox[{
        ButtonBox["AntisymmetrizeTensor",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/AntisymmetrizeTensor"], "[", 
+        ButtonData->
+         "paclet:GeneralRelativityTensors/ref/AntisymmetrizeTensor"], "[", 
        StyleBox[
         RowBox[{"t", ",", 
          RowBox[{"{", 
           RowBox[{"pos1", ",", "pos2"}], "}"}], ",", "n"}], "TI"], "]"}]], 
-      "InlineFormula",ExpressionUUID->"93f192ff-58f6-4513-b383-279d1fe368f4"],
+      "InlineFormula",ExpressionUUID->"f0342ae7-4637-4ebe-bf11-01e8486ee35d"],
      
      "\[LineSeparator]returns the Tensor t, antisymmetrized on its indices in \
 positions pos1,pos2."
-    }],ExpressionUUID->"4b39da9f-87ce-460a-ac3e-aa5ccb0893cc"]},
+    }],ExpressionUUID->"431405f1-b4bd-4a09-861a-fd2a043317a3"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
        ButtonBox["AntisymmetrizeTensor",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/AntisymmetrizeTensor"], "[", 
+        ButtonData->
+         "paclet:GeneralRelativityTensors/ref/AntisymmetrizeTensor"], "[", 
        StyleBox[
         RowBox[{"t", ",", 
          RowBox[{"{", 
           RowBox[{"pos1", ",", "pos2"}], "}"}]}], "TI"], "]"}]], 
-      "InlineFormula",ExpressionUUID->"4fce8f73-aca0-40a2-ae91-9eb53673a4c3"],
+      "InlineFormula",ExpressionUUID->"b81b1524-6307-4014-beec-041b8b457c5d"],
      
      "\[LineSeparator]is equivalent, but with an automatically generated name \
 for the new Tensor."
-    }],ExpressionUUID->"9032db7d-7c7b-4dfe-a307-b8c3aab7af87"]}
-  }]], "Usage",ExpressionUUID->"2f9c25ae-a400-4af7-9b67-769ff0ee3c77"]
+    }],ExpressionUUID->"002b7b68-2ef3-443a-a886-cb5eca35b1d4"]}
+  }]], "Usage",ExpressionUUID->"99d7e7b9-7d42-420c-ba79-52b22f501991"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -99,23 +104,23 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"b45e442e-d387-4b3c-a335-a9efc4d30676"],
+  0,ExpressionUUID->"6e8b3044-8824-4d45-8e14-76355a1e63e0"],
 
 Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"203e1fcb-e2c1-40e1-a45e-a7781cbe623c"],
+"Notes",ExpressionUUID->"0d808054-217c-46a4-be69-b211f6b85b5a"],
 
 Cell[BoxData[GridBox[{
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "6422e688-ded3-4cc9-8f2e-31634231d5ea"], "ActWith", "Identity", 
+     "8bae6b00-6f11-47f6-b7ef-8c7c46e24e27"], "ActWith", "Identity", 
     Cell["\<\
 Function that is applied to the elements of the tensor as they are calculated.\
-\>", "TableText",ExpressionUUID->"1c070160-6220-438d-97c0-a5e1bdde8d24"]},
+\>", "TableText",ExpressionUUID->"31d2a988-f77c-4f2e-9a5e-af0e8ec66c3f"]},
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "6793b592-198c-42fd-af6f-521707df2e0f"], "ActWithNested", "Identity", 
+     "936d08aa-67cc-493d-b7a1-bda763588c6a"], "ActWithNested", "Identity", 
     Cell["\<\
 Function that is applied to the elements of the tensor and also passed to any \
 other functions called internally.\
-\>", "TableText",ExpressionUUID->"505b6d25-8db4-4562-950f-bf65b520550e"]}
+\>", "TableText",ExpressionUUID->"9ff6bae3-861e-4274-82ec-a1da11690f1d"]}
   },
   GridBoxAlignment->{
    "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
@@ -127,14 +132,14 @@ other functions called internally.\
  GridBoxDividers->{
   "Rows" -> {{
      True, True, 
-      True}}}},ExpressionUUID->"6335414a-1f32-4390-ab7d-6743c462cb78"]
+      True}}}},ExpressionUUID->"8c37ba8d-4d81-47f6-ae49-248aac1937fd"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"589fd9f7-b336-4aae-b8bc-ed5abd451d3a"],
+Cell[" ", "FooterCell",ExpressionUUID->"fef58235-56aa-4b97-9773-b91c11aa4d1a"],
 
-Cell[BoxData[""],ExpressionUUID->"0e1d934a-8370-4fef-ada3-3835a49dbef8"]
+Cell[BoxData[""],ExpressionUUID->"f6c85e6a-74fc-4c4e-b493-e67697452dd1"]
 }, Open  ]]
 },
 Saveable->False,
@@ -147,12 +152,14 @@ PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
-   "context" -> "Tensors`", 
+   "context" -> "GeneralRelativityTensors`", 
     "keywords" -> {
      "AntisymmetrizeTensor", "ANTISYMMETRIZETENSOR", "antisymmetrizetensor"}, 
-    "index" -> True, "label" -> "Tensors/Tensors`TensorManipulation Symbol", 
-    "language" -> "en", "paclet" -> "Tensors`TensorManipulation", "status" -> 
-    "None", "summary" -> 
+    "index" -> True, "label" -> 
+    "GeneralRelativityTensors/GeneralRelativityTensors`TensorManipulation \
+Symbol", "language" -> "en", "paclet" -> 
+    "GeneralRelativityTensors`TensorManipulation", "status" -> "None", 
+    "summary" -> 
     "AntisymmetrizeTensor[t,{pos1,pos2},n] returns the Tensor t, \
 antisymmetrized on its indices in positions pos1,pos2.\n\
 AntisymmetrizeTensor[t,{pos1,pos2}] is equivalent, but with an automatically \
@@ -161,8 +168,9 @@ generated name for the new Tensor.",
      "AntisymmetrizeTensor", "ANTISYMMETRIZETENSOR", "antisymmetrizetensor"}, 
     "title" -> "AntisymmetrizeTensor", "windowTitle" -> 
     "AntisymmetrizeTensor", "type" -> "Symbol", "uri" -> 
-    "Tensors/ref/AntisymmetrizeTensor", "WorkflowDockedCell" -> ""}, 
-  "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> False},
+    "GeneralRelativityTensors/ref/AntisymmetrizeTensor", "WorkflowDockedCell" -> 
+    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
+  False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

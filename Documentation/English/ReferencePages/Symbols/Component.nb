@@ -1,44 +1,49 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"72dd5765-3924-434d-bc42-6e45aff78b84"],
+   0}},ExpressionUUID->"0549411b-51f6-410a-9319-6b55d1f6ec8f"],
 
 Cell[TextData[{
- ButtonBox["Tensors",
+ ButtonBox["GeneralRelativityTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["Tensors`TensorManipulation",
+ ButtonBox["GeneralRelativityTensors`TensorManipulation",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors`TensorManipulation"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors`\
+TensorManipulation"],
  StyleBox[" > ", "LinkTrailSeparator"],
  ButtonBox["Component",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/ref/Component"]
-}], "LinkTrail",ExpressionUUID->"b2dd5834-5a88-413a-bedd-abb5e80926d1"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/Component"]
+}], "LinkTrail",ExpressionUUID->"54fd6403-cb65-4383-99d3-b678d5c60ab9"],
 
 Cell[BoxData[GridBox[{
-   {Cell["TENSORS`TENSORMANIPULATION PACLET SYMBOL", "PacletNameCell",
-     ExpressionUUID->"2a65ab54-4e57-4268-ac02-6ba4e262706e"], Cell[TextData[{
+   {Cell["GENERALRELATIVITYTENSORS`TENSORMANIPULATION PACLET SYMBOL", 
+     "PacletNameCell",ExpressionUUID->"3303a476-2851-4566-8bf3-5e840c204471"],
+     Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
         StripOnInput->False], {"ShiftIndices":>Documentation`HelpLookup[
-       "paclet:Tensors/ref/ShiftIndices"], "TensorValues":>
-       Documentation`HelpLookup["paclet:Tensors/ref/TensorValues"]},
+       "paclet:GeneralRelativityTensors/ref/ShiftIndices"], "TensorValues":>
+       Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/TensorValues"]},
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "e42e9d6b-4071-43f1-8aba-212bc8edbcf6"],
+      "e8c9115f-e2ad-4fb3-9090-65e70074d700"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"b6a17caf-7ff1-43b2-9429-cbc6e4c35113"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"81187ad1-50e9-4b9d-a5cd-3e65ed41a131"],
+    }], "AnchorBar",ExpressionUUID->"2786e7cb-6a32-4acc-81e0-6bb83fd32502"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"4aaeedeb-d60e-41bb-b85b-1c6dc9931ea9"],
 
 Cell[CellGroupData[{
 
 Cell["Component", \
-"ObjectName",ExpressionUUID->"be92f367-8087-49b0-8db5-499e201684bf"],
+"ObjectName",ExpressionUUID->"77ad24b3-245e-4bac-b89b-063009c4ecc1"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -46,15 +51,15 @@ Cell[BoxData[GridBox[{
       RowBox[{
        ButtonBox["Component",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/Component"], "[", 
+        ButtonData->"paclet:GeneralRelativityTensors/ref/Component"], "[", 
        StyleBox[
         RowBox[{"t", ",", "inds"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"3c590dff-f46c-4a09-b191-b2bb86b6c1c9"],
+      ExpressionUUID->"6a0764c8-6c8e-48fa-8282-f5404225867b"],
      "\[LineSeparator]returns the component of Tensor t with (appropriately \
 covariant and contravariant) List of indices inds. All elements of inds must \
 be Coordinates of t."
-    }],ExpressionUUID->"fa92f8ee-7c50-4034-bae0-d14a82bf1b9e"]}
-  }]], "Usage",ExpressionUUID->"b264ac52-7c41-4956-ac46-7ac162ab1b3a"]
+    }],ExpressionUUID->"12877a7e-5e4f-42ae-9601-d41e982b20d8"]}
+  }]], "Usage",ExpressionUUID->"bab57eb0-9a9d-48e1-8ca1-712e6d18e8cf"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -100,31 +105,31 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"8ca05183-c46f-42bf-ad20-a6206498ff2a"],
+  0,ExpressionUUID->"a0d9d534-dc31-4376-9cab-031fd007a39a"],
 
 Cell["\<\
 DownValues of Tensors call Component if the values are from the list of \
 Coordinates.\
-\>", "Notes",ExpressionUUID->"87b9c4e1-822c-4936-a87f-e749be2cffff"],
+\>", "Notes",ExpressionUUID->"e0f706ed-3669-4237-8ee4-0b537c329bac"],
 
 Cell["\<\
 It is usually easier to raise and lower indices with DownValues.\
-\>", "Notes",ExpressionUUID->"25fb05b9-baf9-49fc-85ff-29f8e3a5566e"],
+\>", "Notes",ExpressionUUID->"ae33c2fe-fe53-4ff4-84c1-bc2b7b62c261"],
 
 Cell["\<\
 In order to act with a function on the values using the Option ActWith, call \
 Component explicitly, not with DownValues.\
-\>", "Notes",ExpressionUUID->"d54047b6-6a8c-482f-8c1f-22d873a8e78d"],
+\>", "Notes",ExpressionUUID->"50849eb2-d604-4673-bada-5f4fbbe17a13"],
 
 Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"e789a991-17ec-43b5-af65-06c6ca92746f"],
+"Notes",ExpressionUUID->"ed5195ae-3fd6-414d-9aca-46adda29eb85"],
 
 Cell[BoxData[GridBox[{
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "4bd95a2a-22bb-4ec7-9b7f-2867f08fdf46"], "ActWith", "Identity", 
+     "50f8e0cf-8af6-4b7d-92bc-b48a249c7a3e"], "ActWith", "Identity", 
     Cell["\<\
 Function that is applied to the elements of the tensor as they are calculated.\
-\>", "TableText",ExpressionUUID->"9d8691eb-2ddc-4329-88ae-68e8f28c0dc6"]}
+\>", "TableText",ExpressionUUID->"6c48d25b-712d-4eb9-911d-7c63d6f0ec38"]}
   },
   GridBoxAlignment->{
    "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
@@ -135,7 +140,7 @@ Function that is applied to the elements of the tensor as they are calculated.\
    "RowsIndexed" -> {}},
  GridBoxDividers->{
   "Rows" -> {{
-     True, True}}}},ExpressionUUID->"11803e7d-ac35-4822-a1a6-5b8c70a7d67d"]
+     True, True}}}},ExpressionUUID->"d76524e0-2c5a-4ce3-b18c-8ce36e20289c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -177,8 +182,8 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"c04131af-05dc-4d05-86e3-\
-f35230c82e12"],
+  "PrimaryExamplesSection",ExpressionUUID->"b0c7aa65-1fad-4da0-aab0-\
+385748772b7c"],
 
 Cell[CellGroupData[{
 
@@ -186,25 +191,25 @@ Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(6)", "ExampleCount",ExpressionUUID->
-  "ec1cdc8b-ed49-4ce6-a724-585fea3a1266"]
-}], "ExampleSection",ExpressionUUID->"0dd4228f-e84f-4ebe-9c0d-95ab23096c62"],
+  "0089271a-628e-4cc6-99e0-76eff51eba47"]
+}], "ExampleSection",ExpressionUUID->"7a33ab00-0b44-4e4b-ad1a-7243a5e2dfb2"],
 
 Cell[CellGroupData[{
 
 Cell["gK = ToMetric[\"Kerr\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"459a56b1-f493-491c-aebe-d3aed0be82d1"],
+ CellLabel->"In[1]:=",ExpressionUUID->"12e24320-6075-4491-ae33-cb3f0ef8a79a"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"44985b43-c0b2-4645-9bf2-ac2fe863ee2d"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"75ff197d-3def-4343-af75-be0e9b2047ab"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Component[gK, {t, t}]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"b08391de-7c0c-4c78-b67f-a0fca8e971d3"],
+ CellLabel->"In[1]:=",ExpressionUUID->"11230cd1-a3e0-4922-b1d6-0f3dea736d6c"],
 
 Cell[BoxData[
  RowBox[{
@@ -468,13 +473,13 @@ Cell[BoxData[
          RowBox[{"Cos", "[", 
           RowBox[{"2", " ", "\[Theta]"}], "]"}]}]}], ")"}], "2"]}], 
     ")"}]}]}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"dc518eaf-ea99-42b8-8b00-ab77a23e5496"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"09a6bf33-be6a-4980-8229-8007504fb58d"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["gK[t, t]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"1079bea6-02dd-4dd2-a005-37d4e31374fb"],
+ CellLabel->"In[1]:=",ExpressionUUID->"44f0e596-5b93-43ce-8a14-0b97704b8727"],
 
 Cell[BoxData[
  RowBox[{
@@ -738,7 +743,7 @@ Cell[BoxData[
          RowBox[{"Cos", "[", 
           RowBox[{"2", " ", "\[Theta]"}], "]"}]}]}], ")"}], "2"]}], 
     ")"}]}]}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"0d75b80c-adda-44d6-8802-6d509721f21b"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"c9e05e09-947d-4b5c-874f-c4e104622240"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -746,16 +751,16 @@ Cell[CellGroupData[{
 Cell["\<\
 (* By default the values computed by Component are not simplified. *)\
 \>", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"8b4e98bd-1b8d-409f-a39f-5b867a263523"],
+ CellLabel->"In[1]:=",ExpressionUUID->"a3d28c61-5b5c-47b0-8b91-05d1d852d802"],
 
 Cell[BoxData["Null"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"3f8711db-51a3-4a43-894d-f3735cebf343"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"771e785c-50c6-4eb4-9178-046eb32fe081"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["gK[t, -t]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"266eaae1-44f3-476c-9dfd-cbc241e1d559"],
+ CellLabel->"In[1]:=",ExpressionUUID->"f9a21fc2-7eb9-479b-935d-89707428bfc2"],
 
 Cell[BoxData[
  RowBox[{
@@ -843,16 +848,16 @@ Cell[BoxData[
         RowBox[{"Cos", "[", 
          RowBox[{"2", " ", "\[Theta]"}], "]"}]}]}], ")"}], 
      "2"]}]]}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"004a1358-ca4b-4f13-925a-d8b5b2633e04"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"ba627efc-9c9c-4c5a-852c-1b03e3637ab7"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Component[gK, {t, -t}, \"ActWith\" -> Simplify]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"b7eec4f4-96f3-4759-afae-2ea45ae78cf7"],
+ CellLabel->"In[1]:=",ExpressionUUID->"5fca0ba7-f700-46fb-b945-38a635e160f4"],
 
 Cell[BoxData["1"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"adf1a53d-24f3-46de-a0ae-9a5e41e4fdb0"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"50ed5d25-9051-4710-affd-a62361833fc2"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -894,16 +899,16 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"cae6e56e-5a3f-4bbf-8d5c-ae4d9a8f102b"],
+  0,ExpressionUUID->"9d668f00-c013-4e14-a714-b576ef132d0e"],
 
 Cell[TextData[{
  Cell[BoxData[
   StyleBox[
    ButtonBox["ShiftIndices",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/ShiftIndices"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/ShiftIndices"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "5c78df8b-4ba9-45eb-a73c-04a9f851c237"],
+  "7811ba3c-3edb-4789-9be2-14e46fc3edc5"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -912,17 +917,17 @@ Cell[TextData[{
   StyleBox[
    ButtonBox["TensorValues",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/TensorValues"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/TensorValues"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "030bfdf8-0a8f-40c3-9719-f71bc70cf411"]
-}], "SeeAlso",ExpressionUUID->"87e6935e-2961-48c1-86f2-f701a93bc4fa"]
+  "d52981ea-2af2-4dcc-a4bc-eeade4b22dc9"]
+}], "SeeAlso",ExpressionUUID->"9a794a1c-7608-4ebb-bf4b-daf892c661e6"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"8c54b21a-ec33-42c8-9960-7e618ed6a1cd"],
+Cell[" ", "FooterCell",ExpressionUUID->"8a3fedcf-8fa2-4e90-9dca-3fbb3da88441"],
 
-Cell[BoxData[""],ExpressionUUID->"de317d26-169a-4688-b50e-e545a83e6a02"]
+Cell[BoxData[""],ExpressionUUID->"7f04f8ec-f0d9-491d-b947-092de2f635e2"]
 }, Open  ]]
 },
 Saveable->False,
@@ -935,17 +940,20 @@ PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
-   "context" -> "Tensors`", 
+   "context" -> "GeneralRelativityTensors`", 
     "keywords" -> {"Component", "COMPONENT", "component"}, "index" -> True, 
-    "label" -> "Tensors/Tensors`TensorManipulation Symbol", "language" -> 
-    "en", "paclet" -> "Tensors`TensorManipulation", "status" -> "None", 
+    "label" -> 
+    "GeneralRelativityTensors/GeneralRelativityTensors`TensorManipulation \
+Symbol", "language" -> "en", "paclet" -> 
+    "GeneralRelativityTensors`TensorManipulation", "status" -> "None", 
     "summary" -> 
     "Component[t,inds] returns the component of Tensor t with (appropriately \
 covariant and contravariant) List of indices inds. All elements of inds must \
 be Coordinates of t.", "synonyms" -> {"Component", "COMPONENT", "component"}, 
     "title" -> "Component", "windowTitle" -> "Component", "type" -> "Symbol", 
-    "uri" -> "Tensors/ref/Component", "WorkflowDockedCell" -> ""}, 
-  "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> False},
+    "uri" -> "GeneralRelativityTensors/ref/Component", "WorkflowDockedCell" -> 
+    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
+  False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

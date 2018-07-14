@@ -1,8 +1,14 @@
 {
- "Application" -> "Tensors",
+ "Application" -> "GeneralRelativityTensors",
  "Title" -> "Introduction to Tensor Curves",
- "Related Tutorials" -> {"Introduction to Tensors","Caching Tensor values","Built in common Tensors","Manipulating and Differentiating Tensors"},
- "Keywords" -> {"Tensors", "Curves"},
+ "Related Tutorials" -> {
+   "Introduction to GeneralRelativityTensors",
+   "Manipulating and differentiating Tensors",
+   "Built in common Tensors",
+   "Caching Tensor values",
+   "Examples - Wave equations"
+ },
+ "Keywords" -> {"Tensors", "Curves","GeneralRelativityTensors"},
  "Label" -> "Tensors curves intro",
  "Package" -> "Introduction to Tensor Curves",
  "Summary" -> "Forming Tensor Curves and performing common actions.",

@@ -1,10 +1,16 @@
 {
- "Application" -> "Tensors",
+ "Application" -> "GeneralRelativityTensors",
  "Title" -> "Manipulating and Differentiating Tensors",
- "Related Tutorials" -> {"Introduction to Tensors","Introduction to Tensor Curves","Caching Tensor values","Built in common Tensors"},
- "Keywords" -> {"Tensors"},
+ "Related Tutorials" -> {
+   "Introduction to GeneralRelativityTensors",
+   "Introduction to Tensor Curves",
+   "Built in common Tensors",
+   "Caching Tensor values",
+   "Examples - Wave equations"
+ },
+ "Keywords" -> {"Tensors","GeneralRelativityTensors"},
  "Label" -> "Manipulating intro",
  "Package" -> "Manipulating and Differentiating Tensors",
- "Summary" -> "Introduction to taking derivatives of tensors and performing general manipulation.",
+ "Summary" -> "Introduction to taking derivatives of Tensors and performing general manipulation.",
  "Synonyms" -> {}
  }

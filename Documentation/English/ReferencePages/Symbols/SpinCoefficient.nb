@@ -1,26 +1,52 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"86f6010d-4e19-4f66-a5b0-7273599ecd6c"],
+   0}},ExpressionUUID->"11f02d4d-fa6e-461a-b781-0d13bc4ee7cd"],
 
 Cell[TextData[{
- ButtonBox["Tensors",
+ ButtonBox["GeneralRelativityTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["Tensors`CommonTensors",
+ ButtonBox["GeneralRelativityTensors`CommonTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors`CommonTensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors`\
+CommonTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
  ButtonBox["SpinCoefficient",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/ref/SpinCoefficient"]
-}], "LinkTrail",ExpressionUUID->"5e20cba8-3174-49cb-891d-319e762ca528"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/SpinCoefficient"]
+}], "LinkTrail",ExpressionUUID->"6c15cedf-36e2-43e1-a557-4db22fe3bce7"],
+
+Cell[BoxData[GridBox[{
+   {Cell["GENERALRELATIVITYTENSORS`COMMONTENSORS PACLET SYMBOL", 
+     "PacletNameCell",ExpressionUUID->"fe33361f-663c-4456-aaa3-41947b3590bb"],
+     Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"See Also \[RightGuillemet]\"\>",
+        StripOnInput->False], {"KinnersleyNullVector":>
+       Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/KinnersleyNullVector"], 
+       "KinnersleyNullTetrad":>Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/KinnersleyNullTetrad"], 
+       "KinnersleyDerivative":>Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/KinnersleyDerivative"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "c883c554-3425-498a-9561-bfd51afb49dd"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]"
+    }], "AnchorBar",ExpressionUUID->"c05e3728-6ab8-46ef-89cc-f334e0588f03"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"4d83c3d8-a8f4-4496-a4ea-e8f330393a02"],
 
 Cell[CellGroupData[{
 
 Cell["SpinCoefficient", \
-"ObjectName",ExpressionUUID->"82f444a2-0be0-45be-ab9b-a2eb9f61ef52"],
+"ObjectName",ExpressionUUID->"a5c5d388-1162-46bc-abeb-037eb57ffaf8"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -28,15 +54,44 @@ Cell[BoxData[GridBox[{
       RowBox[{
        ButtonBox["SpinCoefficient",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/SpinCoefficient"], "[", 
-       StyleBox["s", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "f1a9a089-0ac1-4ace-b9af-de0961e078cd"],
+        ButtonData->"paclet:GeneralRelativityTensors/ref/SpinCoefficient"], 
+       "[", 
+       StyleBox[
+        RowBox[{"m", ",", "s", ",", "conj"}], "TI"], "]"}]], "InlineFormula",
+      ExpressionUUID->"fa19591a-9f58-4e79-aada-8386c17e455f"],
      "\[LineSeparator]returns the Newman-Penrose spin coefficient \
-corresponding to the string s, where possible values of s are \
-\"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\"mu\",\"nu\",\"\
-pi\",\"rho\",\"sigma\", and \"tau\"."
-    }],ExpressionUUID->"3aa42e49-26ad-4d99-9a67-ab3900793bcf"]}
-  }]], "Usage",ExpressionUUID->"2d3b4b68-fcf8-4310-9149-fe611d89d526"]
+corresponding to the string s (such as \"alpha\") on the metric m. The \
+boolean conj can be set True to return the complex conjugate of the \
+coefficient."
+    }],ExpressionUUID->"99217b64-feb8-43c6-a663-70530d7aba6b"]},
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["SpinCoefficient",
+        BaseStyle->"Link",
+        ButtonData->"paclet:GeneralRelativityTensors/ref/SpinCoefficient"], 
+       "[", 
+       StyleBox[
+        RowBox[{"m", ",", "s"}], "TI"], "]"}]], "InlineFormula",
+      ExpressionUUID->"29f9ca9a-a516-4328-b980-13eb1a558bac"],
+     "\[LineSeparator]is equivalent to SpinCoefficient[m,s,False],"
+    }],ExpressionUUID->"19ea3dcf-2531-4a33-bf0d-cafa69372f98"]},
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["SpinCoefficient",
+        BaseStyle->"Link",
+        ButtonData->"paclet:GeneralRelativityTensors/ref/SpinCoefficient"], 
+       "[", 
+       StyleBox[
+        RowBox[{"builtIn", ",", "s", ",", "conj"}], "TI"], "]"}]], 
+      "InlineFormula",ExpressionUUID->"62e6c5b8-6b95-4659-8ac2-446440d7efee"],
+     
+     "\[LineSeparator]is equivalent to \
+SpinCoefficient[ToMetric[builtIn],s,conj], where builtIn can be \
+\"Schwarzschild\" or \"Kerr\"."
+    }],ExpressionUUID->"2ca9171e-5ec4-46dc-a0c9-2a9bb5027154"]}
+  }]], "Usage",ExpressionUUID->"19800453-21f7-4fff-a861-2c277d15ff4b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -82,42 +137,207 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"6b917ef1-072b-46aa-809f-a121d3f9a436"],
+  0,ExpressionUUID->"454f0f83-4c13-42bb-9991-290cd39f3ad9"],
 
-Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"b8ff0c99-f554-452d-991f-c43dde0e9ad0"],
+Cell["\<\
+These definitions follow Teukolsky, Astrophysical Journal, Vol. 185, pp. \
+635-648 (1973).\
+\>", "Notes",ExpressionUUID->"8960c358-bfe3-4847-a8e9-610ae1cc32a1"],
 
-Cell[BoxData[GridBox[{
-   {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "3b85a5d2-5ac5-45c2-9858-d17490df0312"], "Conjugate", "False", Cell["\<\
-Boolean stating whether to return the complex conjugate of the spin \
-coefficient\
-\>", "TableText",ExpressionUUID->"8200e5ad-745b-4f90-9202-2f5480a02e5c"]},
-   {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "779ac8e3-4435-4e37-971e-8c28e3179d07"], "Schwarzschild", "False", 
-    Cell["\<\
-Boolean stating whether to return the spin coefficient for Schwarzschild \
-spacetime (as opposed to Kerr)\
-\>", "TableText",ExpressionUUID->"fab40174-c44e-4e00-ba95-4a0a19974aa3"]}
-  },
-  GridBoxAlignment->{
-   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
-    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
- GridBoxOptions->{
- GridBoxBackground->{
-  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {None, {None}}, 
-   "RowsIndexed" -> {}},
- GridBoxDividers->{
-  "Rows" -> {{
-     True, True, 
-      True}}}},ExpressionUUID->"3f4d948d-1d92-41f5-8edb-2ad71839539a"]
+Cell["\<\
+Possible values of s are \"alpha\", \"beta\", \"gamma\", \"epsilon\", \"kappa\
+\", \"lambda\", \"mu\", \"nu\", \"pi\", \"rho\", \"sigma\", and \"tau\".\
+\>", "Notes",ExpressionUUID->"ee22f007-8521-4aaf-a461-f338e0598aaa"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"55176b46-a047-4a26-941b-d54dbbb357e6"],
+Cell["", "PrimaryExamplesSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "EXAMPLES", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Examples"}], 
+        "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0,
+ CellTags->
+  "PrimaryExamplesSection",ExpressionUUID->"662309a1-a7eb-4259-995f-\
+45ef353befc8"],
 
-Cell[BoxData[""],ExpressionUUID->"48a5d5a6-5dc9-4a54-a64d-876614e645ef"]
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(2)", "ExampleCount",ExpressionUUID->
+  "e869d8f4-896b-4341-8949-ab52854e869b"]
+}], "ExampleSection",ExpressionUUID->"98e98632-0475-475d-aa47-bc05881b212c"],
+
+Cell[CellGroupData[{
+
+Cell["SpinCoefficient[\"Kerr\", \"alpha\"]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"feac63b0-f450-4a79-b7fc-41399a0c065f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"-", 
+   FractionBox[
+    RowBox[{"Cot", "[", "\[Theta]", "]"}], 
+    RowBox[{
+     SqrtBox["2"], " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"2", " ", "r"}], "-", 
+       RowBox[{"2", " ", "\[ImaginaryI]", " ", "a", " ", 
+        RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}]}]]}], "+", 
+  FractionBox[
+   RowBox[{"\[ImaginaryI]", " ", "a", " ", 
+    RowBox[{"Sin", "[", "\[Theta]", "]"}]}], 
+   RowBox[{
+    SqrtBox["2"], " ", 
+    SuperscriptBox[
+     RowBox[{"(", 
+      RowBox[{"r", "-", 
+       RowBox[{"\[ImaginaryI]", " ", "a", " ", 
+        RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}], "2"]}]]}]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"62236004-8530-4d35-b1d6-cf365ed14fc5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["SpinCoefficient[\"Kerr\", \"alpha\", True]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"5620b193-a67b-4de4-b3db-2f3825e26e60"],
+
+Cell[BoxData[
+ FractionBox[
+  RowBox[{
+   RowBox[{
+    RowBox[{"-", "2"}], " ", "r", " ", 
+    RowBox[{"Cot", "[", "\[Theta]", "]"}]}], "+", 
+   RowBox[{"\[ImaginaryI]", " ", "a", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"-", "3"}], "+", 
+      RowBox[{"Cos", "[", 
+       RowBox[{"2", " ", "\[Theta]"}], "]"}]}], ")"}], " ", 
+    RowBox[{"Csc", "[", "\[Theta]", "]"}]}]}], 
+  RowBox[{"4", " ", 
+   SqrtBox["2"], " ", 
+   SuperscriptBox[
+    RowBox[{"(", 
+     RowBox[{"r", "+", 
+      RowBox[{"\[ImaginaryI]", " ", "a", " ", 
+       RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}], "2"]}]]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"3d3d9b70-005c-4155-bc94-e71b3c897f89"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SeeAlsoSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "SEE ALSO", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "SeeAlsoSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "See Also"}], "SeeAlsoSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"b9977694-6a1c-414d-be2b-7e1c6660e307"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["KinnersleyNullVector",
+    BaseStyle->"Link",
+    ButtonData->"paclet:GeneralRelativityTensors/ref/KinnersleyNullVector"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "5f4415c9-9a87-4bff-b30e-2e8ded243f62"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["KinnersleyNullTetrad",
+    BaseStyle->"Link",
+    ButtonData->"paclet:GeneralRelativityTensors/ref/KinnersleyNullTetrad"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "6718dd3f-fcd2-41e9-b2f2-f3e906cf36d2"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["KinnersleyDerivative",
+    BaseStyle->"Link",
+    ButtonData->"paclet:GeneralRelativityTensors/ref/KinnersleyDerivative"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "bcf49cc3-cfdb-4f43-9100-be5e5e48bd81"]
+}], "SeeAlso",ExpressionUUID->"bc4b6ae7-f7d0-4276-a4ad-a24767084a54"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"98f560cd-77d1-4147-ace6-c965d0b9430c"],
+
+Cell[BoxData[""],ExpressionUUID->"2377e0f4-c4f6-429c-b42e-f2d5504150fd"]
 }, Open  ]]
 },
 Saveable->False,
@@ -130,20 +350,24 @@ PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
-   "context" -> "Tensors`", 
+   "context" -> "GeneralRelativityTensors`", 
     "keywords" -> {"SpinCoefficient", "SPINCOEFFICIENT", "spincoefficient"}, 
-    "index" -> True, "label" -> "Tensors/Tensors`CommonTensors Symbol", 
-    "language" -> "en", "paclet" -> "Tensors`CommonTensors", "status" -> 
-    "None", "summary" -> 
-    "SpinCoefficient[s] returns the Newman-Penrose spin coefficient \
-corresponding to the string s, where possible values of s are \
-\"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\"mu\",\"nu\",\"\
-pi\",\"rho\",\"sigma\", and \"tau\".", 
+    "index" -> True, "label" -> 
+    "GeneralRelativityTensors/GeneralRelativityTensors`CommonTensors Symbol", 
+    "language" -> "en", "paclet" -> "GeneralRelativityTensors`CommonTensors", 
+    "status" -> "None", "summary" -> 
+    "SpinCoefficient[m,s,conj] returns the Newman-Penrose spin coefficient \
+corresponding to the string s (such as \"alpha\") on the metric m. The \
+boolean conj can be set True to return the complex conjugate of the \
+coefficient.\nSpinCoefficient[m,s] is equivalent to \
+SpinCoefficient[m,s,False],\nSpinCoefficient[builtIn,s,conj] is equivalent to \
+SpinCoefficient[ToMetric[builtIn],s,conj], where builtIn can be \
+\"Schwarzschild\" or \"Kerr\".", 
     "synonyms" -> {"SpinCoefficient", "SPINCOEFFICIENT", "spincoefficient"}, 
     "title" -> "SpinCoefficient", "windowTitle" -> "SpinCoefficient", "type" -> 
-    "Symbol", "uri" -> "Tensors/ref/SpinCoefficient", "WorkflowDockedCell" -> 
-    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
-  False},
+    "Symbol", "uri" -> "GeneralRelativityTensors/ref/SpinCoefficient", 
+    "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> "", "LinkTrails" -> 
+  "", "NewStyles" -> False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

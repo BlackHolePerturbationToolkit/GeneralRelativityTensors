@@ -1,26 +1,52 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"55f1f07f-843d-4c19-ae2e-7bb1c736ead7"],
+   0}},ExpressionUUID->"a73ba263-1bb3-4c43-89ca-937531832083"],
 
 Cell[TextData[{
- ButtonBox["Tensors",
+ ButtonBox["GeneralRelativityTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["Tensors`CommonTensors",
+ ButtonBox["GeneralRelativityTensors`CommonTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors`CommonTensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors`\
+CommonTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
  ButtonBox["KinnersleyNullTetrad",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/ref/KinnersleyNullTetrad"]
-}], "LinkTrail",ExpressionUUID->"80150d41-8330-47e4-92cf-7c96ae700164"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/KinnersleyNullTetrad"]
+}], "LinkTrail",ExpressionUUID->"35ac12d5-635a-4a82-a518-b26ee4cb9b33"],
+
+Cell[BoxData[GridBox[{
+   {Cell["GENERALRELATIVITYTENSORS`COMMONTENSORS PACLET SYMBOL", 
+     "PacletNameCell",ExpressionUUID->"fa2c0eb7-503e-4067-89a4-7c42efc7ef2c"],
+     Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"See Also \[RightGuillemet]\"\>",
+        StripOnInput->False], {"KinnersleyNullVector":>
+       Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/KinnersleyNullVector"], 
+       "KinnersleyDerivative":>Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/KinnersleyDerivative"], 
+       "SpinCoefficient":>Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/SpinCoefficient"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "f65d7e7f-2e4c-4582-9437-6bffd1dbdf2a"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]"
+    }], "AnchorBar",ExpressionUUID->"a34eb7ae-7c64-4b85-ab92-b1885d03c20d"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"72784643-35c7-4217-9a43-afc2df8ca5d3"],
 
 Cell[CellGroupData[{
 
 Cell["KinnersleyNullTetrad", \
-"ObjectName",ExpressionUUID->"bbc4b37a-2c53-4d7a-9022-53eb7efd512e"],
+"ObjectName",ExpressionUUID->"fed0f910-46b3-4bd9-9f00-0c5031679a0b"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -28,32 +54,358 @@ Cell[BoxData[GridBox[{
       RowBox[{
        ButtonBox["KinnersleyNullTetrad",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/KinnersleyNullTetrad"], "[", 
+        ButtonData->
+         "paclet:GeneralRelativityTensors/ref/KinnersleyNullTetrad"], "[", 
        StyleBox["m", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "4a7253e1-eef0-43b9-b509-01eab8b6725e"],
+      "220f0076-f178-4d77-9df6-8cc8aafd7e58"],
      "\[LineSeparator]returns a list of the four KinnersleyNullVector in \
 order {\"l\", \"n\", \"m\", \"mStar\"} for the metric m."
-    }],ExpressionUUID->"a3c5e272-50e7-42f4-91a2-2759e5ef3d3f"]},
+    }],ExpressionUUID->"7b526a2f-731e-4df6-9681-ea86336e6a5f"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
        ButtonBox["KinnersleyNullTetrad",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/KinnersleyNullTetrad"], "[", 
+        ButtonData->
+         "paclet:GeneralRelativityTensors/ref/KinnersleyNullTetrad"], "[", 
        StyleBox["builtIn", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "3b761aef-c8f6-4d10-9382-0c260e334db3"],
+      "92f7fe1c-1dfc-4f63-8d61-1a8f337aa9e9"],
      "\[LineSeparator]is equivalent to \
 KinnersleyNullTetrad[ToMetric[builtIn]], where builtIn can be \"Schwarzschild\
 \" or \"Kerr\"."
-    }],ExpressionUUID->"2b45d5c5-4390-4d87-a8bb-fa19bc112b00"]}
-  }]], "Usage",ExpressionUUID->"7c446b6b-44ec-4c37-94b7-05171101a0b1"]
+    }],ExpressionUUID->"753544c4-d5b4-47c6-881d-4820cdcbcd04"]}
+  }]], "Usage",ExpressionUUID->"c4cbf79b-2ea6-4a6d-91f5-4a5348d881c1"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"87bdf294-366f-475b-bf76-6e3bbb12aa05"],
+Cell["", "NotesSection",
+ WholeCellGroupOpener->True,
+ CellGroupingRules->{"SectionGrouping", 50},
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       Cell[
+        BoxData[
+         ButtonBox[
+          FrameBox[
+           StyleBox[
+            RowBox[{"MORE", " ", "INFORMATION"}], "NotesFrameText"], 
+           StripOnInput -> False], Appearance -> {Automatic, None}, BaseStyle -> 
+          None, ButtonFunction :> (FrontEndExecute[{
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], All, ButtonCell], 
+             FrontEndToken["OpenCloseGroup"], 
+             FrontEnd`SelectionMove[
+              FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
+          Evaluator -> None, Method -> "Preemptive"]]]], "NotesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Details and Options"}], 
+        "NotesSection"], Appearance -> {Automatic, None}, BaseStyle -> None, 
+       ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"2d4deacb-ad0e-4e3e-b0c6-d8b7c8404850"],
 
-Cell[BoxData[""],ExpressionUUID->"378a2089-9bb0-4686-841b-050b437a7034"]
+Cell["\<\
+These definitions follow Teukolsky, Astrophysical Journal, Vol. 185, pp. \
+635-648 (1973).\
+\>", "Notes",ExpressionUUID->"4bd4e782-fd83-4ae6-bb0c-c178c77660d5"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "PrimaryExamplesSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "EXAMPLES", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Examples"}], 
+        "PrimaryExamplesSection", CellTags -> "PrimaryExamplesSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->0,
+ CellTags->
+  "PrimaryExamplesSection",ExpressionUUID->"672b6dd0-bd03-44b9-81a4-\
+92bd915f4662"],
+
+Cell[CellGroupData[{
+
+Cell[TextData[{
+ "Basic Examples",
+ "\[NonBreakingSpace]\[NonBreakingSpace]",
+ Cell["(2)", "ExampleCount",ExpressionUUID->
+  "00976e59-332a-4a74-9568-c007558ec898"]
+}], "ExampleSection",ExpressionUUID->"f7abfc47-a8df-4ba4-8e71-af86235261a6"],
+
+Cell[CellGroupData[{
+
+Cell["{lK, nK, mK, mStarK} = KinnersleyNullTetrad[\"Kerr\"]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"e88cf92c-ef0b-4003-a4a6-1f02782148b7"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   TagBox[
+    SubsuperscriptBox["l", "", "\[Alpha]"],
+    DisplayForm], ",", 
+   TagBox[
+    SubsuperscriptBox["n", "", "\[Alpha]"],
+    DisplayForm], ",", 
+   TagBox[
+    SubsuperscriptBox["m", "", "\[Alpha]"],
+    DisplayForm], ",", 
+   TagBox[
+    SubsuperscriptBox[
+     SuperscriptBox["m", "*"], "", "\[Alpha]"],
+    DisplayForm]}], "}"}]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"7cb98ef8-4945-49dc-8a52-46a3d738d50c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["TensorValues /@ {lK, nK, mK, mStarK}", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"f38c3ee0-73f1-4f91-ad14-80ccf452bdce"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       SuperscriptBox["a", "2"], "+", 
+       SuperscriptBox["r", "2"]}], 
+      RowBox[{
+       SuperscriptBox["a", "2"], "-", 
+       RowBox[{"2", " ", "M", " ", "r"}], "+", 
+       SuperscriptBox["r", "2"]}]], ",", "1", ",", "0", ",", 
+     FractionBox["a", 
+      RowBox[{
+       SuperscriptBox["a", "2"], "-", 
+       RowBox[{"2", " ", "M", " ", "r"}], "+", 
+       SuperscriptBox["r", "2"]}]]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     FractionBox[
+      RowBox[{
+       SuperscriptBox["a", "2"], "+", 
+       SuperscriptBox["r", "2"]}], 
+      RowBox[{"2", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         SuperscriptBox["r", "2"], "+", 
+         RowBox[{
+          SuperscriptBox["a", "2"], " ", 
+          SuperscriptBox[
+           RowBox[{"Cos", "[", "\[Theta]", "]"}], "2"]}]}], ")"}]}]], ",", 
+     FractionBox[
+      RowBox[{
+       RowBox[{"-", 
+        SuperscriptBox["a", "2"]}], "+", 
+       RowBox[{"2", " ", "M", " ", "r"}], "-", 
+       SuperscriptBox["r", "2"]}], 
+      RowBox[{"2", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         SuperscriptBox["r", "2"], "+", 
+         RowBox[{
+          SuperscriptBox["a", "2"], " ", 
+          SuperscriptBox[
+           RowBox[{"Cos", "[", "\[Theta]", "]"}], "2"]}]}], ")"}]}]], ",", 
+     "0", ",", 
+     FractionBox["a", 
+      RowBox[{"2", " ", 
+       RowBox[{"(", 
+        RowBox[{
+         SuperscriptBox["r", "2"], "+", 
+         RowBox[{
+          SuperscriptBox["a", "2"], " ", 
+          SuperscriptBox[
+           RowBox[{"Cos", "[", "\[Theta]", "]"}], "2"]}]}], ")"}]}]]}], "}"}],
+    ",", 
+   RowBox[{"{", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"\[ImaginaryI]", " ", "a", " ", 
+       RowBox[{"Sin", "[", "\[Theta]", "]"}]}], 
+      RowBox[{
+       SqrtBox["2"], " ", 
+       RowBox[{"(", 
+        RowBox[{"r", "+", 
+         RowBox[{"\[ImaginaryI]", " ", "a", " ", 
+          RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}]}]], ",", "0", ",", 
+     
+     FractionBox["1", 
+      RowBox[{
+       SqrtBox["2"], " ", 
+       RowBox[{"(", 
+        RowBox[{"r", "+", 
+         RowBox[{"\[ImaginaryI]", " ", "a", " ", 
+          RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}]}]], ",", 
+     FractionBox[
+      RowBox[{"\[ImaginaryI]", " ", 
+       RowBox[{"Csc", "[", "\[Theta]", "]"}]}], 
+      RowBox[{
+       SqrtBox["2"], " ", 
+       RowBox[{"(", 
+        RowBox[{"r", "+", 
+         RowBox[{"\[ImaginaryI]", " ", "a", " ", 
+          RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}]}]]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{
+     FractionBox[
+      RowBox[{"a", " ", 
+       RowBox[{"Sin", "[", "\[Theta]", "]"}]}], 
+      RowBox[{
+       SqrtBox["2"], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"\[ImaginaryI]", " ", "r"}], "+", 
+         RowBox[{"a", " ", 
+          RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}]}]], ",", "0", ",", 
+     
+     FractionBox["1", 
+      RowBox[{
+       SqrtBox["2"], " ", 
+       RowBox[{"(", 
+        RowBox[{"r", "-", 
+         RowBox[{"\[ImaginaryI]", " ", "a", " ", 
+          RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}]}]], ",", 
+     RowBox[{"-", 
+      FractionBox[
+       RowBox[{"\[ImaginaryI]", " ", 
+        RowBox[{"Csc", "[", "\[Theta]", "]"}]}], 
+       RowBox[{
+        SqrtBox["2"], " ", 
+        RowBox[{"(", 
+         RowBox[{"r", "-", 
+          RowBox[{"\[ImaginaryI]", " ", "a", " ", 
+           RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}]}]]}]}], "}"}]}], 
+  "}"}]], "Output",
+ CellLabel->"Out[1]:= ",ExpressionUUID->"e487aa48-58f5-4dde-a525-b54742de5e92"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "SeeAlsoSection",
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "SEE ALSO", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "SeeAlsoSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "See Also"}], "SeeAlsoSection"], 
+       BaseStyle -> None, Appearance -> {Automatic, None}, Evaluator -> None, 
+       Method -> "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"8679be1b-e87d-48a7-9add-a9f03381a468"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["KinnersleyNullVector",
+    BaseStyle->"Link",
+    ButtonData->"paclet:GeneralRelativityTensors/ref/KinnersleyNullVector"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "e67abb74-11cc-45a0-9961-d99ca4490da1"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["KinnersleyDerivative",
+    BaseStyle->"Link",
+    ButtonData->"paclet:GeneralRelativityTensors/ref/KinnersleyDerivative"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "7a722a77-d041-4883-bf0e-0255a34515d7"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["SpinCoefficient",
+    BaseStyle->"Link",
+    ButtonData->"paclet:GeneralRelativityTensors/ref/SpinCoefficient"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "a5a82398-8df3-49e3-81d1-1bcd4fd60347"]
+}], "SeeAlso",ExpressionUUID->"47fe8c05-cb6d-42ae-86ae-705977654155"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"dc2164a3-64cd-4231-b3f3-5c4618b4fccd"],
+
+Cell[BoxData[""],ExpressionUUID->"f25f682d-c367-48da-b64a-dd498294adfe"]
 }, Open  ]]
 },
 Saveable->False,
@@ -66,12 +418,13 @@ PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
-   "context" -> "Tensors`", 
+   "context" -> "GeneralRelativityTensors`", 
     "keywords" -> {
      "KinnersleyNullTetrad", "KINNERSLEYNULLTETRAD", "kinnersleynulltetrad"}, 
-    "index" -> True, "label" -> "Tensors/Tensors`CommonTensors Symbol", 
-    "language" -> "en", "paclet" -> "Tensors`CommonTensors", "status" -> 
-    "None", "summary" -> 
+    "index" -> True, "label" -> 
+    "GeneralRelativityTensors/GeneralRelativityTensors`CommonTensors Symbol", 
+    "language" -> "en", "paclet" -> "GeneralRelativityTensors`CommonTensors", 
+    "status" -> "None", "summary" -> 
     "KinnersleyNullTetrad[m] returns a list of the four KinnersleyNullVector \
 in order {\"l\", \"n\", \"m\", \"mStar\"} for the metric m.\n\
 KinnersleyNullTetrad[builtIn] is equivalent to \
@@ -81,8 +434,9 @@ KinnersleyNullTetrad[ToMetric[builtIn]], where builtIn can be \"Schwarzschild\
      "KinnersleyNullTetrad", "KINNERSLEYNULLTETRAD", "kinnersleynulltetrad"}, 
     "title" -> "KinnersleyNullTetrad", "windowTitle" -> 
     "KinnersleyNullTetrad", "type" -> "Symbol", "uri" -> 
-    "Tensors/ref/KinnersleyNullTetrad", "WorkflowDockedCell" -> ""}, 
-  "SearchTextTranslated" -> "", "LinkTrails" -> ""},
+    "GeneralRelativityTensors/ref/KinnersleyNullTetrad", "WorkflowDockedCell" -> 
+    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
+  False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

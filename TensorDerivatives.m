@@ -1,11 +1,13 @@
 (* ::Package:: *)
 
-BeginPackage["Tensors`TensorDerivatives`",{"Tensors`TensorDefinitions`"}];
+BeginPackage["GeneralRelativityTensors`TensorDerivatives`",{"GeneralRelativityTensors`TensorDefinitions`","GeneralRelativityTensors`TensorManipulation`"}];
 
 
 ChristoffelSymbol::usage="ChristoffelSymbol[m] returns the Christoffel symbol computed from the metric Tensor m.";
-CovariantD::usage="CovariantD[t,ind] returns the covariant derivative of tensor \
-t with respect to the index ind as a sum and product of tensors.
+CovariantD::usage="CovariantD[t,ind1,ind2,...] returns the covariant derivative of tensor \
+t with respect to the indices ind1, ind2, etc. as a sum and product of Tensors.
+CovariantD[expr,ind1,ind2,...] returns the covariant derivative of the Tensor expression expr. \
+with respect to the indices ind1, ind2, etc.
 CovariantD[t,u] returns the covariant derivative of tensor t with along a four-velocity u.";
 
 
@@ -16,12 +18,15 @@ Options[ChristoffelSymbol]={"ActWith"->Identity};
 DocumentationBuilder`OptionDescriptions["ChristoffelSymbol"] = {"ActWith"->"Function which is applied to the elements of ChristoffelSymbol after they are calculated."};
 
 
-Options[CovariantD]=Options[ChristoffelSymbol];
-DocumentationBuilder`OptionDescriptions["CovariantD"] = {"ActWith"->"Function which is applied to the values that CovariantD produces."};
+Options[CovariantD]=Join[Options[ChristoffelSymbol],{"ActWithNested"->Identity,"Merge"->False,"MergeNested"->False}];
+DocumentationBuilder`OptionDescriptions["CovariantD"] = {"ActWith"->"Function which is applied to the values that CovariantD produces",
+"ActWithNested"->"If multiple derivatives are taken, this functions will be applied to the values of each sub-derivative.",
+"Merge"->"Boolean controlling whether the return value of CovariantD should be merged into one Tensor",
+"MergeNested"->"If multiple derivatives are taken, this Boolean controlling whether merging happens after each sub-derivative."};
 
 
 Tensor/:ChristoffelSymbol[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c},
+Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c,chrValue},
 	simpFn=OptionValue["ActWith"];
 	gT=Metric[t];
 	xx=Coordinates[gT];
@@ -31,9 +36,13 @@ Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c},
 	ig=RawTensorValues@InverseMetric[gT];
 	name="ChristoffelSymbol"<>TensorName[t];
 
+	chrValue[ii_,jj_,kk_]:=chrValue[ii,jj,kk]=simpFn[1/2 Sum[ig[[ii,s]](-D[g[[jj,kk]],xx[[s]]]+D[g[[jj,s]],xx[[kk]]]+D[g[[s,kk]],xx[[jj]]]),{s,1,n}]];
+	chrValue[ii_,jj_,kk_]/;jj<kk:=chrValue[ii,kk,jj];
+	
 	vals=
 		If[RawTensorValues[name,{"Up","Down","Down"}]===Undefined,
-			Map[simpFn,Table[(1/2)Sum[ig[[i,s]](-D[g[[j,k]],xx[[s]]]+D[g[[j,s]],xx[[k]]]+D[g[[s,k]],xx[[j]]]),{s,1,n}],{i,1,n},{j,1,n},{k,1,n}],{3}],
+			(*Map[simpFn,Table[(1/2)Sum[ig[[i,s]](-D[g[[j,k]],xx[[s]]]+D[g[[j,s]],xx[[k]]]+D[g[[s,k]],xx[[j]]]),{s,1,n}],{i,1,n},{j,1,n},{k,1,n}],{3}],*)
+			Table[chrValue[i,j,k],{i,1,n},{j,1,n},{k,1,n}],
 			RawTensorValues[name,{"Up","Down","Down"}]
 		];
 
@@ -140,20 +149,31 @@ Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 
 
 Clear[CovariantD]
-CovariantD[expr_,inds__,avoidInds_List,opts:OptionsPattern[]]:=Fold[CovariantD[#1,#2,avoidInds,opts]&,expr,{inds}]
+CovariantD[expr_,inds__,avoidInds_List,opts:OptionsPattern[]]:=
+Module[{simpFn,simpFnNest,merge,mergeNest},
+	
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+
+	mergeNest=OptionValue["MergeNested"];
+	merge=If[mergeNest===False,OptionValue["Merge"],mergeNest];
+	
+	CovariantD[Fold[CovariantD[#1,#2,avoidInds,"ActWith"->simpFnNest,"Merge"->mergeNest]&,expr,Most@{inds}],Last@{inds},"ActWith"->simpFn,"Merge"->merge]
+];
 CovariantD[expr_,inds__,opts:OptionsPattern[]]:=CovariantD[expr,inds,{},opts]
 
 
 CovariantD[expr_,-a_Symbol,avoidInds_List,opts:OptionsPattern[]] := 
-Module[{simpFn,t1Simp,expr1,expr2,aInds,met,pis,tempD,exprExpand},
+Module[{simpFn,t1Simp,expr1,expr2,expr3,aInds,met,pis,tempD,exprExpand,merge},
 
 	ValidateTensorExpression[expr];
 	simpFn=OptionValue["ActWith"];
+	merge=OptionValue["Merge"];
 	exprExpand=Expand[expr];
 	aInds=DeleteDuplicates@Flatten[Join[Indices/@List@@(exprExpand),avoidInds]/.-aa_Symbol:>aa];
 	met=Metric[expr];
 	pis=PossibleIndices[met];
-	
+
 	If[Not[MemberQ[pis,a]],Print["Index ", a, " is not in the list of PossibleIndices of ",met]; Abort[]];
 
 	expr1=Which[MatchQ[Expand[expr],_Times],tempD[exprExpand,-a],
@@ -163,16 +183,20 @@ Module[{simpFn,t1Simp,expr1,expr2,aInds,met,pis,tempD,exprExpand},
 			Abort[]
 	];
 
-	expr2=expr1/.(tempD[coeff_ t:(_Tensor|Times[_Tensor, __Tensor]),-a]/;Not@MatchQ[coeff,_Tensor|Times[_Tensor, __Tensor] ]):>coeff covDProd[Sequence@t,-a,aInds,simpFn];
-	expr2/.{tempD[t_Tensor,-a]:>CovariantD[t,-a,aInds,"ActWith"->simpFn],tempD[t:Times[_Tensor, __Tensor],-a]:>covDProd[Sequence@@t,-a,aInds,simpFn]}
+	expr2 = expr1/.(tempD[coeff_ t:(_Tensor|Times[_Tensor, __Tensor]),-a]/;Not@MatchQ[coeff,_Tensor|Times[_Tensor, __Tensor] ]):>coeff covDProd[Sequence@t,-a,aInds,Identity];
+	expr3 = expr2/.{tempD[t_Tensor,-a]:>CovariantD[t,-a,aInds],tempD[t:Times[_Tensor, __Tensor],-a]:>covDProd[Sequence@@t,-a,aInds,Identity]};
+	If[merge, MergeTensors[expr3,"ActWith"->simpFn], Replace[expr3,t_Tensor :> ActOnTensorValues[simpFn,t]],2]
 ]
 CovariantD[expr_,-a_Symbol,opts:OptionsPattern[]] := CovariantD[expr,-a,{},opts];
 
 
 CovariantD[expr_,a_Symbol,avoidInds_List,opts:OptionsPattern[]] :=
-Module[{b,aInds,met,pis},
+Module[{b,aInds,met,pis,simpFn,merge,expr1},
 	
 	ValidateTensorExpression[expr];
+	simpFn=OptionValue["ActWith"];
+	merge=OptionValue["Merge"];
+
 	aInds=DeleteDuplicates@Flatten[Join[Indices/@List@@(Expand[expr]),avoidInds,{a}]/.-aa_Symbol:>aa];
 	met=Metric[expr];
 	pis=PossibleIndices[met];
@@ -181,25 +205,31 @@ Module[{b,aInds,met,pis},
 
 	b=SelectFirst[pis,Not[MemberQ[aInds,#]]&];
 
-	met[a,b]CovariantD[expr,-b,aInds,opts]
+	expr1 = met[a,b]CovariantD[expr,-b,aInds];
+	
+	If[merge, MergeTensors[expr1,"ActWith"->simpFn], Replace[expr1,t_Tensor :> ActOnTensorValues[simpFn,t]],2]
 ];
 CovariantD[expr_,a_Symbol,opts:OptionsPattern[]] :=CovariantD[expr,a,{},opts];
 
 
 CovariantD[t1_Tensor,-a_Symbol,avoidInds_List,opts:OptionsPattern[]] := 
-Module[{simpFn,t1Simp},
+Module[{simpFn,expr1,merge},
 	simpFn=OptionValue["ActWith"];
-	t1Simp=ActOnTensorValues[simpFn,t1];
-	D[t1Simp,-a,simpFn]+Sum[chrTerm[t1Simp,i,-a,simpFn,avoidInds],{i,Indices[t1]}]/; MemberQ[PossibleIndices[t1],a]
-];
+	merge=OptionValue["Merge"];
+	expr1 = D[t1,-a]+Sum[chrTerm[t1,i,-a,simpFn,avoidInds],{i,Indices[t1]}];
+	If[merge, MergeTensors[expr1,"ActWith"->simpFn], Replace[expr1,t_Tensor :> ActOnTensorValues[simpFn,t]],2]
+]/; MemberQ[PossibleIndices[t1],a];
 CovariantD[t1_Tensor,-a_Symbol,opts:OptionsPattern[]] := CovariantD[t1,-a,{},opts]
 
 
 CovariantD[t1_Tensor,a_Symbol,avoidInds_List,opts:OptionsPattern[]] :=
-Module[{b},
+Module[{b,simpFn,merge,expr1},
+	simpFn=OptionValue["ActWith"];
+	merge=OptionValue["Merge"];
 	b=First[Complement[PossibleIndices[t1],Join[{a},Indices[t1],avoidInds]/.{-ind_:>ind}]];
-	Metric[t1][a,b]CovariantD[t1,-b,{a},opts]
-]/; MemberQ[PossibleIndices[t1],a] ;
+	expr1 = Metric[t1][a,b]CovariantD[t1,-b,{a},"ActWith"->simpFn,"Merge"->False];
+	If[merge, MergeTensors[expr1,"ActWith"->simpFn], Replace[expr1,t_Tensor :> ActOnTensorValues[simpFn,t]],2]
+]/; MemberQ[PossibleIndices[t1],a];
 CovariantD[t1_Tensor,a_Symbol,opts:OptionsPattern[]] := CovariantD[t1,a,{},opts]/; MemberQ[PossibleIndices[t1],a] ;
 
 

@@ -1,15 +1,15 @@
 {
- "Application" -> "Tensors",
- "Package" -> "Tensors",
- "Title" -> "Tensor package for black hole calculations",
- "Summary" ->"Tensor package providing functions for black hole calculations.",
+ "Application" -> "GeneralRelativityTensors",
+ "Package" -> "GeneralRelativityTensors",
+ "Title" -> "An application for tensor calculations in general relativity",
+ "Summary" -> "An application for tensor calculations in general relativity",
  "Description" ->
-   {"The Tensors package provides functions for computing ",
-    "coordinate based for black hole calculations."},
- "Keywords" -> {"Tensors"},
+   {"The GeneralRelativityTensors application provides functions for ",
+    "coordinate based calculations, particularly in the context of black holes."},
+ "Keywords" -> {"GeneralRelativityTensors"},
  "Label" -> "Tensors Application",
  "Synonyms" -> {"Tensors"},
- "URL" -> "http://bitbucket.org/hoppese/Tensors",
+ "URL" -> "http://bitbucket.org/hoppese/GeneralRelativityTensors",
  "Packages" -> {
    {"Title" -> "Tensor creation and common functions",
     "DetailedFunctions" -> {
@@ -23,7 +23,7 @@
       {"Indices", "List of Indices of Tensor"},
       {"PossibleIndices", "List of all possible indices of Tensor"},
       {"IndexPositions","List of elements \"Up\" and \"Down\" giving the positions of Tensor indices"},
-      {"Dimensions", "Dimensions is overloaded. For Tensors it gives the number of dimensions of the manifold."},
+      {"Dimensions", "Dimensions is overloaded. For GeneralRelativityTensors it gives the number of dimensions of the manifold."},
       {"Coordinates", "List of the coordinates of the Tensor"},
       {"TensorRules", "List of Rules showing Tensor values for given components"},
       {"TensorName", "Internal name of Tensor"},
@@ -41,6 +41,7 @@
    {"Title" -> "Tensor manipulation",
     "DetailedFunctions" -> {
       {"ShiftIndices", "Raise and lower indices on a Tensor"},
+      {"ActOnTensorValues", "Apply a function to the values of a Tensor"},
       {"MergeTensors", "Combine an expression into a single Tensor"},
       {"ContractIndices", "Trace over repeated indices"},
       {"MultiplyTensors", "Outer product of Tensors"},
@@ -80,10 +81,11 @@
    }
   },
  "Tutorials" -> {
-   "Introduction to Tensors",
+   "Introduction to GeneralRelativityTensors",
    "Introduction to Tensor Curves",
    "Manipulating and differentiating Tensors",
    "Built in common Tensors",
-   "Caching Tensor values"
+   "Caching Tensor values",
+   "Examples - Wave equations"
  }
 }

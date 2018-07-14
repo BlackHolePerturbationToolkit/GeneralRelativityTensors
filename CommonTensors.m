@@ -1,13 +1,13 @@
 (* ::Package:: *)
 
-BeginPackage["Tensors`CommonTensors`",
-			{"Tensors`TensorDefinitions`",
-			 "Tensors`TensorDerivatives`",
-			 "Tensors`TensorManipulation`"}];
+BeginPackage["GeneralRelativityTensors`CommonTensors`",
+			{"GeneralRelativityTensors`TensorDefinitions`",
+			 "GeneralRelativityTensors`TensorDerivatives`",
+			 "GeneralRelativityTensors`TensorManipulation`"}];
 
 
 RiemannTensor::usage="RiemannTensor[m] returns the Riemann Tensor with \
-index positions {\"Up\",\"Down\",\"Down\",\"Down\"} computed from the metric Tensor m.";
+index positions {\"Down\",\"Down\",\"Down\",\"Down\"} computed from the metric Tensor m.";
 RicciTensor::usage="RicciTensor[m] returns the Ricci Tensor with index \
 positions {\"Down\",\"Down\"} computed from the metric Tensor m.";
 RicciScalar::usage="RicciScalar[m] returns the Ricci scalar computed from \
@@ -31,15 +31,18 @@ KinnersleyNullTetrad[builtIn] is equivalent to \
 KinnersleyNullTetrad[ToMetric[builtIn]], where builtIn \
 can be \"Schwarzschild\" or \"Kerr\"."
 KinnersleyDerivative::usage="KinnersleyDerivative[m,s] returns the projected \
-derivative s being the appropriate Kinnersley null vector contracted with a partial derivative. Values for \
+derivative s on the metric m. It is the appropriate Kinnersley null vector contracted with a partial derivative. Values for \
 s are \"D\", \"Delta\", \"delta\", or \"deltaStar\".
 KinnersleyDerivative[builtIn,s] is equivalent to \
 KinnersleyDerivative[ToMetric[builtIn],s], \
 where builtIn can be \"Schwarzschild\" or \"Kerr\"."
-SpinCoefficient::usage="SpinCoefficient[s] returns the Newman-Penrose \
-spin coefficient corresponding to the string s, where possible values of \
-s are \"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\
-\"mu\",\"nu\",\"pi\",\"rho\",\"sigma\", and \"tau\".";
+SpinCoefficient::usage="SpinCoefficient[m,s,conj] returns the Newman-Penrose \
+spin coefficient corresponding to the string s (such as \"alpha\") on the metric m. \
+The boolean conj can be set True to return the complex conjugate of the coefficient.
+SpinCoefficient[m,s] is equivalent to SpinCoefficient[m,s,False],
+SpinCoefficient[builtIn,s,conj] is equivalent to \
+SpinCoefficient[ToMetric[builtIn],s,conj], where builtIn \
+can be \"Schwarzschild\" or \"Kerr\".";
 
 KretschmannScalar::usage="KretschmannScalar[m] returns the \
 Kretschmann scalar (Riemann tensor squared) associated with the metric m.";
@@ -86,7 +89,6 @@ Options[MaxwellStressEnergyTensor]=Options[TraceReverse];
 Options[KretschmannScalar]=Options[TraceReverse];
 Options[BianchiIdentities]=Options[TraceReverse];
 Options[KinnersleyNullTetrad]=Options[KinnersleyNullVector];
-Options[SpinCoefficient]={"Conjugate"->False,"Schwarzschild"->False};
 
 DocumentationBuilder`OptionDescriptions["RiemannTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
 DocumentationBuilder`OptionDescriptions["RicciTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
@@ -98,9 +100,6 @@ DocumentationBuilder`OptionDescriptions["FieldStrengthTensor"] = DocumentationBu
 DocumentationBuilder`OptionDescriptions["MaxwellStressEnergyTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
 DocumentationBuilder`OptionDescriptions["KretschmannScalar"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
 DocumentationBuilder`OptionDescriptions["BianchiIdentities"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
-DocumentationBuilder`OptionDescriptions["SpinCoefficient"] ={"Conjugate"->"Boolean stating whether to return the complex \
-conjugate of the spin coefficient",
-"Schwarzschild"->"Boolean stating whether to return the spin coefficient for Schwarzschild spacetime (as opposed to Kerr)"};
 
 
 ToMetric["Minkowski"]:=
@@ -292,7 +291,61 @@ LeviCivitaSymbol["S2"]:=LeviCivitaSymbol["TwoSphere"]
 
 Clear[RiemannTensor]
 Tensor/:RiemannTensor[gT_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{n,xx,chr,vals,name,simpFn,simpFnNest,valsTemp,a,b,c,d},
+Module[{n,xx,vals,name,simpFn,simpFnNest,valsTemp,chr,
+		a,b,c,d,rieValueTrue,rieValue,metVal,gvals,numCallsM=0,numCallsR=0},
+	
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+
+	xx=Coordinates[gT];
+	{a,b,c,d}=Take[PossibleIndices[gT],4];
+	n=Dimensions[gT];
+	chr=RawTensorValues@ChristoffelSymbol[gT,"ActWith"->simpFnNest];
+	
+	name="RiemannTensor"<>TensorName[gT];
+	
+	gvals=RawTensorValues[gT];
+	metVal[c1_,c2_,x1_,x2_]:=metVal[c1,c2,x1,x2]=D[gvals[[c1,c2]],xx[[x1]],xx[[x2]]];
+	metVal[c1_,c2_,x1_,x2_]/;c2<c1:=metVal[c2,c1,x1,x2];
+	metVal[c1_,c2_,x1_,x2_]/;x2<x1:=metVal[c1,c2,x2,x1];
+	metVal[c1_,c2_,x1_,x2_]/;x2<x1&&c2<c1:=metVal[c2,c1,x2,x1];
+	rieValueTrue[aa_,bb_,cc_,dd_]:=rieValueTrue[aa,bb,cc,dd]=
+		simpFn[1/2 (metVal[aa,dd,bb,cc]-metVal[aa,cc,bb,dd]+metVal[bb,cc,aa,dd]-metVal[bb,dd,aa,cc])
+				+ Sum[gvals[[r,s]](chr[[r,bb,cc]]chr[[s,aa,dd]] - chr[[r,bb,dd]]chr[[s,aa,cc]]),{r,1,n},{s,1,n}]];
+	
+	rieValue[aa_,bb_,cc_,dd_]/;cc>bb&&dd>cc := -rieValue[aa,dd,bb,cc]-rieValue[aa,cc,dd,bb];
+	rieValue[aa_,aa_,aa_,aa_]=0;
+	rieValue[aa_,aa_,cc_,cc_]=0;
+	rieValue[aa_,bb_,aa_,bb_]/;bb>aa:=rieValueTrue[aa,bb,aa,bb];
+	rieValue[aa_,bb_,cc_,dd_]/;bb>aa&&dd>cc&&(aa+bb<=cc+dd):=rieValueTrue[aa,bb,cc,dd];
+	rieValue[aa_,aa_,cc_,dd_]=0;
+	rieValue[aa_,bb_,cc_,cc_]=0;
+	
+	rieValue[aa_,bb_,cc_,dd_]/;bb<aa:=-rieValue[bb,aa,cc,dd];
+	rieValue[aa_,bb_,cc_,dd_]/;dd<cc:=-rieValue[aa,bb,dd,cc];
+	rieValue[aa_,bb_,cc_,dd_]/;bb<aa&&dd<cc:=rieValue[bb,aa,dd,cc];
+	rieValue[aa_,bb_,aa_,bb_]/;bb<aa:=rieValue[bb,aa,bb,aa];
+	rieValue[aa_,bb_,cc_,dd_]/;bb>aa&&dd>cc&&(aa+bb>cc+dd):=rieValue[cc,dd,aa,bb];
+
+		
+	vals = If[RawTensorValues[name,{"Down","Down","Down","Down"}]===Undefined,
+				Table[rieValue[i,j,k,l],{i,1,n},{j,1,n},{k,1,n},{l,1,n}],
+				RawTensorValues[name,{"Down","Down","Down","Down"}]
+			];
+
+	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+		Association["Metric"->gT,
+					"IsMetric"->False,
+					"Values"->vals,
+					"DisplayName"->"R",
+					"Name"->name,
+					"Indices"->{-a,-b,-c,-d}]]]
+]
+
+
+(*Clear[RiemannTensor]
+Tensor/:RiemannTensor[gT_Tensor?MetricQ,opts:OptionsPattern[]]:=
+Module[{n,xx,chr,vals,name,simpFn,simpFnNest,valsTemp,a,b,c,d,rieValueTrue,rieValue},
 	
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
@@ -303,6 +356,7 @@ Module[{n,xx,chr,vals,name,simpFn,simpFnNest,valsTemp,a,b,c,d},
 	chr=RawTensorValues@ChristoffelSymbol[gT,"ActWith"->simpFnNest];
 
 	name="RiemannTensor"<>TensorName[gT];
+
 
 	vals = If[RawTensorValues[name,{"Up","Down","Down","Down"}]===Undefined,
 				valsTemp=Table[D[chr[[i,k,m]],xx[[l]]]-D[chr[[i,k,l]],xx[[m]]]
@@ -320,7 +374,7 @@ Module[{n,xx,chr,vals,name,simpFn,simpFnNest,valsTemp,a,b,c,d},
 					"DisplayName"->"R",
 					"Name"->name,
 					"Indices"->{a,-b,-c,-d}]]]
-]
+]*)
 
 
 Clear[RicciTensor]
@@ -597,9 +651,14 @@ Module[{rie,ric,ein,i,j,k,l,m,simpFnNest,simpFn},
 
 
 Clear[KinnersleyNullVector]
-KinnersleyNullVector[t_Tensor?MetricQ,vec_String]:=
+Tensor/:KinnersleyNullVector[t_Tensor?MetricQ,vec_String]:=
 Module[{r,a,th,M,val,delta,sigma,valC,schw,rules},
 	
+	If[TensorName[t]=!="SchwarzschildMetric" && TensorName[t]=!="KerrMetric",
+		Print["KinnersleyNullVector only available for Kerr and Schwarzschild, but metric ", TensorName[t], " used."];
+		Abort[]
+	];
+
 	schw=TensorName[t]==="SchwarzschildMetric";
 
 	{r,th,a,M}=Symbol/@{"r","\[Theta]","a","M"};
@@ -644,8 +703,13 @@ KinnersleyNullTetrad[expr_]:=KinnersleyNullVector[expr,#]&/@{"l","n","m","mStar"
 
 
 Clear[KinnersleyDerivative]
-KinnersleyDerivative[tt_Tensor?MetricQ,op_String]:=
-Module[{r,th,t},
+Tensor/:KinnersleyDerivative[tt_Tensor?MetricQ,op_String]:=
+Module[{r,th,t,phi},
+
+	If[TensorName[tt]=!="SchwarzschildMetric" && TensorName[tt]=!="KerrMetric",
+		Print["KinnersleyDerivative only available for Kerr and Schwarzschild, but metric ", TensorName[tt], " used."];
+		Abort[]
+	];
 
 	{t,r,th,phi}=Symbol/@{"t","r","\[Theta]","\[Phi]"};
 
@@ -673,11 +737,15 @@ KinnersleyDerivative["Schwarzschild",vec_String]:=KinnersleyDerivative[ToMetric[
 KinnersleyDerivative["Kerr",vec_String]:=KinnersleyDerivative[ToMetric["Kerr"],vec]
 
 
-SpinCoefficient[coeff_String,opts:OptionsPattern[]]:=
-Module[{r,a,th,M,val,conj,rules,delta,schw},
+Clear[SpinCoefficient]
+Tensor/:SpinCoefficient[tt_Tensor?MetricQ,coeff_String,conj_?BooleanQ]:=
+Module[{r,a,th,M,val,rules,delta,schw},
 
-	conj=OptionValue["Conjugate"];
-	schw=OptionValue["Schwarzschild"];
+	If[TensorName[tt]=!="SchwarzschildMetric" && TensorName[tt]=!="KerrMetric",
+		Print["SpinCoefficient only available for Kerr and Schwarzschild, but metric ", TensorName[tt], " used."];
+		Abort[]
+	];
+	schw=TensorName[tt]==="SchwarzschildMetric";
 
 	{r,th,a,M}=Symbol/@{"r","\[Theta]","a","M"};
 	delta=a^2-2 M r+r^2;
@@ -689,22 +757,22 @@ Module[{r,a,th,M,val,conj,rules,delta,schw},
 				-1/(r-I a Cos[th]),
 
 				"beta",
-				- SpinCoefficient["rho",Conjugate->True] Cot[th]/(2Sqrt[2]),
+				- SpinCoefficient[tt,"rho",True] Cot[th]/(2Sqrt[2]),
 
 				"pi",
-				I a SpinCoefficient["rho"]^2 Sin[th]/Sqrt[2],
+				I a SpinCoefficient[tt,"rho"]^2 Sin[th]/Sqrt[2],
 
 				"tau",
-				-I a SpinCoefficient["rho"]SpinCoefficient["rho",Conjugate->True] Sin[th]/Sqrt[2],
+				-I a SpinCoefficient[tt,"rho"]SpinCoefficient[tt,"rho",True] Sin[th]/Sqrt[2],
 
 				"mu",
-				SpinCoefficient["rho"]^2 SpinCoefficient["rho",Conjugate->True] delta/2,
+				SpinCoefficient[tt,"rho"]^2 SpinCoefficient[tt,"rho",True] delta/2,
 
 				"gamma",
-				SpinCoefficient["mu"]+SpinCoefficient["rho"]SpinCoefficient["rho",Conjugate->True] (r-M)/2,
+				SpinCoefficient[tt,"mu"]+SpinCoefficient[tt,"rho"]SpinCoefficient[tt,"rho",True] (r-M)/2,
 
 				"alpha",
-				SpinCoefficient["pi"]-SpinCoefficient["beta",Conjugate->True],
+				SpinCoefficient[tt,"pi"]-SpinCoefficient[tt,"beta",True],
 
 				"sigma"|"epsilon"|"kappa"|"nu"|"lambda",
 				0,
@@ -717,7 +785,10 @@ Module[{r,a,th,M,val,conj,rules,delta,schw},
 		]/.rules;
 
 	If[conj,Simplify@ComplexExpand@Conjugate@val,val]
-]
+];
+Tensor/:SpinCoefficient[tt_Tensor?MetricQ,coeff_String]:=SpinCoefficient[tt,coeff,False]
+SpinCoefficient[str_String,coeff_String,conj_?BooleanQ]:=SpinCoefficient[ToMetric[str],coeff,conj]
+SpinCoefficient[str_String,coeff_String]:=SpinCoefficient[str,coeff,False]
 
 
 Clear[FourVelocity]

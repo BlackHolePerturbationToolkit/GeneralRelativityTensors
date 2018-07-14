@@ -1,44 +1,49 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"24651272-110b-4321-b213-a82bb24cc26d"],
+   0}},ExpressionUUID->"e2cd7072-ad2e-4b2d-bb0d-36f2eaf75a71"],
 
 Cell[TextData[{
- ButtonBox["Tensors",
+ ButtonBox["GeneralRelativityTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["Tensors`TensorDerivatives",
+ ButtonBox["GeneralRelativityTensors`TensorDerivatives",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors`TensorDerivatives"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors`\
+TensorDerivatives"],
  StyleBox[" > ", "LinkTrailSeparator"],
  ButtonBox["CovariantD",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/ref/CovariantD"]
-}], "LinkTrail",ExpressionUUID->"42a9f807-8700-4203-a289-e89c62cf12ed"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/CovariantD"]
+}], "LinkTrail",ExpressionUUID->"551c81f3-6330-42fa-b943-55c73d71bf6c"],
 
 Cell[BoxData[GridBox[{
-   {Cell["TENSORS`TENSORDERIVATIVES PACLET SYMBOL", "PacletNameCell",
-     ExpressionUUID->"8c252c06-6f6e-4b1d-a8d5-a26811ef4887"], Cell[TextData[{
+   {Cell["GENERALRELATIVITYTENSORS`TENSORDERIVATIVES PACLET SYMBOL", 
+     "PacletNameCell",ExpressionUUID->"36476372-72fa-44eb-95a7-1dde6ea2db91"],
+     Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
         StripOnInput->False], {"BianchiIdentities":>Documentation`HelpLookup[
-       "paclet:Tensors/ref/BianchiIdentities"], "TensorValues":>
-       Documentation`HelpLookup["paclet:Tensors/ref/TensorValues"]},
+       "paclet:GeneralRelativityTensors/ref/BianchiIdentities"], 
+       "TensorValues":>Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/TensorValues"]},
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "e769ceee-2c77-4f74-8a7a-c79bec9185d1"],
+      "2297a905-d68a-4e1c-9c43-822fcb20cc5c"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"583607bf-69a6-4cb9-b79f-4166a3c79f9f"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"79a08e47-f276-4deb-8079-c272b56c8d74"],
+    }], "AnchorBar",ExpressionUUID->"f9474a06-04c6-4aed-9ac6-7511bd50c7f1"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"d90f0a0e-d4a7-4a05-8f76-f946dee0f890"],
 
 Cell[CellGroupData[{
 
 Cell["CovariantD", \
-"ObjectName",ExpressionUUID->"4d96a4e9-71ce-4ccf-82de-e5ee40b8d7e8"],
+"ObjectName",ExpressionUUID->"c27287ea-07ef-463f-9deb-9219591445c6"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -46,26 +51,39 @@ Cell[BoxData[GridBox[{
       RowBox[{
        ButtonBox["CovariantD",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/CovariantD"], "[", 
+        ButtonData->"paclet:GeneralRelativityTensors/ref/CovariantD"], "[", 
        StyleBox[
-        RowBox[{"t", ",", "ind"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"eddb72a8-e8ac-415c-928d-263ad08c251d"],
+        RowBox[{"t", ",", "ind1", ",", "ind2", ",", "..."}], "TI"], "]"}]], 
+      "InlineFormula",ExpressionUUID->"3b1712b3-09c4-4b7b-a5d1-d04c5581e507"],
+     
      "\[LineSeparator]returns the covariant derivative of tensor t with \
-respect to the index ind as a sum and product of tensors."
-    }],ExpressionUUID->"1664cdc0-a655-44ac-8c70-440200ac2f39"]},
+respect to the indices ind1, ind2, etc. as a sum and product of Tensors."
+    }],ExpressionUUID->"a00bdd56-a99a-407c-ae34-fa1e7b5f5e8f"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
        ButtonBox["CovariantD",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/CovariantD"], "[", 
+        ButtonData->"paclet:GeneralRelativityTensors/ref/CovariantD"], "[", 
+       StyleBox[
+        RowBox[{"expr", ",", "ind1", ",", "ind2", ",", "..."}], "TI"], "]"}]],
+       "InlineFormula",ExpressionUUID->"630e92a1-8e74-432b-a092-4f79b62e0204"],
+     "\[LineSeparator]returns the covariant derivative of the Tensor \
+expression expr. with respect to the indices ind1, ind2, etc."
+    }],ExpressionUUID->"73192145-f37f-49fb-bdd2-0c6810b48a1e"]},
+   {"", Cell[TextData[{
+     Cell[BoxData[
+      RowBox[{
+       ButtonBox["CovariantD",
+        BaseStyle->"Link",
+        ButtonData->"paclet:GeneralRelativityTensors/ref/CovariantD"], "[", 
        StyleBox[
         RowBox[{"t", ",", "u"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"e63f2b52-6703-4741-8ce2-edb67e2271cf"],
+      ExpressionUUID->"5b05544c-9a72-4518-ab43-f2d592f9c56a"],
      "\[LineSeparator]returns the covariant derivative of tensor t with along \
 a four-velocity u."
-    }],ExpressionUUID->"54691897-ec4b-47fd-ab58-a82c9c384041"]}
-  }]], "Usage",ExpressionUUID->"7056ae1a-9213-46e2-89cc-da7eed016d5e"]
+    }],ExpressionUUID->"540f4729-35e2-415c-a92d-19ea0071ced8"]}
+  }]], "Usage",ExpressionUUID->"470f92f2-8c03-451f-85e9-2cd7ec3f1d7b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -111,35 +129,52 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"49fe167a-055c-49f1-9cb3-c05a211e9bcb"],
+  0,ExpressionUUID->"380d0412-982b-4bf3-9ac0-3c6dff548275"],
 
 Cell["\<\
 CovariantD returns an expression that is a sum and product of Tensors.\
-\>", "Notes",ExpressionUUID->"9138196c-d9cf-4b2b-946e-7681c295a601"],
+\>", "Notes",ExpressionUUID->"92e18d16-f94d-4430-86da-ee92548fc3ce"],
 
 Cell["Call MergeTensors on the output to form one Tensor.", \
-"Notes",ExpressionUUID->"6e1a4a94-a67c-460a-8790-5d82f636ff0a"],
+"Notes",ExpressionUUID->"c6491bba-3215-4994-8803-400541389192"],
 
 Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"c1adeacd-25b7-4505-8dbf-8dde3759fbc7"],
+"Notes",ExpressionUUID->"397f8834-d13b-43ea-a0f0-74c80a0b8d89"],
 
 Cell[BoxData[GridBox[{
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "7222ee7f-5384-4265-940c-ccc02cb5959d"], "ActWith", "Identity", 
+     "750bbf29-4ab4-400c-a573-829320d21728"], "ActWith", "Identity", 
     Cell["\<\
-Function which is applied to the values that CovariantD produces.\
-\>", "TableText",ExpressionUUID->"bcfef69e-f1f0-4fab-bce8-f63066d78f83"]}
+Function which is applied to the values that CovariantD produces\
+\>", "TableText",ExpressionUUID->"861b9445-e2bd-4a14-95aa-a9511b9736c4"]},
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "a16bf502-07ef-435a-8629-95c13b03de41"], "ActWithNested", "Identity", 
+    Cell["\<\
+If multiple derivatives are taken, this functions will be applied to the \
+values of each sub-derivative.\
+\>", "TableText",ExpressionUUID->"c9373a6c-f81d-452c-be41-7e070b056c83"]},
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "3f6b2f39-7594-4ffa-bbbc-e57506fb13ef"], "Merge", "False", Cell["\<\
+Boolean controlling whether the return value of CovariantD should be merged \
+into one Tensor\
+\>", "TableText",ExpressionUUID->"865fc671-ec59-4dad-a888-cae0dfc518f6"]},
+   {Cell["      ", "TableRowIcon",ExpressionUUID->
+     "72127330-3079-4bbc-8e2d-33497daba5c2"], "MergeNested", "False", Cell["\<\
+If multiple derivatives are taken, this Boolean controlling whether merging \
+happens after each sub-derivative.\
+\>", "TableText",ExpressionUUID->"6021227f-4bfb-4555-a0cd-63c58e222cc7"]}
   },
   GridBoxAlignment->{
    "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
     "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
  GridBoxOptions->{
  GridBoxBackground->{
-  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
-   "RowsIndexed" -> {}},
+  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, 
+   "Rows" -> {None, None, None, {None}}, "RowsIndexed" -> {}},
  GridBoxDividers->{
   "Rows" -> {{
-     True, True}}}},ExpressionUUID->"9faf4fdf-85cb-42e5-8090-bd9e1c54c985"]
+     True, True, True, True, 
+      True}}}},ExpressionUUID->"2c003614-74ab-488d-aa61-dc03c6690ea8"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -181,8 +216,8 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"983e2a90-8a7c-4149-bd36-\
-8d9d8305667b"],
+  "PrimaryExamplesSection",ExpressionUUID->"0ae0ed5e-a3da-492e-94e8-\
+fae278f4cfe5"],
 
 Cell[CellGroupData[{
 
@@ -190,25 +225,25 @@ Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(7)", "ExampleCount",ExpressionUUID->
-  "d0062c02-327d-42e9-a834-7de812d34304"]
-}], "ExampleSection",ExpressionUUID->"10ec650e-ef19-4558-b8cb-90eaab978df4"],
+  "a68f0cc5-9a4f-43ab-af5b-71d223624f5a"]
+}], "ExampleSection",ExpressionUUID->"01777167-f71d-419a-94de-a3deea3a38d2"],
 
 Cell[CellGroupData[{
 
 Cell["gRN = ToMetric[\"ReissnerNordstrom\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"398995bc-afc0-4723-acb4-a104801d58c4"],
+ CellLabel->"In[1]:=",ExpressionUUID->"380af90b-d8b2-41b9-b03a-321ff5d999b1"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"c483ae1e-90fb-4881-b0e6-ed6090328701"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"e9a66226-f3d0-4efb-90cd-6a8e094c92a8"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["dgRN = CovariantD[gRN, -\[Gamma]]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"716d844a-77ca-4361-984e-0abaf1ae9c87"],
+ CellLabel->"In[1]:=",ExpressionUUID->"acbdcf2e-7d32-412a-bf6a-60fc0c74dbad"],
 
 Cell[BoxData[
  RowBox[{
@@ -235,13 +270,13 @@ Cell[BoxData[
    TagBox[
     SubsuperscriptBox["g", "\[Delta]\[Beta]", ""],
     DisplayForm]}]}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"32b53c5d-f49c-42a2-81ad-616176e876cd"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"f5c02c3d-88bc-45be-a600-6f338d1f4708"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["MergeTensors[dgRN] // TensorValues // Simplify", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"6e5a2889-5a5d-4da4-b4a4-b337834a49e4"],
+ CellLabel->"In[1]:=",ExpressionUUID->"5fbc0692-e5fa-4390-b29b-ada746fd5555"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -287,26 +322,26 @@ Cell[BoxData[
      RowBox[{"{", 
       RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]}], 
   "}"}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"94597266-047f-44a7-8b95-7e965bd693c7"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"045acb11-712b-4ddc-90ef-2c38b6713c03"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["uS = FourVelocity[\"SchwarzschildGeneric\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"712ecf26-99e8-496d-b8a3-6c425bccc390"],
+ CellLabel->"In[1]:=",ExpressionUUID->"3d81cd53-ff19-4f21-94ce-38c45afcdbff"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["u", "", "\[Alpha]"], "[", "\<\"\[Tau]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"e95c7cb5-dafc-44c7-94ff-c9ccbff9c3f2"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"7ea73649-30a1-42b0-bee9-99dfa156b93e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["covDuS = CovariantD[uS, uS]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"9d21233c-a1a1-41c2-a2d1-ccd5552e349d"],
+ CellLabel->"In[1]:=",ExpressionUUID->"c5ff01e2-b416-46d9-9701-cab3b3cd93dc"],
 
 Cell[BoxData[
  RowBox[{
@@ -332,7 +367,7 @@ Cell[BoxData[
       RowBox[{"du", "/", "d\[Tau]"}], ")"}], "", "\[Alpha]"], 
     "[", "\<\"\[Tau]\"\>", "]"}],
    DisplayForm]}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"72757738-86d1-42ef-9277-7a9bd04abf8e"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"bee6282e-b736-4c10-a756-a146e3bc144f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -340,7 +375,7 @@ Cell[CellGroupData[{
 Cell["\<\
 vals = TensorValues@MergeTensors[covDuS, \"ActWith\" -> Simplify]\
 \>", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"9c300cc2-e1a8-443b-8377-17a11659da94"],
+ CellLabel->"In[1]:=",ExpressionUUID->"c3f90677-6d8b-4267-86b5-9c967e0ada51"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -455,7 +490,7 @@ Cell[BoxData[
          MultilineFunction->None], "[", "\[Tau]", "]"}]}], ")"}]}], 
     SuperscriptBox[
      RowBox[{"r", "[", "\[Tau]", "]"}], "3"]]}], "}"}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"16641044-bc9c-4807-9155-23b12007724d"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"91495b07-9ec7-4206-945b-c810eb39d7fc"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -464,12 +499,12 @@ Cell["\<\
 vals /. Thread[D[Through[Coordinates[uS][\[Tau]]], \[Tau]] -> \
 TensorValues[uS]] // Simplify\
 \>", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"b9c38cb4-b27b-4beb-95fe-98a572154b7f"],
+ CellLabel->"In[1]:=",ExpressionUUID->"7b09ad29-2196-4bdf-aa8f-80771f17a07a"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"f9f0f631-1cd2-431e-9437-2d05300bf352"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"f320dea8-24f2-42c1-9a0d-ee7030af3e5f"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -511,16 +546,16 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"a74f8184-bf03-4974-8fb9-f49256784dd0"],
+  0,ExpressionUUID->"10ece254-85e2-4135-9c0f-c7466c54bb93"],
 
 Cell[TextData[{
  Cell[BoxData[
   StyleBox[
    ButtonBox["BianchiIdentities",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/BianchiIdentities"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/BianchiIdentities"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "c61ff838-3480-4b36-be4c-fc0387edaf72"],
+  "3b9dacf7-3f04-453a-a235-db27919d5f23"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -529,17 +564,17 @@ Cell[TextData[{
   StyleBox[
    ButtonBox["TensorValues",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/TensorValues"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/TensorValues"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "3bc1f36e-4930-4d81-8184-d8381b8579a7"]
-}], "SeeAlso",ExpressionUUID->"53bf28a3-8dda-48d8-9365-7f3ecff2f1d3"]
+  "5386a4f9-471a-437d-bfd4-c740c557e92e"]
+}], "SeeAlso",ExpressionUUID->"2f8ddf99-1452-4203-8c61-c565deff4ea2"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"fe388619-6803-4da4-b311-743343335213"],
+Cell[" ", "FooterCell",ExpressionUUID->"2c69ea44-87d3-4208-973d-78a7958dcfa8"],
 
-Cell[BoxData[""],ExpressionUUID->"6eb6b3c6-aadf-4f34-b95b-5b6f523dd40e"]
+Cell[BoxData[""],ExpressionUUID->"a8444668-a26d-4830-8286-bbd75e99da1e"]
 }, Open  ]]
 },
 Saveable->False,
@@ -552,18 +587,23 @@ PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
-   "context" -> "Tensors`", 
+   "context" -> "GeneralRelativityTensors`", 
     "keywords" -> {"CovariantD", "COVARIANTD", "covariantd"}, "index" -> True,
-     "label" -> "Tensors/Tensors`TensorDerivatives Symbol", "language" -> 
-    "en", "paclet" -> "Tensors`TensorDerivatives", "status" -> "None", 
+     "label" -> 
+    "GeneralRelativityTensors/GeneralRelativityTensors`TensorDerivatives \
+Symbol", "language" -> "en", "paclet" -> 
+    "GeneralRelativityTensors`TensorDerivatives", "status" -> "None", 
     "summary" -> 
-    "CovariantD[t,ind] returns the covariant derivative of tensor t with \
-respect to the index ind as a sum and product of tensors.\nCovariantD[t,u] \
-returns the covariant derivative of tensor t with along a four-velocity u.", 
-    "synonyms" -> {"CovariantD", "COVARIANTD", "covariantd"}, "title" -> 
-    "CovariantD", "windowTitle" -> "CovariantD", "type" -> "Symbol", "uri" -> 
-    "Tensors/ref/CovariantD", "WorkflowDockedCell" -> ""}, 
-  "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> False},
+    "CovariantD[t,ind1,ind2,...] returns the covariant derivative of tensor t \
+with respect to the indices ind1, ind2, etc. as a sum and product of Tensors.\
+\nCovariantD[expr,ind1,ind2,...] returns the covariant derivative of the \
+Tensor expression expr. with respect to the indices ind1, ind2, etc.\n\
+CovariantD[t,u] returns the covariant derivative of tensor t with along a \
+four-velocity u.", "synonyms" -> {"CovariantD", "COVARIANTD", "covariantd"}, 
+    "title" -> "CovariantD", "windowTitle" -> "CovariantD", "type" -> 
+    "Symbol", "uri" -> "GeneralRelativityTensors/ref/CovariantD", 
+    "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> "", "LinkTrails" -> 
+  "", "NewStyles" -> False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

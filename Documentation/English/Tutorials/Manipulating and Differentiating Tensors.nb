@@ -1,49 +1,58 @@
 Notebook[{
 Cell[" ", "TutorialColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"c7917d94-16ce-4820-84b5-ae36c04f193a"],
+   0}},ExpressionUUID->"746e2a1a-0e77-45f6-bcd2-d22104437569"],
 
 Cell[TextData[{
- ButtonBox["Tensors",
+ ButtonBox["GeneralRelativityTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
  ButtonBox["Manipulating and Differentiating Tensors",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->
-   "paclet:Tensors/tutorial/Manipulating and Differentiating Tensors"]
-}], "LinkTrail",ExpressionUUID->"6b63122b-5e6f-410d-99af-14f19e48cff6"],
+   "paclet:GeneralRelativityTensors/tutorial/Manipulating and Differentiating \
+Tensors"]
+}], "LinkTrail",ExpressionUUID->"9d2c1bec-f060-426c-a7ef-30094bf14b7f"],
 
 Cell[BoxData[GridBox[{
    {Cell["MANIPULATING AND DIFFERENTIATING TENSORS TUTORIAL", 
-     "PacletNameCell",ExpressionUUID->"117326e9-875c-43e4-9707-5a1cb97c8a63"],
+     "PacletNameCell",ExpressionUUID->"22b7ae30-0532-48cc-9bbc-bf33011ebad6"],
      Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Related Tutorials \[RightGuillemet]\"\>",
         StripOnInput->False], {
-       RowBox[{"Introduction", " ", "to", " ", "Tensors"}]:>
+       RowBox[{"Introduction", " ", "to", " ", "GeneralRelativityTensors"}]:>
        Documentation`HelpLookup[
-       "paclet:Tensors/tutorial/Introduction to Tensors"], 
+       "paclet:GeneralRelativityTensors/tutorial/Introduction to \
+GeneralRelativityTensors"], 
        RowBox[{"Introduction", " ", "to", " ", "Tensor", " ", "Curves"}]:>
        Documentation`HelpLookup[
-       "paclet:Tensors/tutorial/Introduction to Tensor Curves"], 
-       RowBox[{"Caching", " ", "Tensor", " ", "values"}]:>
-       Documentation`HelpLookup[
-       "paclet:Tensors/tutorial/Caching Tensor values"], 
+       "paclet:GeneralRelativityTensors/tutorial/Introduction to Tensor \
+Curves"], 
        RowBox[{"Built", " ", "in", " ", "common", " ", "Tensors"}]:>
        Documentation`HelpLookup[
-       "paclet:Tensors/tutorial/Built in common Tensors"]},
+       "paclet:GeneralRelativityTensors/tutorial/Built in common Tensors"], 
+       RowBox[{"Caching", " ", "Tensor", " ", "values"}]:>
+       Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/tutorial/Caching Tensor values"], 
+       RowBox[{"Examples", " ", "-", " ", 
+        RowBox[{"Wave", " ", "equations"}]}]:>Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/tutorial/Examples - Wave equations"]},
+       
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "f43379a6-ea7f-4924-a7b8-7d3081f4ecbf"],
+      "54c453cd-c81f-4b36-ad2f-aeb615b7b3d0"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"URL \[RightGuillemet]\"\>",
-        StripOnInput->False], {"\<\"Go to Tensors website\"\>":>
+        StripOnInput->
+         False], {"\<\"Go to GeneralRelativityTensors website\"\>":>
        FrontEndExecute[{
          NotebookLocate[{
            URL[None], None}]}], 
@@ -56,35 +65,34 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "b3aa36c8-1565-4d44-aef5-e92a15ae503c"]
-    }], "AnchorBar",ExpressionUUID->"556ac30b-d8e6-4d19-a76e-6db0838cec7e"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"5eedb911-2367-450e-9257-8b646d4def95"],
+      "95d5100e-2264-473f-bb5e-639c917251bb"]
+    }], "AnchorBar",ExpressionUUID->"4f3540cd-d12d-46d5-92de-dd7a94bb104d"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"e416a9e1-4543-4e1f-b79a-22e23c5f2f13"],
 
 Cell[CellGroupData[{
 
-Cell["Tensor derivatives and general manipulation", \
-"Title",ExpressionUUID->"ceb92b17-5027-49f6-b653-c4412458666d"],
+Cell["Tensor manipulation and differentiation", \
+"Title",ExpressionUUID->"303fe56e-2de6-409a-97d9-21a509635d4b"],
 
 Cell["\<\
-The Tensors package provides functions for partial and covariant \
-differentiation. Sums and products of Tensors can be computed in useful ways.\
-\
-\>", "Text",ExpressionUUID->"00bd8c1a-6e2d-45b1-8b44-46c26860a12e"],
+The GeneralRelativityTensors application provides functions for partial and \
+covariant differentiation. Sums and products of Tensors can be computed in \
+useful ways.\
+\>", "Text",ExpressionUUID->"925fc075-aed4-43d1-9385-97f1a01b6d1b"],
 
 Cell[BoxData[
- RowBox[{"<<", "Tensors`"}]], "Input",
- CellChangeTimes->{{3.654938602863015*^9, 3.65493860542126*^9}},
- CellLabel->"In[1]:=",ExpressionUUID->"90a4b35a-232e-411a-85ab-31e0b9673e8c"],
+ RowBox[{"<<", "GeneralRelativityTensors`"}]], "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"bb9be6f7-497b-41ae-8ed0-1581878b84fe"],
 
 Cell[CellGroupData[{
 
 Cell["Shifting Tensor indices", \
-"Section",ExpressionUUID->"d903f9e1-ea8d-4827-81a3-1989dfd4c660"],
+"Section",ExpressionUUID->"5657d810-3dbc-42a8-b658-b0f37fbc19e5"],
 
 Cell[CellGroupData[{
 
 Cell["Indices are raised and lowered with ShiftIndices.", \
-"Item",ExpressionUUID->"c696140e-169e-478f-82c8-258e421b8150"],
+"Item",ExpressionUUID->"7839d512-75c6-4b7d-b07a-f19e90727a73"],
 
 Cell[BoxData[GridBox[{
    {
@@ -108,29 +116,29 @@ Cell[BoxData[GridBox[{
       FontFamily->"Times",
       FontWeight->"Regular",
       FontSlant->"Italic"]
-    }], "TableText",ExpressionUUID->"c78c5f36-2f78-471b-82df-ce2e971e7395"]}
+    }], "TableText",ExpressionUUID->"487c4c94-bd59-4a83-8f5c-b6aa7fa2dbda"]}
   }]], "DefinitionBox",
- CellID->27847004,ExpressionUUID->"c980938c-9bd6-4a91-a415-caae98eb556e"]
+ CellID->27847004,ExpressionUUID->"b4d00969-b37c-4887-a390-686dd3d8d879"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 Positive indices are contravariant. Negative indices are covariant.\
-\>", "Item",ExpressionUUID->"9af28454-90ea-445b-98da-0347339302fd"],
+\>", "Item",ExpressionUUID->"f808cb60-4c76-4d48-89d7-3662fbc75906"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"gS", "=", 
   RowBox[{"ToMetric", "[", "\"\<Schwarzschild\>\"", "]"}]}]], "Input",
- CellLabel->"In[2]:=",ExpressionUUID->"088241cc-410a-422b-8fb8-7142b59a99d1"],
+ CellLabel->"In[2]:=",ExpressionUUID->"c677c1b0-2bc1-4a62-8357-c2276140cc2f"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[2]=",ExpressionUUID->"76e63173-bf4f-4598-93b4-e6f45de563c5"]
+ CellLabel->"Out[2]=",ExpressionUUID->"aa80c32c-e6a6-4f1c-984b-217b8b5f4423"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -140,13 +148,13 @@ Cell[BoxData[
   RowBox[{"gS", ",", 
    RowBox[{"{", 
     RowBox[{"\[Alpha]", ",", "\[Beta]"}], "}"}]}], "]"}]], "Input",
- CellLabel->"In[3]:=",ExpressionUUID->"cdd60fac-36da-4afc-9ee5-445dd0bf22fa"],
+ CellLabel->"In[3]:=",ExpressionUUID->"7c79c4ef-bd01-44a0-bc85-02262c23ad16"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "", "\[Alpha]\[Beta]"],
   DisplayForm]], "Output",
- CellLabel->"Out[3]=",ExpressionUUID->"0185c5c5-26b5-4867-bcb0-e8207fa30c52"]
+ CellLabel->"Out[3]=",ExpressionUUID->"c5aaa154-f61a-4c29-8f1c-9339d5942b2e"]
 }, Open  ]]
 }, Open  ]],
 
@@ -154,33 +162,33 @@ Cell[CellGroupData[{
 
 Cell["\<\
 It is usually easier to raise and lower indices with DownValues\
-\>", "Item",ExpressionUUID->"9c0b36a9-ece2-4037-8399-8629696d785d"],
+\>", "Item",ExpressionUUID->"56d2dbfd-fc41-4a90-91fa-01cfd3acf759"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"gS", "[", 
   RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}]], "Input",
- CellLabel->"In[4]:=",ExpressionUUID->"fd77b052-c747-43e6-b765-1382892c5d79"],
+ CellLabel->"In[4]:=",ExpressionUUID->"e550f7e4-69b0-42d8-aebd-22c3ae8a6015"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "", "\[Alpha]\[Beta]"],
   DisplayForm]], "Output",
- CellLabel->"Out[4]=",ExpressionUUID->"00ab5ebe-7816-4f26-ae07-b1bc96c90fce"]
+ CellLabel->"Out[4]=",ExpressionUUID->"3303fe4c-5a70-4998-aa25-44df98859dde"]
 }, Open  ]]
 }, Open  ]],
 
 Cell["\<\
 Internally the metric computes new values when indices are raised or lowered.\
 \
-\>", "Item",ExpressionUUID->"1abf6dbd-2384-48cd-a4ba-a5ed306b8a7a"],
+\>", "Item",ExpressionUUID->"b0db05bb-d99b-4466-bfc0-dfffcffb609b"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 By default the values computed by ShiftIndices are not simplified.\
-\>", "Item",ExpressionUUID->"9273c8a4-b073-47ea-b015-8c8ffd6bfb6d"],
+\>", "Item",ExpressionUUID->"9fe9bdbc-6ff7-4c51-8ca7-11f2de5d456b"],
 
 Cell[CellGroupData[{
 
@@ -191,7 +199,7 @@ Cell[BoxData[
     RowBox[{"\[Alpha]", ",", 
      RowBox[{"-", "\[Beta]"}]}], "]"}], "//", "TensorValues"}], "//", 
   "MatrixForm"}]], "Input",
- CellLabel->"In[5]:=",ExpressionUUID->"4788161a-24c8-400f-9923-86c966c16523"],
+ CellLabel->"In[5]:=",ExpressionUUID->"fe12cbaa-53d6-410c-b6cc-26fde24a68c2"],
 
 Cell[BoxData[
  TagBox[
@@ -203,9 +211,29 @@ Cell[BoxData[
          RowBox[{
           RowBox[{"-", "1"}], "+", 
           FractionBox[
-           RowBox[{"2", " ", "M"}], "r"]}], ")"}], " ", "r"}], 
+           RowBox[{"2", " ", 
+            TagBox[
+             RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+             False,
+             Editable->False]}], 
+           TagBox[
+            RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
+            False,
+            Editable->False]]}], ")"}], " ", 
+        TagBox[
+         RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
+         False,
+         Editable->False]}], 
        RowBox[{
-        RowBox[{"2", " ", "M"}], "-", "r"}]], "0", "0", "0"},
+        RowBox[{"2", " ", 
+         TagBox[
+          RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+          False,
+          Editable->False]}], "-", 
+        TagBox[
+         RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
+         False,
+         Editable->False]}]], "0", "0", "0"},
      {"0", "1", "0", "0"},
      {"0", "0", "1", "0"},
      {"0", "0", "0", "1"}
@@ -223,7 +251,7 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[5]//MatrixForm=",ExpressionUUID->"204b8900-4729-463c-8c53-dab2156976db"]
+  "Out[5]//MatrixForm=",ExpressionUUID->"b6b150ae-8d77-4d07-b17e-e139466a1f40"]
 }, Open  ]]
 }, Open  ]],
 
@@ -232,7 +260,7 @@ Cell[CellGroupData[{
 Cell["\<\
 In order to act with a function on the values, call ShiftIndices explicitly \
 and use the Option \[OpenCurlyDoubleQuote]ActWith\[CloseCurlyDoubleQuote].\
-\>", "Item",ExpressionUUID->"43feef0a-9ac9-4a82-bcc3-f61b409b85bf"],
+\>", "Item",ExpressionUUID->"24f33ee8-073c-462a-bf21-e6370f313a5f"],
 
 Cell[CellGroupData[{
 
@@ -246,7 +274,7 @@ Cell[BoxData[
        RowBox[{"-", "\[Beta]"}]}], "}"}], ",", 
      RowBox[{"ActWith", "\[Rule]", "Simplify"}]}], "]"}], "//", 
    "TensorValues"}], "//", "MatrixForm"}]], "Input",
- CellLabel->"In[6]:=",ExpressionUUID->"f1d72197-ef1c-4b3d-8764-6e4b893df91c"],
+ CellLabel->"In[6]:=",ExpressionUUID->"e96bbd4b-d57e-486e-9c1b-e49b360ceb13"],
 
 Cell[BoxData[
  TagBox[
@@ -269,7 +297,7 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[6]//MatrixForm=",ExpressionUUID->"3f26297e-3b73-4b2d-a20b-571fd0ff7148"]
+  "Out[6]//MatrixForm=",ExpressionUUID->"ddc4472c-e300-459d-9f43-ec901e17c792"]
 }, Open  ]]
 }, Open  ]],
 
@@ -278,7 +306,7 @@ Cell[CellGroupData[{
 Cell["\<\
 A Tensor\[CloseCurlyQuote]s repeated indices are not traced out until \
 ContractIndices or MergeTensors is called. See below.\
-\>", "Item",ExpressionUUID->"baa65c50-6179-4402-a7e9-4b0a0d1dbe08"],
+\>", "Item",ExpressionUUID->"3c66cd8e-b0be-4487-9222-dcc40adf2f6c"],
 
 Cell[CellGroupData[{
 
@@ -290,7 +318,7 @@ Cell[BoxData[
      RowBox[{"\[Alpha]", ",", 
       RowBox[{"-", "\[Alpha]"}]}], "]"}], "//", "TensorValues"}], "//", 
    "Simplify"}], "//", "MatrixForm"}]], "Input",
- CellLabel->"In[7]:=",ExpressionUUID->"eaad85be-b396-4f61-aa0d-f190dc874faa"],
+ CellLabel->"In[7]:=",ExpressionUUID->"053f632d-2986-4e47-8954-cc60ea8aa75f"],
 
 Cell[BoxData[
  TagBox[
@@ -313,7 +341,7 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[7]//MatrixForm=",ExpressionUUID->"e06c239e-bead-4ed5-892a-0444e0ea6528"]
+  "Out[7]//MatrixForm=",ExpressionUUID->"86c8f391-eb67-47e9-84e5-be70081ac3d7"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -321,19 +349,19 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Forming new Tensors with MergeTensors", \
-"Section",ExpressionUUID->"58beaae1-3b4b-49ae-9bcf-6678e59ff63a"],
+"Section",ExpressionUUID->"6f68fd3d-4707-450d-be6b-03ab5f5afb7b"],
 
 Cell["\<\
 Often, we want to add or multiply Tensors. We may also want to trace out \
 variables.\
-\>", "Item",ExpressionUUID->"41a35811-7dab-4dc5-948e-5e30ea6579b8"],
+\>", "Item",ExpressionUUID->"916e1af3-6865-4894-8301-aa820f3b7476"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
-The Tensors package provides the following functions for performing the \
-actions:\
-\>", "Item",ExpressionUUID->"b723a905-630f-44d1-9c95-9194fd76d86f"],
+The GeneralRelativityTensors application provides the following functions for \
+performing the actions:\
+\>", "Item",ExpressionUUID->"58b5ceae-b452-4fdb-be3b-b7b823c84df4"],
 
 Cell[CellGroupData[{
 
@@ -344,7 +372,7 @@ Cell[TextData[StyleBox[ButtonBox["MultiplyTensors",
  FontSize->12,
  FontWeight->
   "Regular"]], \
-"Subitem",ExpressionUUID->"60e91371-fb1f-4abb-a26a-3d0ac11c78e2"],
+"Subitem",ExpressionUUID->"5beba1a9-b820-4143-9bb6-a38d43f270db"],
 
 Cell[TextData[StyleBox[ButtonBox["MultiplyTensorScalar",
  BaseStyle->"Link",
@@ -353,7 +381,7 @@ Cell[TextData[StyleBox[ButtonBox["MultiplyTensorScalar",
  FontSize->12,
  FontWeight->
   "Regular"]], \
-"Subitem",ExpressionUUID->"8ec7493c-fc63-4dfb-9761-3f2baed9ec8a"],
+"Subitem",ExpressionUUID->"bb50f5c5-9efe-4de1-8e7b-155d7ddefb54"],
 
 Cell[TextData[StyleBox[ButtonBox["SumTensors",
  BaseStyle->"Link",
@@ -362,7 +390,7 @@ Cell[TextData[StyleBox[ButtonBox["SumTensors",
  FontSize->12,
  FontWeight->
   "Regular"]], \
-"Subitem",ExpressionUUID->"c82319e6-a967-46c1-b48a-1c68bccd12d7"],
+"Subitem",ExpressionUUID->"0c858044-9da9-4327-9de9-de93cf10730c"],
 
 Cell[TextData[StyleBox[ButtonBox["ContractIndices",
  BaseStyle->"Link",
@@ -371,7 +399,7 @@ Cell[TextData[StyleBox[ButtonBox["ContractIndices",
  FontSize->12,
  FontWeight->
   "Regular"]], \
-"Subitem",ExpressionUUID->"42256f6d-c5e0-49e0-9763-e8cac1ea3d72"]
+"Subitem",ExpressionUUID->"9ac65bb8-3022-45d2-b5a4-4d3e6c8af1f5"]
 }, Open  ]]
 }, Open  ]],
 
@@ -382,7 +410,7 @@ Cell[TextData[{
  StyleBox["MergeTensors",
   FontWeight->"Bold"],
  ", which calls each of these as sub-functions."
-}], "Item",ExpressionUUID->"b8d5ff17-5488-4860-89aa-4e998b457b63"],
+}], "Item",ExpressionUUID->"27037d33-9030-4898-9344-5e005cb5ff34"],
 
 Cell[BoxData[GridBox[{
    {
@@ -393,9 +421,9 @@ Cell[BoxData[GridBox[{
      StyleBox["expr", "TI"], "]"}], Cell["\<\
 adds and multiplies Tensors, and then traces over repeated indices, returning \
 one Tensor\
-\>", "TableText",ExpressionUUID->"f4c22073-fccf-4939-89cb-a13c72a73567"]}
+\>", "TableText",ExpressionUUID->"67c02281-b803-480f-97b7-e66619bdfe4b"]}
   }]], "DefinitionBox",
- CellID->1334,ExpressionUUID->"e2b69adf-1311-4ab6-a473-e362a8a4d26d"]
+ CellID->1334,ExpressionUUID->"46fbf8fc-0b48-4566-85ac-5a0f357373f8"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -403,43 +431,43 @@ Cell[CellGroupData[{
 Cell["\<\
 MergeTensors has the following useful Options, which each have the default \
 value of Identity.\
-\>", "Item",ExpressionUUID->"bc2258f2-14f6-4d3b-8aee-71cd8a03ac8e"],
+\>", "Item",ExpressionUUID->"4d4d56e5-8181-4400-9aa8-9ab8ae98f83e"],
 
 Cell[BoxData[GridBox[{
    {"ActWith", Cell["\<\
 applies the Option value (a function) to each of the elements of the Tensor \
 that MergeTensors forms\
-\>", "TableText",ExpressionUUID->"7abe2e31-d384-4408-87f0-712af159b2e9"]},
+\>", "TableText",ExpressionUUID->"75ca800c-7d5e-4a5b-9a34-20916e0bd791"]},
    {"ActWithNested", Cell["\<\
 same as ActWith, but the function is also passed to functions that \
 MergeTensors calls internally\
-\>", "TableText",ExpressionUUID->"8af7a4f7-d7c9-4322-afda-bd6175d33bad"]}
+\>", "TableText",ExpressionUUID->"b4125648-ea40-4f94-b748-41271766d525"]}
   }]], "DefinitionBox",
- CellID->1128635629,ExpressionUUID->"cdc42239-e800-4098-8845-43067a6f4096"]
+ CellID->1128635629,ExpressionUUID->"5aeae879-da5e-47ba-9764-2637d16830d8"]
 }, Open  ]],
 
 Cell["These same options are available in many functions.", \
-"Item",ExpressionUUID->"c6b031f7-43b6-4ca1-867c-5331b1644c3d"],
+"Item",ExpressionUUID->"f8e2c629-6d49-44fb-99d2-ac33fa1f0020"],
 
 Cell["ActWithNested can be useful for large expressions.", \
-"Item",ExpressionUUID->"0601f36e-4098-4e27-954e-3dfac5fc007b"],
+"Item",ExpressionUUID->"9079c9dd-bb40-4db0-ae0b-a3055d962a9c"],
 
 Cell[CellGroupData[{
 
 Cell["Example", \
-"Subsection",ExpressionUUID->"c02fcaa6-20a4-48ec-a0e6-b618af1b9369"],
+"Subsection",ExpressionUUID->"a70a493d-404b-49aa-83f1-794705c9fd91"],
 
 Cell["\<\
 Let\[CloseCurlyQuote]s check that the Einstein Tensor vanishes in the \
 Schwarzschild spacetime\
-\>", "Item",ExpressionUUID->"db9c644c-d16a-4e04-9e3c-01e2344d6386"],
+\>", "Item",ExpressionUUID->"5bdbf8b2-6014-4241-b9d6-cc5c79e7fded"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 First compute the Ricci Tensor and Scalar from the metric, and then form the \
 trace-reverse of the Ricci Tensor.\
-\>", "Item",ExpressionUUID->"212ccbf4-f945-4ebe-a741-f32df1e8a532"],
+\>", "Item",ExpressionUUID->"94c935f6-a5f5-4838-b72c-7385837424e2"],
 
 Cell[CellGroupData[{
 
@@ -448,18 +476,18 @@ Cell[BoxData[{
   RowBox[{"RicciTensor", "[", "gS", "]"}]}], "\[IndentingNewLine]", 
  RowBox[{"ricSS", "=", 
   RowBox[{"RicciScalar", "[", "gS", "]"}]}]}], "Input",
- CellLabel->"In[8]:=",ExpressionUUID->"241c3373-c742-4bf6-a122-55e4bf34dedd"],
+ CellLabel->"In[8]:=",ExpressionUUID->"c28564b2-c255-454d-950c-3356f3426eb9"],
 
 Cell[BoxData[
  TagBox[
-  SubsuperscriptBox["R", "\[Alpha]\[Beta]", ""],
+  SubsuperscriptBox["R", "\[Beta]\[Gamma]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[8]=",ExpressionUUID->"712c823e-e81a-4a39-a251-2c6d05c830fc"],
+ CellLabel->"Out[8]=",ExpressionUUID->"12236244-920b-429a-a03b-e0de7a037f4d"],
 
 Cell[BoxData[
  TagBox["\<\"R\"\>",
   DisplayForm]], "Output",
- CellLabel->"Out[9]=",ExpressionUUID->"a4454d96-a9aa-4bad-bcf1-f03b78832f7a"]
+ CellLabel->"Out[9]=",ExpressionUUID->"ec33f128-8344-4fa6-9eac-8c25ea66b95b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -477,7 +505,7 @@ Cell[BoxData[
       RowBox[{"-", "\[Alpha]"}], ",", 
       RowBox[{"-", "\[Beta]"}]}], "]"}], " ", 
     RowBox[{"ricSS", "/", "2"}]}]}]}]], "Input",
- CellLabel->"In[10]:=",ExpressionUUID->"d20e096b-d6c1-42ae-9e07-87557cdab2cd"],
+ CellLabel->"In[10]:=",ExpressionUUID->"674c26a6-233f-439d-ad4b-4fd8874904c0"],
 
 Cell[BoxData[
  RowBox[{
@@ -492,19 +520,19 @@ Cell[BoxData[
      SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
      DisplayForm]}], "2"]}]], "Output",
  CellLabel->
-  "Out[10]=",ExpressionUUID->"bf71f688-67c0-4836-8683-a4da7e1cc6b0"]
+  "Out[10]=",ExpressionUUID->"a4bdeadc-4a8a-4ac6-b6ba-15bbb26ccc2b"]
 }, Open  ]]
 }, Open  ]],
 
 Cell["\<\
 This expression is not yet a Tensor, but rather the sum and product of three \
 different Tensors, along with the number 1/2. \
-\>", "Item",ExpressionUUID->"e72e2bd5-0d69-4d0a-926d-e82ee844f2e4"],
+\>", "Item",ExpressionUUID->"93699b24-5971-42d8-a289-35d1c5f5fddb"],
 
 Cell[CellGroupData[{
 
 Cell["We combine them together with the MergeTensors.", \
-"Item",ExpressionUUID->"19199ab4-1189-4471-acd3-f4c2f4c90992"],
+"Item",ExpressionUUID->"5dfd8e27-f216-486f-9ccc-27f34b009aca"],
 
 Cell[CellGroupData[{
 
@@ -516,21 +544,21 @@ Cell[BoxData[
      RowBox[{"\"\<EinsteinSchwarzschild\>\"", ",", "\"\<G\>\""}], "}"}], ",", 
     
     RowBox[{"ActWith", "\[Rule]", "Simplify"}]}], "]"}]}]], "Input",
- CellLabel->"In[11]:=",ExpressionUUID->"d21459cf-9949-4aed-9e55-34fad3038e75"],
+ CellLabel->"In[11]:=",ExpressionUUID->"d5b95c81-d1e7-4b78-81ba-b1301656b63d"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["G", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[11]=",ExpressionUUID->"303ca064-5ad2-479d-b073-f45974c356dc"]
+  "Out[11]=",ExpressionUUID->"855a6386-0d85-4711-9adb-21f9fa0768a7"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"einS", "//", "TensorValues"}]], "Input",
- CellLabel->"In[12]:=",ExpressionUUID->"ae816693-91fb-4e05-9ce5-f766d88e08ff"],
+ CellLabel->"In[12]:=",ExpressionUUID->"4c4310f9-3238-4159-9ed3-2f1eca569e59"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -544,7 +572,7 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[12]=",ExpressionUUID->"e2362b4e-cdea-4344-b48f-0b8b612f2a5b"]
+  "Out[12]=",ExpressionUUID->"123072a1-1336-4495-9f02-6caecff5dea5"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -552,15 +580,15 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Errors to avoid", \
-"Subsection",ExpressionUUID->"603c5f90-75b0-42db-9b50-41ed6ad24e7c"],
+"Subsection",ExpressionUUID->"8d4cbaf2-92a6-4bd9-afe1-b1f1b5d519e2"],
 
 Cell[CellGroupData[{
 
 Cell["The normal rules of index gymnastics must be followed.", \
-"Item",ExpressionUUID->"38bc7907-e2ce-4206-938c-0b70b311b3e9"],
+"Item",ExpressionUUID->"7961aa8f-0ae9-4cb3-b84b-de68916a669d"],
 
 Cell["Only Tensors with same indices may be summed.", \
-"Subitem",ExpressionUUID->"f43b1438-98e6-4b94-b274-cc349cbf3cc0"],
+"Subitem",ExpressionUUID->"6f20a31d-5708-41fb-8a48-677c9b46b144"],
 
 Cell[CellGroupData[{
 
@@ -571,7 +599,7 @@ Cell[BoxData[
     RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}], "+", 
    RowBox[{"ricTS", "[", 
     RowBox[{"\[Beta]", ",", "\[Gamma]"}], "]"}]}]}]], "Input",
- CellLabel->"In[13]:=",ExpressionUUID->"dd8d50e0-c856-40da-a555-23529d0ff942"],
+ CellLabel->"In[13]:=",ExpressionUUID->"92c43af1-354e-48db-b2e4-5944dba9e008"],
 
 Cell[BoxData[
  RowBox[{
@@ -582,14 +610,14 @@ Cell[BoxData[
    SubsuperscriptBox["R", "", "\[Beta]\[Gamma]"],
    DisplayForm]}]], "Output",
  CellLabel->
-  "Out[13]=",ExpressionUUID->"8aa9a209-2c66-40f7-94bd-7ff026afb8ca"]
+  "Out[13]=",ExpressionUUID->"da5167f3-0b1d-40aa-b09b-5c91bc1b6cc6"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"MergeTensors", "[", "errorExpr1", "]"}]], "Input",
- CellLabel->"In[14]:=",ExpressionUUID->"3629ba8d-ca81-438e-88ce-8db84647f3c0"],
+ CellLabel->"In[14]:=",ExpressionUUID->"fb7e114f-06fd-4dba-b53f-3f90454fb28c"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -606,32 +634,30 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[14]:=",ExpressionUUID->"abd8a0de-5bcd-48a0-9876-2e85ea519516"],
+In[14]:=",ExpressionUUID->"7182fb43-0b98-49ba-b74d-907da8626669"],
 
 Cell[BoxData["$Aborted"], "Output",
  CellLabel->
-  "Out[14]=",ExpressionUUID->"fd23fab6-7432-44ec-8d12-4e9909d5e2ee"]
+  "Out[14]=",ExpressionUUID->"577fe7da-d042-4291-a7da-502509358cfa"]
 }, Open  ]],
 
 Cell["\<\
 An index may be repeated only once, and it must be up once and down once\
-\>", "Subitem",ExpressionUUID->"83ff1e32-ba87-4203-aa38-cbb0b73ee9bf"],
+\>", "Subitem",ExpressionUUID->"206de6c7-6d9e-4186-a6d2-29db10fa4e22"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"rieS", "=", 
   RowBox[{"RiemannTensor", "[", "gS", "]"}]}]], "Input",
- CellLabel->"In[15]:=",ExpressionUUID->"7c4f66b3-ec78-45f4-93b3-29068aeaa02b"],
+ CellLabel->"In[15]:=",ExpressionUUID->"c6c55ed2-66e0-44b8-8d15-af252038229f"],
 
 Cell[BoxData[
  TagBox[
-  SubsuperscriptBox["R", 
-   RowBox[{"  ", "\[Beta]\[Gamma]\[Delta]"}], 
-   RowBox[{"\[Alpha]", "      "}]],
+  SubsuperscriptBox["R", "\[Alpha]\[Beta]\[Gamma]\[Delta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[15]=",ExpressionUUID->"53703d69-39ae-458e-bfa4-2a01e25238d6"]
+  "Out[15]=",ExpressionUUID->"de99e2f1-df42-4478-a12f-f34acfde1231"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -642,7 +668,7 @@ Cell[BoxData[
    RowBox[{"-", "\[Beta]"}], ",", 
    RowBox[{"-", "\[Alpha]"}], ",", 
    RowBox[{"-", "\[Alpha]"}]}], "]"}]], "Input",
- CellLabel->"In[16]:=",ExpressionUUID->"b4fbc6ea-b38f-4542-a1d1-929abfc5b818"],
+ CellLabel->"In[16]:=",ExpressionUUID->"739b7683-a3bd-4614-9cd6-b65227a37838"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -654,11 +680,11 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[16]:=",ExpressionUUID->"d3609dd7-9ac1-42bf-a4a2-a62b6f120013"],
+In[16]:=",ExpressionUUID->"dd7ae8cf-970a-47a4-9122-ca9b20ff8ae8"],
 
 Cell[BoxData["$Aborted"], "Output",
  CellLabel->
-  "Out[16]=",ExpressionUUID->"2166a7b8-1efd-4c91-9506-95d946fb36bc"]
+  "Out[16]=",ExpressionUUID->"977d9524-096c-46a8-9510-2f73c568196c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -669,7 +695,7 @@ Cell[BoxData[
    RowBox[{"-", "\[Beta]"}], ",", 
    RowBox[{"-", "\[Alpha]"}], ",", 
    RowBox[{"-", "\[Alpha]"}]}], "]"}]], "Input",
- CellLabel->"In[17]:=",ExpressionUUID->"67f64eb8-eeda-485a-91c7-260625ea8e2e"],
+ CellLabel->"In[17]:=",ExpressionUUID->"4d8af72b-93f7-4d7e-8f81-36486e6c7687"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -682,29 +708,29 @@ down): ", {Temp`\[Alpha]}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[17]:=",ExpressionUUID->"9d22f554-7401-44e3-a0e3-01c7c2fb9d44"],
+In[17]:=",ExpressionUUID->"280d369b-6131-4634-92d1-0f8ed68c8ca5"],
 
 Cell[BoxData["$Aborted"], "Output",
  CellLabel->
-  "Out[17]=",ExpressionUUID->"35173a00-e9d4-4447-adc4-ae8e402d78d6"]
+  "Out[17]=",ExpressionUUID->"183deaa0-25f6-4a0c-b2e1-8c73e8f5d698"]
 }, Open  ]],
 
 Cell["Tensors with different metrics cannot be combined", \
-"Subitem",ExpressionUUID->"b0f106db-eec0-4d1e-ac83-6812d614d356"],
+"Subitem",ExpressionUUID->"2f03574b-3474-4346-b326-27e976f92731"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"gRN", "=", 
   RowBox[{"ToMetric", "[", "\"\<ReissnerNordstrom\>\"", "]"}]}]], "Input",
- CellLabel->"In[18]:=",ExpressionUUID->"2513f387-7ef6-4668-902a-7faa83866553"],
+ CellLabel->"In[18]:=",ExpressionUUID->"02468a62-30ca-4989-a867-0744968b119a"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[18]=",ExpressionUUID->"b1fda24b-d6af-4f44-97e5-e0cad3c69de4"]
+  "Out[18]=",ExpressionUUID->"a6996c0c-0220-4dbb-a3fa-a2a604a9eced"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -712,16 +738,16 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"MergeTensors", "[", 
   RowBox[{"gRN", "+", "gS"}], "]"}]], "Input",
- CellLabel->"In[19]:=",ExpressionUUID->"a61066cb-86bc-4939-a833-7dab94b362f6"],
+ CellLabel->"In[19]:=",ExpressionUUID->"5bea29cb-73e1-4f8d-940d-87257c9b7119"],
 
 Cell[BoxData["\<\"Cannot sum Tensors with different metrics.\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[19]:=",ExpressionUUID->"4c3e8c19-6d65-4a8d-a5e9-d39613fbbc26"],
+In[19]:=",ExpressionUUID->"e584ca4a-15b6-4bd7-afa4-5262b1c35f8b"],
 
 Cell[BoxData["$Aborted"], "Output",
  CellLabel->
-  "Out[19]=",ExpressionUUID->"ca326c7b-01e9-4f45-a96f-fc89492249fb"]
+  "Out[19]=",ExpressionUUID->"98caf4d3-cc38-48f8-8236-85bf3b2ca00b"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -730,42 +756,42 @@ Cell[BoxData["$Aborted"], "Output",
 Cell[CellGroupData[{
 
 Cell["Reordering Tensor indices", \
-"Section",ExpressionUUID->"22725759-24fd-4b90-b426-99d6bbac372d"],
+"Section",ExpressionUUID->"1dc1116e-5723-4ef6-b3fe-7dd45b82eaf5"],
 
 Cell[CellGroupData[{
 
 Cell["General principles and using MergeTensors", \
-"Subsection",ExpressionUUID->"98ab0241-7ad4-4afa-a1fb-7704140b3450"],
+"Subsection",ExpressionUUID->"e5df93e7-d412-4a01-8112-c6f38ccce1af"],
 
 Cell["\<\
 When a Tensor is shown in a notebook it has formatted output with indices.\
-\>", "Item",ExpressionUUID->"bedbef70-f0a7-4b66-a5ff-7d2631d8073e"],
+\>", "Item",ExpressionUUID->"e050ed22-853c-4bf2-b47d-efb7402fb158"],
 
 Cell[TextData[{
  "For instance, consider the field strength tensor for the ",
  StyleBox["Reissner",
   IgnoreSpellCheck->True],
  "-Nordstr\[ODoubleDot]m spacetime."
-}], "Item",ExpressionUUID->"e1c333d2-1088-41f0-814e-6bcccb40d911"],
+}], "Item",ExpressionUUID->"10f7fb71-a85c-480d-aa15-f71cf99f8fc9"],
 
 Cell[CellGroupData[{
 
 Cell["It is a rank-2 antisymmetric Tensor.", \
-"Item",ExpressionUUID->"a1e1f284-0737-420d-af1d-e49f368c4a64"],
+"Item",ExpressionUUID->"33803639-bf8c-4844-b9c6-e566efe18820"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"fsRN", "=", 
   RowBox[{"FieldStrengthTensor", "[", "\"\<RN\>\"", "]"}]}]], "Input",
- CellLabel->"In[20]:=",ExpressionUUID->"78d66e97-7efb-4174-80d4-c36314f83681"],
+ CellLabel->"In[20]:=",ExpressionUUID->"a75effe5-79d3-418c-886d-2df888096a10"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["F", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[20]=",ExpressionUUID->"2c57fde5-9dbb-49e1-8745-120243b59e8f"]
+  "Out[20]=",ExpressionUUID->"cd47126f-fe76-4a76-a023-8b27b97b73d1"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -773,7 +799,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"fsRN", "//", "TensorValues"}], "//", "MatrixForm"}]], "Input",
- CellLabel->"In[21]:=",ExpressionUUID->"606c366c-ad5f-4141-a3c4-61d65583a3ad"],
+ CellLabel->"In[21]:=",ExpressionUUID->"a7d190df-ace0-4acd-90ce-e74054cadde9"],
 
 Cell[BoxData[
  TagBox[
@@ -801,15 +827,15 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[21]//MatrixForm=",ExpressionUUID->"93c471d4-6865-42dd-a328-\
-369ea9845d56"]
+  "Out[21]//MatrixForm=",ExpressionUUID->"088b335a-afa5-4ad9-a815-\
+f4b97c308ac4"]
 }, Open  ]]
 }, Open  ]],
 
 Cell["\<\
 Those specific indices are arbitrary until they are traced over or used in an \
 operation with another Tensor\
-\>", "Item",ExpressionUUID->"3a03b196-abdd-441f-bb3f-99882966e82c"],
+\>", "Item",ExpressionUUID->"8dd612dd-a630-498d-bf37-6d2a04702b87"],
 
 Cell[CellGroupData[{
 
@@ -817,7 +843,7 @@ Cell["\<\
 That is, simply writing the following will not change the Tensor\
 \[CloseCurlyQuote]s values internally, even though the order of the two \
 indices has changed\
-\>", "Item",ExpressionUUID->"84513a0b-f7d4-432d-b271-3cebdd02b67e"],
+\>", "Item",ExpressionUUID->"992c78c6-7354-480c-bf68-e3ec37aaf7f0"],
 
 Cell[CellGroupData[{
 
@@ -826,14 +852,14 @@ Cell[BoxData[
   RowBox[{
    RowBox[{"-", "\[Beta]"}], ",", 
    RowBox[{"-", "\[Alpha]"}]}], "]"}]], "Input",
- CellLabel->"In[22]:=",ExpressionUUID->"9c26daf1-acdf-4ef6-a3b6-c564ecf40da0"],
+ CellLabel->"In[22]:=",ExpressionUUID->"033e676d-45c8-4b3f-90c4-d7e88bb6014a"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["F", "\[Beta]\[Alpha]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[22]=",ExpressionUUID->"3fa8ace0-7454-4d37-93f1-514559cc623c"]
+  "Out[22]=",ExpressionUUID->"981a0afa-0d67-48c6-9e3a-9270536c2d17"]
 }, Open  ]]
 }, Open  ]],
 
@@ -841,7 +867,7 @@ Cell[CellGroupData[{
 
 Cell["\<\
 See this by calling TensorValues on the two versions of the Tensor.\
-\>", "Item",ExpressionUUID->"47e77271-10f9-43cc-9e8e-9e175c051aee"],
+\>", "Item",ExpressionUUID->"d386ecc3-77c4-4b36-8901-b2e5185b942b"],
 
 Cell[CellGroupData[{
 
@@ -857,7 +883,7 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"-", "\[Beta]"}], ",", 
      RowBox[{"-", "\[Alpha]"}]}], "]"}], "]"}]}]], "Input",
- CellLabel->"In[23]:=",ExpressionUUID->"d85d10df-85b6-4ddd-8aca-afaa0a5c4911"],
+ CellLabel->"In[23]:=",ExpressionUUID->"0eb096db-8be6-410a-8a99-967e0ab2796a"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -871,7 +897,7 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[23]=",ExpressionUUID->"d1e34e29-5888-4b03-a1ad-41e9b221d5bc"]
+  "Out[23]=",ExpressionUUID->"08dea228-d038-4f2b-bbb5-8302a7747ca1"]
 }, Open  ]]
 }, Open  ]],
 
@@ -880,7 +906,7 @@ Cell[CellGroupData[{
 Cell["\<\
 However, If we first combine them into one Tensor, using MergeTensors, we do \
 see an effect.\
-\>", "Item",ExpressionUUID->"18766365-cf49-44e8-ab43-83b5acb651ad"],
+\>", "Item",ExpressionUUID->"6c686c4c-ec92-4cf7-a122-4ef719146308"],
 
 Cell[CellGroupData[{
 
@@ -896,7 +922,7 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"-", "\[Beta]"}], ",", 
       RowBox[{"-", "\[Alpha]"}]}], "]"}]}], "]"}], "]"}]], "Input",
- CellLabel->"In[24]:=",ExpressionUUID->"c3cec2cb-9398-4b70-a211-635e35170ea6"],
+ CellLabel->"In[24]:=",ExpressionUUID->"9e8dd946-c01e-4286-bf96-2fd7f30f97a8"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -917,14 +943,14 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[24]=",ExpressionUUID->"3be63f77-3e94-49a5-af59-f82dfd572bd6"]
+  "Out[24]=",ExpressionUUID->"f528bc62-0bd8-4d4b-9ce2-d277765ecea1"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Of course, the field strength tensor is antisymmetric so:", \
-"Item",ExpressionUUID->"30df9e54-3f0a-4999-a02f-b7d23794130d"],
+"Item",ExpressionUUID->"acd5e711-e769-4208-8b1b-2215875060e9"],
 
 Cell[CellGroupData[{
 
@@ -940,7 +966,7 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"-", "\[Beta]"}], ",", 
       RowBox[{"-", "\[Alpha]"}]}], "]"}]}], "]"}], "]"}]], "Input",
- CellLabel->"In[25]:=",ExpressionUUID->"0f40d6d4-8f8e-47d4-81c0-794fe9a6f9bd"],
+ CellLabel->"In[25]:=",ExpressionUUID->"a19b7ce9-f356-4ad7-a49e-0e889f136f5b"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -954,7 +980,7 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[25]=",ExpressionUUID->"d91980d6-d0bc-4e45-bc06-df17bc5fdb64"]
+  "Out[25]=",ExpressionUUID->"69b43fe5-e919-4dae-ad9d-a1f4cea3ee8b"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -962,23 +988,23 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Using ReorderTensorIndices", \
-"Subsection",ExpressionUUID->"e4d08762-707a-471b-ac8a-ce06e7647f8b"],
+"Subsection",ExpressionUUID->"9fc9f768-7ac3-4e42-9263-8d25a37e2ebb"],
 
 Cell["\<\
 Sometimes it is useful to just change the order of one Tensor\
 \[CloseCurlyQuote]s indices.\
-\>", "Item",ExpressionUUID->"4493bef7-911a-4635-97d2-199543c7f818"],
+\>", "Item",ExpressionUUID->"e495aee0-5d61-436f-a404-c9394c69a6ae"],
 
 Cell[CellGroupData[{
 
 Cell["This is done with the function ReorderTensorIndices", \
-"Item",ExpressionUUID->"4c8e403f-d9d1-44df-9d38-82084a54069f"],
+"Item",ExpressionUUID->"969062e5-ed82-4a94-bc81-62a5a59076a1"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"?", "ReorderTensorIndices"}]], "Input",
- CellLabel->"In[26]:=",ExpressionUUID->"5196db93-58c0-4b22-8f0c-4e3d13e53fee"],
+ CellLabel->"In[26]:=",ExpressionUUID->"f2632487-07db-437c-a709-051d1e6d72ab"],
 
 Cell[BoxData[
  RowBox[{"\<\"ReorderTensorIndices[t,order,n] returns the Tensor t renamed n \
@@ -991,17 +1017,18 @@ equivalent, but with an automatically generated name for the new Tensor.\"\>",
    Active->True,
    BaseStyle->"Link",
    ButtonData->
-    "paclet:Tensors/ref/ReorderTensorIndices"]}]], "Print", "PrintUsage",
+    "paclet:GeneralRelativityTensors/ref/ReorderTensorIndices"]}]], "Print", \
+"PrintUsage",
  CellTags->
-  "Info263740435950-6633590",ExpressionUUID->"16a3fef0-dbc1-4433-8fdf-\
-f9ab163958cc"]
+  "Info263740591031-6352629",ExpressionUUID->"142f588f-c348-4817-bbf2-\
+0eeb5aff83b1"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["For instance, we can take the Transpose of fsRN with", \
-"Item",ExpressionUUID->"58062cca-c38d-4375-827a-a4d7e189c1de"],
+"Item",ExpressionUUID->"b8515759-f0a9-4edf-ba6e-4ffef4cc05ab"],
 
 Cell[CellGroupData[{
 
@@ -1011,14 +1038,14 @@ Cell[BoxData[
    RowBox[{"fsRN", ",", 
     RowBox[{"{", 
      RowBox[{"2", ",", "1"}], "}"}]}], "]"}]}]], "Input",
- CellLabel->"In[27]:=",ExpressionUUID->"b3e696c4-61ad-4930-b9e1-c60c6070bd0d"],
+ CellLabel->"In[27]:=",ExpressionUUID->"627582c9-d6a4-44fa-b2cd-c63803ade471"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["F", "\[Beta]\[Alpha]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[27]=",ExpressionUUID->"2c082cfd-f8c4-479e-91ef-40876c68bf2b"]
+  "Out[27]=",ExpressionUUID->"080bfaa5-8789-4bb3-b20b-cb300f9a9a87"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1026,7 +1053,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"fsRNT", "//", "TensorValues"}], "//", "MatrixForm"}]], "Input",
- CellLabel->"In[28]:=",ExpressionUUID->"84bcd534-945c-46f8-82d8-c06a24cb6cd3"],
+ CellLabel->"In[28]:=",ExpressionUUID->"cd76c742-0f6f-479a-aaf7-6ecd63de041f"],
 
 Cell[BoxData[
  TagBox[
@@ -1054,8 +1081,8 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[28]//MatrixForm=",ExpressionUUID->"590415c9-99ad-46a3-ad02-\
-810de307beac"]
+  "Out[28]//MatrixForm=",ExpressionUUID->"3e556ac5-67fa-4a64-a32f-\
+f9fe584478a9"]
 }, Open  ]]
 }, Open  ]],
 
@@ -1064,7 +1091,7 @@ Cell[CellGroupData[{
 Cell["\<\
 ReorderTensorIndices can perform larger reorderings. Here we swap the indices \
 in positions 1 and 2 with those in 3 and 4 in the Schwarzschild Riemann Tensor\
-\>", "Item",ExpressionUUID->"706cb212-aba7-4ad0-986d-f7168c85a6f9"],
+\>", "Item",ExpressionUUID->"c6ba8ec6-82b6-4c43-a932-01a3f2bc5a51"],
 
 Cell[CellGroupData[{
 
@@ -1073,16 +1100,14 @@ Cell[BoxData[
   RowBox[{"RiemannTensor", "[", 
    RowBox[{"gS", ",", 
     RowBox[{"ActWith", "\[Rule]", "Simplify"}]}], "]"}]}]], "Input",
- CellLabel->"In[29]:=",ExpressionUUID->"b3d856f2-7060-4bf0-96e0-219d6b6a785e"],
+ CellLabel->"In[29]:=",ExpressionUUID->"9b8f114d-d81c-4a8f-b22e-31c3020ca147"],
 
 Cell[BoxData[
  TagBox[
-  SubsuperscriptBox["R", 
-   RowBox[{"  ", "\[Beta]\[Gamma]\[Delta]"}], 
-   RowBox[{"\[Alpha]", "      "}]],
+  SubsuperscriptBox["R", "\[Alpha]\[Beta]\[Gamma]\[Delta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[29]=",ExpressionUUID->"84c65f89-6f55-4fac-8e82-40ffa42e6c3d"]
+  "Out[29]=",ExpressionUUID->"cb23ddff-0cf5-4cfe-877b-ca6d183f92af"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1099,14 +1124,14 @@ Cell[BoxData[
       RowBox[{"-", "\[Delta]"}]}], "]"}], ",", 
     RowBox[{"{", 
      RowBox[{"3", ",", "4", ",", "1", ",", "2"}], "}"}]}], "]"}]}]], "Input",
- CellLabel->"In[30]:=",ExpressionUUID->"a39e1d0b-f003-4a80-b3ca-ca53c742904d"],
+ CellLabel->"In[30]:=",ExpressionUUID->"e6b3fefc-fff7-4488-9cc3-2851ca98a423"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["R", "\[Gamma]\[Delta]\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[30]=",ExpressionUUID->"bdd0ab5b-a7e3-411e-8778-be80d90d9060"]
+  "Out[30]=",ExpressionUUID->"1494554e-1e4d-4460-a3c1-88e90da55a1c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1122,7 +1147,7 @@ Cell[BoxData[
       RowBox[{"-", "\[Beta]"}], ",", 
       RowBox[{"-", "\[Gamma]"}], ",", 
       RowBox[{"-", "\[Delta]"}]}], "]"}]}]}], "//", "Simplify"}]], "Input",
- CellLabel->"In[31]:=",ExpressionUUID->"ea2fbc66-5d38-44e0-ace6-4b0017d5ecbc"],
+ CellLabel->"In[31]:=",ExpressionUUID->"c74620bb-bdbe-4d26-98f1-eed940c21d30"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1144,59 +1169,7 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
-        RowBox[{
-         FractionBox[
-          RowBox[{"2", " ", 
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             FractionBox[
-              RowBox[{
-               RowBox[{
-                RowBox[{"-", "2"}], " ", 
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-                 False,
-                 Editable->False]}], "+", 
-               TagBox[
-                RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                False,
-                Editable->False]}], 
-              RowBox[{"1", "-", 
-               FractionBox[
-                RowBox[{"2", " ", "M"}], "r"]}]], "+", 
-             FractionBox[
-              RowBox[{
-               SuperscriptBox[
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                 False,
-                 Editable->False], "2"], " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{
-                  RowBox[{"-", "2"}], " ", "M"}], "+", "r"}], ")"}]}], 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"2", " ", 
-                  TagBox[
-                   RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-                   False,
-                   Editable->False]}], "-", 
-                 TagBox[
-                  RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                  False,
-                  Editable->False]}], ")"}], " ", "r"}]]}], ")"}]}], 
-          SuperscriptBox[
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-            False,
-            Editable->False], "4"]], ",", "0", ",", "0", ",", "0"}], "}"}], 
-       ",", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
@@ -1208,43 +1181,7 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
-        RowBox[{
-         FractionBox[
-          RowBox[{
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"2", " ", 
-              TagBox[
-               RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-               False,
-               Editable->False], " ", 
-              SuperscriptBox["r", "2"]}], "-", 
-             RowBox[{
-              TagBox[
-               RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-               False,
-               Editable->False], " ", 
-              SuperscriptBox["r", "2"]}], "+", 
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{"1", "-", 
-                FractionBox[
-                 RowBox[{"2", " ", "M"}], "r"]}], ")"}], " ", 
-              SuperscriptBox[
-               TagBox[
-                RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                False,
-                Editable->False], "3"]}]}], ")"}]}], 
-          SuperscriptBox[
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-            False,
-            Editable->False], "4"]], ",", "0", ",", "0", ",", "0"}], "}"}], 
-       ",", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}], ",", 
      RowBox[{"{", 
@@ -1256,111 +1193,24 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
-        RowBox[{
-         RowBox[{
-          FractionBox["1", 
-           SuperscriptBox[
-            TagBox[
-             RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-             False,
-             Editable->False], "4"]], 
-          RowBox[{
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{"2", " ", 
-                 TagBox[
-                  RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-                  False,
-                  Editable->False]}], "-", 
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                 False,
-                 Editable->False]}], ")"}], " ", 
-              SuperscriptBox["r", "2"], " ", 
-              SuperscriptBox[
-               RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}], "+", 
-             FractionBox[
-              RowBox[{
-               SuperscriptBox[
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                 False,
-                 Editable->False], "3"], " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{
-                  RowBox[{"-", "2"}], " ", "M"}], "+", "r"}], ")"}], " ", 
-               SuperscriptBox[
-                RowBox[{"Sin", "[", 
-                 TagBox[
-                  RowBox[{"Removed", "[", "\<\"\[Theta]\"\>", "]"}],
-                  False,
-                  Editable->False], "]"}], "2"]}], "r"]}], ")"}]}]}], ",", 
-         "0", ",", "0", ",", "0"}], "}"}]}], "}"}]}], "}"}], ",", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]}], "}"}], 
+   ",", 
    RowBox[{"{", 
     RowBox[{
      RowBox[{"{", 
       RowBox[{
        RowBox[{"{", 
-        RowBox[{"0", ",", 
-         FractionBox[
-          RowBox[{"2", " ", 
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             FractionBox[
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"-", "1"}], "+", 
-                 FractionBox[
-                  RowBox[{"2", " ", "M"}], "r"]}], ")"}], " ", 
-               SuperscriptBox[
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                 False,
-                 Editable->False], "2"]}], 
-              RowBox[{
-               RowBox[{"2", " ", 
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-                 False,
-                 Editable->False]}], "-", 
-               TagBox[
-                RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                False,
-                Editable->False]}]], "+", 
-             FractionBox[
-              RowBox[{"r", " ", 
-               RowBox[{"(", 
-                RowBox[{
-                 RowBox[{
-                  RowBox[{"-", "2"}], " ", 
-                  TagBox[
-                   RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-                   False,
-                   Editable->False]}], "+", 
-                 TagBox[
-                  RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                  False,
-                  Editable->False]}], ")"}]}], 
-              RowBox[{
-               RowBox[{"2", " ", "M"}], "-", "r"}]]}], ")"}]}], 
-          SuperscriptBox[
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-            False,
-            Editable->False], "4"]], ",", "0", ",", "0"}], "}"}], ",", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
@@ -1384,138 +1234,16 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
-        RowBox[{"0", ",", 
-         FractionBox[
-          RowBox[{
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", "r", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"-", 
-              FractionBox["r", 
-               RowBox[{
-                RowBox[{"2", " ", 
-                 TagBox[
-                  RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-                  False,
-                  Editable->False]}], "-", 
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                 False,
-                 Editable->False]}]]}], "+", 
-             FractionBox[
-              TagBox[
-               RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-               False,
-               Editable->False], 
-              RowBox[{
-               RowBox[{"2", " ", "M"}], "-", "r"}]]}], ")"}]}], 
-          SuperscriptBox[
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-            False,
-            Editable->False], "2"]], ",", "0", ",", "0"}], "}"}], ",", 
-       RowBox[{"{", 
-        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
-        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
-       RowBox[{"{", 
-        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
-       RowBox[{"{", 
-        RowBox[{"0", ",", 
-         FractionBox[
-          RowBox[{
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", "r", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"-", 
-              FractionBox[
-               RowBox[{"r", " ", 
-                SuperscriptBox[
-                 RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}], 
-               RowBox[{
-                RowBox[{"2", " ", 
-                 TagBox[
-                  RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-                  False,
-                  Editable->False]}], "-", 
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                 False,
-                 Editable->False]}]]}], "+", 
-             FractionBox[
-              RowBox[{
-               TagBox[
-                RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                False,
-                Editable->False], " ", 
-               SuperscriptBox[
-                RowBox[{"Sin", "[", 
-                 TagBox[
-                  RowBox[{"Removed", "[", "\<\"\[Theta]\"\>", "]"}],
-                  False,
-                  Editable->False], "]"}], "2"]}], 
-              RowBox[{
-               RowBox[{"2", " ", "M"}], "-", "r"}]]}], ")"}]}], 
-          SuperscriptBox[
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-            False,
-            Editable->False], "2"]], ",", "0", ",", "0"}], "}"}]}], "}"}]}], 
-    "}"}], ",", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]}], "}"}], 
+   ",", 
    RowBox[{"{", 
     RowBox[{
      RowBox[{"{", 
       RowBox[{
        RowBox[{"{", 
-        RowBox[{"0", ",", "0", ",", 
-         FractionBox[
-          RowBox[{
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{"-", "1"}], "+", 
-                FractionBox[
-                 RowBox[{"2", " ", "M"}], "r"]}], ")"}], " ", 
-              SuperscriptBox[
-               TagBox[
-                RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                False,
-                Editable->False], "3"]}], "+", 
-             RowBox[{
-              SuperscriptBox["r", "2"], " ", 
-              RowBox[{"(", 
-               RowBox[{
-                RowBox[{
-                 RowBox[{"-", "2"}], " ", 
-                 TagBox[
-                  RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-                  False,
-                  Editable->False]}], "+", 
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                 False,
-                 Editable->False]}], ")"}]}]}], ")"}]}], 
-          SuperscriptBox[
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-            False,
-            Editable->False], "4"]], ",", "0"}], "}"}], ",", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
@@ -1527,40 +1255,7 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
-        RowBox[{"0", ",", "0", ",", 
-         FractionBox[
-          RowBox[{
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             FractionBox[
-              TagBox[
-               RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-               False,
-               Editable->False], 
-              RowBox[{"1", "-", 
-               FractionBox[
-                RowBox[{"2", " ", "M"}], "r"]}]], "+", 
-             FractionBox[
-              SuperscriptBox["r", "2"], 
-              RowBox[{
-               RowBox[{"2", " ", 
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-                 False,
-                 Editable->False]}], "-", 
-               TagBox[
-                RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                False,
-                Editable->False]}]]}], ")"}]}], 
-          SuperscriptBox[
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-            False,
-            Editable->False], "2"]], ",", "0"}], "}"}], ",", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
@@ -1584,85 +1279,14 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
-        RowBox[{"0", ",", "0", ",", 
-         FractionBox[
-          RowBox[{"2", " ", 
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", 
-           SuperscriptBox["r", "2"], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"-", 
-              SuperscriptBox[
-               RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}], "+", 
-             SuperscriptBox[
-              RowBox[{"Sin", "[", 
-               TagBox[
-                RowBox[{"Removed", "[", "\<\"\[Theta]\"\>", "]"}],
-                False,
-                Editable->False], "]"}], "2"]}], ")"}]}], 
-          TagBox[
-           RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-           False,
-           Editable->False]], ",", "0"}], "}"}]}], "}"}]}], "}"}], ",", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]}], "}"}], 
+   ",", 
    RowBox[{"{", 
     RowBox[{
      RowBox[{"{", 
       RowBox[{
        RowBox[{"{", 
-        RowBox[{"0", ",", "0", ",", "0", ",", 
-         RowBox[{
-          FractionBox["1", 
-           RowBox[{
-            SuperscriptBox[
-             TagBox[
-              RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-              False,
-              Editable->False], "4"], " ", "r"}]], 
-          RowBox[{"(", 
-           RowBox[{
-            RowBox[{
-             TagBox[
-              RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-              False,
-              Editable->False], " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{"2", " ", "M"}], "-", "r"}], ")"}], " ", 
-             SuperscriptBox[
-              TagBox[
-               RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-               False,
-               Editable->False], "3"], " ", 
-             SuperscriptBox[
-              RowBox[{"Sin", "[", 
-               TagBox[
-                RowBox[{"Removed", "[", "\<\"\[Theta]\"\>", "]"}],
-                False,
-                Editable->False], "]"}], "2"]}], "+", 
-            RowBox[{
-             TagBox[
-              RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-              False,
-              Editable->False], " ", 
-             SuperscriptBox["r", "3"], " ", 
-             RowBox[{"(", 
-              RowBox[{
-               RowBox[{
-                RowBox[{"-", "2"}], " ", 
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-                 False,
-                 Editable->False]}], "+", 
-               TagBox[
-                RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                False,
-                Editable->False]}], ")"}], " ", 
-             SuperscriptBox[
-              RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}]}], ")"}]}]}], 
-        "}"}], ",", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
@@ -1674,50 +1298,7 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
-        RowBox[{"0", ",", "0", ",", "0", ",", 
-         FractionBox[
-          RowBox[{
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             FractionBox[
-              RowBox[{
-               TagBox[
-                RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                False,
-                Editable->False], " ", 
-               SuperscriptBox[
-                RowBox[{"Sin", "[", 
-                 TagBox[
-                  RowBox[{"Removed", "[", "\<\"\[Theta]\"\>", "]"}],
-                  False,
-                  Editable->False], "]"}], "2"]}], 
-              RowBox[{"1", "-", 
-               FractionBox[
-                RowBox[{"2", " ", "M"}], "r"]}]], "+", 
-             FractionBox[
-              RowBox[{
-               SuperscriptBox["r", "2"], " ", 
-               SuperscriptBox[
-                RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}], 
-              RowBox[{
-               RowBox[{"2", " ", 
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-                 False,
-                 Editable->False]}], "-", 
-               TagBox[
-                RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-                False,
-                Editable->False]}]]}], ")"}]}], 
-          SuperscriptBox[
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-            False,
-            Editable->False], "2"]]}], "}"}], ",", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
@@ -1729,29 +1310,7 @@ Cell[BoxData[
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
-        RowBox[{"0", ",", "0", ",", "0", ",", 
-         FractionBox[
-          RowBox[{"2", " ", 
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", 
-           SuperscriptBox["r", "2"], " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"-", 
-              SuperscriptBox[
-               RowBox[{"Sin", "[", 
-                TagBox[
-                 RowBox[{"Removed", "[", "\<\"\[Theta]\"\>", "]"}],
-                 False,
-                 Editable->False], "]"}], "2"]}], "+", 
-             SuperscriptBox[
-              RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}], ")"}]}], 
-          TagBox[
-           RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-           False,
-           Editable->False]]}], "}"}], ",", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
        RowBox[{"{", 
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}], ",", 
      RowBox[{"{", 
@@ -1766,7 +1325,7 @@ Cell[BoxData[
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]}], 
     "}"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[31]=",ExpressionUUID->"7c8de67c-56a9-4f81-8d42-140bcbb6dcad"]
+  "Out[31]=",ExpressionUUID->"73451fa1-29f0-4784-9225-b1b40c6b1253"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -1775,17 +1334,17 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Partial derivatives", \
-"Section",ExpressionUUID->"a6881983-c6f6-4b3b-89eb-c560178537df"],
+"Section",ExpressionUUID->"1ff02863-54d1-4b19-b4b2-d2aca1e5ab52"],
 
 Cell[CellGroupData[{
 
 Cell["Derivatives with respect to spacetime coordinates", \
-"Subsection",ExpressionUUID->"1f285658-de04-4bde-ab62-849b7161c21d"],
+"Subsection",ExpressionUUID->"b4ea5ac6-97a9-4813-afac-1c884831a8df"],
 
 Cell[CellGroupData[{
 
 Cell["D is overloaded to take derivatives with respect to indices", \
-"Item",ExpressionUUID->"13fefb9c-0b75-495e-96c1-af886e6fab04"],
+"Item",ExpressionUUID->"a895f18e-909b-4495-930a-9cf3f84affe6"],
 
 Cell[CellGroupData[{
 
@@ -1796,7 +1355,7 @@ Cell[BoxData[
     RowBox[{"gS", "[", 
      RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}], ",", 
     RowBox[{"-", "\[Alpha]"}]}], "]"}]}]], "Input",
- CellLabel->"In[32]:=",ExpressionUUID->"15bcd178-2b4e-4618-b0be-f2423baaea46"],
+ CellLabel->"In[32]:=",ExpressionUUID->"4e5b8171-7710-40f0-9c50-b69c3ab47913"],
 
 Cell[BoxData[
  TagBox[
@@ -1807,7 +1366,7 @@ Cell[BoxData[
    RowBox[{"  ", "\[Alpha]\[Beta]"}]],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[32]=",ExpressionUUID->"0e1aa406-370c-42eb-b43f-c8c8aaa2d457"]
+  "Out[32]=",ExpressionUUID->"b6b30a8f-9f35-45ec-869e-95c57c4572c8"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1815,7 +1374,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"gSDiv", "//", "TensorValues"}], "//", "Simplify"}]], "Input",
- CellLabel->"In[33]:=",ExpressionUUID->"1f9c8862-cdd7-403d-a833-932ac4f93144"],
+ CellLabel->"In[33]:=",ExpressionUUID->"ecd8b11f-039c-448a-bf3a-8757a035c4a8"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1833,33 +1392,13 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{
      RowBox[{"{", 
-      RowBox[{
-       FractionBox[
-        RowBox[{"2", " ", "M"}], 
-        SuperscriptBox[
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{
-            RowBox[{"-", "2"}], " ", "M"}], "+", "r"}], ")"}], "2"]], ",", 
-       "0", ",", "0", ",", "0"}], "}"}], ",", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
      RowBox[{"{", 
-      RowBox[{"0", ",", 
-       FractionBox[
-        RowBox[{"2", " ", "M"}], 
-        SuperscriptBox["r", "2"]], ",", "0", ",", "0"}], "}"}], ",", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
      RowBox[{"{", 
-      RowBox[{"0", ",", "0", ",", 
-       RowBox[{"-", 
-        FractionBox["2", 
-         SuperscriptBox["r", "3"]]}], ",", "0"}], "}"}], ",", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
      RowBox[{"{", 
-      RowBox[{"0", ",", "0", ",", "0", ",", 
-       RowBox[{"-", 
-        FractionBox[
-         RowBox[{"2", " ", 
-          SuperscriptBox[
-           RowBox[{"Csc", "[", "\[Theta]", "]"}], "2"]}], 
-         SuperscriptBox["r", "3"]]}]}], "}"}]}], "}"}], ",", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}], ",", 
    RowBox[{"{", 
     RowBox[{
      RowBox[{"{", 
@@ -1869,14 +1408,7 @@ Cell[BoxData[
      RowBox[{"{", 
       RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}], ",", 
      RowBox[{"{", 
-      RowBox[{"0", ",", "0", ",", "0", ",", 
-       RowBox[{"-", 
-        FractionBox[
-         RowBox[{"2", " ", 
-          RowBox[{"Cot", "[", "\[Theta]", "]"}], " ", 
-          SuperscriptBox[
-           RowBox[{"Csc", "[", "\[Theta]", "]"}], "2"]}], 
-         SuperscriptBox["r", "2"]]}]}], "}"}]}], "}"}], ",", 
+      RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}], ",", 
    RowBox[{"{", 
     RowBox[{
      RowBox[{"{", 
@@ -1889,7 +1421,7 @@ Cell[BoxData[
       RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]}], 
   "}"}]], "Output",
  CellLabel->
-  "Out[33]=",ExpressionUUID->"9c413149-27e1-45ec-990a-2efc59ecebd4"]
+  "Out[33]=",ExpressionUUID->"8f76a566-135d-4794-a452-c3e63d4730df"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -1897,7 +1429,7 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Derivatives with respect to a curve parameter", \
-"Subsection",ExpressionUUID->"babf5631-2aa5-4e07-bac9-8a97babef36d"],
+"Subsection",ExpressionUUID->"46286297-707a-47c4-ae1c-53a7f8be443f"],
 
 Cell[CellGroupData[{
 
@@ -1907,14 +1439,14 @@ Cell[BoxData[{
   "FourVelocity", "[", "\"\<SchwarzschildGeneric\>\"", 
    "]"}]}], "\[IndentingNewLine]", 
  RowBox[{"uS", "//", "TensorValues"}]}], "Input",
- CellLabel->"In[34]:=",ExpressionUUID->"7f2d574c-23fd-4a97-b8b6-699e249b1b26"],
+ CellLabel->"In[34]:=",ExpressionUUID->"07d8e0c3-17e5-490d-b408-ff89d9a33e45"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["u", "", "\[Alpha]"], "[", "\<\"\[Tau]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[34]=",ExpressionUUID->"46b11ff7-4113-4734-a1cf-d9b9d9b63a54"],
+ CellLabel->"Out[34]=",ExpressionUUID->"932cb8f3-e9c4-416f-b040-e6f2844c0423"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1943,7 +1475,7 @@ Cell[BoxData[
     SuperscriptBox[
      RowBox[{"r", "[", "\[Tau]", "]"}], "2"]]}], "}"}]], "Output",
  CellLabel->
-  "Out[35]=",ExpressionUUID->"d1520171-2a1e-4d8f-81ba-c19735a2b741"]
+  "Out[35]=",ExpressionUUID->"b95986d1-9de5-456f-8312-834cc392abd3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1952,7 +1484,7 @@ Cell[BoxData[
  RowBox[{"uSdiv", "=", 
   RowBox[{"D", "[", 
    RowBox[{"uS", ",", "\[Tau]"}], "]"}]}]], "Input",
- CellLabel->"In[36]:=",ExpressionUUID->"fcfc3e66-8a61-4597-8010-14823fc42bfc"],
+ CellLabel->"In[36]:=",ExpressionUUID->"126c78bb-41f4-422f-91ed-094ee0107c49"],
 
 Cell[BoxData[
  TagBox[
@@ -1963,7 +1495,7 @@ Cell[BoxData[
    "[", "\<\"\[Tau]\"\>", "]"}],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[36]=",ExpressionUUID->"b5feefff-8f05-45ab-a2d8-fa78dc8a1cbb"]
+  "Out[36]=",ExpressionUUID->"a27d9f2a-8338-43b7-aeaf-c8b48df2917b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1971,7 +1503,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"uSdiv", "//", "TensorValues"}], "//", "Simplify"}]], "Input",
- CellLabel->"In[37]:=",ExpressionUUID->"65bc70dd-675b-4ac3-801f-777e5e0b2574"],
+ CellLabel->"In[37]:=",ExpressionUUID->"ddcdafaf-4a24-49b6-92a4-ab12444a5c66"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2033,7 +1565,7 @@ Cell[BoxData[
      SuperscriptBox[
       RowBox[{"r", "[", "\[Tau]", "]"}], "3"]]}]}], "}"}]], "Output",
  CellLabel->
-  "Out[37]=",ExpressionUUID->"ff2b70bd-2f6e-4fc2-bb5b-5359b43a801f"]
+  "Out[37]=",ExpressionUUID->"5eaab430-7c5e-47e8-9c0f-faa839f47cc5"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -2041,13 +1573,13 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Covariant derivatives", \
-"Section",ExpressionUUID->"88cfc20f-f82f-44b9-a571-34bfe8254d9f"],
+"Section",ExpressionUUID->"2293de9d-7cd8-4b81-b787-499b5cc58e75"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 Usually we want to take covariant derivatives, which we do with CovariantD\
-\>", "Item",ExpressionUUID->"012faece-a630-414c-8b68-cdc2f49c5141"],
+\>", "Item",ExpressionUUID->"abf8cc5b-ef90-452f-9c2c-195c93022660"],
 
 Cell[BoxData[GridBox[{
    {
@@ -2074,7 +1606,7 @@ Cell[BoxData[GridBox[{
       FontFamily->"Times",
       FontWeight->"Regular",
       FontSlant->"Italic"]
-    }], "TableText",ExpressionUUID->"4cf97383-a2aa-441f-89da-305fc0d28ed6"]},
+    }], "TableText",ExpressionUUID->"f93d6de8-b23d-422d-853c-07dee50ab20c"]},
    {
     RowBox[{
      ButtonBox["CovariantD",
@@ -2099,41 +1631,41 @@ Cell[BoxData[GridBox[{
       FontFamily->"Times",
       FontWeight->"Regular",
       FontSlant->"Italic"]
-    }], "TableText",ExpressionUUID->"f29775ff-33ca-4772-922b-708e2c01caaa"]}
+    }], "TableText",ExpressionUUID->"a174f0d9-8446-444d-8d4d-e8c419046b7e"]}
   }]], "DefinitionBox",
- CellID->1000094061,ExpressionUUID->"d3d68dd8-777c-485a-8b69-fc8d447912a3"]
+ CellID->1000094061,ExpressionUUID->"e131dfc7-c4ce-450e-b932-dc977b2290d4"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Derivatives with respect to spacetime coordinates", \
-"Subsection",ExpressionUUID->"cfae528a-b06d-4a20-a1fe-9571d2fcd462"],
+"Subsection",ExpressionUUID->"5b7ed9d7-5d3c-4e7f-b2f7-3ec234263a25"],
 
 Cell[CellGroupData[{
 
 Cell["Consider the ReissnerNordstrom metric", \
-"Item",ExpressionUUID->"f0b91b6e-b334-4dcf-9ab9-10082d440e6f"],
+"Item",ExpressionUUID->"a20dab76-73fd-4f27-b444-a0bdf4b20a47"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"gRN", "=", 
   RowBox[{"ToMetric", "[", "\"\<ReissnerNordstrom\>\"", "]"}]}]], "Input",
- CellLabel->"In[38]:=",ExpressionUUID->"59a8f466-765c-4f71-9ab7-65c1762dbe7a"],
+ CellLabel->"In[38]:=",ExpressionUUID->"e0d3021b-d9ee-4091-8360-4f3ba37422bd"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[38]=",ExpressionUUID->"9e1957b8-6153-4480-8452-dea1957ad7a8"]
+  "Out[38]=",ExpressionUUID->"4fe6af66-a774-4e08-8cb6-0c90f81ada67"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["The covariant derivative of the metric should vanish", \
-"Item",ExpressionUUID->"e75e42b8-b91d-409e-8bcf-de935a9b2b01"],
+"Item",ExpressionUUID->"46f0251f-ef5d-430e-ba1e-b3a563ebd84d"],
 
 Cell[CellGroupData[{
 
@@ -2142,7 +1674,7 @@ Cell[BoxData[
   RowBox[{"CovariantD", "[", 
    RowBox[{"gRN", ",", 
     RowBox[{"-", "\[Gamma]"}]}], "]"}]}]], "Input",
- CellLabel->"In[39]:=",ExpressionUUID->"d55acdf4-270e-4cf2-8e6e-fb2d6522d110"],
+ CellLabel->"In[39]:=",ExpressionUUID->"1fd9b33c-e4c7-44d7-bd6d-2978fb89dfcd"],
 
 Cell[BoxData[
  RowBox[{
@@ -2170,7 +1702,7 @@ Cell[BoxData[
     SubsuperscriptBox["g", "\[Delta]\[Beta]", ""],
     DisplayForm]}]}]], "Output",
  CellLabel->
-  "Out[39]=",ExpressionUUID->"7c09b674-1a1a-4ca0-9d9e-f5b9a0591424"]
+  "Out[39]=",ExpressionUUID->"f781d23e-1697-428d-8de8-bb7d03c6366b"]
 }, Open  ]]
 }, Open  ]],
 
@@ -2178,7 +1710,7 @@ Cell[CellGroupData[{
 
 Cell["\<\
 Merge these different terms in order to see the identity is satisfied\
-\>", "Item",ExpressionUUID->"6380cd6f-c566-47cc-95a3-a42ab806da27"],
+\>", "Item",ExpressionUUID->"94df83b0-952f-4698-90ef-af6d7ad58e5a"],
 
 Cell[CellGroupData[{
 
@@ -2187,7 +1719,7 @@ Cell[BoxData[
   RowBox[{
    RowBox[{"MergeTensors", "[", "dgRN", "]"}], "//", "TensorValues"}], "//", 
   "Simplify"}]], "Input",
- CellLabel->"In[40]:=",ExpressionUUID->"50a09bf0-4433-4d22-93ef-70fc07d2f840"],
+ CellLabel->"In[40]:=",ExpressionUUID->"34d6a1f1-3c12-4907-a3f5-cad95e23ee09"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2234,7 +1766,7 @@ Cell[BoxData[
       RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]}], 
   "}"}]], "Output",
  CellLabel->
-  "Out[40]=",ExpressionUUID->"fad794cd-aca4-4f12-958a-4ae083e109ca"]
+  "Out[40]=",ExpressionUUID->"37d5e82d-f6a7-415f-8e1f-68f3affa905d"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -2242,12 +1774,12 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Derivatives along four velocities", \
-"Subsection",ExpressionUUID->"48ed0f44-a1eb-45f7-93a5-163542cc0911"],
+"Subsection",ExpressionUUID->"3adcffab-a833-4d99-836a-ce8d148169f7"],
 
 Cell[CellGroupData[{
 
 Cell["Parallel transport a 4-velocity along itself", \
-"Item",ExpressionUUID->"7e5598c3-faa8-4cf1-8bb6-747c961f8b03"],
+"Item",ExpressionUUID->"ebb06c6e-622c-4aae-8cdb-7f111c46b623"],
 
 Cell[CellGroupData[{
 
@@ -2255,7 +1787,7 @@ Cell[BoxData[
  RowBox[{"uS", "=", 
   RowBox[{
   "FourVelocity", "[", "\"\<SchwarzschildGeneric\>\"", "]"}]}]], "Input",
- CellLabel->"In[41]:=",ExpressionUUID->"c26be882-9983-4834-a396-4825872de652"],
+ CellLabel->"In[41]:=",ExpressionUUID->"e3d01175-6f31-4e1f-af6a-3380e54050c1"],
 
 Cell[BoxData[
  TagBox[
@@ -2263,7 +1795,7 @@ Cell[BoxData[
    SubsuperscriptBox["u", "", "\[Alpha]"], "[", "\<\"\[Tau]\"\>", "]"}],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[41]=",ExpressionUUID->"73c2b950-c8de-49b0-9696-865f41ff0bd0"]
+  "Out[41]=",ExpressionUUID->"7da4a4f6-8df9-4a62-8ffe-46a32cff4671"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2272,7 +1804,7 @@ Cell[BoxData[
  RowBox[{"covDuS", "=", 
   RowBox[{"CovariantD", "[", 
    RowBox[{"uS", ",", "uS"}], "]"}]}]], "Input",
- CellLabel->"In[42]:=",ExpressionUUID->"50091134-5175-4975-8551-79cc0f32ad63"],
+ CellLabel->"In[42]:=",ExpressionUUID->"c12973df-3920-4e04-91b3-19902404b662"],
 
 Cell[BoxData[
  RowBox[{
@@ -2299,7 +1831,7 @@ Cell[BoxData[
     "[", "\<\"\[Tau]\"\>", "]"}],
    DisplayForm]}]], "Output",
  CellLabel->
-  "Out[42]=",ExpressionUUID->"242d871b-4137-42bd-8b18-6627548b7d2f"]
+  "Out[42]=",ExpressionUUID->"181af324-7c66-4a98-93fc-afbe1b24feaa"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2310,27 +1842,28 @@ Cell[BoxData[
    RowBox[{"MergeTensors", "[", 
     RowBox[{"covDuS", ",", 
      RowBox[{"ActWith", "\[Rule]", "Simplify"}]}], "]"}]}]}]], "Input",
- CellLabel->"In[43]:=",ExpressionUUID->"3dbd0d20-57f1-4434-8bfb-c132f35d36c1"],
+ CellLabel->"In[43]:=",ExpressionUUID->"df16b7d3-c416-49e9-9d59-d4eab0b68ad6"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
-   FractionBox[
-    RowBox[{"2", " ", "\[ScriptCapitalE]", " ", 
-     RowBox[{"(", 
-      RowBox[{
-       RowBox[{"-", 
+   RowBox[{"-", 
+    FractionBox[
+     RowBox[{"2", " ", "\[ScriptCapitalE]", " ", 
+      RowBox[{"(", 
+       RowBox[{
         FractionBox[
          RowBox[{
           TagBox[
            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
            False,
            Editable->False], " ", 
+          RowBox[{"r", "[", "\[Tau]", "]"}], " ", 
           RowBox[{"(", 
-           RowBox[{"1", "-", 
-            FractionBox[
-             RowBox[{"2", " ", "M"}], 
-             RowBox[{"r", "[", "\[Tau]", "]"}]]}], ")"}], " ", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"-", "2"}], " ", "M"}], "+", 
+            RowBox[{"r", "[", "\[Tau]", "]"}]}], ")"}], " ", 
           SqrtBox[
            RowBox[{
             SuperscriptBox["\[ScriptCapitalE]", "2"], "-", 
@@ -2363,20 +1896,17 @@ Cell[BoxData[
           TagBox[
            RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
            False,
-           Editable->False]}]]}], "-", 
-       FractionBox[
+           Editable->False]}]], "+", 
         RowBox[{"M", " ", 
          RowBox[{
           SuperscriptBox["r", "\[Prime]",
-           MultilineFunction->None], "[", "\[Tau]", "]"}]}], 
-        SuperscriptBox[
-         RowBox[{"r", "[", "\[Tau]", "]"}], "2"]]}], ")"}]}], 
-    SuperscriptBox[
-     RowBox[{"(", 
-      RowBox[{"1", "-", 
-       FractionBox[
-        RowBox[{"2", " ", "M"}], 
-        RowBox[{"r", "[", "\[Tau]", "]"}]]}], ")"}], "2"]], ",", 
+           MultilineFunction->None], "[", "\[Tau]", "]"}]}]}], ")"}]}], 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"-", "2"}], " ", "M"}], "+", 
+        RowBox[{"r", "[", "\[Tau]", "]"}]}], ")"}], "2"]]}], ",", 
    RowBox[{
     FractionBox[
      RowBox[{
@@ -2385,30 +1915,32 @@ Cell[BoxData[
        False,
        Editable->False], " ", 
       RowBox[{"(", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"-", "2"}], " ", 
+       RowBox[{"1", "-", 
+        FractionBox[
+         RowBox[{"2", " ", 
+          TagBox[
+           RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+           False,
+           Editable->False]}], 
          TagBox[
-          RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+          RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
           False,
-          Editable->False]}], "+", 
+          Editable->False]]}], ")"}], " ", 
+      SuperscriptBox["\[ScriptCapitalE]", "2"]}], 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{
         TagBox[
          RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
          False,
-         Editable->False]}], ")"}], " ", 
-      SuperscriptBox["\[ScriptCapitalE]", "2"]}], 
-     RowBox[{
-      SuperscriptBox[
-       TagBox[
-        RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-        False,
-        Editable->False], "3"], " ", 
-      SuperscriptBox[
-       RowBox[{"(", 
-        RowBox[{"1", "-", 
-         FractionBox[
-          RowBox[{"2", " ", "M"}], 
-          RowBox[{"r", "[", "\[Tau]", "]"}]]}], ")"}], "2"]}]], "+", 
+         Editable->False], "-", 
+        FractionBox[
+         RowBox[{"2", " ", "M", " ", 
+          TagBox[
+           RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
+           False,
+           Editable->False]}], 
+         RowBox[{"r", "[", "\[Tau]", "]"}]]}], ")"}], "2"]], "-", 
     FractionBox[
      RowBox[{
       TagBox[
@@ -2434,20 +1966,22 @@ Cell[BoxData[
           RowBox[{"r", "[", "\[Tau]", "]"}], "3"]]}], ")"}]}], 
      RowBox[{
       RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
+       RowBox[{"1", "-", 
+        FractionBox[
+         RowBox[{"2", " ", 
+          TagBox[
+           RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+           False,
+           Editable->False]}], 
          TagBox[
-          RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+          RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
           False,
-          Editable->False]}], "-", 
-        TagBox[
-         RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-         False,
-         Editable->False]}], ")"}], " ", 
-      TagBox[
-       RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-       False,
-       Editable->False]}]], "+", 
+          Editable->False]]}], ")"}], " ", 
+      SuperscriptBox[
+       TagBox[
+        RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
+        False,
+        Editable->False], "2"]}]], "+", 
     FractionBox[
      RowBox[{
       RowBox[{"(", 
@@ -2560,7 +2094,7 @@ Cell[BoxData[
      SuperscriptBox[
       RowBox[{"r", "[", "\[Tau]", "]"}], "3"]}]]}], "}"}]], "Output",
  CellLabel->
-  "Out[43]=",ExpressionUUID->"bdaff0df-36f1-4168-bdc1-e7651fa9be55"]
+  "Out[43]=",ExpressionUUID->"2a7260fc-bd41-432a-b4e5-15e9dd283d7a"]
 }, Open  ]]
 }, Open  ]],
 
@@ -2568,7 +2102,7 @@ Cell[CellGroupData[{
 
 Cell["This should vanish, but we need to plug back in for \
 r\[CloseCurlyQuote][\[Tau]]", \
-"Item",ExpressionUUID->"4dace28e-c1c7-4a07-b4c9-49ff145df20e"],
+"Item",ExpressionUUID->"ba4390c5-da3a-42f5-82b6-cb7656f49517"],
 
 Cell[CellGroupData[{
 
@@ -2583,7 +2117,7 @@ Cell[BoxData[
         RowBox[{"Coordinates", "[", "uS", "]"}], "[", "\[Tau]", "]"}], "]"}], 
       ",", "\[Tau]"}], "]"}], "->", 
     RowBox[{"TensorValues", "[", "uS", "]"}]}], "]"}]}]], "Input",
- CellLabel->"In[44]:=",ExpressionUUID->"1340e965-9b48-44a1-8ba0-81d83f48b4c9"],
+ CellLabel->"In[44]:=",ExpressionUUID->"cd0172f5-d9a4-4efb-bc76-b5b9c68f4753"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2628,7 +2162,7 @@ Cell[BoxData[
      SuperscriptBox[
       RowBox[{"r", "[", "\[Tau]", "]"}], "2"]]}]}], "}"}]], "Output",
  CellLabel->
-  "Out[44]=",ExpressionUUID->"b2d35602-0abf-46b2-b2af-39a7550badd4"]
+  "Out[44]=",ExpressionUUID->"99a1d6f2-b9d4-4a16-b688-e7878bf7f535"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2636,88 +2170,86 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"vals", "/.", "uSRules"}], "//", "Simplify"}]], "Input",
- CellLabel->"In[45]:=",ExpressionUUID->"e7f8e093-eb28-4522-9275-0d34c06d8ba6"],
+ CellLabel->"In[45]:=",ExpressionUUID->"16fc9e55-4ad9-4398-92c4-be9559199dab"],
 
 Cell[BoxData[
  RowBox[{"{", 
   RowBox[{
-   RowBox[{"-", 
+   RowBox[{
     RowBox[{"(", 
-     RowBox[{
-      RowBox[{"(", 
-       RowBox[{"2", " ", "\[ScriptCapitalE]", " ", 
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"M", " ", 
-           RowBox[{"(", 
-            RowBox[{
-             RowBox[{"2", " ", 
-              TagBox[
-               RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-               False,
-               Editable->False]}], "-", 
-             TagBox[
-              RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-              False,
-              Editable->False]}], ")"}], " ", 
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-            False,
-            Editable->False]}], "-", 
-          RowBox[{"2", " ", 
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", "M", " ", 
-           RowBox[{"r", "[", "\[Tau]", "]"}]}], "+", 
-          RowBox[{
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False], " ", 
-           SuperscriptBox[
-            RowBox[{"r", "[", "\[Tau]", "]"}], "2"]}]}], ")"}], " ", 
-        SqrtBox[
-         RowBox[{
-          SuperscriptBox["\[ScriptCapitalE]", "2"], "-", 
-          FractionBox[
-           RowBox[{
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{
-               RowBox[{"-", "2"}], " ", "M"}], "+", 
-              RowBox[{"r", "[", "\[Tau]", "]"}]}], ")"}], " ", 
-            RowBox[{"(", 
-             RowBox[{
-              SuperscriptBox["\[ScriptCapitalJ]", "2"], "+", 
-              SuperscriptBox[
-               RowBox[{"r", "[", "\[Tau]", "]"}], "2"]}], ")"}]}], 
-           SuperscriptBox[
-            RowBox[{"r", "[", "\[Tau]", "]"}], "3"]]}]]}], ")"}], "/", 
+     RowBox[{"2", " ", "\[ScriptCapitalE]", " ", 
       RowBox[{"(", 
        RowBox[{
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"2", " ", 
-           TagBox[
-            RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
-            False,
-            Editable->False]}], "-", 
-          TagBox[
-           RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-           False,
-           Editable->False]}], ")"}], " ", 
-        TagBox[
-         RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-         False,
-         Editable->False], " ", 
-        SuperscriptBox[
+        RowBox[{"M", " ", 
+         TagBox[
+          RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
+          False,
+          Editable->False], " ", 
          RowBox[{"(", 
           RowBox[{
            RowBox[{
-            RowBox[{"-", "2"}], " ", "M"}], "+", 
-           RowBox[{"r", "[", "\[Tau]", "]"}]}], ")"}], "2"]}], ")"}]}], 
-     ")"}]}], ",", 
+            RowBox[{"-", "2"}], " ", 
+            TagBox[
+             RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+             False,
+             Editable->False]}], "+", 
+           TagBox[
+            RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
+            False,
+            Editable->False]}], ")"}]}], "+", 
+        RowBox[{"2", " ", "M", " ", 
+         TagBox[
+          RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+          False,
+          Editable->False], " ", 
+         RowBox[{"r", "[", "\[Tau]", "]"}]}], "-", 
+        RowBox[{
+         TagBox[
+          RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+          False,
+          Editable->False], " ", 
+         SuperscriptBox[
+          RowBox[{"r", "[", "\[Tau]", "]"}], "2"]}]}], ")"}], " ", 
+      SqrtBox[
+       RowBox[{
+        SuperscriptBox["\[ScriptCapitalE]", "2"], "-", 
+        FractionBox[
+         RowBox[{
+          RowBox[{"(", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"-", "2"}], " ", "M"}], "+", 
+            RowBox[{"r", "[", "\[Tau]", "]"}]}], ")"}], " ", 
+          RowBox[{"(", 
+           RowBox[{
+            SuperscriptBox["\[ScriptCapitalJ]", "2"], "+", 
+            SuperscriptBox[
+             RowBox[{"r", "[", "\[Tau]", "]"}], "2"]}], ")"}]}], 
+         SuperscriptBox[
+          RowBox[{"r", "[", "\[Tau]", "]"}], "3"]]}]]}], ")"}], "/", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"2", " ", 
+         TagBox[
+          RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+          False,
+          Editable->False]}], "-", 
+        TagBox[
+         RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
+         False,
+         Editable->False]}], ")"}], " ", 
+      TagBox[
+       RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
+       False,
+       Editable->False], " ", 
+      SuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", "2"}], " ", "M"}], "+", 
+         RowBox[{"r", "[", "\[Tau]", "]"}]}], ")"}], "2"]}], ")"}]}], ",", 
    RowBox[{
     FractionBox[
      RowBox[{
@@ -2726,30 +2258,32 @@ Cell[BoxData[
        False,
        Editable->False], " ", 
       RowBox[{"(", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"-", "2"}], " ", 
+       RowBox[{"1", "-", 
+        FractionBox[
+         RowBox[{"2", " ", 
+          TagBox[
+           RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+           False,
+           Editable->False]}], 
          TagBox[
-          RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+          RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
           False,
-          Editable->False]}], "+", 
+          Editable->False]]}], ")"}], " ", 
+      SuperscriptBox["\[ScriptCapitalE]", "2"]}], 
+     SuperscriptBox[
+      RowBox[{"(", 
+       RowBox[{
         TagBox[
          RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
          False,
-         Editable->False]}], ")"}], " ", 
-      SuperscriptBox["\[ScriptCapitalE]", "2"]}], 
-     RowBox[{
-      SuperscriptBox[
-       TagBox[
-        RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-        False,
-        Editable->False], "3"], " ", 
-      SuperscriptBox[
-       RowBox[{"(", 
-        RowBox[{"1", "-", 
-         FractionBox[
-          RowBox[{"2", " ", "M"}], 
-          RowBox[{"r", "[", "\[Tau]", "]"}]]}], ")"}], "2"]}]], "+", 
+         Editable->False], "-", 
+        FractionBox[
+         RowBox[{"2", " ", "M", " ", 
+          TagBox[
+           RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
+           False,
+           Editable->False]}], 
+         RowBox[{"r", "[", "\[Tau]", "]"}]]}], ")"}], "2"]], "+", 
     FractionBox[
      RowBox[{
       RowBox[{
@@ -2762,7 +2296,7 @@ Cell[BoxData[
        SuperscriptBox[
         RowBox[{"r", "[", "\[Tau]", "]"}], "2"]}]}], 
      SuperscriptBox[
-      RowBox[{"r", "[", "\[Tau]", "]"}], "4"]], "+", 
+      RowBox[{"r", "[", "\[Tau]", "]"}], "4"]], "-", 
     FractionBox[
      RowBox[{
       TagBox[
@@ -2788,20 +2322,22 @@ Cell[BoxData[
           RowBox[{"r", "[", "\[Tau]", "]"}], "3"]]}], ")"}]}], 
      RowBox[{
       RowBox[{"(", 
-       RowBox[{
-        RowBox[{"2", " ", 
+       RowBox[{"1", "-", 
+        FractionBox[
+         RowBox[{"2", " ", 
+          TagBox[
+           RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+           False,
+           Editable->False]}], 
          TagBox[
-          RowBox[{"Removed", "[", "\<\"M\"\>", "]"}],
+          RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
           False,
-          Editable->False]}], "-", 
-        TagBox[
-         RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-         False,
-         Editable->False]}], ")"}], " ", 
-      TagBox[
-       RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
-       False,
-       Editable->False]}]], "+", 
+          Editable->False]]}], ")"}], " ", 
+      SuperscriptBox[
+       TagBox[
+        RowBox[{"Removed", "[", "\<\"r\"\>", "]"}],
+        False,
+        Editable->False], "2"]}]], "+", 
     FractionBox[
      RowBox[{
       RowBox[{"(", 
@@ -2875,7 +2411,7 @@ Cell[BoxData[
      SuperscriptBox[
       RowBox[{"r", "[", "\[Tau]", "]"}], "3"]}]]}], "}"}]], "Output",
  CellLabel->
-  "Out[45]=",ExpressionUUID->"70638bac-4540-4334-b87c-f2b9acfe0991"]
+  "Out[45]=",ExpressionUUID->"af54f82a-aec6-43f1-bf36-2ecce089ef81"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -2920,36 +2456,43 @@ Cell["", "RelatedTutorialsSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"0c43e6a6-c318-4b5d-ba4d-f308e97f0030"],
+  0,ExpressionUUID->"751e5093-0eb2-4759-baa4-eab0301a99cd"],
 
-Cell[TextData[ButtonBox["Introduction to Tensors",
+Cell[TextData[ButtonBox["Introduction to GeneralRelativityTensors",
  BaseStyle->"Link",
  ButtonData->
-  "paclet:Tensors/tutorial/Introduction to Tensors"]], \
-"RelatedTutorials",ExpressionUUID->"7a1c9b56-45b7-4b73-ac41-197d1c9f566c"],
+  "paclet:GeneralRelativityTensors/tutorial/Introduction to \
+GeneralRelativityTensors"]], \
+"RelatedTutorials",ExpressionUUID->"f61a8f38-5dee-4f11-8099-2fa1cd3259fb"],
 
 Cell[TextData[ButtonBox["Introduction to Tensor Curves",
  BaseStyle->"Link",
  ButtonData->
-  "paclet:Tensors/tutorial/Introduction to Tensor Curves"]], \
-"RelatedTutorials",ExpressionUUID->"f79ff206-75e4-4e73-bfac-b0e6849df4ec"],
-
-Cell[TextData[ButtonBox["Caching Tensor values",
- BaseStyle->"Link",
- ButtonData->
-  "paclet:Tensors/tutorial/Caching Tensor values"]], \
-"RelatedTutorials",ExpressionUUID->"692d924f-c784-4a2d-8495-c3ddea57c654"],
+  "paclet:GeneralRelativityTensors/tutorial/Introduction to Tensor Curves"]], \
+"RelatedTutorials",ExpressionUUID->"3c2f0a57-8766-43c2-b1e6-f6928ae70b7a"],
 
 Cell[TextData[ButtonBox["Built in common Tensors",
  BaseStyle->"Link",
  ButtonData->
-  "paclet:Tensors/tutorial/Built in common Tensors"]], \
-"RelatedTutorials",ExpressionUUID->"d15244ab-8eb2-4404-af65-48176f15449d"]
+  "paclet:GeneralRelativityTensors/tutorial/Built in common Tensors"]], \
+"RelatedTutorials",ExpressionUUID->"a9c1b03c-05d0-4376-a32d-b062261b02b3"],
+
+Cell[TextData[ButtonBox["Caching Tensor values",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:GeneralRelativityTensors/tutorial/Caching Tensor values"]], \
+"RelatedTutorials",ExpressionUUID->"40695e83-5cc4-4e11-8d5d-b778ad44fc32"],
+
+Cell[TextData[ButtonBox["Examples - Wave equations",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:GeneralRelativityTensors/tutorial/Examples - Wave equations"]], \
+"RelatedTutorials",ExpressionUUID->"e7ae2a29-dec2-484a-a33b-f155ebeaed69"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[" ", \
-"FooterCell",ExpressionUUID->"53538799-a290-40e1-b97c-b8b0ddfd9419"]
+"FooterCell",ExpressionUUID->"437cc42f-6132-41c9-8691-1b0def35dccf"]
 },
 Saveable->False,
 ScreenStyleEnvironment->"Working",
@@ -2961,16 +2504,17 @@ PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
-   "context" -> "Tensors`", "keywords" -> {"Tensors"}, "index" -> True, 
+   "context" -> "GeneralRelativityTensors`", 
+    "keywords" -> {"Tensors", "GeneralRelativityTensors"}, "index" -> True, 
     "label" -> "Manipulating intro", "language" -> "en", "paclet" -> 
     "Manipulating and Differentiating Tensors", "status" -> "None", "summary" -> 
-    "Introduction to taking derivatives of tensors and performing general \
+    "Introduction to taking derivatives of Tensors and performing general \
 manipulation.", "synonyms" -> {}, "title" -> 
     "Manipulating and Differentiating Tensors", "windowTitle" -> 
     "Manipulating and Differentiating Tensors", "type" -> "Tutorial", "uri" -> 
-    "Tensors/tutorial/Manipulating and Differentiating Tensors", 
-    "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> "", "LinkTrails" -> 
-  ""},
+    "GeneralRelativityTensors/tutorial/Manipulating and Differentiating \
+Tensors", "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> "", 
+  "LinkTrails" -> ""},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

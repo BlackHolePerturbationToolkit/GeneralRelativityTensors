@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-BeginPackage["Tensors`TensorDefinitions`"];
+BeginPackage["GeneralRelativityTensors`TensorDefinitions`"];
 
 
 Tensor::usage="Tensor is a Head created with the command ToTensor.";
@@ -36,12 +36,11 @@ ToMetric[builtIn] returns a built-in metric Tensor, where builtIn is a String su
 InverseMetric::usage="InverseMetric[t] returns the inverse metric Tensor associated with the Tensor \
 t, or Undefined if no metric was set. If t is on a curve, InverseMetric[t] returns \
 the inverse metric Tensor on the same curve.";
-Metric::usage="Metric[t] returns the metric Tensor associated with the Tensor t.";
-MetricQ::usage="MetricQ[t] returns True if the Tensor \
-t is a metric.";
+Metric::usage="Metric[expr] returns the metric Tensor associated with the Tensor expression expr.";
+MetricQ::usage="MetricQ[t] returns True if the Tensor t is a metric.";
 
-Coordinates::usage="Coordinates[t] returns a List of symbols used for the coordinates of the Tensor \
-t, or Undefined if coordinates were not set.";
+Coordinates::usage="Coordinates[expr] returns a List of symbols used for the coordinates of the Tensor \
+expression expr.";
 Rank::usage="Rank[t] returns the Tensor rank of the Tensor t as a List {p,q}, \
 where p is the number of contravariant indices and q the number of covariant indices.";
 Indices::usage="Indices[t] returns a List of Symbols representing the indices of the Tensor t. \
@@ -50,8 +49,8 @@ Indices[expr] will return a uniqe list of indices if each term in the Tensor exp
 has the same indices.";
 IndicesTraced::usage="IndicesTraced[expr] returns a unique list of indices that each term \
 in the Tensor expression expr would have if all dummy indices were traced out.";
-PossibleIndices::usage="PossibleIndices[t] returns a List of all possible Symbols that can represent the indices of the \
-Tensor t.";
+PossibleIndices::usage="PossibleIndices[expr] returns a List of all possible Symbols that can \
+represent the indices of Tensors in the Tensor expression expr.";
 IndexPositions::usage="IndexPositions[t] returns a List of elements \
 \"Up\" and \"Down\" which represent (respectively) the contravariant and covariant positions of the \
 indices of Tensor t.";
@@ -133,6 +132,12 @@ Tensor/:TensorName[t_Tensor]:=(Association@@t)["Name"]
 Tensor/:TensorDisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
 Tensor/:IndexPositions[t_Tensor]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
 MetricQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["IsMetric"];
+
+
+PossibleIndices[expr_]:=PossibleIndices[Metric[expr]]
+
+
+Coordinates[expr_]:=Coordinates[Metric[expr]]
 
 
 RawTensorValues[___]:=Undefined;
@@ -414,6 +419,18 @@ Tensor/:Metric[t_Tensor]:=Which[(Association@@t)["Metric"]==="Self",
 							];
 
 
+Metric[expr_]:=
+Module[{metrics,metricNames},
+
+	metrics=Cases[{expr},m_Tensor/;MetricQ[m],Infinity];
+	If[metrics==={},Print["Expression ",expr, " does not contain a metric."] ;Abort[]];
+	metricNames=DeleteDuplicates[TensorName/@metrics];
+	If[Not[SameQ@@metricNames],Print["Expression contains Tensors with different metrics: ",metricNames ]; Abort[]];
+
+	First@metrics
+]
+
+
 Clear[InverseMetric]
 Tensor/:InverseMetric[t_Tensor]:=If[Metric@t===Undefined,Undefined,InverseMetric@Metric@t];
 Tensor/:InverseMetric[t_Tensor?MetricQ]:=InverseMetric[t]=
@@ -534,18 +551,6 @@ Module[{t1,params},
 ToTensorOnCurve[name_String,c1_?CurveQ,vals_List,inds_:Undefined]/;MatchQ[inds,_List|Undefined]:=ToTensorOnCurve[{name,name},c1,vals,inds]
 
 
-Metric[expr_]:=
-Module[{metrics,metricNames},
-
-	metrics=Cases[{expr},m_Tensor/;MetricQ[m],Infinity];
-	If[metrics==={},Print["Expression ",expr, " does not contain a metric."] ;Abort[]];
-	metricNames=DeleteDuplicates[TensorName/@metrics];
-	If[Not[SameQ@@metricNames],Print["Expression contains Tensors with different metrics: ",metricNames ]; Abort[]];
-
-	First@metrics
-]
-
-
 Indices[expr_]:=
 Module[{terms,indicesList,tfList,sumQ,exprExpand},
 	exprExpand=Expand[expr];
@@ -576,15 +581,6 @@ Module[{terms,indicesList,tfList,sumQ,exprExpand},
 	If[Not@sumQ,Print["Cannot add Tensors with different indices."];Abort[]];
 	First[Sort/@deleteRepeatedIndices/@indicesList]
 ]
-
-
-PossibleIndices[expr_]:=PossibleIndices[Metric[expr]]
-
-
-Coordinates[expr_]:=Coordinates[Metric[expr]]
-
-
-IndexPositions[expr_]:=IndexPositions[Metric[expr]]
 
 
 Clear[ValidTensorExpressionQ]

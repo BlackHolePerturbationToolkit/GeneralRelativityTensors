@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-<< Tensors`;
+<< GeneralRelativityTensors`;
 << ApplicationTools`;
 
 packages =
@@ -11,18 +11,18 @@ packages =
   "CommonTensors"
 };
 
-packageSymbols = Map[# -> DocumentedSymbols["Tensors", #] &, packages];
+packageSymbols = Map[# -> DocumentedSymbols["GeneralRelativityTensors", #] &, packages];
 
-appSymbols = "Tensors" -> DocumentedSymbols["Tensors"];
+appSymbols = "GeneralRelativityTensors" -> DocumentedSymbols["GeneralRelativityTensors"];
 $PackageSymbols = Join[packageSymbols, {appSymbols}]; (* Used in the Overview.md file *)
 
-undocumentedSymbols = Map[# -> UndocumentedSymbols["Tensors", #] &, packages] /. (_ -> {}) -> Sequence[]
+undocumentedSymbols = Map[# -> UndocumentedSymbols["GeneralRelativityTensors", #] &, packages] /. (_ -> {}) -> Sequence[]
 
 Map[Print["Undocumented symbols for package "<>#[[1]]<>" skipped:\n", #[[2]]]&, undocumentedSymbols];
 
 Print["Building symbol reference pages"];
 docPackage[package_ -> symbols_] :=
-  Map[(Print[#]; BuildSymbolReference["Tensors", #, "Source"]) &, symbols];
+  Map[(Print[#]; BuildSymbolReference["GeneralRelativityTensors", #, "Source"]) &, symbols];
 Scan[docPackage, packageSymbols];
 docPackage[appSymbols];
 
@@ -38,6 +38,6 @@ tutorialSources = FileNames["*.md", FileNameJoin[{"Source", "Documentation", "En
 Map[(Print[#]; BuildTutorial[FileNameJoin[{Directory[], #}]])&, tutorialSources];
 
 Print["Indexing Documentation"];
-BuildIndex["Tensors"];
+BuildIndex["GeneralRelativityTensors"];
 
 Print["Done"];

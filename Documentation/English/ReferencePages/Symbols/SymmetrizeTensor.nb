@@ -1,26 +1,29 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"2f6b07f0-ae00-4d1c-8b70-7b8374af5a64"],
+   0}},ExpressionUUID->"caca8246-5b70-4fbc-94c8-0a356c90c89c"],
 
 Cell[TextData[{
- ButtonBox["Tensors",
+ ButtonBox["GeneralRelativityTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["Tensors`TensorManipulation",
+ ButtonBox["GeneralRelativityTensors`TensorManipulation",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors`TensorManipulation"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors`\
+TensorManipulation"],
  StyleBox[" > ", "LinkTrailSeparator"],
  ButtonBox["SymmetrizeTensor",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/ref/SymmetrizeTensor"]
-}], "LinkTrail",ExpressionUUID->"38844f7b-423d-4f08-b988-509613c73584"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/SymmetrizeTensor"]
+}], "LinkTrail",ExpressionUUID->"cd4e6643-cb99-4fa8-bfc2-831381f4c8eb"],
 
 Cell[CellGroupData[{
 
 Cell["SymmetrizeTensor", \
-"ObjectName",ExpressionUUID->"5efcd917-7108-47fb-b22a-cff2b78fefed"],
+"ObjectName",ExpressionUUID->"96c41296-62de-4959-926f-70e46eede5cf"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -28,32 +31,34 @@ Cell[BoxData[GridBox[{
       RowBox[{
        ButtonBox["SymmetrizeTensor",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/SymmetrizeTensor"], "[", 
+        ButtonData->"paclet:GeneralRelativityTensors/ref/SymmetrizeTensor"], 
+       "[", 
        StyleBox[
         RowBox[{"t", ",", 
          RowBox[{"{", 
           RowBox[{"pos1", ",", "pos2"}], "}"}], ",", "n"}], "TI"], "]"}]], 
-      "InlineFormula",ExpressionUUID->"dc6478ef-3913-40ec-a964-01c4b5838bc8"],
+      "InlineFormula",ExpressionUUID->"0d39a180-50f0-4056-b28d-d87af21dea29"],
      
      "\[LineSeparator]returns the Tensor t, symmetrized on its indices in \
 positions pos1,pos2."
-    }],ExpressionUUID->"e2feccea-f4b4-4325-aa00-af445d51157f"]},
+    }],ExpressionUUID->"ded02729-4cc8-4a2b-99ce-467ae6ae084a"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
        ButtonBox["SymmetrizeTensor",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/SymmetrizeTensor"], "[", 
+        ButtonData->"paclet:GeneralRelativityTensors/ref/SymmetrizeTensor"], 
+       "[", 
        StyleBox[
         RowBox[{"t", ",", 
          RowBox[{"{", 
           RowBox[{"pos1", ",", "pos2"}], "}"}]}], "TI"], "]"}]], 
-      "InlineFormula",ExpressionUUID->"cc92cc68-19a3-4f94-bd30-b9d37fcdb604"],
+      "InlineFormula",ExpressionUUID->"3bd37780-f457-446d-89b9-5dff760c6799"],
      
      "\[LineSeparator]is equivalent, but with an automatically generated name \
 for the new Tensor."
-    }],ExpressionUUID->"a49be310-3511-47f9-bf75-c5a01d2c242e"]}
-  }]], "Usage",ExpressionUUID->"0685d303-9a9e-454a-a7bd-c5238b5fc8cc"]
+    }],ExpressionUUID->"93431c41-d0f8-4869-bdd7-11502c515221"]}
+  }]], "Usage",ExpressionUUID->"ecd0ff75-e8d0-415c-8f57-dec0f9dbb692"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -99,23 +104,23 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"7bc5565a-e0cb-4e48-b450-0793669476b9"],
+  0,ExpressionUUID->"6ca28d95-c98b-4dee-9c8a-cf51b1a2be1c"],
 
 Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"c6bd83fe-7598-4b89-ba63-de421a0a47ba"],
+"Notes",ExpressionUUID->"df4d9a03-5000-4c11-9800-6ee874acde33"],
 
 Cell[BoxData[GridBox[{
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "a7aaa469-4413-4b3a-8919-0a2ac9b48902"], "ActWith", "Identity", 
+     "3018e6f3-d6b8-43a2-8a93-a5ba933aa0f2"], "ActWith", "Identity", 
     Cell["\<\
 Function that is applied to the elements of the tensor as they are calculated.\
-\>", "TableText",ExpressionUUID->"aae16e3e-c29d-4cb9-bd12-94ec079668eb"]},
+\>", "TableText",ExpressionUUID->"1d0022df-54d1-4ebc-9e5f-f6966bcf0b71"]},
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "fc10096c-2ddd-4d48-8619-101e5d3b5096"], "ActWithNested", "Identity", 
+     "01cd1ffb-ee33-461c-a8ea-f606ade6ac73"], "ActWithNested", "Identity", 
     Cell["\<\
 Function that is applied to the elements of the tensor and also passed to any \
 other functions called internally.\
-\>", "TableText",ExpressionUUID->"630a0d0e-7019-42c2-8ad9-0a7c9e3608f6"]}
+\>", "TableText",ExpressionUUID->"8804d59e-e6c4-47db-9667-3f1fc64d9ab9"]}
   },
   GridBoxAlignment->{
    "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
@@ -127,14 +132,14 @@ other functions called internally.\
  GridBoxDividers->{
   "Rows" -> {{
      True, True, 
-      True}}}},ExpressionUUID->"29907b59-0b7e-4d57-88c3-1534724ee119"]
+      True}}}},ExpressionUUID->"75c38921-9b30-4045-8fcb-8a430d125a29"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"9b2b48e2-bf65-4e9c-aafb-9909fe8ddd45"],
+Cell[" ", "FooterCell",ExpressionUUID->"9b44bc4c-8cd1-47eb-bfa7-ffb36ce813e9"],
 
-Cell[BoxData[""],ExpressionUUID->"8229eea9-662f-49af-ad8f-72424e9e962b"]
+Cell[BoxData[""],ExpressionUUID->"8d48026e-81f3-4b80-bc61-75ddfc4fed42"]
 }, Open  ]]
 },
 Saveable->False,
@@ -147,11 +152,13 @@ PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
-   "context" -> "Tensors`", 
+   "context" -> "GeneralRelativityTensors`", 
     "keywords" -> {
      "SymmetrizeTensor", "SYMMETRIZETENSOR", "symmetrizetensor"}, "index" -> 
-    True, "label" -> "Tensors/Tensors`TensorManipulation Symbol", "language" -> 
-    "en", "paclet" -> "Tensors`TensorManipulation", "status" -> "None", 
+    True, "label" -> 
+    "GeneralRelativityTensors/GeneralRelativityTensors`TensorManipulation \
+Symbol", "language" -> "en", "paclet" -> 
+    "GeneralRelativityTensors`TensorManipulation", "status" -> "None", 
     "summary" -> 
     "SymmetrizeTensor[t,{pos1,pos2},n] returns the Tensor t, symmetrized on \
 its indices in positions pos1,pos2.\nSymmetrizeTensor[t,{pos1,pos2}] is \
@@ -159,9 +166,9 @@ equivalent, but with an automatically generated name for the new Tensor.",
     "synonyms" -> {
      "SymmetrizeTensor", "SYMMETRIZETENSOR", "symmetrizetensor"}, "title" -> 
     "SymmetrizeTensor", "windowTitle" -> "SymmetrizeTensor", "type" -> 
-    "Symbol", "uri" -> "Tensors/ref/SymmetrizeTensor", "WorkflowDockedCell" -> 
-    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
-  False},
+    "Symbol", "uri" -> "GeneralRelativityTensors/ref/SymmetrizeTensor", 
+    "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> "", "LinkTrails" -> 
+  "", "NewStyles" -> False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

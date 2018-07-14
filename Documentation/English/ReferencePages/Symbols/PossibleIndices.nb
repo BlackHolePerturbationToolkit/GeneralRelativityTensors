@@ -1,46 +1,52 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"23c46782-5ad5-439c-9b37-7024e8bba8fd"],
+   0}},ExpressionUUID->"3413dc79-15bd-46a3-837e-f92ec047ecd9"],
 
 Cell[TextData[{
- ButtonBox["Tensors",
+ ButtonBox["GeneralRelativityTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["Tensors`TensorDefinitions",
+ ButtonBox["GeneralRelativityTensors`TensorDefinitions",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors`TensorDefinitions"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors`\
+TensorDefinitions"],
  StyleBox[" > ", "LinkTrailSeparator"],
  ButtonBox["PossibleIndices",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/ref/PossibleIndices"]
-}], "LinkTrail",ExpressionUUID->"9af41cdc-a97f-4c7a-a24a-182ad2d8b086"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/PossibleIndices"]
+}], "LinkTrail",ExpressionUUID->"5691297b-a956-423e-8e1a-5d65eaccfaa9"],
 
 Cell[BoxData[GridBox[{
-   {Cell["TENSORS`TENSORDEFINITIONS PACLET SYMBOL", "PacletNameCell",
-     ExpressionUUID->"5ead9deb-a5b3-436e-9612-55d211bf89fe"], Cell[TextData[{
+   {Cell["GENERALRELATIVITYTENSORS`TENSORDEFINITIONS PACLET SYMBOL", 
+     "PacletNameCell",ExpressionUUID->"23d4aa01-4392-4fc3-8fd2-3baed584f46b"],
+     Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
         StripOnInput->False], {"Indices":>Documentation`HelpLookup[
-       "paclet:Tensors/ref/Indices"], "Rank":>Documentation`HelpLookup[
-       "paclet:Tensors/ref/Rank"], "IndexPositions":>Documentation`HelpLookup[
-       "paclet:Tensors/ref/IndexPositions"], "Coordinates":>
-       Documentation`HelpLookup["paclet:Tensors/ref/Coordinates"]},
+       "paclet:GeneralRelativityTensors/ref/Indices"], "Rank":>
+       Documentation`HelpLookup["paclet:GeneralRelativityTensors/ref/Rank"], 
+       "IndexPositions":>Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/IndexPositions"], "Coordinates":>
+       Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/Coordinates"]},
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "00c43747-d106-423a-89ac-c42163ed2351"],
+      "ace4dd7e-384b-4da8-82e4-003ee7735722"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"e5c9496a-87f6-44b2-a970-13eae00cb8fd"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"08bde767-2c54-4098-9bb3-ec4488657655"],
+    }], "AnchorBar",ExpressionUUID->"335533f7-8a36-4517-bad7-bbcf5c15b9c9"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"a1c15a91-cff6-46c8-9eee-9baee5b44309"],
 
 Cell[CellGroupData[{
 
 Cell["PossibleIndices", \
-"ObjectName",ExpressionUUID->"9a6ffd42-71c0-4204-afc1-e744c19855fd"],
+"ObjectName",ExpressionUUID->"db6aba56-6099-4efc-8f22-73acebc13f03"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -48,13 +54,14 @@ Cell[BoxData[GridBox[{
       RowBox[{
        ButtonBox["PossibleIndices",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/PossibleIndices"], "[", 
-       StyleBox["t", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "398182e9-ca9c-4679-819c-d482ccaf81e4"],
+        ButtonData->"paclet:GeneralRelativityTensors/ref/PossibleIndices"], 
+       "[", 
+       StyleBox["expr", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
+      "461fed90-ba9e-4433-a823-91fff8be0dfc"],
      "\[LineSeparator]returns a List of all possible Symbols that can \
-represent the indices of the Tensor t."
-    }],ExpressionUUID->"37c48e9b-6bef-46ac-81bc-74e0836eeefc"]}
-  }]], "Usage",ExpressionUUID->"7ca70b23-28a3-4f37-b28c-12ee981d3396"]
+represent the indices of Tensors in the Tensor expression expr."
+    }],ExpressionUUID->"e50e3ac0-9e2c-4f15-8083-ee448234574d"]}
+  }]], "Usage",ExpressionUUID->"c3d0afd0-ccd9-4a63-85ba-99b35cbe82b5"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -100,15 +107,15 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"cea8a63d-4d5f-47bf-b2b7-a55b2a442e84"],
+  0,ExpressionUUID->"a0d7553d-55e0-4025-b4ac-19575dbba1ed"],
 
 Cell["\<\
 Indices will fail with an error message and abort if not all the terms in an \
 expression have the same indices.\
-\>", "Notes",ExpressionUUID->"c7c51bea-8c37-431a-86dd-669cb67efe26"],
+\>", "Notes",ExpressionUUID->"996a4f51-03e1-46ad-980a-fc1768180d2b"],
 
 Cell["Use IndicesTraced on an expression to get a unique list.", \
-"Notes",ExpressionUUID->"58bd3289-8ffb-4687-8aee-0790a2d726cb"]
+"Notes",ExpressionUUID->"e8d4cefb-7526-4f02-8607-21512b3b2a91"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -150,8 +157,8 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"28419b2a-45c2-4e21-a2b4-\
-b5af3eea9d08"],
+  "PrimaryExamplesSection",ExpressionUUID->"b54fba2f-5633-45f2-9fa7-\
+469a0a34d2a6"],
 
 Cell[CellGroupData[{
 
@@ -159,25 +166,25 @@ Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(2)", "ExampleCount",ExpressionUUID->
-  "c67300e7-3b2f-4463-addb-935686247513"]
-}], "ExampleSection",ExpressionUUID->"bff84d3b-04ac-4663-a75f-9e40aae334e0"],
+  "d7754132-0afe-4528-b3e1-7da5aefb7584"]
+}], "ExampleSection",ExpressionUUID->"9f90ea39-7755-40f6-acdd-a43d040133c6"],
 
 Cell[CellGroupData[{
 
 Cell["gS = ToMetric[\"Schwarzschild\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"32c21d90-e445-4ee4-8512-60916573bdd7"],
+ CellLabel->"In[1]:=",ExpressionUUID->"54ff030a-f8e7-49fc-bcc2-794cb1c7097f"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"f49e6ac5-3ba7-4225-9f4c-34809e1bdfe7"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"4bb0b363-5008-4c48-bd45-40565b531a9c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["PossibleIndices[gS]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"f515df10-998d-4af1-bcc8-87b3fb2410f5"],
+ CellLabel->"In[1]:=",ExpressionUUID->"ab954b13-b17e-46fb-8c3e-650f7a167a16"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -188,7 +195,7 @@ Cell[BoxData[
    ",", "\[Omicron]", ",", "\[Rho]", ",", "\[Sigma]", ",", "\[FinalSigma]", 
    ",", "\[Upsilon]", ",", "\[CurlyPhi]", ",", "\[Psi]", ",", "\[Omega]"}], 
   "}"}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"f7e599dc-b78c-4aa6-b035-1fb6204ec804"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"05ce68d9-9b66-4dc0-ac0b-d94ab89f6c81"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -230,16 +237,16 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"94a65b6f-2935-421a-917d-dd075734ea88"],
+  0,ExpressionUUID->"a4c2150f-428d-4c57-8125-4a31a172dd6c"],
 
 Cell[TextData[{
  Cell[BoxData[
   StyleBox[
    ButtonBox["Indices",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/Indices"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/Indices"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "c78aa8e2-afe9-42ed-ac58-5f65e79350ed"],
+  "8c4d5033-89ec-4779-bae1-700c965cd661"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -248,9 +255,9 @@ Cell[TextData[{
   StyleBox[
    ButtonBox["Rank",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/Rank"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/Rank"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "90565e0a-a552-4a7a-a6ba-88951024ad21"],
+  "a45a628f-0f43-4699-ab18-3b05e8517cce"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -259,9 +266,9 @@ Cell[TextData[{
   StyleBox[
    ButtonBox["IndexPositions",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/IndexPositions"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/IndexPositions"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "fc74fc5b-f9d3-4aea-be6e-8d88c4c40025"],
+  "98bfaea6-6dd4-403a-a585-5145ba1ac9a5"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -270,17 +277,17 @@ Cell[TextData[{
   StyleBox[
    ButtonBox["Coordinates",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/Coordinates"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/Coordinates"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "9aa124b9-3384-484b-9099-67207695371a"]
-}], "SeeAlso",ExpressionUUID->"5462aedc-fae7-4adb-86a0-5be3b58f69b6"]
+  "5cf11686-819b-471c-9236-9c5b2c39ab10"]
+}], "SeeAlso",ExpressionUUID->"82ebc090-1511-478c-a726-5333f2625742"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"fb10690f-2bd4-4ca5-9106-52e0b2a1dca0"],
+Cell[" ", "FooterCell",ExpressionUUID->"056cd0b9-ce9a-44e8-9099-c218264e39e6"],
 
-Cell[BoxData[""],ExpressionUUID->"209ae4ec-4638-4fab-b9fa-ddcb79e08b29"]
+Cell[BoxData[""],ExpressionUUID->"8dc3c001-c542-4f5a-94fa-2c9f5f4730d7"]
 }, Open  ]]
 },
 Saveable->False,
@@ -293,18 +300,20 @@ PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
-   "context" -> "Tensors`", 
+   "context" -> "GeneralRelativityTensors`", 
     "keywords" -> {"PossibleIndices", "POSSIBLEINDICES", "possibleindices"}, 
-    "index" -> True, "label" -> "Tensors/Tensors`TensorDefinitions Symbol", 
-    "language" -> "en", "paclet" -> "Tensors`TensorDefinitions", "status" -> 
-    "None", "summary" -> 
-    "PossibleIndices[t] returns a List of all possible Symbols that can \
-represent the indices of the Tensor t.", 
+    "index" -> True, "label" -> 
+    "GeneralRelativityTensors/GeneralRelativityTensors`TensorDefinitions \
+Symbol", "language" -> "en", "paclet" -> 
+    "GeneralRelativityTensors`TensorDefinitions", "status" -> "None", 
+    "summary" -> 
+    "PossibleIndices[expr] returns a List of all possible Symbols that can \
+represent the indices of Tensors in the Tensor expression expr.", 
     "synonyms" -> {"PossibleIndices", "POSSIBLEINDICES", "possibleindices"}, 
     "title" -> "PossibleIndices", "windowTitle" -> "PossibleIndices", "type" -> 
-    "Symbol", "uri" -> "Tensors/ref/PossibleIndices", "WorkflowDockedCell" -> 
-    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
-  False},
+    "Symbol", "uri" -> "GeneralRelativityTensors/ref/PossibleIndices", 
+    "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> "", "LinkTrails" -> 
+  "", "NewStyles" -> False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

@@ -1,45 +1,51 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"fe5e421d-cc8c-4554-9803-85f53454b81d"],
+   0}},ExpressionUUID->"0a8ce2bc-2438-4dd8-935d-7ab7c636c31d"],
 
 Cell[TextData[{
- ButtonBox["Tensors",
+ ButtonBox["GeneralRelativityTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["Tensors`TensorDefinitions",
+ ButtonBox["GeneralRelativityTensors`TensorDefinitions",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors`TensorDefinitions"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors`\
+TensorDefinitions"],
  StyleBox[" > ", "LinkTrailSeparator"],
  ButtonBox["Metric",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/ref/Metric"]
-}], "LinkTrail",ExpressionUUID->"c2a6464a-9d8a-4349-a51c-1958b260bd2a"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/Metric"]
+}], "LinkTrail",ExpressionUUID->"0130bfeb-d29f-4d34-8caa-daf5a661dbb8"],
 
 Cell[BoxData[GridBox[{
-   {Cell["TENSORS`TENSORDEFINITIONS PACLET SYMBOL", "PacletNameCell",
-     ExpressionUUID->"e04322cd-e0d5-4b4f-ab99-eb629aa80eb4"], Cell[TextData[{
+   {Cell["GENERALRELATIVITYTENSORS`TENSORDEFINITIONS PACLET SYMBOL", 
+     "PacletNameCell",ExpressionUUID->"fd792283-6999-4fec-8ff3-b2fb002987e8"],
+     Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
         StripOnInput->False], {"ToMetric":>Documentation`HelpLookup[
-       "paclet:Tensors/ref/ToMetric"], "MetricQ":>Documentation`HelpLookup[
-       "paclet:Tensors/ref/MetricQ"], "ToCurve":>Documentation`HelpLookup[
-       "paclet:Tensors/ref/ToCurve"]},
+       "paclet:GeneralRelativityTensors/ref/ToMetric"], "MetricQ":>
+       Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/MetricQ"], "ToCurve":>
+       Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/ToCurve"]},
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "3f3e1faf-bc7a-4a91-98de-72b0ef8a9e1c"],
+      "4db53a77-8cb4-43b9-95e3-2d761b60e14c"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"8646535a-fe1c-42bc-adb8-6cdcaf7a1504"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"eba9e40b-90c9-4793-aaa9-bf0bd352b429"],
+    }], "AnchorBar",ExpressionUUID->"7814a266-a01b-4c14-8f2b-7bffc0726b2b"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"cd422a97-4f8a-4f2d-a574-f66a1b5b9a91"],
 
 Cell[CellGroupData[{
 
 Cell["Metric", \
-"ObjectName",ExpressionUUID->"df963a1d-56d1-406b-9574-186ab85e635d"],
+"ObjectName",ExpressionUUID->"feb86a58-da8b-481c-ac90-760e349e362e"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -47,13 +53,13 @@ Cell[BoxData[GridBox[{
       RowBox[{
        ButtonBox["Metric",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/Metric"], "[", 
-       StyleBox["t", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "1dfdf7c8-6e24-4d97-91f2-ee54970803a3"],
+        ButtonData->"paclet:GeneralRelativityTensors/ref/Metric"], "[", 
+       StyleBox["expr", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
+      "7be91dd8-a385-4d63-9320-dee56786a9fb"],
      "\[LineSeparator]returns the metric Tensor associated with the Tensor \
-t."
-    }],ExpressionUUID->"6667fed7-141f-4b5a-95ca-3bb56a298564"]}
-  }]], "Usage",ExpressionUUID->"028eaeb8-472e-4291-9c22-8dc207f00418"]
+expression expr."
+    }],ExpressionUUID->"42ce2cf7-b89c-4d4b-8366-e7f597885bd0"]}
+  }]], "Usage",ExpressionUUID->"380970c7-0ca6-4dfa-9fe6-119e9d8f2ba0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -99,14 +105,14 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"5820ddb5-09f5-4f60-85ac-363a7307cc3a"],
+  0,ExpressionUUID->"d1f425f9-dbbf-4828-b498-2656bd607ce4"],
 
 Cell["Metric[t] will return t itself if it is a metric.", \
-"Notes",ExpressionUUID->"43894688-4bcb-4526-bf57-9933f93b5598"],
+"Notes",ExpressionUUID->"cb4b0322-8f40-441f-ba21-c674021a9380"],
 
 Cell["\<\
 If t is on a curve, Metric[t] returns the metric Tensor on the same curve.\
-\>", "Notes",ExpressionUUID->"2a8e4c76-af98-4d0f-b445-7e114b4be3c2"]
+\>", "Notes",ExpressionUUID->"3216c7e6-b5a3-4f9b-9de1-8810df8cc69a"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -148,8 +154,8 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"99eaa302-7dad-4d0b-99bc-\
-41c6ab58957f"],
+  "PrimaryExamplesSection",ExpressionUUID->"93dc2a5b-9d00-48ce-9cd1-\
+06126e6e4311"],
 
 Cell[CellGroupData[{
 
@@ -157,19 +163,19 @@ Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(6)", "ExampleCount",ExpressionUUID->
-  "d0186413-0d3a-4c8d-96ab-5916fcaed4df"]
-}], "ExampleSection",ExpressionUUID->"aa4b594e-2286-4043-8d80-96661dbf0676"],
+  "3767a294-43a9-436d-9d39-13c930f76af7"]
+}], "ExampleSection",ExpressionUUID->"d4e64c94-c518-424a-8785-268f08746fab"],
 
 Cell[CellGroupData[{
 
 Cell["gK = ToMetric[\"Kerr\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"25b391be-c44b-44cc-b437-db5d526defd7"],
+ CellLabel->"In[1]:=",ExpressionUUID->"34103362-660a-46ed-a803-b3c49acdcab3"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"c80eee3f-b808-4de2-8a5f-2c138ea8f2cf"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"c3e694a7-ebc5-4fc3-b824-f8f673f832e8"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -178,64 +184,64 @@ Cell["\<\
 c1 = ToCurve[\"x1\", gK, {t[\[Chi]], (p M)/(1 + e Cos[\[Chi]]), \[Pi]/2, \
 \[Phi][\[Chi]]}, \[Chi]]\
 \>", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"2a411ad6-9a4b-4dce-9b72-4e87c372f56d"],
+ CellLabel->"In[1]:=",ExpressionUUID->"c1eb19cc-cdb9-4f74-9d7c-0a206789e849"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["x1", "", "\[Alpha]"], "[", "\<\"\[Chi]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"ebc3eda9-5561-4fa3-931f-4d178918e23c"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"b465311d-dd58-4a0e-8897-167f7dac45e0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["gKC = ToTensorOnCurve[gK, c1]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"021e8e52-e0f4-4395-9d67-b52a9bde7356"],
+ CellLabel->"In[1]:=",ExpressionUUID->"9d47e147-b0a9-40b3-9562-2d6037199974"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""], "[", "\<\"\[Chi]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"ddf60bc3-199b-4e26-9cfe-7a5f1e1d748d"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"74fc4cb8-7353-48ca-974b-385729a39420"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Metric[gK]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"2ae3de08-1069-4553-a6ae-4b4d84a60ed7"],
+ CellLabel->"In[1]:=",ExpressionUUID->"ef5ca9ad-c35b-4914-bb50-aefc3be1f12a"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"32b7d49d-05ea-4706-bd31-a13b7de5dc56"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"1a05b4b8-7003-427e-8d61-3128a4ed6d9f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Metric[c1]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"02da878d-4d46-4e10-b148-fd5cfdab7989"],
+ CellLabel->"In[1]:=",ExpressionUUID->"aed24cc9-e24b-40ca-8d3d-aed027fd6fdb"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"17a93174-fec7-4719-8d2f-6601ab197072"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"9a73daf8-160b-4c06-857b-8fc0591c1c13"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Metric[gKC]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"cfdeabb3-5edf-45ce-8411-3da35a18fa47"],
+ CellLabel->"In[1]:=",ExpressionUUID->"a7141a79-15e4-4c52-8f5c-e880a25061d4"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""], "[", "\<\"\[Chi]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"2806bff8-a3da-460c-bfa9-7f3e2cfeec12"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"a5010cde-1921-48e1-95cc-1f9b614c311f"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -277,16 +283,16 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"e0de3a8d-2609-42ea-a7d6-70cfe0606d8c"],
+  0,ExpressionUUID->"00c24336-4054-4be1-85cd-ffeb1f7b3fbb"],
 
 Cell[TextData[{
  Cell[BoxData[
   StyleBox[
    ButtonBox["ToMetric",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/ToMetric"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/ToMetric"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "f4e887dd-82ce-40f7-a35f-df6798ec3192"],
+  "4d178e1d-2f25-492b-a2a2-86dec3bcada5"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -295,9 +301,9 @@ Cell[TextData[{
   StyleBox[
    ButtonBox["MetricQ",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/MetricQ"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/MetricQ"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "823c8b00-9138-4e88-b451-e60097a3ab1b"],
+  "686d4e9b-51b2-4bcf-bf84-95b21feb7200"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -306,17 +312,17 @@ Cell[TextData[{
   StyleBox[
    ButtonBox["ToCurve",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/ToCurve"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/ToCurve"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "1b89622c-ff87-47e9-9e35-da6c2ab8d131"]
-}], "SeeAlso",ExpressionUUID->"062d50ae-84ae-4bf0-bc2d-65e5443968ab"]
+  "f60470d2-5743-4fb1-ba0f-fc5febf413ab"]
+}], "SeeAlso",ExpressionUUID->"997c146f-0e11-449e-b7bd-4fc34a955454"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"286540fa-708d-4694-a543-adec9892e75b"],
+Cell[" ", "FooterCell",ExpressionUUID->"c8a5e326-a7f8-41ac-aa73-000673ff88f0"],
 
-Cell[BoxData[""],ExpressionUUID->"45d9e273-3c1f-40ae-90ff-da2445142152"]
+Cell[BoxData[""],ExpressionUUID->"2864211f-4ab3-425f-8b58-bfe8275505a3"]
 }, Open  ]]
 },
 Saveable->False,
@@ -329,15 +335,17 @@ PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
-   "context" -> "Tensors`", "keywords" -> {"Metric", "METRIC", "metric"}, 
-    "index" -> True, "label" -> "Tensors/Tensors`TensorDefinitions Symbol", 
-    "language" -> "en", "paclet" -> "Tensors`TensorDefinitions", "status" -> 
-    "None", "summary" -> 
-    "Metric[t] returns the metric Tensor associated with the Tensor t.", 
-    "synonyms" -> {"Metric", "METRIC", "metric"}, "title" -> "Metric", 
-    "windowTitle" -> "Metric", "type" -> "Symbol", "uri" -> 
-    "Tensors/ref/Metric", "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> 
-  "", "LinkTrails" -> "", "NewStyles" -> False},
+   "context" -> "GeneralRelativityTensors`", 
+    "keywords" -> {"Metric", "METRIC", "metric"}, "index" -> True, "label" -> 
+    "GeneralRelativityTensors/GeneralRelativityTensors`TensorDefinitions \
+Symbol", "language" -> "en", "paclet" -> 
+    "GeneralRelativityTensors`TensorDefinitions", "status" -> "None", 
+    "summary" -> 
+    "Metric[expr] returns the metric Tensor associated with the Tensor \
+expression expr.", "synonyms" -> {"Metric", "METRIC", "metric"}, "title" -> 
+    "Metric", "windowTitle" -> "Metric", "type" -> "Symbol", "uri" -> 
+    "GeneralRelativityTensors/ref/Metric", "WorkflowDockedCell" -> ""}, 
+  "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

@@ -1,26 +1,29 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"571b9273-67e4-4dcb-8478-e9fd803714e5"],
+   0}},ExpressionUUID->"7ad18ebe-32ef-478f-ab8c-fe5fb8ac97f3"],
 
 Cell[TextData[{
- ButtonBox["Tensors",
+ ButtonBox["GeneralRelativityTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["Tensors`TensorManipulation",
+ ButtonBox["GeneralRelativityTensors`TensorManipulation",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors`TensorManipulation"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors`\
+TensorManipulation"],
  StyleBox[" > ", "LinkTrailSeparator"],
  ButtonBox["TraceReverse",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/ref/TraceReverse"]
-}], "LinkTrail",ExpressionUUID->"6b67bdf0-2ea0-4589-91e7-a0b141e346f0"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/TraceReverse"]
+}], "LinkTrail",ExpressionUUID->"767cce2b-2365-4d8d-bbac-ac8a13d72436"],
 
 Cell[CellGroupData[{
 
 Cell["TraceReverse", \
-"ObjectName",ExpressionUUID->"b988a19c-5c60-4fb4-983c-a0ad0b7658d9"],
+"ObjectName",ExpressionUUID->"95c22d44-7ede-4cce-8a3e-7d47678176ae"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -28,25 +31,27 @@ Cell[BoxData[GridBox[{
       RowBox[{
        ButtonBox["TraceReverse",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/TraceReverse"], "[", 
+        ButtonData->"paclet:GeneralRelativityTensors/ref/TraceReverse"], "[", 
+       
        StyleBox[
         RowBox[{"t", ",", "n"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"1ce94bf7-9f92-4fed-b478-ac4a9d856b90"],
+      ExpressionUUID->"a2c3e5bd-f94a-4107-a2b5-19a0fc492599"],
      "\[LineSeparator]returns the trace reversed version of the Tensor t with \
 the TensorName n."
-    }],ExpressionUUID->"c304969d-c884-4fff-a9fc-604cc1023f96"]},
+    }],ExpressionUUID->"4d7be9ad-93d5-4fe6-b095-59ca80200cae"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
        ButtonBox["TraceReverse",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/TraceReverse"], "[", 
+        ButtonData->"paclet:GeneralRelativityTensors/ref/TraceReverse"], "[", 
+       
        StyleBox["t", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "5ed8db5d-04d5-418e-95d3-398a8062344a"],
+      "e63ff9b6-0c6d-4368-b6eb-4441d0690387"],
      "\[LineSeparator]is equivalent to TraceReverse[t,n], but with the \
 returned TensorName and DisplayTensorName auto-generated."
-    }],ExpressionUUID->"0cc5a314-c2bd-4f6b-976d-2ea8d423a899"]}
-  }]], "Usage",ExpressionUUID->"c2fd078a-7987-4a9b-84b3-d9860b737ae1"]
+    }],ExpressionUUID->"dc13f469-6527-4bdf-9ee5-38e3b9ebb03e"]}
+  }]], "Usage",ExpressionUUID->"7a7913ea-be7f-491e-a364-7a6e6c44a885"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -92,23 +97,23 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"e0d666f9-2001-48e1-a9da-64824b7121f1"],
+  0,ExpressionUUID->"f25eca25-9f54-4eb4-ab2e-0f0b604ce797"],
 
 Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"7d443342-c7d6-4521-b813-2b1cfb6b5f07"],
+"Notes",ExpressionUUID->"b26b4c72-2fa7-4a6b-a3f9-0f92e094f5d8"],
 
 Cell[BoxData[GridBox[{
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "72a43a1a-3757-4bb9-9feb-b44a47f5ce32"], "ActWith", "Identity", 
+     "5f620919-298e-42ac-875a-0c4b1dad1df2"], "ActWith", "Identity", 
     Cell["\<\
 Function that is applied to the elements of the tensor as they are calculated.\
-\>", "TableText",ExpressionUUID->"057a8d16-8537-45b1-a018-c854eb3fb34c"]},
+\>", "TableText",ExpressionUUID->"c0faaf62-44b4-4f24-90fa-7cdaf8592973"]},
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "e826bfd8-78d1-4234-a5c3-eded64d3e71b"], "ActWithNested", "Identity", 
+     "e58f7c07-4102-460c-96e4-e0de2f3560d8"], "ActWithNested", "Identity", 
     Cell["\<\
 Function that is applied to the elements of the tensor and also passed to any \
 other functions called internally.\
-\>", "TableText",ExpressionUUID->"600ea1df-7753-441d-af97-9d12e9f52caf"]}
+\>", "TableText",ExpressionUUID->"c2af89f3-d630-43ab-8ef3-4424c204012c"]}
   },
   GridBoxAlignment->{
    "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
@@ -120,14 +125,14 @@ other functions called internally.\
  GridBoxDividers->{
   "Rows" -> {{
      True, True, 
-      True}}}},ExpressionUUID->"73baefdb-0aa3-478e-ab01-605136dbda4a"]
+      True}}}},ExpressionUUID->"861117ce-09f6-409b-a89f-1ad92678b257"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"e5b7baba-d9fb-4fd6-a777-13fec647a331"],
+Cell[" ", "FooterCell",ExpressionUUID->"c0e8215a-191e-47f3-a9e9-0583cb294d4d"],
 
-Cell[BoxData[""],ExpressionUUID->"4b2967eb-44e5-4080-a9e7-34aba12d11b0"]
+Cell[BoxData[""],ExpressionUUID->"da791589-bf85-4a2a-859f-0f446cc3e24d"]
 }, Open  ]]
 },
 Saveable->False,
@@ -140,18 +145,21 @@ PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
-   "context" -> "Tensors`", 
+   "context" -> "GeneralRelativityTensors`", 
     "keywords" -> {"TraceReverse", "TRACEREVERSE", "tracereverse"}, "index" -> 
-    True, "label" -> "Tensors/Tensors`TensorManipulation Symbol", "language" -> 
-    "en", "paclet" -> "Tensors`TensorManipulation", "status" -> "None", 
+    True, "label" -> 
+    "GeneralRelativityTensors/GeneralRelativityTensors`TensorManipulation \
+Symbol", "language" -> "en", "paclet" -> 
+    "GeneralRelativityTensors`TensorManipulation", "status" -> "None", 
     "summary" -> 
     "TraceReverse[t,n] returns the trace reversed version of the Tensor t \
 with the TensorName n.\nTraceReverse[t] is equivalent to TraceReverse[t,n], \
 but with the returned TensorName and DisplayTensorName auto-generated.", 
     "synonyms" -> {"TraceReverse", "TRACEREVERSE", "tracereverse"}, "title" -> 
     "TraceReverse", "windowTitle" -> "TraceReverse", "type" -> "Symbol", 
-    "uri" -> "Tensors/ref/TraceReverse", "WorkflowDockedCell" -> ""}, 
-  "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> False},
+    "uri" -> "GeneralRelativityTensors/ref/TraceReverse", 
+    "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> "", "LinkTrails" -> 
+  "", "NewStyles" -> False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

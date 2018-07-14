@@ -10,7 +10,6 @@ call ShiftIndices explicitly, not with DownValues."
     "gK = ToMetric[\"Kerr\"]",
     "ShiftIndices[gK, {\[Alpha], \[Beta]}]",
     "gK[\[Alpha], \[Beta]]",
-    "(* By default the values computed by ShiftIndices are not simplified. *)",
     "gK[\[Alpha], -\[Beta]] // TensorValues",
     "ShiftIndices[gK, {\[Alpha], -\[Beta]}, \"ActWith\" -> Simplify] // TensorValues"
     },

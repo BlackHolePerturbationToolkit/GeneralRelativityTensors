@@ -1,45 +1,50 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"ded93f32-fe15-45e8-9a12-2b44e5d791ec"],
+   0}},ExpressionUUID->"6fc42ad1-63c5-425a-adc5-76e4c5852086"],
 
 Cell[TextData[{
- ButtonBox["Tensors",
+ ButtonBox["GeneralRelativityTensors",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["Tensors`TensorDefinitions",
+ ButtonBox["GeneralRelativityTensors`TensorDefinitions",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/guide/Tensors`TensorDefinitions"],
+  ButtonData->
+   "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors`\
+TensorDefinitions"],
  StyleBox[" > ", "LinkTrailSeparator"],
  ButtonBox["InverseMetric",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:Tensors/ref/InverseMetric"]
-}], "LinkTrail",ExpressionUUID->"9cbccb56-7c69-4d24-8d2f-7212d18ba265"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/InverseMetric"]
+}], "LinkTrail",ExpressionUUID->"30c0cd93-c3f2-4f47-8c90-2a1dc4569cd8"],
 
 Cell[BoxData[GridBox[{
-   {Cell["TENSORS`TENSORDEFINITIONS PACLET SYMBOL", "PacletNameCell",
-     ExpressionUUID->"f7e8e86e-6924-4a87-b66b-90faf20b7468"], Cell[TextData[{
+   {Cell["GENERALRELATIVITYTENSORS`TENSORDEFINITIONS PACLET SYMBOL", 
+     "PacletNameCell",ExpressionUUID->"54a027c7-68ab-41fa-a64b-97067f9a9410"],
+     Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
         StripOnInput->False], {"ToMetric":>Documentation`HelpLookup[
-       "paclet:Tensors/ref/ToMetric"], "Metric":>Documentation`HelpLookup[
-       "paclet:Tensors/ref/Metric"], "MetricQ":>Documentation`HelpLookup[
-       "paclet:Tensors/ref/MetricQ"]},
+       "paclet:GeneralRelativityTensors/ref/ToMetric"], "Metric":>
+       Documentation`HelpLookup["paclet:GeneralRelativityTensors/ref/Metric"],
+        "MetricQ":>Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/MetricQ"]},
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "b7bd26ff-f057-43eb-8690-e6fc4cdf1bf1"],
+      "1f318715-710f-448e-9f3e-706c082aa925"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"b3f95c79-7222-4cfd-bbc0-7f8d68c8b4f3"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"e9f771b7-b9a5-47f2-b34b-543ef66708db"],
+    }], "AnchorBar",ExpressionUUID->"0b7f39b8-517d-4e47-988b-f8cd7187d00b"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"e6871177-914b-4769-bb42-2e991f7949d8"],
 
 Cell[CellGroupData[{
 
 Cell["InverseMetric", \
-"ObjectName",ExpressionUUID->"0f582fe9-5b71-4ccb-9afe-10be4a1969cc"],
+"ObjectName",ExpressionUUID->"8a22f5f5-6c8c-4170-aa7a-247044c2ea15"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -47,14 +52,14 @@ Cell[BoxData[GridBox[{
       RowBox[{
        ButtonBox["InverseMetric",
         BaseStyle->"Link",
-        ButtonData->"paclet:Tensors/ref/InverseMetric"], "[", 
+        ButtonData->"paclet:GeneralRelativityTensors/ref/InverseMetric"], "[", 
        StyleBox["t", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "88f88cf5-218e-4c70-9f01-a764108f9ea3"],
+      "8b9921e8-40b0-40a5-9033-7e33ae8d9945"],
      "\[LineSeparator]returns the inverse metric Tensor associated with the \
 Tensor t, or Undefined if no metric was set. If t is on a curve, \
 InverseMetric[t] returns the inverse metric Tensor on the same curve."
-    }],ExpressionUUID->"0facf412-76fa-4db5-a737-b58c9b5cd37a"]}
-  }]], "Usage",ExpressionUUID->"ed6c6438-0855-4ecb-a54f-cf7c2a34eeb5"]
+    }],ExpressionUUID->"569959da-64a1-4d09-902d-1b8d88109947"]}
+  }]], "Usage",ExpressionUUID->"904369b5-82ec-4c07-a769-1dddf56665ee"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -100,12 +105,12 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"7ddf3347-7050-4f0b-8458-e2c6304b8d05"],
+  0,ExpressionUUID->"79aa33a0-db45-4b7f-a381-95afb3350a23"],
 
 Cell["\<\
 Usually it is easier to raise the indices of a metric with ShiftIndices (or \
 DownValues), which calls InverseMetric internally.\
-\>", "Notes",ExpressionUUID->"79ac0726-a658-4139-ada6-59873e67e16b"]
+\>", "Notes",ExpressionUUID->"44971bba-3a18-409e-b29c-e87b5f57c035"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -147,8 +152,8 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"822952f9-f7f6-4235-a6d3-\
-911a8a062fda"],
+  "PrimaryExamplesSection",ExpressionUUID->"1db9b85e-970f-43d5-a345-\
+a958bb575e04"],
 
 Cell[CellGroupData[{
 
@@ -156,37 +161,37 @@ Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(4)", "ExampleCount",ExpressionUUID->
-  "837b9501-0293-460a-82c5-039a98fe5f0e"]
-}], "ExampleSection",ExpressionUUID->"8004a74a-efaf-4d57-8785-46b76445ea0f"],
+  "76984b12-5949-4dac-909e-18971f39cb3c"]
+}], "ExampleSection",ExpressionUUID->"b6974908-fa34-4dd6-af8e-2b06d2ee899b"],
 
 Cell[CellGroupData[{
 
 Cell["gS = ToMetric[\"Schwarzschild\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"e855d61a-e609-4c55-8616-5cc1ee820bec"],
+ CellLabel->"In[1]:=",ExpressionUUID->"3c462434-3421-4591-ac99-317dbb07936b"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"1d4d938e-a1a4-420a-96cb-11f0dcec7412"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"ba4cecb2-013b-47b9-9183-3f9963cd185a"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["gSI = InverseMetric[gS]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"0ba26420-bc58-4e2c-a8c4-3b405204776b"],
+ CellLabel->"In[1]:=",ExpressionUUID->"e8d523b5-2cef-4f51-a3b6-ae9bae48f7ac"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "", "\[Alpha]\[Beta]"],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"772ae268-04a1-4d41-8995-5d7981b7e742"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"68873f72-d331-404b-b442-50b1f6486ba5"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["gSI // TensorValues", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"0ce4e254-d207-43f9-b7aa-4c7d428f16f8"],
+ CellLabel->"In[1]:=",ExpressionUUID->"50e0609a-b873-43ae-81da-0e1dee894437"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -212,13 +217,13 @@ Cell[BoxData[
       SuperscriptBox[
        RowBox[{"Csc", "[", "\[Theta]", "]"}], "2"], 
       SuperscriptBox["r", "2"]]}], "}"}]}], "}"}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"4dd751b3-17b6-4e4a-b226-282e17cafcc7"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"f04d3e4b-b751-463d-88a7-e6374e8915b7"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["gS[\[Alpha],\[Beta]] // TensorValues", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"91da6114-bab0-447e-a92b-8c889ed02010"],
+ CellLabel->"In[1]:=",ExpressionUUID->"6fc4cf6c-072f-4684-af47-23f3bbd70188"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -253,7 +258,7 @@ Cell[BoxData[
       SuperscriptBox[
        RowBox[{"Csc", "[", "\[Theta]", "]"}], "2"], 
       SuperscriptBox["r", "2"]]}], "}"}]}], "}"}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"675691ea-ebcb-48fa-930f-c4ad6b63435f"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"069b2095-60a1-45c2-b549-6bac0fe9f63f"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -295,16 +300,16 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"9681f4bf-0a09-494c-910e-373d3b480cd4"],
+  0,ExpressionUUID->"4a83a7ac-9a7f-41d5-bd83-6218ded5c2a8"],
 
 Cell[TextData[{
  Cell[BoxData[
   StyleBox[
    ButtonBox["ToMetric",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/ToMetric"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/ToMetric"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "d6307c61-731f-4aaa-884b-cdee92d6961a"],
+  "dd91d781-baaf-41d6-842d-424e28dd18cd"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -313,9 +318,9 @@ Cell[TextData[{
   StyleBox[
    ButtonBox["Metric",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/Metric"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/Metric"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "4f056d49-23f7-4a7e-998e-121ae8e8bc99"],
+  "57eb9d5f-0891-494b-a4f4-34c83880560d"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -324,17 +329,17 @@ Cell[TextData[{
   StyleBox[
    ButtonBox["MetricQ",
     BaseStyle->"Link",
-    ButtonData->"paclet:Tensors/ref/MetricQ"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/MetricQ"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "e3e49826-fd90-4753-95e0-a3a1e1cb10e0"]
-}], "SeeAlso",ExpressionUUID->"30a866bb-b5c2-47d0-bedb-a6684da753fd"]
+  "426ef545-2dc2-434d-b5ce-90b2d0c6b3c8"]
+}], "SeeAlso",ExpressionUUID->"a0cea686-beb8-445c-9ba5-ce079a8de4d6"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"c092b2a9-b673-4562-bcf8-2dac40a033b6"],
+Cell[" ", "FooterCell",ExpressionUUID->"a7e8b8dd-fe46-4762-ae0d-e0f77de79c06"],
 
-Cell[BoxData[""],ExpressionUUID->"3eae33aa-ff20-429d-bfa5-36da91f44784"]
+Cell[BoxData[""],ExpressionUUID->"b495d83e-b502-425d-a4db-37bf38d127d3"]
 }, Open  ]]
 },
 Saveable->False,
@@ -347,19 +352,21 @@ PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
-   "context" -> "Tensors`", 
+   "context" -> "GeneralRelativityTensors`", 
     "keywords" -> {"InverseMetric", "INVERSEMETRIC", "inversemetric"}, 
-    "index" -> True, "label" -> "Tensors/Tensors`TensorDefinitions Symbol", 
-    "language" -> "en", "paclet" -> "Tensors`TensorDefinitions", "status" -> 
-    "None", "summary" -> 
+    "index" -> True, "label" -> 
+    "GeneralRelativityTensors/GeneralRelativityTensors`TensorDefinitions \
+Symbol", "language" -> "en", "paclet" -> 
+    "GeneralRelativityTensors`TensorDefinitions", "status" -> "None", 
+    "summary" -> 
     "InverseMetric[t] returns the inverse metric Tensor associated with the \
 Tensor t, or Undefined if no metric was set. If t is on a curve, \
 InverseMetric[t] returns the inverse metric Tensor on the same curve.", 
     "synonyms" -> {"InverseMetric", "INVERSEMETRIC", "inversemetric"}, 
     "title" -> "InverseMetric", "windowTitle" -> "InverseMetric", "type" -> 
-    "Symbol", "uri" -> "Tensors/ref/InverseMetric", "WorkflowDockedCell" -> 
-    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
-  False},
+    "Symbol", "uri" -> "GeneralRelativityTensors/ref/InverseMetric", 
+    "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> "", "LinkTrails" -> 
+  "", "NewStyles" -> False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

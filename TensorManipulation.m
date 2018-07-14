@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-BeginPackage["Tensors`TensorManipulation`",{"Tensors`TensorDefinitions`"}];
+BeginPackage["GeneralRelativityTensors`TensorManipulation`",{"GeneralRelativityTensors`TensorDefinitions`"}];
 
 
 ContractIndices::usage="ContractIndices[t,n] contracts all repeated indices of \
@@ -422,13 +422,21 @@ Module[{expr1,expr2,expr3,expr4,simpFn,simpFnNest,nestNum},
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
 	nestNum=OptionValue["NestQuantity"];
 	expr1=Expand[expr]/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2,"ActWith"->simpFnNest];
-	expr2=expr1//.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t,"ActWith"->simpFnNest];
-	expr3=ContractIndices[expr2,"ActWith"->simpFnNest]//.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2,"ActWith"->simpFnNest];
+	expr2=expr1 /. n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t,"ActWith"->simpFnNest];
+	expr3=ContractIndices[expr2,"ActWith"->simpFnNest]/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2,"ActWith"->simpFnNest];
 	expr4=If[MatchQ[expr3,_Tensor]||nestNum==0,expr3,MergeTensors[expr3,"ActWithNested"->simpFnNest,"ActWith"->simpFn,"NestQuantity"->(nestNum-1)]];
 	If[MatchQ[expr4,_Tensor],ActOnTensorValues[simpFn,expr4],expr4]
 ]
 MergeTensors[expr_,name_String,opts:OptionsPattern[]]:=SetTensorName[MergeTensors[expr,opts],name]
 MergeTensors[expr_,{name_String,dispName_String},opts:OptionsPattern[]]:=SetTensorName[MergeTensors[expr,opts],{name,dispName}]
+
+
+MergeTensors[t_Tensor,opts:OptionsPattern[]]:=
+Module[{simpFnNest,simpFn},
+	simpFnNest=OptionValue["ActWithNested"];
+	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
+	ContractIndices[t,"ActWith"->simpFn]
+]
 
 
 Clear[TraceReverse]
