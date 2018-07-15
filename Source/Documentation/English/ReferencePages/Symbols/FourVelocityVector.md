@@ -15,6 +15,8 @@
 
     "Tutorials" -> {
         "Introduction to GeneralRelativityTensors",
-        "Introduction to Tensor Curves"}
+        "Introduction to Tensor Curves"
+    }
+
 
 }

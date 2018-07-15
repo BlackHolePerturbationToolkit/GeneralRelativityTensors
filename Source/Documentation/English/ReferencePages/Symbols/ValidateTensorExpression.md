@@ -8,6 +8,11 @@
     },
 
     "See Also" ->
-    {"ValidTensorExpressionQ"}
+    {"ValidTensorExpressionQ"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Manipulating and differentiating Tensors"
+    }
 
 }

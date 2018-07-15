@@ -14,6 +14,11 @@
     },
 
     "See Also" ->
-    {"ValidateTensorExpression"}
+    {"ValidateTensorExpression"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Manipulating and differentiating Tensors"
+    }
 
 }

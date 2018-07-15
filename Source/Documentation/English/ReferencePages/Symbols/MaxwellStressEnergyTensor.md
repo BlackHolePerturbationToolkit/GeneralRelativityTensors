@@ -10,6 +10,12 @@
     },
 
     "See Also" ->
-    {"MaxwellPotential", "FieldStrengthTensor"}
+    {"MaxwellPotential", "FieldStrengthTensor"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Built in common Tensors",
+      "Examples - Wave equations"
+    }
 
 }

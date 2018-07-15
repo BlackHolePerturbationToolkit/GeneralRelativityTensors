@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"e58bf00d-112b-4b54-9da6-9ab1be0387cd"],
+   0}},ExpressionUUID->"511534d9-afc2-496d-80dc-2b0551f7e0d7"],
 
 Cell[TextData[{
  ButtonBox["GeneralRelativityTensors",
@@ -18,12 +18,26 @@ TensorDefinitions"],
  ButtonBox["TensorDisplayName",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:GeneralRelativityTensors/ref/TensorDisplayName"]
-}], "LinkTrail",ExpressionUUID->"951f337d-6a5e-41be-90cd-32c24a968275"],
+}], "LinkTrail",ExpressionUUID->"9793447c-dd78-4783-a522-39c51c6c0944"],
 
 Cell[BoxData[GridBox[{
    {Cell["GENERALRELATIVITYTENSORS`TENSORDEFINITIONS PACLET SYMBOL", 
-     "PacletNameCell",ExpressionUUID->"39935e11-6441-449b-a52e-691cffd5eef9"],
+     "PacletNameCell",ExpressionUUID->"9af10590-46d5-4949-bd75-8291d0e50e0b"],
      Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
+        StripOnInput->False], {
+       RowBox[{"Introduction", " ", "to", " ", "GeneralRelativityTensors"}]:>
+       Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/tutorial/Introduction to \
+GeneralRelativityTensors"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "c396d766-3778-4634-9c8c-62f30de64c5b"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
@@ -32,16 +46,16 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "044ba588-ecb7-4d89-adce-507b549d95f6"],
+      "6ddc2080-721a-4e92-b59f-8f1aaf76c515"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"e432d375-0922-4986-a015-f78b29c36efb"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"1bc0c38a-ce37-41f7-b519-9f60037327be"],
+    }], "AnchorBar",ExpressionUUID->"395da110-69cd-444f-9692-6a9208904121"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"5f85f507-f29b-4b7c-9353-e1f5c9bde097"],
 
 Cell[CellGroupData[{
 
 Cell["TensorDisplayName", \
-"ObjectName",ExpressionUUID->"c8c0b654-0554-45cc-ab62-a79e8f6f1078"],
+"ObjectName",ExpressionUUID->"b1f0909c-4298-4801-ab2e-c4e376a96479"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -52,11 +66,11 @@ Cell[BoxData[GridBox[{
         ButtonData->"paclet:GeneralRelativityTensors/ref/TensorDisplayName"], 
        "[", 
        StyleBox["t", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "adc39531-982e-4920-842e-2d6c0356f547"],
+      "f328401f-32b3-4383-a7c2-54cfeda0bb69"],
      "\[LineSeparator]returns the name of Tensor t that is used for formatted \
 output."
-    }],ExpressionUUID->"ed55f7a1-e467-4471-a3a6-414c23033878"]}
-  }]], "Usage",ExpressionUUID->"57bce089-b524-49d4-9b92-a8b9ed95939f"]
+    }],ExpressionUUID->"d2697eb8-e8e3-4207-b051-0a63f7a480c4"]}
+  }]], "Usage",ExpressionUUID->"8c86e5eb-c6ec-475b-a123-e844b05ec61e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -99,15 +113,19 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], All, ButtonCell], 
           FrontEndToken["OpenCloseGroup"], 
           FrontEnd`SelectionMove[
-           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), 
-       Evaluator -> None, Method -> "Preemptive"]]], None}, {None, None}},
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
+       None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"9e1eef4f-69cc-4c39-b7d0-4563de5303b7"],
+  0,ExpressionUUID->"72bd8753-ff84-4a98-8abf-96abaf8e9050"],
 
 Cell["\<\
 If no TensorDisplayName is given when a Tensor is formed, the TensorName will \
-be used for the TensorDisplayName also\
-\>", "Notes",ExpressionUUID->"092d7aa7-926d-4829-916f-319f5517e6d4"]
+be used for the TensorDisplayName also.\
+\>", "Notes",ExpressionUUID->"b2f8534c-dda1-4e24-b47b-e567e3881773"],
+
+Cell["\<\
+If a Tensor is on a Curve, it will be displayed with the curve parameter.\
+\>", "Notes",ExpressionUUID->"82f77b31-202a-48cf-9a7b-06a2a656fe9d"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -149,8 +167,8 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"62b7e62a-d464-46dd-99ab-\
-3ba65ff2e731"],
+  "PrimaryExamplesSection",ExpressionUUID->"ec45604f-04f3-4737-bb7d-\
+315b03d8c96c"],
 
 Cell[CellGroupData[{
 
@@ -158,67 +176,67 @@ Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(6)", "ExampleCount",ExpressionUUID->
-  "bd0853e2-0684-4e50-b558-3c4fb7b94542"]
-}], "ExampleSection",ExpressionUUID->"f120b8fe-3a28-4073-8c94-bbe64a7c7d2f"],
+  "da36e76e-8ac1-42ad-8460-eab2012ac892"]
+}], "ExampleSection",ExpressionUUID->"60d75b65-d213-45a0-a921-52a7657d96eb"],
 
 Cell[CellGroupData[{
 
 Cell["gS = ToMetric[\"Schwarzschild\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"1bd4a0f9-91d4-46b4-b3cc-40dfae4ac244"],
+ CellLabel->"In[1]:=",ExpressionUUID->"8043d8f6-f0f8-4691-b531-1033285a3e08"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"5801d4c3-284f-41dc-a38a-1d35d2deca55"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"2c843966-2f89-4fbc-9a64-8be828a7362f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["TensorName[gS]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"01f95a99-3d49-46b6-8f51-6b3b43f36045"],
+ CellLabel->"In[1]:=",ExpressionUUID->"f0ab0e1b-09ac-453b-98cb-2b1906889006"],
 
 Cell[BoxData["\<\"SchwarzschildMetric\"\>"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"172cc772-1bb6-4d97-903f-1e55df68a4ed"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"7ec3e09b-ea2e-4329-a7c5-5a35764b0a5c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["TensorDisplayName[gS]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"88a4553f-f0cd-4df6-b6fa-18344aabb214"],
+ CellLabel->"In[1]:=",ExpressionUUID->"fd176a3b-b212-409a-9604-1e5e6487f3f1"],
 
 Cell[BoxData["\<\"g\"\>"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"938fda94-a027-46f1-8437-b18e1a9f22e3"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"fb1bb62a-2724-49bc-b66d-723622fd908f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["xT = ToTensor[\"x1\",gS,{k[t],f[r],g[r],h[r]}]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"6ed11752-71f2-4694-85ae-acdc9fed073f"],
+ CellLabel->"In[1]:=",ExpressionUUID->"eff9dc39-ad1c-4cf4-b68b-22a063d33457"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["x1", "", "\[Alpha]"],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"217f05e0-a87a-476b-bf38-2dc7025f3a4a"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"27adbd3b-b777-4133-95d8-4fdb9bc0e7d3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["TensorName[xT]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"842b3b85-e515-4384-a001-962bdc8ab388"],
+ CellLabel->"In[1]:=",ExpressionUUID->"bc42cc0a-a631-4ad2-b35c-720c939a018b"],
 
 Cell[BoxData["\<\"x1\"\>"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"3a687146-6643-4621-98d9-823e2cb653e3"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"ab672939-ef1e-4568-afd3-741667b2c260"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["TensorDisplayName[xT]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"2da0fecf-d649-4768-b46d-0d2d69ee7e89"],
+ CellLabel->"In[1]:=",ExpressionUUID->"7155cf94-5598-4b3c-8179-df8cf5ce657d"],
 
 Cell[BoxData["\<\"x1\"\>"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"26c675a8-cc19-457c-9943-a2e8e89009c3"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"ad64a3c8-cabc-475c-a8a3-201952a73bf5"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -260,7 +278,7 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"eb46f02c-1d21-4266-b757-376e8d73d4c2"],
+  0,ExpressionUUID->"89a2c737-6138-4b51-bf06-4e6c10b9e9f0"],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -269,19 +287,68 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:GeneralRelativityTensors/ref/TensorName"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "adbd164e-6a7b-4fd7-9cf5-aa57d52ff525"],
+  "cfa5bb53-da88-4941-a76c-b48c202be1e1"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
  " "
-}], "SeeAlso",ExpressionUUID->"d3c54916-2d07-4ec1-8485-ad5af8c727cc"]
+}], "SeeAlso",ExpressionUUID->"2cc3fee9-d962-4625-b953-20204f7796c6"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"dbac442a-9001-476d-bb6e-19d611a7e75d"],
+Cell["", "TutorialsSection",
+ WholeCellGroupOpener->True,
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "TUTORIALS", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "TutorialsSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Tutorials"}], 
+        "TutorialsSection"], BaseStyle -> None, 
+       Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+       "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"8779710d-d908-4dbf-b81a-e4d7c79039a2"],
 
-Cell[BoxData[""],ExpressionUUID->"55e8f353-b0a4-4c43-a6c2-a1bd574487ac"]
+Cell[TextData[ButtonBox["Introduction to GeneralRelativityTensors",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:GeneralRelativityTensors/tutorial/Introduction to \
+GeneralRelativityTensors"]], \
+"Tutorials",ExpressionUUID->"ee6c3763-462b-4864-bb9d-32a0dd4fe343"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"a27c8f5a-a171-41bd-a11b-92ba09a2a53f"],
+
+Cell[BoxData[""],ExpressionUUID->"fe0df07e-dd9e-4a38-bcb5-d9d0a6d9dc55"]
 }, Open  ]]
 },
 Saveable->False,

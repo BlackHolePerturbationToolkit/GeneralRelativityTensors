@@ -18,6 +18,12 @@ TensorValues return the same values."
     },
 
     "See Also" ->
-    {"TensorValues","CachedTensorValues","ClearCachedTensorValues","$CacheTensorValues"}
+    {"TensorValues","CachedTensorValues","ClearCachedTensorValues","$CacheTensorValues"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Introduction to Tensor Curves",
+      "Caching Tensor values"
+    }
 
 }

@@ -12,6 +12,11 @@ change the values of the Tensor it is called on."
     },
 
     "See Also" ->
-    {"ShiftIndices","MergeTensors"}
+    {"ShiftIndices","MergeTensors"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Manipulating and differentiating Tensors"
+    }
 
 }

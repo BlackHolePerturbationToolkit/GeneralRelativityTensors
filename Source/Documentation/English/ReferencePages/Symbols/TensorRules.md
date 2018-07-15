@@ -8,6 +8,10 @@
     },
 
     "See Also" ->
-    {"RawTensorValues","TensorValues","Component"}
+    {"RawTensorValues","TensorValues","Component"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors"
+    }
 
 }

@@ -1,7 +1,8 @@
 {
   "More Information" -> {
       "If no TensorDisplayName is given when a Tensor is formed, \
-the TensorName will be used for the TensorDisplayName also"
+the TensorName will be used for the TensorDisplayName also.",
+    "If a Tensor is on a Curve, it will be displayed with the curve parameter."
   },
 
   "Basic Examples" -> {
@@ -14,6 +15,9 @@ the TensorName will be used for the TensorDisplayName also"
     },
 
     "See Also" ->
-    {"TensorName"}
+    {"TensorName"},
 
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors"
+     }
 }

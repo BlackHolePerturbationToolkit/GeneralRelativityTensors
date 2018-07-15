@@ -15,6 +15,13 @@ TensorValues return the same values."
     },
 
     "See Also" ->
-    {"RawTensorValues","CachedTensorValues","ClearCachedTensorValues","$CacheTensorValues"}
+    {"RawTensorValues","CachedTensorValues","ClearCachedTensorValues","$CacheTensorValues"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Introduction to Tensor Curves",
+      "Built in common Tensors",
+      "Caching Tensor values"
+    }
 
 }

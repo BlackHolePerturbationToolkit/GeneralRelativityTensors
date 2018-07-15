@@ -14,6 +14,11 @@
     },
 
     "See Also" ->
-    {"CurveQ","ToCurve","ToTensorOnCurve"}
+    {"CurveQ","ToCurve","ToTensorOnCurve"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Introduction to Tensor Curves"
+    }
 
 }

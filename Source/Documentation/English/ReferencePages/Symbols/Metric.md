@@ -14,6 +14,12 @@
     },
 
     "See Also" ->
-    {"ToMetric","MetricQ","ToCurve"}
+    {"ToMetric","MetricQ","ToCurve"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Introduction to Tensor Curves",
+      "Built in common Tensors"
+    }
 
 }

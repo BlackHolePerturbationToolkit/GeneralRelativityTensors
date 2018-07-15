@@ -9,6 +9,11 @@
     },
 
     "See Also" ->
-    {"RiemannTensor","RicciTensor","RicciScalar","EinsteinTensor","WeylTensor"}
+    {"RiemannTensor","RicciTensor","RicciScalar","EinsteinTensor","WeylTensor"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Built in common Tensors"
+    }
 
 }

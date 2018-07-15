@@ -16,6 +16,7 @@
       {"ToTensor", "Form a new Tensor"},
       {"ToMetric", "Form a new metric Tensor"},
       {"ToCurve", "Form a new Curve Tensor"},
+      {"ToTensorFieldOnCurve", "Form a new Tensor with an associated Curve"},
       {"ToTensorOnCurve", "Form a new Tensor on a Curve"},
       {"RawTensorValues", "Values stored internally by Tensor"},
       {"TensorValues", "Values stored internally by Tensor, potentially evaluated on a Curve"},

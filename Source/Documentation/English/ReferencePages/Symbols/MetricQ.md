@@ -9,6 +9,10 @@
     },
 
     "See Also" ->
-    {"Metric","ToMetric"}
+    {"Metric","ToMetric"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors"
+    }
 
 }

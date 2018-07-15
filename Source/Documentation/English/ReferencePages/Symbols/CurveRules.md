@@ -9,6 +9,11 @@
     },
 
     "See Also" ->
-    {"Curve","TensorRules"}
+    {"Curve","TensorRules"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Introduction to Tensor Curves"
+    }
 
 }

@@ -10,6 +10,10 @@
     },
 
     "See Also" ->
-    {"PossibleIndices","Indices","Rank","Coordinates"}
+    {"PossibleIndices","Indices","Rank","Coordinates"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors"
+    }
 
 }

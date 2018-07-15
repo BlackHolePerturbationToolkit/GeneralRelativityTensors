@@ -10,6 +10,12 @@
     },
 
     "See Also" ->
-    {"ChristoffelSymbol","RiemannTensor","RicciTensor","EinsteinTensor","WeylTensor","RicciScalar"}
+    {"ChristoffelSymbol","RiemannTensor","RicciTensor","EinsteinTensor","WeylTensor","RicciScalar"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Built in common Tensors",
+      "Examples - Wave equations"
+    }
 
 }

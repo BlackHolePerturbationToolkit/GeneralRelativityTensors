@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "TutorialColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"4d3052a2-fdd5-4c3f-a5da-d399db09fae6"],
+   0}},ExpressionUUID->"77ea7807-2e44-4f02-8838-d0de632546c9"],
 
 Cell[TextData[{
  ButtonBox["GeneralRelativityTensors",
@@ -13,11 +13,11 @@ Cell[TextData[{
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->
    "paclet:GeneralRelativityTensors/tutorial/Examples - Wave equations"]
-}], "LinkTrail",ExpressionUUID->"5488ff68-d161-4bfe-8577-5f890f377c02"],
+}], "LinkTrail",ExpressionUUID->"709ad483-addd-4c56-b7ad-9faf73daf8eb"],
 
 Cell[BoxData[GridBox[{
    {Cell["EXAMPLES - WAVE EQUATIONS TUTORIAL", "PacletNameCell",
-     ExpressionUUID->"e94101ca-5442-4aa5-80ba-1a228bb88e33"], Cell[TextData[{
+     ExpressionUUID->"fed253bf-ed0f-4465-8236-9c580ea37bc0"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Related Tutorials \[RightGuillemet]\"\>",
@@ -44,7 +44,7 @@ differentiating Tensors"],
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "3e751546-1f7f-4ebd-82c9-c8e79419402f"],
+      "00005ea4-350d-4692-8ca8-ed036a3fa1ce"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -64,67 +64,67 @@ differentiating Tensors"],
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "789f7a19-3e04-48f9-b5c8-99cbae1b8240"]
-    }], "AnchorBar",ExpressionUUID->"32be3cbf-4efb-4243-b45a-b74c23267d63"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"5dbd74b1-0b97-476f-b21e-8807bbd26175"],
+      "7b0ecb53-b28d-49c1-85cc-88357c726dfc"]
+    }], "AnchorBar",ExpressionUUID->"8a3fb763-bf12-4253-83ca-3aa7030a59ec"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"0dade9ad-a8ee-4961-aaaa-4dfdc5fbdebc"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 GeneralRelativityTensors - Practical examples with wave equations\
-\>", "Title",ExpressionUUID->"76ab296b-f4fe-4596-8ee2-e1282ece9d0b"],
+\>", "Title",ExpressionUUID->"373f71a6-0389-4d62-b550-a45e4dbf2317"],
 
 Cell["\<\
 GeneralRelativityTensors can be used for general coordinate-based tensorial \
 calculations. Here are some examples of finding various wave equations.\
-\>", "Text",ExpressionUUID->"ab59ca0c-1676-4ab1-928d-29337986be5a"],
+\>", "Text",ExpressionUUID->"cd7ef859-57d8-44c2-a31c-f4cb0a94a2f4"],
 
 Cell[BoxData[
  RowBox[{"<<", "GeneralRelativityTensors`"}]], "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"0153360d-2f0d-472f-a86f-88a8db7bb483"],
+ CellLabel->"In[1]:=",ExpressionUUID->"444b2c3d-93c1-419c-ae23-7a2128fb489d"],
 
 Cell[CellGroupData[{
 
 Cell["The scalar wave equation on Schwarzschild", \
-"Section",ExpressionUUID->"db3a8415-84b9-42a2-b392-debae26ebffd"],
+"Section",ExpressionUUID->"13e86ca6-26dd-48b5-816e-30c851dd71af"],
 
 Cell[CellGroupData[{
 
 Cell["Default action of covariant derivatives", \
-"Subsection",ExpressionUUID->"535924a9-8c0d-45bd-af4d-d135c350e42e"],
+"Subsection",ExpressionUUID->"70eb0a82-45b1-4e68-bffb-9c77acfda80c"],
 
 Cell[CellGroupData[{
 
 Cell["Define the metric as usual.", \
-"Item",ExpressionUUID->"bab0cd2e-123b-4426-98ad-c56dbc1330a7"],
+"Item",ExpressionUUID->"c2e925e4-47af-48ff-b036-398e150b20c9"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"gS", "=", 
   RowBox[{"ToMetric", "[", "\"\<Schwarzschild\>\"", "]"}]}]], "Input",
- CellLabel->"In[2]:=",ExpressionUUID->"299570e2-023e-40f4-a0c5-5366d3e24d47"],
+ CellLabel->"In[2]:=",ExpressionUUID->"342a9bfd-f18f-44f6-9190-2b0d113986bf"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[2]=",ExpressionUUID->"0fa5500c-b114-44c8-bdb6-138af53877a5"]
+ CellLabel->"Out[2]=",ExpressionUUID->"f9604c4b-32c4-452f-a45d-f6b72a19fa03"]
 }, Open  ]]
 }, Open  ]],
 
 Cell["Define a scalar field. ", \
-"Item",ExpressionUUID->"9cf812c7-9ce7-4995-9f39-8fa7268b3e47"],
+"Item",ExpressionUUID->"62c076ea-7d78-453c-b181-fc2681213f17"],
 
 Cell["It is a Tensor with zero indices.", \
-"Item",ExpressionUUID->"9aea2a35-f36f-4758-99f0-f6881ba56bbf"],
+"Item",ExpressionUUID->"e8a40959-616d-4765-8ecf-9c9e5f6bdc02"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 We choose its values to be a function of t & r multiplied by the scalar \
 spherical harmonics.\
-\>", "Item",ExpressionUUID->"6002be2b-4476-4c5f-b24a-ae416c5384ad"],
+\>", "Item",ExpressionUUID->"946fce68-e245-448a-954c-61da397563f7"],
 
 Cell[CellGroupData[{
 
@@ -140,19 +140,19 @@ Cell[BoxData[
       RowBox[{"t", ",", "r"}], "]"}], 
      RowBox[{"Ylm", "[", 
       RowBox[{"\[Theta]", ",", "\[Phi]"}], "]"}]}]}], "]"}]}]], "Input",
- CellLabel->"In[3]:=",ExpressionUUID->"077d4662-0f89-43de-af2d-927ce3eb5db6"],
+ CellLabel->"In[3]:=",ExpressionUUID->"8144d92b-279a-4a50-bb3a-83bb37b1f63d"],
 
 Cell[BoxData[
  TagBox["\<\"\[Phi]\"\>",
   DisplayForm]], "Output",
- CellLabel->"Out[3]=",ExpressionUUID->"e62e39c7-3132-453b-bae6-5c2f47d40435"]
+ CellLabel->"Out[3]=",ExpressionUUID->"5571f9fc-6b00-42a3-acd6-6b6287b91481"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["The wave equation is just two traced covariant derivatives.", \
-"Item",ExpressionUUID->"13ec58a3-c4f1-45ef-b9ec-bdbd1e0b4d70"],
+"Item",ExpressionUUID->"a291b9fa-0a17-4115-bf92-1a71199cb133"],
 
 Cell[CellGroupData[{
 
@@ -162,12 +162,15 @@ Cell[BoxData[
    RowBox[{"CovariantD", "[", 
     RowBox[{"phi", ",", 
      RowBox[{"-", "\[Alpha]"}], ",", "\[Alpha]"}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[4]:=",ExpressionUUID->"f4e74295-edc4-4d8e-bb67-1cd6966e2907"],
+ CellLabel->"In[4]:=",ExpressionUUID->"a120f4bf-1d2e-442b-9a54-56000c2465ad"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.025858`", ",", 
+  RowBox[{"0.026328`", ",", 
    RowBox[{
+    TagBox[
+     SubsuperscriptBox["g", "", "\[Alpha]\[Beta]"],
+     DisplayForm], " ", 
     RowBox[{"(", 
      RowBox[{
       RowBox[{
@@ -189,11 +192,8 @@ Cell[BoxData[
           RowBox[{"(", 
            RowBox[{"\[PartialD]", "\[Phi]"}], ")"}]}], ")"}], 
         "\[Beta]\[Alpha]", ""],
-       DisplayForm]}], ")"}], " ", 
-    TagBox[
-     SubsuperscriptBox["g", "", "\[Alpha]\[Beta]"],
-     DisplayForm]}]}], "}"}]], "Output",
- CellLabel->"Out[4]=",ExpressionUUID->"57272eb3-994c-4134-a88d-97cb5e040e29"]
+       DisplayForm]}], ")"}]}]}], "}"}]], "Output",
+ CellLabel->"Out[4]=",ExpressionUUID->"5c53854b-409e-464a-b203-b1c940186964"]
 }, Open  ]]
 }, Open  ]],
 
@@ -202,7 +202,7 @@ Cell[CellGroupData[{
 Cell["\<\
 Merge the expression into one Tensor with no indices. Note the use of ActWith \
 and a pure function.\
-\>", "Item",ExpressionUUID->"5530fd3e-b03f-4ec0-9363-4c9e454ff540"],
+\>", "Item",ExpressionUUID->"06dc04a4-e907-432d-9212-5e9b92621759"],
 
 Cell[CellGroupData[{
 
@@ -223,22 +223,22 @@ Cell[BoxData[
             RowBox[{"_", "[", 
              RowBox[{"t", ",", "r"}], "]"}]}], "}"}], ",", "Simplify"}], 
          "]"}], "&"}], ")"}]}]}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[5]:=",ExpressionUUID->"f416955d-518e-4691-be15-d3cd9e11f63d"],
+ CellLabel->"In[5]:=",ExpressionUUID->"179c81ea-9624-44a5-82a6-9b6e3147536d"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.051557`", ",", 
-   TagBox["\<\"((-1\[CenterDot]((\[CapitalGamma]\[CenterDot](\[PartialD]\[Phi]\
-))\[CenterDot]g))+((\[PartialD](\[PartialD]\[Phi]))\[CenterDot]g))\"\>",
+  RowBox[{"0.056336`", ",", 
+   TagBox["\<\"((-1\[CenterDot]((g\[CenterDot]\[CapitalGamma])\[CenterDot](\
+\[PartialD]\[Phi])))+(g\[CenterDot](\[PartialD](\[PartialD]\[Phi]))))\"\>",
     DisplayForm]}], "}"}]], "Output",
- CellLabel->"Out[5]=",ExpressionUUID->"1d674dff-35d4-447e-b757-bf86f883c921"]
+ CellLabel->"Out[5]=",ExpressionUUID->"7ffde65a-88ba-46d2-95e8-a7ca5c9d8b33"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"boxPhi1", "//", "TensorValues"}]], "Input",
- CellLabel->"In[6]:=",ExpressionUUID->"48f3ce2f-894d-4335-8535-5f693fbe4229"],
+ CellLabel->"In[6]:=",ExpressionUUID->"dc6b076c-96d4-4538-8a52-e31ff2f2f8ce"],
 
 Cell[BoxData[
  RowBox[{
@@ -328,7 +328,7 @@ Cell[BoxData[
         RowBox[{"t", ",", "r"}], "]"}]}], 
       RowBox[{
        RowBox[{"2", " ", "M"}], "-", "r"}]]}], ")"}]}]}]], "Output",
- CellLabel->"Out[6]=",ExpressionUUID->"276b1a2e-078a-43c4-86d2-ee79290c9ee3"]
+ CellLabel->"Out[6]=",ExpressionUUID->"569a1f7c-13ea-4fc9-a371-924a2bd7a3bb"]
 }, Open  ]]
 }, Open  ]],
 
@@ -337,7 +337,7 @@ Cell[CellGroupData[{
 Cell["\<\
 In order to simplify this further, we need to make use of the eigenvalue \
 equations for Ylm. This allows us to remove derivatives.\
-\>", "Item",ExpressionUUID->"c73ded9f-9264-4a60-a4a9-209d16be0ea7"],
+\>", "Item",ExpressionUUID->"4e9e30de-7c86-4991-bfa3-f5a530ed6f06"],
 
 Cell[BoxData[{
  RowBox[{"Clear", "[", 
@@ -421,7 +421,7 @@ Cell[BoxData[{
       RowBox[{"_", "[", 
        RowBox[{"t", ",", "r"}], "]"}]}], "}"}], ",", "Simplify"}], 
    "]"}]}]}], "Input",
- CellLabel->"In[7]:=",ExpressionUUID->"634d6eab-4ab5-4f66-b2c2-e3e0bfab79db"]
+ CellLabel->"In[7]:=",ExpressionUUID->"afc0967c-ed34-4261-8fd2-fe090973f98f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -429,7 +429,7 @@ Cell[CellGroupData[{
 Cell["\<\
 Use the function ActOnTensorValues to apply a function to the values of a \
 Tensor.\
-\>", "Item",ExpressionUUID->"92dfc62f-c311-44a7-9fa6-c1f89d1d76a9"],
+\>", "Item",ExpressionUUID->"ab24538b-e718-4a6f-ba14-e11839b9b883"],
 
 Cell[CellGroupData[{
 
@@ -438,23 +438,23 @@ Cell[BoxData[
   RowBox[{"boxPhi2", "=", 
    RowBox[{"ActOnTensorValues", "[", 
     RowBox[{"collectAndSimp", ",", "boxPhi1"}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[12]:=",ExpressionUUID->"3c679515-f052-45f9-8937-2c745a9b756e"],
+ CellLabel->"In[12]:=",ExpressionUUID->"5914eb57-82e0-41aa-9597-97a28151db62"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.002541`", ",", 
-   TagBox["\<\"((-1\[CenterDot]((\[CapitalGamma]\[CenterDot](\[PartialD]\[Phi]\
-))\[CenterDot]g))+((\[PartialD](\[PartialD]\[Phi]))\[CenterDot]g))\"\>",
+  RowBox[{"0.002565`", ",", 
+   TagBox["\<\"((-1\[CenterDot]((g\[CenterDot]\[CapitalGamma])\[CenterDot](\
+\[PartialD]\[Phi])))+(g\[CenterDot](\[PartialD](\[PartialD]\[Phi]))))\"\>",
     DisplayForm]}], "}"}]], "Output",
  CellLabel->
-  "Out[12]=",ExpressionUUID->"2b55964d-c5d8-4109-9ed1-25196a3d4471"]
+  "Out[12]=",ExpressionUUID->"ca6797f1-c6bb-4edc-ad8e-10b47f2afc8b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"boxPhi2", "//", "TensorValues"}]], "Input",
- CellLabel->"In[13]:=",ExpressionUUID->"554ea71e-a17c-40c5-a1ba-363687c127d3"],
+ CellLabel->"In[13]:=",ExpressionUUID->"7b2f2eca-8ae7-4dd7-b4e5-4d1ec4465e61"],
 
 Cell[BoxData[
  RowBox[{
@@ -509,29 +509,29 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"2", " ", "M"}], "-", "r"}]]}], ")"}]}]], "Output",
  CellLabel->
-  "Out[13]=",ExpressionUUID->"e4744aae-7af4-4b7e-835b-87dee83acb31"]
+  "Out[13]=",ExpressionUUID->"49c085e6-6885-4b98-ade3-9667ea5a08e3"]
 }, Open  ]]
 }, Open  ]],
 
 Cell["This is the expected wave equation on Schwarzschild.", \
-"Item",ExpressionUUID->"d93a098c-5672-4395-8863-a23a5ac825c2"]
+"Item",ExpressionUUID->"fcb668f1-6ffc-480d-a894-2c152f010133"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Covariant derivatives with merging ", \
-"Subsection",ExpressionUUID->"cc9a91be-90b8-4a4c-bbda-6fef7f0ef90f"],
+"Subsection",ExpressionUUID->"6cb3e2f9-7cb1-432d-86a2-87bc7a2e627b"],
 
 Cell[CellGroupData[{
 
 Cell["CovariantD has the following options;", \
-"Item",ExpressionUUID->"af390bf8-8d2b-4c16-815e-33c7064e8f52"],
+"Item",ExpressionUUID->"e4b4763d-d37c-48de-b155-3b77ec529c0c"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Options", "[", "CovariantD", "]"}]], "Input",
- CellLabel->"In[14]:=",ExpressionUUID->"3d2c0edd-ca61-4dcb-832a-8171377c16e0"],
+ CellLabel->"In[14]:=",ExpressionUUID->"27aa5091-f66c-4315-bd8d-6fd0d2bd0938"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -541,21 +541,21 @@ Cell[BoxData[
    RowBox[{"\<\"Merge\"\>", "\[Rule]", "False"}], ",", 
    RowBox[{"\<\"MergeNested\"\>", "\[Rule]", "False"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[14]=",ExpressionUUID->"c9f86014-4a9e-4050-9240-3988e764ac2f"]
+  "Out[14]=",ExpressionUUID->"c2aa774f-8abf-4e23-9624-d20012f8750e"]
 }, Open  ]]
 }, Open  ]],
 
 Cell["\<\
 Setting Merge \[Rule] True will cause the final return value to be merged \
 into one Tensor.\
-\>", "Item",ExpressionUUID->"0ac95242-fbb9-4ac5-9ad1-b256cb9ec70f"],
+\>", "Item",ExpressionUUID->"0601c7ed-bff0-498c-89e8-266d4f5033d6"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 Setting MergeNested \[Rule] True merges at each step of a higher-order \
 derivative. This can greatly speed up some calculations.\
-\>", "Item",ExpressionUUID->"6b3cd26a-434d-4fcf-9c31-257b846182f8"],
+\>", "Item",ExpressionUUID->"2a2be86b-d4a9-44bd-bb03-817dffe91bde"],
 
 Cell[CellGroupData[{
 
@@ -567,23 +567,23 @@ Cell[BoxData[
      RowBox[{"-", "\[Alpha]"}], ",", "\[Alpha]", ",", 
      RowBox[{"MergeNested", "\[Rule]", "True"}], ",", 
      RowBox[{"ActWith", "->", "collectAndSimp"}]}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[15]:=",ExpressionUUID->"70320ff5-bf1a-4e18-b869-7174c9a19a2f"],
+ CellLabel->"In[15]:=",ExpressionUUID->"ee78c4d4-db13-4be0-8e6e-4beab56d68d1"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.070822`", ",", 
-   TagBox["\<\"((-1\[CenterDot]((\[CapitalGamma]\[CenterDot](\[PartialD]\[Phi]\
-))\[CenterDot]g))+((\[PartialD](\[PartialD]\[Phi]))\[CenterDot]g))\"\>",
+  RowBox[{"0.079291`", ",", 
+   TagBox["\<\"((-1\[CenterDot]((g\[CenterDot]\[CapitalGamma])\[CenterDot](\
+\[PartialD]\[Phi])))+(g\[CenterDot](\[PartialD](\[PartialD]\[Phi]))))\"\>",
     DisplayForm]}], "}"}]], "Output",
  CellLabel->
-  "Out[15]=",ExpressionUUID->"d54d257d-44f8-4472-b7dd-5557d32b8df8"]
+  "Out[15]=",ExpressionUUID->"a9ab4202-1d6b-4de2-9030-85cdf39d3833"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"waveScalar2", "//", "TensorValues"}]], "Input",
- CellLabel->"In[16]:=",ExpressionUUID->"c1a53309-75d0-4f1b-8b19-851d801c5c1b"],
+ CellLabel->"In[16]:=",ExpressionUUID->"26528eae-21ee-43ae-9f5e-1c2428212409"],
 
 Cell[BoxData[
  RowBox[{
@@ -638,7 +638,7 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"2", " ", "M"}], "-", "r"}]]}], ")"}]}]], "Output",
  CellLabel->
-  "Out[16]=",ExpressionUUID->"591577ae-5d97-4226-98a6-07400a5aac85"]
+  "Out[16]=",ExpressionUUID->"561d298b-4e6d-4516-b11c-c62a45c6bdc4"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -647,18 +647,18 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["The vector wave equation on Schwarzschild", \
-"Section",ExpressionUUID->"2d13dac6-c8c5-4cdc-b13c-b714f50a5aa1"],
+"Section",ExpressionUUID->"5f9482d8-121d-4c8d-84c9-7b190c8a9170"],
 
 Cell[CellGroupData[{
 
 Cell["Turn on caching.", \
-"Item",ExpressionUUID->"ee472c08-6794-4ea1-b437-b3701655daaf"],
+"Item",ExpressionUUID->"b34178b7-26b3-4b1b-be37-be21eff07772"],
 
 Cell[BoxData[
  RowBox[{
   RowBox[{"$CacheTensorValues", "=", "True"}], ";"}]], "Input",
  CellLabel->
-  "In[17]:=",ExpressionUUID->"1c074d60-8423-4846-9c34-d817c724d63a"]
+  "In[17]:=",ExpressionUUID->"f18e7b76-d0b0-4436-bd72-2e04be9a1208"]
 }, Open  ]],
 
 Cell[TextData[{
@@ -670,14 +670,14 @@ Martel & Poisson (",
     URL["https://arxiv.org/abs/gr-qc/0502028"], None},
   ButtonNote->"https://arxiv.org/abs/gr-qc/0502028"],
  ")."
-}], "Item",ExpressionUUID->"b4301f70-77a9-4523-97a2-ba8c3f435464"],
+}], "Item",ExpressionUUID->"c16ed7a5-ae0b-4e62-9fa0-c93f835242b9"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 Note that these harmonics are built in with the function \
 TensorSphericalHarmonic\
-\>", "Item",ExpressionUUID->"36b9a212-b21d-4c49-8763-9467e0f89503"],
+\>", "Item",ExpressionUUID->"b99784fa-2e3e-4f49-a9e4-1d8d754a91a3"],
 
 Cell[CellGroupData[{
 
@@ -710,7 +710,7 @@ Cell[BoxData[
         RowBox[{
          RowBox[{"TensorSphericalHarmonic", "[", "\"\<YA\>\"", "]"}], "[", 
          "A", "]"}], "]"}]}]}]}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[18]:=",ExpressionUUID->"08989843-7de7-4332-88ad-dc84af40a1c1"],
+ CellLabel->"In[18]:=",ExpressionUUID->"87ea7201-07e2-4f6a-9075-c2e7209d0e2e"],
 
 Cell[BoxData[
  TagBox[
@@ -796,8 +796,8 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[18]//MatrixForm=",ExpressionUUID->"63dd02bc-ac48-4876-86e5-\
-9d926d8a4944"]
+  "Out[18]//MatrixForm=",ExpressionUUID->"4c3935dc-89a4-4234-8066-\
+95012cc734a6"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -809,14 +809,14 @@ Cell[BoxData[
     RowBox[{"{", 
      RowBox[{"\"\<AVector\>\"", ",", "\"\<A\>\""}], "}"}], ",", "gS", ",", 
     "AVecVals"}], "]"}]}]], "Input",
- CellLabel->"In[19]:=",ExpressionUUID->"88699b64-7965-4d40-b944-b2a97ead2fe0"],
+ CellLabel->"In[19]:=",ExpressionUUID->"8b0aaf78-6616-4e13-8fa0-324af76e7f2b"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["A", "", "\[Alpha]"],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[19]=",ExpressionUUID->"40e63a33-be17-4fef-a55c-a6a138913ad1"]
+  "Out[19]=",ExpressionUUID->"074e121e-5f57-43e5-ba5e-6b3a0cb5bd9c"]
 }, Open  ]]
 }, Open  ]],
 
@@ -824,7 +824,7 @@ Cell[CellGroupData[{
 
 Cell["\<\
 The wave operator is applied in the same way as in the scalar case.\
-\>", "Item",ExpressionUUID->"cdbe8ab5-dfc0-4a00-af68-d55ea0319051"],
+\>", "Item",ExpressionUUID->"e00ea721-0f11-4eef-9bf3-d3109ba825fa"],
 
 Cell[CellGroupData[{
 
@@ -837,93 +837,17 @@ Cell[BoxData[
      RowBox[{"-", "\[Beta]"}], ",", "\[Beta]", ",", 
      RowBox[{"ActWith", "\[Rule]", "collectAndSimp"}]}], "]"}]}], 
   "]"}]], "Input",
- CellLabel->"In[20]:=",ExpressionUUID->"0d75a732-c327-434b-88ba-8d02d87d76c3"],
+ CellLabel->"In[20]:=",ExpressionUUID->"6dc99d5b-a991-435c-b3d3-88b3cdf65259"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.051526`", ",", 
+  RowBox[{"0.054153`", ",", 
    RowBox[{
+    TagBox[
+     SubsuperscriptBox["g", "", "\[Beta]\[Delta]"],
+     DisplayForm], " ", 
     RowBox[{"(", 
      RowBox[{
-      RowBox[{
-       RowBox[{"(", 
-        RowBox[{
-         TagBox[
-          SubsuperscriptBox[
-           RowBox[{"(", 
-            RowBox[{"\[PartialD]", "\[CapitalGamma]"}], ")"}], 
-           RowBox[{"\[Delta]", "  ", "\[Gamma]\[Beta]"}], 
-           RowBox[{"  ", "\[Alpha]", "    "}]],
-          DisplayForm], "+", 
-         RowBox[{
-          TagBox[
-           SubsuperscriptBox["\[CapitalGamma]", 
-            RowBox[{"  ", "\[Gamma]\[Beta]"}], 
-            RowBox[{"\[CurlyEpsilon]", "    "}]],
-           DisplayForm], " ", 
-          TagBox[
-           SubsuperscriptBox["\[CapitalGamma]", 
-            RowBox[{"  ", "\[CurlyEpsilon]\[Delta]"}], 
-            RowBox[{"\[Alpha]", "    "}]],
-           DisplayForm]}], "-", 
-         RowBox[{
-          TagBox[
-           SubsuperscriptBox["\[CapitalGamma]", 
-            RowBox[{"  ", "\[Gamma]\[CurlyEpsilon]"}], 
-            RowBox[{"\[Alpha]", "    "}]],
-           DisplayForm], " ", 
-          TagBox[
-           SubsuperscriptBox["\[CapitalGamma]", 
-            RowBox[{"  ", "\[Beta]\[Delta]"}], 
-            RowBox[{"\[CurlyEpsilon]", "    "}]],
-           DisplayForm]}], "-", 
-         RowBox[{
-          TagBox[
-           SubsuperscriptBox["\[CapitalGamma]", 
-            RowBox[{"  ", "\[CurlyEpsilon]\[Beta]"}], 
-            RowBox[{"\[Alpha]", "    "}]],
-           DisplayForm], " ", 
-          TagBox[
-           SubsuperscriptBox["\[CapitalGamma]", 
-            RowBox[{"  ", "\[Gamma]\[Delta]"}], 
-            RowBox[{"\[CurlyEpsilon]", "    "}]],
-           DisplayForm]}]}], ")"}], " ", 
-       TagBox[
-        SubsuperscriptBox["A", "", "\[Gamma]"],
-        DisplayForm]}], "+", 
-      TagBox[
-       SubsuperscriptBox[
-        RowBox[{"(", 
-         RowBox[{"\[PartialD]", 
-          RowBox[{"(", 
-           RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}], 
-        RowBox[{"\[Delta]\[Beta]", "  "}], 
-        RowBox[{"    ", "\[Alpha]"}]],
-       DisplayForm], "+", 
-      RowBox[{
-       TagBox[
-        SubsuperscriptBox["\[CapitalGamma]", 
-         RowBox[{"  ", "\[Gamma]\[Beta]"}], 
-         RowBox[{"\[Alpha]", "    "}]],
-        DisplayForm], " ", 
-       RowBox[{"(", 
-        RowBox[{
-         RowBox[{
-          TagBox[
-           SubsuperscriptBox["\[CapitalGamma]", 
-            RowBox[{"  ", "\[CurlyEpsilon]\[Delta]"}], 
-            RowBox[{"\[Gamma]", "    "}]],
-           DisplayForm], " ", 
-          TagBox[
-           SubsuperscriptBox["A", "", "\[CurlyEpsilon]"],
-           DisplayForm]}], "+", 
-         TagBox[
-          SubsuperscriptBox[
-           RowBox[{"(", 
-            RowBox[{"\[PartialD]", "A"}], ")"}], 
-           RowBox[{"\[Delta]", "  "}], 
-           RowBox[{"  ", "\[Gamma]"}]],
-          DisplayForm]}], ")"}]}], "+", 
       RowBox[{
        TagBox[
         SubsuperscriptBox["\[CapitalGamma]", 
@@ -936,7 +860,31 @@ Cell[BoxData[
           RowBox[{"\[PartialD]", "A"}], ")"}], 
          RowBox[{"\[Beta]", "  "}], 
          RowBox[{"  ", "\[CurlyEpsilon]"}]],
-        DisplayForm]}], "-", 
+        DisplayForm]}], "+", 
+      RowBox[{
+       TagBox[
+        SubsuperscriptBox["\[CapitalGamma]", 
+         RowBox[{"  ", "\[Gamma]\[Beta]"}], 
+         RowBox[{"\[Alpha]", "    "}]],
+        DisplayForm], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          TagBox[
+           SubsuperscriptBox["A", "", "\[CurlyEpsilon]"],
+           DisplayForm], " ", 
+          TagBox[
+           SubsuperscriptBox["\[CapitalGamma]", 
+            RowBox[{"  ", "\[CurlyEpsilon]\[Delta]"}], 
+            RowBox[{"\[Gamma]", "    "}]],
+           DisplayForm]}], "+", 
+         TagBox[
+          SubsuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"\[PartialD]", "A"}], ")"}], 
+           RowBox[{"\[Delta]", "  "}], 
+           RowBox[{"  ", "\[Gamma]"}]],
+          DisplayForm]}], ")"}]}], "-", 
       RowBox[{
        TagBox[
         SubsuperscriptBox["\[CapitalGamma]", 
@@ -949,19 +897,72 @@ Cell[BoxData[
           RowBox[{"\[PartialD]", "A"}], ")"}], 
          RowBox[{"\[CurlyEpsilon]", "  "}], 
          RowBox[{"  ", "\[Alpha]"}]],
-        DisplayForm]}]}], ")"}], " ", 
-    TagBox[
-     SubsuperscriptBox["g", "", "\[Beta]\[Delta]"],
-     DisplayForm]}]}], "}"}]], "Output",
+        DisplayForm]}], "+", 
+      RowBox[{
+       TagBox[
+        SubsuperscriptBox["A", "", "\[Gamma]"],
+        DisplayForm], " ", 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"-", 
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Gamma]\[CurlyEpsilon]"}], 
+             RowBox[{"\[Alpha]", "    "}]],
+            DisplayForm]}], " ", 
+          TagBox[
+           SubsuperscriptBox["\[CapitalGamma]", 
+            RowBox[{"  ", "\[Beta]\[Delta]"}], 
+            RowBox[{"\[CurlyEpsilon]", "    "}]],
+           DisplayForm]}], "+", 
+         RowBox[{
+          TagBox[
+           SubsuperscriptBox["\[CapitalGamma]", 
+            RowBox[{"  ", "\[CurlyEpsilon]\[Delta]"}], 
+            RowBox[{"\[Alpha]", "    "}]],
+           DisplayForm], " ", 
+          TagBox[
+           SubsuperscriptBox["\[CapitalGamma]", 
+            RowBox[{"  ", "\[Gamma]\[Beta]"}], 
+            RowBox[{"\[CurlyEpsilon]", "    "}]],
+           DisplayForm]}], "-", 
+         RowBox[{
+          TagBox[
+           SubsuperscriptBox["\[CapitalGamma]", 
+            RowBox[{"  ", "\[CurlyEpsilon]\[Beta]"}], 
+            RowBox[{"\[Alpha]", "    "}]],
+           DisplayForm], " ", 
+          TagBox[
+           SubsuperscriptBox["\[CapitalGamma]", 
+            RowBox[{"  ", "\[Gamma]\[Delta]"}], 
+            RowBox[{"\[CurlyEpsilon]", "    "}]],
+           DisplayForm]}], "+", 
+         TagBox[
+          SubsuperscriptBox[
+           RowBox[{"(", 
+            RowBox[{"\[PartialD]", "\[CapitalGamma]"}], ")"}], 
+           RowBox[{"\[Delta]", "  ", "\[Gamma]\[Beta]"}], 
+           RowBox[{"  ", "\[Alpha]", "    "}]],
+          DisplayForm]}], ")"}]}], "+", 
+      TagBox[
+       SubsuperscriptBox[
+        RowBox[{"(", 
+         RowBox[{"\[PartialD]", 
+          RowBox[{"(", 
+           RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}], 
+        RowBox[{"\[Delta]\[Beta]", "  "}], 
+        RowBox[{"    ", "\[Alpha]"}]],
+       DisplayForm]}], ")"}]}]}], "}"}]], "Output",
  CellLabel->
-  "Out[20]=",ExpressionUUID->"9eb978dc-0d08-4bae-b623-8462c0669b30"]
+  "Out[20]=",ExpressionUUID->"c8593809-6c04-4cf2-9069-862d970856c9"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["The following MergeTensors command takes a several seconds.", \
-"Item",ExpressionUUID->"213b7de0-1d23-45b2-97ec-1406400ccd1a"],
+"Item",ExpressionUUID->"e5f13784-3cf2-4b6b-81db-39b6df7c895a"],
 
 Cell[CellGroupData[{
 
@@ -975,17 +976,17 @@ Cell[BoxData[
       "}"}], ",", 
      RowBox[{"ActWith", "\[Rule]", "collectAndSimp"}]}], "]"}]}], 
   "]"}]], "Input",
- CellLabel->"In[21]:=",ExpressionUUID->"0e782676-442f-49cb-8c39-9d56054a2cb8"],
+ CellLabel->"In[21]:=",ExpressionUUID->"55b4962a-e9b5-4b0b-8390-4f77d65134d9"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"8.466758`", ",", 
+  RowBox[{"8.909837`", ",", 
    TagBox[
     SubsuperscriptBox[
      RowBox[{"\[Square]", "A"}], "", "\[Alpha]"],
     DisplayForm]}], "}"}]], "Output",
  CellLabel->
-  "Out[21]=",ExpressionUUID->"53f977c9-350b-49c3-ad9f-857a1fd19b95"]
+  "Out[21]=",ExpressionUUID->"8b2ac621-b5e3-4585-ad7f-bc92670ce033"]
 }, Open  ]]
 }, Open  ]],
 
@@ -994,7 +995,7 @@ Cell[CellGroupData[{
 Cell["\<\
 Setting Merge \[Rule] True is the same as calling MergeTensors at the end, as \
 we just did.\
-\>", "Item",ExpressionUUID->"4e1be1b7-9ba9-4d94-b51f-6119eb7f45b3"],
+\>", "Item",ExpressionUUID->"7b055047-1028-4415-9fdc-e1e457cec2ec"],
 
 Cell[CellGroupData[{
 
@@ -1007,11 +1008,11 @@ Cell[BoxData[
      RowBox[{"-", "\[Beta]"}], ",", "\[Beta]", ",", 
      RowBox[{"ActWith", "\[Rule]", "collectAndSimp"}], ",", 
      RowBox[{"Merge", "\[Rule]", "True"}]}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[22]:=",ExpressionUUID->"405f4889-2c3c-4b70-96c6-fe5c456aed40"],
+ CellLabel->"In[22]:=",ExpressionUUID->"b1053695-9ad1-428a-9d97-c422ca09e3e2"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"8.415708`", ",", 
+  RowBox[{"8.798119`", ",", 
    TagBox[
     SubsuperscriptBox[
      RowBox[{"(", 
@@ -1028,12 +1029,15 @@ Cell[BoxData[
                 RowBox[{
                  RowBox[{"(", 
                   RowBox[{
+                   RowBox[{"-", "1"}], "\[CenterDot]", 
                    RowBox[{"(", 
                     RowBox[{
                     RowBox[{"(", 
-                    RowBox[{"\[PartialD]", "\[CapitalGamma]"}], ")"}], 
-                    "\[CenterDot]", "A"}], ")"}], "\[CenterDot]", "g"}], 
-                  ")"}], "+", 
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{"A", "\[CenterDot]", "g"}], ")"}], "\[CenterDot]",
+                     "\[CapitalGamma]"}], ")"}], "\[CenterDot]", 
+                    "\[CapitalGamma]"}], ")"}]}], ")"}], "+", 
                  RowBox[{"(", 
                   RowBox[{
                    RowBox[{"-", "1"}], "\[CenterDot]", 
@@ -1042,39 +1046,34 @@ Cell[BoxData[
                     RowBox[{"(", 
                     RowBox[{
                     RowBox[{"(", 
-                    RowBox[{
-                    "\[CapitalGamma]", "\[CenterDot]", "\[CapitalGamma]"}], 
-                    ")"}], "\[CenterDot]", "A"}], ")"}], "\[CenterDot]", 
-                    "g"}], ")"}]}], ")"}]}], ")"}], "+", 
+                    RowBox[{"A", "\[CenterDot]", "g"}], ")"}], "\[CenterDot]",
+                     "\[CapitalGamma]"}], ")"}], "\[CenterDot]", 
+                    "\[CapitalGamma]"}], ")"}]}], ")"}]}], ")"}], "+", 
                RowBox[{"(", 
                 RowBox[{
                  RowBox[{"-", "1"}], "\[CenterDot]", 
                  RowBox[{"(", 
                   RowBox[{
                    RowBox[{"(", 
-                    RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{
-                    "\[CapitalGamma]", "\[CenterDot]", "\[CapitalGamma]"}], 
-                    ")"}], "\[CenterDot]", "A"}], ")"}], "\[CenterDot]", 
-                   "g"}], ")"}]}], ")"}]}], ")"}], "+", 
+                    RowBox[{"g", "\[CenterDot]", "\[CapitalGamma]"}], ")"}], 
+                   "\[CenterDot]", 
+                   RowBox[{"(", 
+                    RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}]}], ")"}]}], 
+              ")"}], "+", 
              RowBox[{"(", 
               RowBox[{
-               RowBox[{"-", "1"}], "\[CenterDot]", 
                RowBox[{"(", 
-                RowBox[{
-                 RowBox[{"(", 
-                  RowBox[{"\[CapitalGamma]", "\[CenterDot]", 
-                   RowBox[{"(", 
-                    RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}], 
-                 "\[CenterDot]", "g"}], ")"}]}], ")"}]}], ")"}], "+", 
+                RowBox[{"A", "\[CenterDot]", "g"}], ")"}], "\[CenterDot]", 
+               RowBox[{"(", 
+                RowBox[{"\[PartialD]", "\[CapitalGamma]"}], ")"}]}], ")"}]}], 
+            ")"}], "+", 
            RowBox[{"(", 
-            RowBox[{
+            RowBox[{"g", "\[CenterDot]", 
              RowBox[{"(", 
               RowBox[{"\[PartialD]", 
                RowBox[{"(", 
-                RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}], "\[CenterDot]", 
-             "g"}], ")"}]}], ")"}], "+", 
+                RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}]}], ")"}]}], 
+          ")"}], "+", 
          RowBox[{"(", 
           RowBox[{"2", "\[CenterDot]", 
            RowBox[{"(", 
@@ -1082,22 +1081,22 @@ Cell[BoxData[
              RowBox[{"(", 
               RowBox[{
                RowBox[{"(", 
-                RowBox[{
-                "\[CapitalGamma]", "\[CenterDot]", "\[CapitalGamma]"}], ")"}],
-                "\[CenterDot]", "A"}], ")"}], "\[CenterDot]", "g"}], ")"}]}], 
-          ")"}]}], ")"}], "+", 
+                RowBox[{"A", "\[CenterDot]", "g"}], ")"}], "\[CenterDot]", 
+               "\[CapitalGamma]"}], ")"}], "\[CenterDot]", 
+             "\[CapitalGamma]"}], ")"}]}], ")"}]}], ")"}], "+", 
        RowBox[{"(", 
         RowBox[{"2", "\[CenterDot]", 
          RowBox[{"(", 
           RowBox[{
            RowBox[{"(", 
-            RowBox[{"\[CapitalGamma]", "\[CenterDot]", 
-             RowBox[{"(", 
-              RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}], "\[CenterDot]", 
-           "g"}], ")"}]}], ")"}]}], ")"}], "", "\[Alpha]"],
+            RowBox[{"g", "\[CenterDot]", "\[CapitalGamma]"}], ")"}], 
+           "\[CenterDot]", 
+           RowBox[{"(", 
+            RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}]}], ")"}]}], ")"}], 
+     "", "\[Alpha]"],
     DisplayForm]}], "}"}]], "Output",
  CellLabel->
-  "Out[22]=",ExpressionUUID->"c0ecd98c-f838-4af8-814a-1839666680a2"]
+  "Out[22]=",ExpressionUUID->"93686765-7450-44fe-a5b9-543c9a468812"]
 }, Open  ]]
 }, Open  ]],
 
@@ -1105,7 +1104,7 @@ Cell[CellGroupData[{
 
 Cell["\<\
 Alternatively, setting MergeNested \[Rule] True greatly speeds things up.\
-\>", "Item",ExpressionUUID->"9f8041b6-7ba8-4ff1-8516-ceebcc6d0ba6"],
+\>", "Item",ExpressionUUID->"6cf00aaa-08ca-4d8f-bfad-00c7b08ba3b4"],
 
 Cell[CellGroupData[{
 
@@ -1118,11 +1117,11 @@ Cell[BoxData[
      RowBox[{"-", "\[Beta]"}], ",", "\[Beta]", ",", 
      RowBox[{"ActWith", "\[Rule]", "collectAndSimp"}], ",", 
      RowBox[{"MergeNested", "\[Rule]", "True"}]}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[23]:=",ExpressionUUID->"3ba0647e-776b-411f-8759-296ecfe94245"],
+ CellLabel->"In[23]:=",ExpressionUUID->"52b73741-0eaf-44f4-894f-4bc897b4949a"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.433353`", ",", 
+  RowBox[{"0.440672`", ",", 
    TagBox[
     SubsuperscriptBox[
      RowBox[{"(", 
@@ -1131,54 +1130,54 @@ Cell[BoxData[
         RowBox[{
          RowBox[{"(", 
           RowBox[{
+           RowBox[{"-", "1"}], "\[CenterDot]", 
            RowBox[{"(", 
             RowBox[{
              RowBox[{"(", 
               RowBox[{
                RowBox[{"(", 
-                RowBox[{"\[CapitalGamma]", "\[CenterDot]", "A"}], ")"}], "+", 
-               
-               RowBox[{"(", 
-                RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}], "\[CenterDot]", 
-             "\[CapitalGamma]"}], ")"}], "\[CenterDot]", "g"}], ")"}], "+", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{"A", "\[CenterDot]", "\[CapitalGamma]"}], ")"}], 
+                 "+", 
+                 RowBox[{"(", 
+                  RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}], 
+               "\[CenterDot]", "g"}], ")"}], "\[CenterDot]", 
+             "\[CapitalGamma]"}], ")"}]}], ")"}], "+", 
          RowBox[{"(", 
           RowBox[{
            RowBox[{"(", 
-            RowBox[{"\[PartialD]", 
+            RowBox[{
              RowBox[{"(", 
               RowBox[{
                RowBox[{"(", 
-                RowBox[{"\[CapitalGamma]", "\[CenterDot]", "A"}], ")"}], "+", 
+                RowBox[{"A", "\[CenterDot]", "\[CapitalGamma]"}], ")"}], "+", 
                
                RowBox[{"(", 
-                RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}]}], ")"}], 
-           "\[CenterDot]", "g"}], ")"}]}], ")"}], "+", 
+                RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}], "\[CenterDot]", 
+             "g"}], ")"}], "\[CenterDot]", "\[CapitalGamma]"}], ")"}]}], 
+        ")"}], "+", 
        RowBox[{"(", 
-        RowBox[{
-         RowBox[{"-", "1"}], "\[CenterDot]", 
+        RowBox[{"g", "\[CenterDot]", 
          RowBox[{"(", 
-          RowBox[{
+          RowBox[{"\[PartialD]", 
            RowBox[{"(", 
             RowBox[{
              RowBox[{"(", 
-              RowBox[{
-               RowBox[{"(", 
-                RowBox[{"\[CapitalGamma]", "\[CenterDot]", "A"}], ")"}], "+", 
-               
-               RowBox[{"(", 
-                RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}], "\[CenterDot]", 
-             "\[CapitalGamma]"}], ")"}], "\[CenterDot]", "g"}], ")"}]}], 
+              RowBox[{"A", "\[CenterDot]", "\[CapitalGamma]"}], ")"}], "+", 
+             RowBox[{"(", 
+              RowBox[{"\[PartialD]", "A"}], ")"}]}], ")"}]}], ")"}]}], 
         ")"}]}], ")"}], "", "\[Alpha]"],
     DisplayForm]}], "}"}]], "Output",
  CellLabel->
-  "Out[23]=",ExpressionUUID->"ce4e8377-dc9e-43e7-a9ed-b00aa3417ad7"]
+  "Out[23]=",ExpressionUUID->"e6707ae8-73ae-4210-9259-ed9d03b06c02"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"waveVector3", "//", "TensorValues"}]], "Input",
- CellLabel->"In[24]:=",ExpressionUUID->"226d93cf-2bfa-4301-97d5-abaf578152f8"],
+ CellLabel->"In[24]:=",ExpressionUUID->"0ada07c4-1ca1-46c5-9550-5fe126a9beb2"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1589,14 +1588,14 @@ Cell[BoxData[
         RowBox[{
          RowBox[{"2", " ", "M"}], "-", "r"}]]}], ")"}]}]}]}], "}"}]], "Output",
  CellLabel->
-  "Out[24]=",ExpressionUUID->"27270025-474d-4dc2-b145-5898aded8c65"]
+  "Out[24]=",ExpressionUUID->"051084a6-115d-469c-9420-67d36cf85742"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"waveVector4", "//", "TensorValues"}]], "Input",
- CellLabel->"In[25]:=",ExpressionUUID->"0c8e6056-8c70-440f-b5da-5e48875dd0f2"],
+ CellLabel->"In[25]:=",ExpressionUUID->"b56a5f5d-1194-4c73-b934-165a9dd995a9"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2007,19 +2006,19 @@ Cell[BoxData[
         RowBox[{
          RowBox[{"2", " ", "M"}], "-", "r"}]]}], ")"}]}]}]}], "}"}]], "Output",
  CellLabel->
-  "Out[25]=",ExpressionUUID->"95c7156f-65e0-4273-a344-96cf22888bd5"]
+  "Out[25]=",ExpressionUUID->"e85201d8-dbb0-4597-82af-419b782a2f65"]
 }, Open  ]]
 }, Open  ]],
 
 Cell["\<\
 The field equations for the amplitudes are now just the coefficients of the \
 Ylm.\
-\>", "Item",ExpressionUUID->"fe352787-30c1-48e2-a65e-cdd13f9b9ab9"],
+\>", "Item",ExpressionUUID->"3a5ea295-3f34-4dc5-96da-4f1b4822443a"],
 
 Cell[CellGroupData[{
 
 Cell["Note that the odd-parity entirely decouples.", \
-"Item",ExpressionUUID->"0a9df711-6a84-4103-8b94-401aeca8ddd3"],
+"Item",ExpressionUUID->"ce068c6f-9afc-42d2-8d73-e640f57616c2"],
 
 Cell[CellGroupData[{
 
@@ -2032,7 +2031,7 @@ Cell[BoxData[
       RowBox[{"Ylm", "[", 
        RowBox[{"\[Theta]", ",", "\[Phi]"}], "]"}]}], "]"}], "&"}], "/@", 
    RowBox[{"TensorValues", "[", "waveVector2", "]"}]}]}]], "Input",
- CellLabel->"In[26]:=",ExpressionUUID->"6aa40a38-2b60-4c22-9696-970a5ea67020"],
+ CellLabel->"In[26]:=",ExpressionUUID->"01490beb-41e5-4c66-b049-f6f02693823d"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2292,7 +2291,7 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"2", " ", "M"}], "-", "r"}]]}]}], "}"}]], "Output",
  CellLabel->
-  "Out[26]=",ExpressionUUID->"f08333d1-6efe-4ba8-9714-502cb757331e"]
+  "Out[26]=",ExpressionUUID->"f9afd4af-e652-4655-ae70-d50bcdf22417"]
 }, Open  ]]
 }, Open  ]],
 
@@ -2308,9 +2307,9 @@ Cell[TextData[{
       RowBox[{"(", 
        RowBox[{"1", ",", "0"}], ")"}]], "[", 
      RowBox[{"\[Theta]", ",", "\[Phi]"}], "]"}], " "}], TraditionalForm]],
-  ExpressionUUID->"39c49ba8-fed7-4d2e-9769-dda66f1e2879"],
+  ExpressionUUID->"e7ef687b-d543-411e-9572-7a5ca509391f"],
  "are redundant."
-}], "Item",ExpressionUUID->"12a9f87a-6437-41cb-873d-fca983418c4f"],
+}], "Item",ExpressionUUID->"71914e6c-de58-49e6-83c8-cda033fa4528"],
 
 Cell[CellGroupData[{
 
@@ -2326,7 +2325,7 @@ Cell[BoxData[
          RowBox[{"1", ",", "0"}], "]"}], "[", "Ylm", "]"}], "[", 
        RowBox[{"\[Theta]", ",", "\[Phi]"}], "]"}]}], "]"}], "&"}], "/@", 
    RowBox[{"TensorValues", "[", "waveVector2", "]"}]}]}]], "Input",
- CellLabel->"In[27]:=",ExpressionUUID->"9c1efead-b857-48a0-a3bd-c0ed5f47020f"],
+ CellLabel->"In[27]:=",ExpressionUUID->"094d4541-58c5-430b-9d0e-8930b438f37f"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2445,7 +2444,7 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"2", " ", "M"}], "-", "r"}]]}]}], "}"}]], "Output",
  CellLabel->
-  "Out[27]=",ExpressionUUID->"3873985a-f436-48bd-8996-641edbdce90e"]
+  "Out[27]=",ExpressionUUID->"31743cc2-2db1-4863-af28-85dcde152cdb"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2461,11 +2460,11 @@ Cell[BoxData[
       RowBox[{"Csc", "[", "\[Theta]", "]"}], "2"]}]], "-", 
    RowBox[{"vectorEquations2", "[", 
     RowBox[{"[", "3", "]"}], "]"}]}], "//", "Simplify"}]], "Input",
- CellLabel->"In[28]:=",ExpressionUUID->"bd282bbf-6e2f-4bca-9318-57ba2b7e2a9d"],
+ CellLabel->"In[28]:=",ExpressionUUID->"3c8c381c-3364-4335-a71e-9ea61a8f6254"],
 
 Cell[BoxData["0"], "Output",
  CellLabel->
-  "Out[28]=",ExpressionUUID->"da55bd41-b73d-4a92-954c-0c46043c8984"]
+  "Out[28]=",ExpressionUUID->"05e1fa86-f97b-4031-a3f5-75e5a2e35837"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2480,11 +2479,11 @@ Cell[BoxData[
      RowBox[{"\[ImaginaryI]", " ", "m", " "}]]}], "-", 
    RowBox[{"vectorEquations2", "[", 
     RowBox[{"[", "4", "]"}], "]"}]}], "//", "Simplify"}]], "Input",
- CellLabel->"In[29]:=",ExpressionUUID->"a60c4194-5042-4efb-8f13-12b18a92731c"],
+ CellLabel->"In[29]:=",ExpressionUUID->"f4c90633-9d39-4028-b45f-abd454747366"],
 
 Cell[BoxData["0"], "Output",
  CellLabel->
-  "Out[29]=",ExpressionUUID->"2313770c-f09a-47b2-9338-dea2d6386c0b"]
+  "Out[29]=",ExpressionUUID->"861b1daa-adda-478a-bf84-27ad245e8185"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -2492,12 +2491,12 @@ Cell[BoxData["0"], "Output",
 Cell[CellGroupData[{
 
 Cell["First-order Einstein equations on Schwarzschild", \
-"Section",ExpressionUUID->"3de08818-dfef-4f92-ad4f-c5bd8e6c3c57"],
+"Section",ExpressionUUID->"d9f6bd6c-2d53-4a87-acc5-23228d2443b2"],
 
 Cell[CellGroupData[{
 
 Cell["Martel-Poisson metric perturbation and its trace-reverse", \
-"Subsection",ExpressionUUID->"fbdac54c-af22-4bc5-9d1b-697dea1d7938"],
+"Subsection",ExpressionUUID->"5f533c70-a081-4698-883f-f125a89f12ec"],
 
 Cell[CellGroupData[{
 
@@ -2510,7 +2509,7 @@ Cell[TextData[{
   ButtonNote->"https://arxiv.org/abs/gr-qc/0502028"],
  ")  and define a metric perturbation that is decomposed in tensor spherical \
 harmonics."
-}], "Item",ExpressionUUID->"97a20f55-b66e-4baf-8205-905f264c9bd6"],
+}], "Item",ExpressionUUID->"835c45b5-a731-466f-9ce9-a066cbca34eb"],
 
 Cell[CellGroupData[{
 
@@ -2646,14 +2645,14 @@ Cell[BoxData[
           RowBox[{"is", "[", 
            RowBox[{"[", "2", "]"}], "]"}]}]}], "}"}]}], "]"}]}]}], 
    "\[IndentingNewLine]", "]"}]}]], "Input",
- CellLabel->"In[30]:=",ExpressionUUID->"1e7c6253-5c78-459c-a821-a5cf57f51391"],
+ CellLabel->"In[30]:=",ExpressionUUID->"fdcd67b1-7b65-43ae-bc7e-5caf3165cd33"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["h", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[30]=",ExpressionUUID->"fe5ae07b-52a1-4e89-82de-a2d811b85c8d"]
+  "Out[30]=",ExpressionUUID->"697589a3-39e5-4526-b6e1-a3efa741d2b0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2661,7 +2660,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"hMP", "//", "TensorRules"}], "//", "TableForm"}]], "Input",
- CellLabel->"In[31]:=",ExpressionUUID->"fb8ba644-7e93-4cc5-8de9-934fd254122a"],
+ CellLabel->"In[31]:=",ExpressionUUID->"8d9bfae0-2a0b-4e9c-a5ed-90a172e1c1ea"],
 
 Cell[BoxData[
  TagBox[
@@ -3252,7 +3251,7 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    TableForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[31]//TableForm=",ExpressionUUID->"c747b622-4f6f-4839-9fb0-3d8dcabe1113"]
+  "Out[31]//TableForm=",ExpressionUUID->"2aeea55e-6c04-4bfb-a0fe-1e7f9350f5be"]
 }, Open  ]]
 }, Open  ]],
 
@@ -3262,9 +3261,9 @@ Cell[TextData[{
  "Take the trace-reverse of ",
  Cell[BoxData[
   SubsuperscriptBox["h", "\[Alpha]\[Beta]", ""]],ExpressionUUID->
-  "91ab8a61-9d3d-4edc-bcf8-f98d880c138b"],
+  "506fe9e5-f825-4f5c-a337-e56f1e2a7a37"],
  "."
-}], "Item",ExpressionUUID->"bb96ca05-132d-4c60-a7ce-eaa54622ba0a"],
+}], "Item",ExpressionUUID->"f93aad2f-9489-4138-9b59-00bae750fab7"],
 
 Cell[CellGroupData[{
 
@@ -3279,7 +3278,7 @@ Cell[BoxData[
        "\"\<TraceReverse\>\""}], ",", 
       "\"\<\!\(\*OverscriptBox[\(h\), \(_\)]\)\>\""}], "}"}], ",", 
     RowBox[{"ActWith", "\[Rule]", "collectAndSimp"}]}], "]"}]}]], "Input",
- CellLabel->"In[32]:=",ExpressionUUID->"80dc26bd-e9c6-48c2-b6ff-18d8f3aca61a"],
+ CellLabel->"In[32]:=",ExpressionUUID->"a69a32df-1af3-4b47-b783-f5323c33a588"],
 
 Cell[BoxData[
  TagBox[
@@ -3287,7 +3286,7 @@ Cell[BoxData[
    OverscriptBox["h", "_"], "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[32]=",ExpressionUUID->"4c6abdd7-54fe-4ccf-a2df-3c9b2eb10856"]
+  "Out[32]=",ExpressionUUID->"8e242205-7f8d-46ae-ac97-ca666a0710fa"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3295,7 +3294,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"hMPBar", "//", "TensorRules"}], "//", "TableForm"}]], "Input",
- CellLabel->"In[33]:=",ExpressionUUID->"9c1e3398-d5e0-439e-a580-832a789448cb"],
+ CellLabel->"In[33]:=",ExpressionUUID->"d6d9b78e-9d48-4514-9771-d7f914c3f4ff"],
 
 Cell[BoxData[
  TagBox[
@@ -3835,14 +3834,14 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    TableForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[33]//TableForm=",ExpressionUUID->"dc992895-c472-4415-bf02-2b35024cc572"]
+  "Out[33]//TableForm=",ExpressionUUID->"ba983bdf-604b-44e0-bb66-14de731b2c07"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Check the trace-reverse.", \
-"Item",ExpressionUUID->"e07c5f07-9b9e-4c79-bda0-b0ef02790307"],
+"Item",ExpressionUUID->"9c8b50e4-52db-427b-a060-ff5152ba432e"],
 
 Cell[CellGroupData[{
 
@@ -3858,11 +3857,11 @@ Cell[BoxData[
       RowBox[{"\[Alpha]", ",", 
        RowBox[{"-", "\[Alpha]"}]}], "]"}]}], ",", 
     RowBox[{"ActWith", "\[Rule]", "collectAndSimp"}]}], "]"}], "]"}]], "Input",
- CellLabel->"In[34]:=",ExpressionUUID->"432f9c01-72c1-435b-8199-3033aef6047b"],
+ CellLabel->"In[34]:=",ExpressionUUID->"b3110a3a-1d74-4393-98be-9bca5c799b6b"],
 
 Cell[BoxData["0"], "Output",
  CellLabel->
-  "Out[34]=",ExpressionUUID->"6da969f3-d960-4ad5-948e-a01496536add"]
+  "Out[34]=",ExpressionUUID->"402da68f-f6ed-42b9-a866-f876b41aa5d9"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -3870,7 +3869,7 @@ Cell[BoxData["0"], "Output",
 Cell[CellGroupData[{
 
 Cell["Lorenz gauge condition", \
-"Subsection",ExpressionUUID->"c400ba77-74ad-44cf-b537-cce2352ee336"],
+"Subsection",ExpressionUUID->"186811f9-355a-4f0e-920a-5376a6d75e99"],
 
 Cell[CellGroupData[{
 
@@ -3880,9 +3879,9 @@ Cell[TextData[{
   TagBox[
    SubsuperscriptBox[
     OverscriptBox["h", "_"], "\[Alpha]\[Beta]", ""],
-   DisplayForm]],ExpressionUUID->"0e52efc8-3501-4fa7-ba9c-6da3e50a41e9"],
+   DisplayForm]],ExpressionUUID->"6558254b-1d3f-4c17-a171-93b0a7b5808e"],
  "."
-}], "Item",ExpressionUUID->"1cbc012a-f4d4-42ac-b71f-274b62ae4a5a"],
+}], "Item",ExpressionUUID->"73d94d7a-4070-41b2-a9e3-aa8325097674"],
 
 Cell[CellGroupData[{
 
@@ -3893,10 +3892,30 @@ Cell[BoxData[
     RowBox[{"hMPBar", "[", 
      RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}], ",", 
     RowBox[{"-", "\[Alpha]"}]}], "]"}]}]], "Input",
- CellLabel->"In[35]:=",ExpressionUUID->"db5e4f88-5b1e-495f-a487-bb374172fdcb"],
+ CellLabel->"In[35]:=",ExpressionUUID->"40141e4a-2223-4d8b-9e2a-810362153870"],
 
 Cell[BoxData[
  RowBox[{
+  RowBox[{
+   TagBox[
+    SubsuperscriptBox[
+     OverscriptBox["h", "_"], "", "\[Gamma]\[Beta]"],
+    DisplayForm], " ", 
+   TagBox[
+    SubsuperscriptBox["\[CapitalGamma]", 
+     RowBox[{"  ", "\[Gamma]\[Alpha]"}], 
+     RowBox[{"\[Alpha]", "    "}]],
+    DisplayForm]}], "+", 
+  RowBox[{
+   TagBox[
+    SubsuperscriptBox[
+     OverscriptBox["h", "_"], "", "\[Alpha]\[Gamma]"],
+    DisplayForm], " ", 
+   TagBox[
+    SubsuperscriptBox["\[CapitalGamma]", 
+     RowBox[{"  ", "\[Gamma]\[Alpha]"}], 
+     RowBox[{"\[Beta]", "    "}]],
+    DisplayForm]}], "+", 
   TagBox[
    SubsuperscriptBox[
     RowBox[{"(", 
@@ -3904,29 +3923,9 @@ Cell[BoxData[
       OverscriptBox["h", "_"]}], ")"}], 
     RowBox[{"\[Alpha]", "    "}], 
     RowBox[{"  ", "\[Alpha]\[Beta]"}]],
-   DisplayForm], "+", 
-  RowBox[{
-   TagBox[
-    SubsuperscriptBox["\[CapitalGamma]", 
-     RowBox[{"  ", "\[Gamma]\[Alpha]"}], 
-     RowBox[{"\[Beta]", "    "}]],
-    DisplayForm], " ", 
-   TagBox[
-    SubsuperscriptBox[
-     OverscriptBox["h", "_"], "", "\[Alpha]\[Gamma]"],
-    DisplayForm]}], "+", 
-  RowBox[{
-   TagBox[
-    SubsuperscriptBox["\[CapitalGamma]", 
-     RowBox[{"  ", "\[Gamma]\[Alpha]"}], 
-     RowBox[{"\[Alpha]", "    "}]],
-    DisplayForm], " ", 
-   TagBox[
-    SubsuperscriptBox[
-     OverscriptBox["h", "_"], "", "\[Gamma]\[Beta]"],
-    DisplayForm]}]}]], "Output",
+   DisplayForm]}]], "Output",
  CellLabel->
-  "Out[35]=",ExpressionUUID->"fd6edbd8-f1e2-49d6-962d-057c7bfb0076"]
+  "Out[35]=",ExpressionUUID->"0aca716f-f28c-4696-87ab-57339573ba7d"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3944,11 +3943,11 @@ Cell[BoxData[
        "\"\<(\[Del]\[CenterDot]\!\(\*OverscriptBox[\(h\), \(_\)]\))\>\""}], 
       "}"}], ",", 
      RowBox[{"ActWith", "->", "collectAndSimp"}]}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[36]:=",ExpressionUUID->"40fdb124-f1c4-4465-b17c-23f8f6c9543e"],
+ CellLabel->"In[36]:=",ExpressionUUID->"2541da71-1bdf-45b6-9e59-0f48317a4ae4"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.182535`", ",", 
+  RowBox[{"0.15552`", ",", 
    TagBox[
     SubsuperscriptBox[
      RowBox[{"(", 
@@ -3956,7 +3955,7 @@ Cell[BoxData[
        OverscriptBox["h", "_"]}], ")"}], "", "\[Beta]"],
     DisplayForm]}], "}"}]], "Output",
  CellLabel->
-  "Out[36]=",ExpressionUUID->"662c8750-e656-4f28-aad0-24e1ae42d3d8"]
+  "Out[36]=",ExpressionUUID->"c04a22e1-3702-4872-a39d-4d16e8b21526"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -3964,7 +3963,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"TensorRules", "[", "lorCond2", "]"}], "//", "TableForm"}]], "Input",
- CellLabel->"In[37]:=",ExpressionUUID->"ddc86632-2733-4cb2-b52f-7ed0b8c5a8c5"],
+ CellLabel->"In[37]:=",ExpressionUUID->"bfe191a1-bb8b-49de-bab6-3b8b90167402"],
 
 Cell[BoxData[
  TagBox[
@@ -4418,7 +4417,7 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    TableForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[37]//TableForm=",ExpressionUUID->"340bd2d2-3ab9-423c-9f84-03779f93ed98"]
+  "Out[37]//TableForm=",ExpressionUUID->"d2ea26a9-f9a5-4e74-8538-e449ce69de4a"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -4426,7 +4425,7 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Lorenz gauge field equations", \
-"Subsection",ExpressionUUID->"53206187-c83c-47df-ac8f-a1a255c9f93a"],
+"Subsection",ExpressionUUID->"c82efd2e-f498-45a3-a38f-c49e2b6c6a01"],
 
 Cell[CellGroupData[{
 
@@ -4440,9 +4439,9 @@ equations, ",
    RowBox[{"2", 
     SubscriptBox["R", "\[Mu]\[Alpha]\[Nu]\[Beta]"], 
     SuperscriptBox["h", "\[Mu]\[Nu]"]}]}]],ExpressionUUID->
-  "1e834485-56bf-4c9b-82f3-7a4b4874f076"],
+  "ef80eed8-b3fb-47f5-9471-e2387b838802"],
  "."
-}], "Item",ExpressionUUID->"d4199b08-4e91-4ec7-a128-adc527eb1810"],
+}], "Item",ExpressionUUID->"4c516d8f-6770-498b-b947-f0d09de018e8"],
 
 Cell[CellGroupData[{
 
@@ -4451,14 +4450,14 @@ Cell[BoxData[
   RowBox[{"RiemannTensor", "[", 
    RowBox[{"gS", ",", 
     RowBox[{"ActWithNested", "\[Rule]", "Simplify"}]}], "]"}]}]], "Input",
- CellLabel->"In[38]:=",ExpressionUUID->"94555236-2ff7-46d6-999b-ba5d85cd276a"],
+ CellLabel->"In[38]:=",ExpressionUUID->"aefab02f-c224-43ea-9305-4d134ebaded4"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["R", "\[Alpha]\[Beta]\[Gamma]\[Delta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[38]=",ExpressionUUID->"c18d97fd-5279-4188-8f65-af08a7ebbaf6"]
+  "Out[38]=",ExpressionUUID->"f69e7937-b91b-4658-a255-2c72ad2f9872"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -4484,72 +4483,317 @@ Cell[BoxData[
        RowBox[{"-", "\[Beta]"}]}], "]"}], 
      RowBox[{"hMPBar", "[", 
       RowBox[{"\[Mu]", ",", "\[Nu]"}], "]"}]}]}]}], "]"}]], "Input",
- CellLabel->"In[39]:=",ExpressionUUID->"f831c9ac-bcc0-4ab9-84cd-5e0179726a8e"],
+ CellLabel->"In[39]:=",ExpressionUUID->"ef3436c4-5fa2-456e-9602-c2e4f4073af0"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"0.164386`", ",", 
+  RowBox[{"0.166306`", ",", 
    RowBox[{
     RowBox[{"2", " ", 
      TagBox[
-      SubsuperscriptBox["R", "\[Mu]\[Alpha]\[Nu]\[Beta]", ""],
-      DisplayForm], " ", 
-     TagBox[
       SubsuperscriptBox[
        OverscriptBox["h", "_"], "", "\[Mu]\[Nu]"],
-      DisplayForm]}], "+", 
+      DisplayForm], " ", 
+     TagBox[
+      SubsuperscriptBox["R", "\[Mu]\[Alpha]\[Nu]\[Beta]", ""],
+      DisplayForm]}], "-", 
     RowBox[{
      TagBox[
       SubsuperscriptBox[
-       RowBox[{"(", 
-        RowBox[{"\[PartialD]", 
-         OverscriptBox["h", "_"]}], ")"}], "\[Gamma]\[Alpha]\[Beta]", ""],
+       OverscriptBox["h", "_"], "\[Delta]\[Beta]", ""],
+      DisplayForm], " ", 
+     TagBox[
+      SubsuperscriptBox["\[CapitalGamma]", 
+       RowBox[{"  ", "\[Alpha]\[Gamma]"}], 
+       RowBox[{"\[Delta]", "    "}]],
       DisplayForm], " ", 
      RowBox[{"(", 
       RowBox[{
+       RowBox[{
+        TagBox[
+         SubsuperscriptBox["g", "", "\[Mu]\[CurlyEpsilon]"],
+         DisplayForm], " ", 
+        TagBox[
+         SubsuperscriptBox["\[CapitalGamma]", 
+          RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
+          RowBox[{"\[Gamma]", "    "}]],
+         DisplayForm]}], "+", 
+       RowBox[{
+        TagBox[
+         SubsuperscriptBox["g", "", "\[CurlyEpsilon]\[Gamma]"],
+         DisplayForm], " ", 
+        TagBox[
+         SubsuperscriptBox["\[CapitalGamma]", 
+          RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
+          RowBox[{"\[Mu]", "    "}]],
+         DisplayForm]}], "+", 
        TagBox[
         SubsuperscriptBox[
          RowBox[{"(", 
           RowBox[{"\[PartialD]", "g"}], ")"}], 
          RowBox[{"\[Mu]", "    "}], 
          RowBox[{"  ", "\[Mu]\[Gamma]"}]],
-        DisplayForm], "+", 
+        DisplayForm]}], ")"}]}], "-", 
+    RowBox[{
+     TagBox[
+      SubsuperscriptBox[
+       OverscriptBox["h", "_"], "\[Alpha]\[Delta]", ""],
+      DisplayForm], " ", 
+     TagBox[
+      SubsuperscriptBox["\[CapitalGamma]", 
+       RowBox[{"  ", "\[Beta]\[Gamma]"}], 
+       RowBox[{"\[Delta]", "    "}]],
+      DisplayForm], " ", 
+     RowBox[{"(", 
+      RowBox[{
        RowBox[{
         TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
-          RowBox[{"\[Mu]", "    "}]],
+         SubsuperscriptBox["g", "", "\[Mu]\[CurlyEpsilon]"],
          DisplayForm], " ", 
-        TagBox[
-         SubsuperscriptBox["g", "", "\[CurlyEpsilon]\[Gamma]"],
-         DisplayForm]}], "+", 
-       RowBox[{
         TagBox[
          SubsuperscriptBox["\[CapitalGamma]", 
           RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
           RowBox[{"\[Gamma]", "    "}]],
+         DisplayForm]}], "+", 
+       RowBox[{
+        TagBox[
+         SubsuperscriptBox["g", "", "\[CurlyEpsilon]\[Gamma]"],
          DisplayForm], " ", 
         TagBox[
-         SubsuperscriptBox["g", "", "\[Mu]\[CurlyEpsilon]"],
-         DisplayForm]}]}], ")"}]}], "+", 
-    RowBox[{
-     RowBox[{"(", 
-      RowBox[{
+         SubsuperscriptBox["\[CapitalGamma]", 
+          RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
+          RowBox[{"\[Mu]", "    "}]],
+         DisplayForm]}], "+", 
        TagBox[
         SubsuperscriptBox[
          RowBox[{"(", 
-          RowBox[{"\[PartialD]", 
-           RowBox[{"(", 
-            RowBox[{"\[PartialD]", 
-             OverscriptBox["h", "_"]}], ")"}]}], ")"}], 
-         "\[Mu]\[Gamma]\[Alpha]\[Beta]", ""],
-        DisplayForm], "-", 
+          RowBox[{"\[PartialD]", "g"}], ")"}], 
+         RowBox[{"\[Mu]", "    "}], 
+         RowBox[{"  ", "\[Mu]\[Gamma]"}]],
+        DisplayForm]}], ")"}]}], "+", 
+    RowBox[{
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        TagBox[
+         SubsuperscriptBox["g", "", "\[Mu]\[CurlyEpsilon]"],
+         DisplayForm], " ", 
+        TagBox[
+         SubsuperscriptBox["\[CapitalGamma]", 
+          RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
+          RowBox[{"\[Gamma]", "    "}]],
+         DisplayForm]}], "+", 
+       RowBox[{
+        TagBox[
+         SubsuperscriptBox["g", "", "\[CurlyEpsilon]\[Gamma]"],
+         DisplayForm], " ", 
+        TagBox[
+         SubsuperscriptBox["\[CapitalGamma]", 
+          RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
+          RowBox[{"\[Mu]", "    "}]],
+         DisplayForm]}], "+", 
+       TagBox[
+        SubsuperscriptBox[
+         RowBox[{"(", 
+          RowBox[{"\[PartialD]", "g"}], ")"}], 
+         RowBox[{"\[Mu]", "    "}], 
+         RowBox[{"  ", "\[Mu]\[Gamma]"}]],
+        DisplayForm]}], ")"}], " ", 
+     TagBox[
+      SubsuperscriptBox[
+       RowBox[{"(", 
+        RowBox[{"\[PartialD]", 
+         OverscriptBox["h", "_"]}], ")"}], "\[Gamma]\[Alpha]\[Beta]", ""],
+      DisplayForm]}], "-", 
+    RowBox[{
+     TagBox[
+      SubsuperscriptBox["g", "", "\[Mu]\[Gamma]"],
+      DisplayForm], " ", 
+     RowBox[{"(", 
+      RowBox[{
        RowBox[{
         TagBox[
          SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[Beta]\[Mu]"}], 
-          RowBox[{"\[CurlyEpsilon]", "    "}]],
+          RowBox[{"  ", "\[Alpha]\[Gamma]"}], 
+          RowBox[{"\[Delta]", "    "}]],
          DisplayForm], " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", 
+            TagBox[
+             SubsuperscriptBox[
+              OverscriptBox["h", "_"], "\[Delta]\[CurlyEpsilon]", ""],
+             DisplayForm]}], " ", 
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Beta]\[Mu]"}], 
+             RowBox[{"\[CurlyEpsilon]", "    "}]],
+            DisplayForm]}], "-", 
+          RowBox[{
+           TagBox[
+            SubsuperscriptBox[
+             OverscriptBox["h", "_"], "\[CurlyEpsilon]\[Beta]", ""],
+            DisplayForm], " ", 
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Delta]\[Mu]"}], 
+             RowBox[{"\[CurlyEpsilon]", "    "}]],
+            DisplayForm]}], "+", 
+          TagBox[
+           SubsuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{"\[PartialD]", 
+              OverscriptBox["h", "_"]}], ")"}], "\[Mu]\[Delta]\[Beta]", ""],
+           DisplayForm]}], ")"}]}], "+", 
+       RowBox[{
+        TagBox[
+         SubsuperscriptBox[
+          OverscriptBox["h", "_"], "\[Delta]\[Beta]", ""],
+         DisplayForm], " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
+             RowBox[{"\[Delta]", "    "}]],
+            DisplayForm], " ", 
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Alpha]\[Gamma]"}], 
+             RowBox[{"\[CurlyEpsilon]", "    "}]],
+            DisplayForm]}], "-", 
+          RowBox[{
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[CurlyEpsilon]\[Gamma]"}], 
+             RowBox[{"\[Delta]", "    "}]],
+            DisplayForm], " ", 
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Alpha]\[Mu]"}], 
+             RowBox[{"\[CurlyEpsilon]", "    "}]],
+            DisplayForm]}], "-", 
+          RowBox[{
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Alpha]\[CurlyEpsilon]"}], 
+             RowBox[{"\[Delta]", "    "}]],
+            DisplayForm], " ", 
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Gamma]\[Mu]"}], 
+             RowBox[{"\[CurlyEpsilon]", "    "}]],
+            DisplayForm]}], "+", 
+          TagBox[
+           SubsuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{"\[PartialD]", "\[CapitalGamma]"}], ")"}], 
+            RowBox[{"\[Mu]", "  ", "\[Alpha]\[Gamma]"}], 
+            RowBox[{"  ", "\[Delta]", "    "}]],
+           DisplayForm]}], ")"}]}]}], ")"}]}], "-", 
+    RowBox[{
+     TagBox[
+      SubsuperscriptBox["g", "", "\[Mu]\[Gamma]"],
+      DisplayForm], " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        TagBox[
+         SubsuperscriptBox["\[CapitalGamma]", 
+          RowBox[{"  ", "\[Beta]\[Gamma]"}], 
+          RowBox[{"\[Delta]", "    "}]],
+         DisplayForm], " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"-", 
+            TagBox[
+             SubsuperscriptBox[
+              OverscriptBox["h", "_"], "\[CurlyEpsilon]\[Delta]", ""],
+             DisplayForm]}], " ", 
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Alpha]\[Mu]"}], 
+             RowBox[{"\[CurlyEpsilon]", "    "}]],
+            DisplayForm]}], "-", 
+          RowBox[{
+           TagBox[
+            SubsuperscriptBox[
+             OverscriptBox["h", "_"], "\[Alpha]\[CurlyEpsilon]", ""],
+            DisplayForm], " ", 
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Delta]\[Mu]"}], 
+             RowBox[{"\[CurlyEpsilon]", "    "}]],
+            DisplayForm]}], "+", 
+          TagBox[
+           SubsuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{"\[PartialD]", 
+              OverscriptBox["h", "_"]}], ")"}], "\[Mu]\[Alpha]\[Delta]", ""],
+           DisplayForm]}], ")"}]}], "+", 
+       RowBox[{
+        TagBox[
+         SubsuperscriptBox[
+          OverscriptBox["h", "_"], "\[Alpha]\[Delta]", ""],
+         DisplayForm], " ", 
+        RowBox[{"(", 
+         RowBox[{
+          RowBox[{
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
+             RowBox[{"\[Delta]", "    "}]],
+            DisplayForm], " ", 
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Beta]\[Gamma]"}], 
+             RowBox[{"\[CurlyEpsilon]", "    "}]],
+            DisplayForm]}], "-", 
+          RowBox[{
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[CurlyEpsilon]\[Gamma]"}], 
+             RowBox[{"\[Delta]", "    "}]],
+            DisplayForm], " ", 
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Beta]\[Mu]"}], 
+             RowBox[{"\[CurlyEpsilon]", "    "}]],
+            DisplayForm]}], "-", 
+          RowBox[{
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Beta]\[CurlyEpsilon]"}], 
+             RowBox[{"\[Delta]", "    "}]],
+            DisplayForm], " ", 
+           TagBox[
+            SubsuperscriptBox["\[CapitalGamma]", 
+             RowBox[{"  ", "\[Gamma]\[Mu]"}], 
+             RowBox[{"\[CurlyEpsilon]", "    "}]],
+            DisplayForm]}], "+", 
+          TagBox[
+           SubsuperscriptBox[
+            RowBox[{"(", 
+             RowBox[{"\[PartialD]", "\[CapitalGamma]"}], ")"}], 
+            RowBox[{"\[Mu]", "  ", "\[Beta]\[Gamma]"}], 
+            RowBox[{"  ", "\[Delta]", "    "}]],
+           DisplayForm]}], ")"}]}]}], ")"}]}], "+", 
+    RowBox[{
+     TagBox[
+      SubsuperscriptBox["g", "", "\[Mu]\[Gamma]"],
+      DisplayForm], " ", 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"-", 
+         TagBox[
+          SubsuperscriptBox["\[CapitalGamma]", 
+           RowBox[{"  ", "\[Beta]\[Mu]"}], 
+           RowBox[{"\[CurlyEpsilon]", "    "}]],
+          DisplayForm]}], " ", 
         TagBox[
          SubsuperscriptBox[
           RowBox[{"(", 
@@ -4582,256 +4826,18 @@ Cell[BoxData[
            RowBox[{"\[PartialD]", 
             OverscriptBox["h", "_"]}], ")"}], 
           "\[CurlyEpsilon]\[Alpha]\[Beta]", ""],
-         DisplayForm]}]}], ")"}], " ", 
-     TagBox[
-      SubsuperscriptBox["g", "", "\[Mu]\[Gamma]"],
-      DisplayForm]}], "-", 
-    RowBox[{
-     RowBox[{"(", 
-      RowBox[{
+         DisplayForm]}], "+", 
        TagBox[
         SubsuperscriptBox[
          RowBox[{"(", 
-          RowBox[{"\[PartialD]", "\[CapitalGamma]"}], ")"}], 
-         RowBox[{"\[Mu]", "  ", "\[Beta]\[Gamma]"}], 
-         RowBox[{"  ", "\[Delta]", "    "}]],
-        DisplayForm], "+", 
-       RowBox[{
-        TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[Beta]\[Gamma]"}], 
-          RowBox[{"\[CurlyEpsilon]", "    "}]],
-         DisplayForm], " ", 
-        TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
-          RowBox[{"\[Delta]", "    "}]],
-         DisplayForm]}], "-", 
-       RowBox[{
-        TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[CurlyEpsilon]\[Gamma]"}], 
-          RowBox[{"\[Delta]", "    "}]],
-         DisplayForm], " ", 
-        TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[Beta]\[Mu]"}], 
-          RowBox[{"\[CurlyEpsilon]", "    "}]],
-         DisplayForm]}], "-", 
-       RowBox[{
-        TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[Beta]\[CurlyEpsilon]"}], 
-          RowBox[{"\[Delta]", "    "}]],
-         DisplayForm], " ", 
-        TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[Gamma]\[Mu]"}], 
-          RowBox[{"\[CurlyEpsilon]", "    "}]],
-         DisplayForm]}]}], ")"}], " ", 
-     TagBox[
-      SubsuperscriptBox[
-       OverscriptBox["h", "_"], "\[Alpha]\[Delta]", ""],
-      DisplayForm], " ", 
-     TagBox[
-      SubsuperscriptBox["g", "", "\[Mu]\[Gamma]"],
-      DisplayForm]}], "-", 
-    RowBox[{
-     RowBox[{"(", 
-      RowBox[{
-       TagBox[
-        SubsuperscriptBox[
-         RowBox[{"(", 
-          RowBox[{"\[PartialD]", "\[CapitalGamma]"}], ")"}], 
-         RowBox[{"\[Mu]", "  ", "\[Alpha]\[Gamma]"}], 
-         RowBox[{"  ", "\[Delta]", "    "}]],
-        DisplayForm], "+", 
-       RowBox[{
-        TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[Alpha]\[Gamma]"}], 
-          RowBox[{"\[CurlyEpsilon]", "    "}]],
-         DisplayForm], " ", 
-        TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
-          RowBox[{"\[Delta]", "    "}]],
-         DisplayForm]}], "-", 
-       RowBox[{
-        TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[CurlyEpsilon]\[Gamma]"}], 
-          RowBox[{"\[Delta]", "    "}]],
-         DisplayForm], " ", 
-        TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[Alpha]\[Mu]"}], 
-          RowBox[{"\[CurlyEpsilon]", "    "}]],
-         DisplayForm]}], "-", 
-       RowBox[{
-        TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[Alpha]\[CurlyEpsilon]"}], 
-          RowBox[{"\[Delta]", "    "}]],
-         DisplayForm], " ", 
-        TagBox[
-         SubsuperscriptBox["\[CapitalGamma]", 
-          RowBox[{"  ", "\[Gamma]\[Mu]"}], 
-          RowBox[{"\[CurlyEpsilon]", "    "}]],
-         DisplayForm]}]}], ")"}], " ", 
-     TagBox[
-      SubsuperscriptBox[
-       OverscriptBox["h", "_"], "\[Delta]\[Beta]", ""],
-      DisplayForm], " ", 
-     TagBox[
-      SubsuperscriptBox["g", "", "\[Mu]\[Gamma]"],
-      DisplayForm]}], "-", 
-    RowBox[{
-     TagBox[
-      SubsuperscriptBox["\[CapitalGamma]", 
-       RowBox[{"  ", "\[Alpha]\[Gamma]"}], 
-       RowBox[{"\[Delta]", "    "}]],
-      DisplayForm], " ", 
-     RowBox[{"(", 
-      RowBox[{
-       RowBox[{
-        TagBox[
-         SubsuperscriptBox[
-          OverscriptBox["h", "_"], "\[Delta]\[Beta]", ""],
-         DisplayForm], " ", 
-        RowBox[{"(", 
-         RowBox[{
-          TagBox[
-           SubsuperscriptBox[
-            RowBox[{"(", 
-             RowBox[{"\[PartialD]", "g"}], ")"}], 
-            RowBox[{"\[Mu]", "    "}], 
-            RowBox[{"  ", "\[Mu]\[Gamma]"}]],
-           DisplayForm], "+", 
-          RowBox[{
-           TagBox[
-            SubsuperscriptBox["\[CapitalGamma]", 
-             RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
-             RowBox[{"\[Mu]", "    "}]],
-            DisplayForm], " ", 
-           TagBox[
-            SubsuperscriptBox["g", "", "\[CurlyEpsilon]\[Gamma]"],
-            DisplayForm]}], "+", 
-          RowBox[{
-           TagBox[
-            SubsuperscriptBox["\[CapitalGamma]", 
-             RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
-             RowBox[{"\[Gamma]", "    "}]],
-            DisplayForm], " ", 
-           TagBox[
-            SubsuperscriptBox["g", "", "\[Mu]\[CurlyEpsilon]"],
-            DisplayForm]}]}], ")"}]}], "+", 
-       RowBox[{
-        RowBox[{"(", 
-         RowBox[{
-          TagBox[
-           SubsuperscriptBox[
-            RowBox[{"(", 
-             RowBox[{"\[PartialD]", 
-              OverscriptBox["h", "_"]}], ")"}], "\[Mu]\[Delta]\[Beta]", ""],
-           DisplayForm], "-", 
-          RowBox[{
-           TagBox[
-            SubsuperscriptBox["\[CapitalGamma]", 
-             RowBox[{"  ", "\[Beta]\[Mu]"}], 
-             RowBox[{"\[CurlyEpsilon]", "    "}]],
-            DisplayForm], " ", 
-           TagBox[
-            SubsuperscriptBox[
-             OverscriptBox["h", "_"], "\[Delta]\[CurlyEpsilon]", ""],
-            DisplayForm]}], "-", 
-          RowBox[{
-           TagBox[
-            SubsuperscriptBox["\[CapitalGamma]", 
-             RowBox[{"  ", "\[Delta]\[Mu]"}], 
-             RowBox[{"\[CurlyEpsilon]", "    "}]],
-            DisplayForm], " ", 
-           TagBox[
-            SubsuperscriptBox[
-             OverscriptBox["h", "_"], "\[CurlyEpsilon]\[Beta]", ""],
-            DisplayForm]}]}], ")"}], " ", 
-        TagBox[
-         SubsuperscriptBox["g", "", "\[Mu]\[Gamma]"],
-         DisplayForm]}]}], ")"}]}], "-", 
-    RowBox[{
-     TagBox[
-      SubsuperscriptBox["\[CapitalGamma]", 
-       RowBox[{"  ", "\[Beta]\[Gamma]"}], 
-       RowBox[{"\[Delta]", "    "}]],
-      DisplayForm], " ", 
-     RowBox[{"(", 
-      RowBox[{
-       RowBox[{
-        TagBox[
-         SubsuperscriptBox[
-          OverscriptBox["h", "_"], "\[Alpha]\[Delta]", ""],
-         DisplayForm], " ", 
-        RowBox[{"(", 
-         RowBox[{
-          TagBox[
-           SubsuperscriptBox[
-            RowBox[{"(", 
-             RowBox[{"\[PartialD]", "g"}], ")"}], 
-            RowBox[{"\[Mu]", "    "}], 
-            RowBox[{"  ", "\[Mu]\[Gamma]"}]],
-           DisplayForm], "+", 
-          RowBox[{
-           TagBox[
-            SubsuperscriptBox["\[CapitalGamma]", 
-             RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
-             RowBox[{"\[Mu]", "    "}]],
-            DisplayForm], " ", 
-           TagBox[
-            SubsuperscriptBox["g", "", "\[CurlyEpsilon]\[Gamma]"],
-            DisplayForm]}], "+", 
-          RowBox[{
-           TagBox[
-            SubsuperscriptBox["\[CapitalGamma]", 
-             RowBox[{"  ", "\[CurlyEpsilon]\[Mu]"}], 
-             RowBox[{"\[Gamma]", "    "}]],
-            DisplayForm], " ", 
-           TagBox[
-            SubsuperscriptBox["g", "", "\[Mu]\[CurlyEpsilon]"],
-            DisplayForm]}]}], ")"}]}], "+", 
-       RowBox[{
-        RowBox[{"(", 
-         RowBox[{
-          TagBox[
-           SubsuperscriptBox[
-            RowBox[{"(", 
-             RowBox[{"\[PartialD]", 
-              OverscriptBox["h", "_"]}], ")"}], "\[Mu]\[Alpha]\[Delta]", ""],
-           DisplayForm], "-", 
-          RowBox[{
-           TagBox[
-            SubsuperscriptBox["\[CapitalGamma]", 
-             RowBox[{"  ", "\[Delta]\[Mu]"}], 
-             RowBox[{"\[CurlyEpsilon]", "    "}]],
-            DisplayForm], " ", 
-           TagBox[
-            SubsuperscriptBox[
-             OverscriptBox["h", "_"], "\[Alpha]\[CurlyEpsilon]", ""],
-            DisplayForm]}], "-", 
-          RowBox[{
-           TagBox[
-            SubsuperscriptBox["\[CapitalGamma]", 
-             RowBox[{"  ", "\[Alpha]\[Mu]"}], 
-             RowBox[{"\[CurlyEpsilon]", "    "}]],
-            DisplayForm], " ", 
-           TagBox[
-            SubsuperscriptBox[
-             OverscriptBox["h", "_"], "\[CurlyEpsilon]\[Delta]", ""],
-            DisplayForm]}]}], ")"}], " ", 
-        TagBox[
-         SubsuperscriptBox["g", "", "\[Mu]\[Gamma]"],
-         DisplayForm]}]}], ")"}]}]}]}], "}"}]], "Output",
+          RowBox[{"\[PartialD]", 
+           RowBox[{"(", 
+            RowBox[{"\[PartialD]", 
+             OverscriptBox["h", "_"]}], ")"}]}], ")"}], 
+         "\[Mu]\[Gamma]\[Alpha]\[Beta]", ""],
+        DisplayForm]}], ")"}]}]}]}], "}"}]], "Output",
  CellLabel->
-  "Out[39]=",ExpressionUUID->"a5bc814d-5590-471b-922c-c398a0d35927"]
+  "Out[39]=",ExpressionUUID->"a11ecc5a-b611-47e6-ba2b-aed0a6c39e94"]
 }, Open  ]]
 }, Open  ]],
 
@@ -4839,29 +4845,29 @@ Cell[CellGroupData[{
 
 Cell["\<\
 We can test that this expression and all its indices are valid.\
-\>", "Item",ExpressionUUID->"86a5584d-bf3a-4aaa-84e7-c0f6b60adfcc"],
+\>", "Item",ExpressionUUID->"60581131-dc35-497b-8e40-87cf95ff887c"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"ValidTensorExpressionQ", "[", "waveGravity1", "]"}]], "Input",
- CellLabel->"In[40]:=",ExpressionUUID->"5e1c0a16-b6bc-4f69-a01d-cafe0df66d53"],
+ CellLabel->"In[40]:=",ExpressionUUID->"1e13a787-b301-48d2-9bbc-9be3b6a9e4fe"],
 
 Cell[BoxData["True"], "Output",
  CellLabel->
-  "Out[40]=",ExpressionUUID->"851c0381-29a3-476e-b279-0cb27995f7a8"]
+  "Out[40]=",ExpressionUUID->"9138ff1e-372c-4bb2-b425-7f607d347225"]
 }, Open  ]]
 }, Open  ]],
 
 Cell["\<\
 Merging this giant expression at the end would take a very long time.\
-\>", "Item",ExpressionUUID->"ce93ce75-6b58-4999-a7e6-87b5e6feda58"],
+\>", "Item",ExpressionUUID->"5875a67f-1e0b-4785-90ab-e4a3cf6f2cbe"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 Fortunately, we can speed things up by using MergeNested \[Rule] True.\
-\>", "Item",ExpressionUUID->"37753af0-8145-49bf-9eb4-64cce47767ae"],
+\>", "Item",ExpressionUUID->"79bec0e3-d00e-40a8-abc1-b1d5a863d365"],
 
 Cell[CellGroupData[{
 
@@ -4893,30 +4899,30 @@ Cell[BoxData[
       RowBox[{"\"\<LorenzFieldEquations\>\"", ",", "\"\<lorFE\>\""}], "}"}], 
      ",", 
      RowBox[{"ActWith", "->", "collectAndSimp"}]}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[41]:=",ExpressionUUID->"3d2e2280-d8b7-44cf-a422-11bf986a1174"],
+ CellLabel->"In[41]:=",ExpressionUUID->"09837e5e-3afd-4a38-9f00-ab3f3b0784d9"],
 
 Cell[BoxData[
  RowBox[{"{", 
-  RowBox[{"2.713796`", ",", 
+  RowBox[{"2.59464`", ",", 
    TagBox[
     SubsuperscriptBox["lorFE", "\[Alpha]\[Beta]", ""],
     DisplayForm]}], "}"}]], "Output",
  CellLabel->
-  "Out[41]=",ExpressionUUID->"a8cb3d6d-15f0-4676-9da7-717fed5c9da5"]
+  "Out[41]=",ExpressionUUID->"07e968f3-85d2-4a6e-a4f3-7536ceec6193"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["The Lorenz gauge field equations are", \
-"Item",ExpressionUUID->"f3b6a29b-836f-4c26-9908-7d026b9cb77d"],
+"Item",ExpressionUUID->"f6cdd7c0-e914-4fbe-b2ed-7fecb7838329"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
   RowBox[{"waveGravity2", "//", "TensorRules"}], "//", "TableForm"}]], "Input",
- CellLabel->"In[42]:=",ExpressionUUID->"45c6d605-7879-4f62-ad5c-31ff45f5f51d"],
+ CellLabel->"In[42]:=",ExpressionUUID->"111d9534-51e3-41dd-9a55-b667a9202198"],
 
 Cell[BoxData[
  TagBox[
@@ -8373,7 +8379,7 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    TableForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[42]//TableForm=",ExpressionUUID->"ca83b9fd-9e25-4ed0-a993-5077dd0fff59"]
+  "Out[42]//TableForm=",ExpressionUUID->"fe8a2cbe-b5fa-4e97-97ba-1c1a371df444"]
 }, Open  ]]
 }, Open  ]],
 
@@ -8388,7 +8394,7 @@ coefficients of the different spherical harmonics as shown in Osburn et al. (",
     URL["https://arxiv.org/abs/1409.4419"], None},
   ButtonNote->"https://arxiv.org/abs/1409.4419"],
  "),  (or linear combinations thereof)"
-}], "Item",ExpressionUUID->"b3160014-ca14-4f44-aa12-32e166c31bb7"],
+}], "Item",ExpressionUUID->"5686877f-c453-47b2-b627-662c82410247"],
 
 Cell[CellGroupData[{
 
@@ -8401,7 +8407,7 @@ Cell[BoxData[
      RowBox[{"-", "r"}]}], "]"}], ",", 
    RowBox[{"Ylm", "[", 
     RowBox[{"\[Theta]", ",", "\[Phi]"}], "]"}]}], "]"}]], "Input",
- CellLabel->"In[43]:=",ExpressionUUID->"b1e77285-af51-4eb5-8556-a0640028e00b"],
+ CellLabel->"In[43]:=",ExpressionUUID->"908b52da-8922-4c30-b01f-6b2997fcd685"],
 
 Cell[BoxData[
  RowBox[{
@@ -8499,7 +8505,7 @@ Cell[BoxData[
    RowBox[{
     RowBox[{"2", " ", "M"}], "-", "r"}]]}]], "Output",
  CellLabel->
-  "Out[43]=",ExpressionUUID->"5e05bd73-0a4e-458c-b4bb-f57d936f3719"]
+  "Out[43]=",ExpressionUUID->"f510febc-0397-444c-a061-941a457fa4b4"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -8508,12 +8514,12 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["The Teukolsky equation on Kerr", \
-"Section",ExpressionUUID->"355ea9f0-d33e-4a81-b54b-9839bb0522f3"],
+"Section",ExpressionUUID->"dcb80c8b-90a0-456b-9ca6-ee628346eca3"],
 
 Cell[CellGroupData[{
 
 Cell["Background", \
-"Subsection",ExpressionUUID->"c96783e2-aef7-45b2-9c77-777cd48a467f"],
+"Subsection",ExpressionUUID->"52329abb-3100-4488-afeb-d2cb5c1c6461"],
 
 Cell[TextData[{
  "Following the work of Teukolsky (Astrophysical Journal, Vol. 185, pp. \
@@ -8522,19 +8528,19 @@ Weyl scalars ",
  Cell[BoxData[
   FormBox[
    SubscriptBox["\[Psi]", "0"], TraditionalForm]],ExpressionUUID->
-  "928db914-1e6f-4b33-95e8-7805ce471bf1"],
+  "9dab92d4-2cf9-4c91-9446-52144411e4c3"],
  " and ",
  Cell[BoxData[
   FormBox[
    SubscriptBox["\[Psi]", "4"], TraditionalForm]],ExpressionUUID->
-  "f3f35e93-662c-46cf-8491-ac18ece95dda"],
+  "f7dfee1a-1dad-44c8-8103-03634c8a45af"],
  " "
-}], "Item",ExpressionUUID->"7bf01876-c06f-4e4d-a53e-337e65d3428b"],
+}], "Item",ExpressionUUID->"97915441-22a5-4b44-b032-19bcf41d5a37"],
 
 Cell[CellGroupData[{
 
 Cell["The Weyl scalars are related to the Weyl tensor via", \
-"Item",ExpressionUUID->"8d808ba5-0a4a-46aa-9b00-dff192de43d2"],
+"Item",ExpressionUUID->"416aafd9-af60-4963-936e-7d41cf64893b"],
 
 Cell[BoxData[
  RowBox[{"\t", 
@@ -8560,7 +8566,7 @@ Cell[BoxData[
      SuperscriptBox[
       SuperscriptBox["m", "*"], 
       "\[Delta]"]}]}]}]}]], \
-"DisplayFormula",ExpressionUUID->"0acf8fcd-7e1d-42cb-809b-08eed6697b79"]
+"DisplayFormula",ExpressionUUID->"1f3ef193-52f7-4211-b4f1-739a44489c3a"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -8576,10 +8582,10 @@ Cell[TextData[{
     RowBox[{"and", " ", 
      SuperscriptBox["m", 
       RowBox[{"*", "\[Alpha]"}]]}]}], TraditionalForm]],ExpressionUUID->
-  "98c66788-eb57-4d40-aa6d-17b76feb8451"],
+  "16b12c57-c1c6-43f9-b520-dc9dc142655b"],
  " form a Newman-Penrose tetrad. In this case we use the the Kinnersley null \
 tetrad, which are built in. "
-}], "Item",ExpressionUUID->"22ba1fbc-0027-41ba-ac79-5691e048ae01"],
+}], "Item",ExpressionUUID->"ef00b652-71ea-4266-bb7e-173fd0c1a61b"],
 
 Cell[CellGroupData[{
 
@@ -8588,7 +8594,7 @@ Cell[BoxData[
   RowBox[{"{", 
    RowBox[{"lK", ",", "nK", ",", "mK", ",", "mStarK"}], "}"}], "=", 
   RowBox[{"KinnersleyNullTetrad", "[", "\"\<Kerr\>\"", "]"}]}]], "Input",
- CellLabel->"In[44]:=",ExpressionUUID->"430624c0-86af-4bbb-9bd3-dac082215699"],
+ CellLabel->"In[44]:=",ExpressionUUID->"87ec7a15-757f-49ed-ac3b-21e8c11ba949"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -8607,7 +8613,7 @@ Cell[BoxData[
      SuperscriptBox["m", "*"], "", "\[Alpha]"],
     DisplayForm]}], "}"}]], "Output",
  CellLabel->
-  "Out[44]=",ExpressionUUID->"28cddbe1-140f-4101-b398-0c4894ab484e"]
+  "Out[44]=",ExpressionUUID->"34ec7680-8e20-425a-9369-1c603f97f075"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -8616,7 +8622,7 @@ Cell[BoxData[
  RowBox[{"TensorValues", "/@", 
   RowBox[{"{", 
    RowBox[{"lK", ",", "nK", ",", "mK", ",", "mStarK"}], "}"}]}]], "Input",
- CellLabel->"In[45]:=",ExpressionUUID->"c15b5d6a-e3f7-40d3-a179-10167ceb38f8"],
+ CellLabel->"In[45]:=",ExpressionUUID->"a092d2b3-f252-40ad-a032-4390cc1ca40e"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -8735,7 +8741,7 @@ Cell[BoxData[
            RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}]}]]}]}], "}"}]}], 
   "}"}]], "Output",
  CellLabel->
-  "Out[45]=",ExpressionUUID->"50c96564-71b7-4c4e-a731-017e4195153f"]
+  "Out[45]=",ExpressionUUID->"1f23b0ee-d6a4-4a11-8d72-d100d93ac16c"]
 }, Open  ]]
 }, Open  ]],
 
@@ -8744,7 +8750,7 @@ Cell[CellGroupData[{
 Cell["\<\
 The wave equation can be written in terms of Newman-Penrose derivatives and \
 spin coefficients.\
-\>", "Item",ExpressionUUID->"8c418616-5db9-41ef-bd9e-9985967c293c"],
+\>", "Item",ExpressionUUID->"3778bf9c-32a5-4e3a-8cc2-ea18570e1404"],
 
 Cell[BoxData[
  RowBox[{"\t", 
@@ -8779,7 +8785,7 @@ Cell[BoxData[
    RowBox[{"4", "\[Pi]", " ", 
     SubscriptBox["T", 
      "0"]}]}]}]], \
-"DisplayFormula",ExpressionUUID->"be2b58d1-d8c5-44cb-b4bd-dd85ceb67cc2"],
+"DisplayFormula",ExpressionUUID->"f7baef51-89ca-4a53-a09e-092f28fca48b"],
 
 Cell[BoxData[
  RowBox[{"\t", 
@@ -8814,24 +8820,24 @@ Cell[BoxData[
    RowBox[{"4", "\[Pi]", " ", 
     SubscriptBox["T", 
      "4"]}]}]}]], \
-"DisplayFormula",ExpressionUUID->"8797c16a-73db-41f7-a71e-5b811d6d2837"]
+"DisplayFormula",ExpressionUUID->"3c2d2c66-d25c-41bc-8d1b-e031fbef9944"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["These derivatives and spin coefficients are also built in.", \
-"Item",ExpressionUUID->"1fbde8fd-bd5c-4031-aef1-1bf8272ef5fd"],
+"Item",ExpressionUUID->"005b7d94-a279-4388-8787-be08a7883321"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"SpinCoefficient", "[", "\"\<alpha\>\"", "]"}]], "Input",
- CellLabel->"In[46]:=",ExpressionUUID->"39c91908-3b2d-4c46-81fe-51fbc786729c"],
+ CellLabel->"In[46]:=",ExpressionUUID->"bd85f2c9-2ab8-4209-89c3-14bc33bf2c3f"],
 
 Cell[BoxData[
  RowBox[{"SpinCoefficient", "[", "\<\"alpha\"\>", "]"}]], "Output",
  CellLabel->
-  "Out[46]=",ExpressionUUID->"1dd221f9-f611-434f-b097-fdbed44a17ac"]
+  "Out[46]=",ExpressionUUID->"df345b2d-4fcd-4590-b7d4-569b56efd88a"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -8842,7 +8848,7 @@ Cell[BoxData[
    RowBox[{"\"\<Kerr\>\"", ",", "\"\<D\>\""}], "]"}], "[", 
   RowBox[{"SpinCoefficient", "[", 
    RowBox[{"\"\<Kerr\>\"", ",", "\"\<alpha\>\""}], "]"}], "]"}]], "Input",
- CellLabel->"In[47]:=",ExpressionUUID->"3025fb2a-70cf-4a72-bd85-53202a1acf8c"],
+ CellLabel->"In[47]:=",ExpressionUUID->"4ef20297-022a-4e14-807d-f5f08a07743d"],
 
 Cell[BoxData[
  RowBox[{
@@ -8866,14 +8872,14 @@ Cell[BoxData[
       RowBox[{"\[ImaginaryI]", " ", "a", " ", 
        RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}], "3"]]}]], "Output",
  CellLabel->
-  "Out[47]=",ExpressionUUID->"78fcba8a-6dc2-4c8f-8d09-9bfe698c4f77"]
+  "Out[47]=",ExpressionUUID->"4e0f9bb9-8d98-4f4e-99e7-f6b94b791e56"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["The source terms are", \
-"Item",ExpressionUUID->"6b76bed8-a9aa-4fe2-a422-5b3af7683b5e"],
+"Item",ExpressionUUID->"52291fa9-4080-453a-997b-e9568500d69f"],
 
 Cell[BoxData[
  RowBox[{"\t", 
@@ -8990,7 +8996,7 @@ Cell[BoxData[
            RowBox[{"2", "\[Alpha]"}]}], ")"}], 
          SubscriptBox["T", "nn"]}]}], ")"}]}]}]}]}]}]], "DisplayFormula",
  InitializationCell->
-  True,ExpressionUUID->"cb08a5bb-1048-4ef0-8784-45007d29b2ba"]
+  True,ExpressionUUID->"356c7878-a81d-49a6-bb2e-72c8cc1559e0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -8999,7 +9005,7 @@ Cell["\<\
 The LHS of the wave equation can also be written as a single master equation \
 for gravity, s = \[PlusMinus] 2 as well as EM, s = \[PlusMinus]1, scalar, s = \
 0, and neutrinos s = \[PlusMinus]1/2.\
-\>", "Item",ExpressionUUID->"972206a4-8b0f-4bb8-8da6-a8d262743490"],
+\>", "Item",ExpressionUUID->"81d6ff66-95db-4609-9770-a513be145806"],
 
 Cell[BoxData[
  RowBox[{
@@ -9106,26 +9112,26 @@ Cell[BoxData[
   RowBox[{
   "4", "\[Pi]", " ", "\[CapitalSigma]", " ", 
    "T"}]}]], \
-"DisplayFormula",ExpressionUUID->"9f250eaa-1d94-44fc-8676-494030467359"]
+"DisplayFormula",ExpressionUUID->"dcd8be33-e07a-4c06-b08c-4e1c6190799c"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Wave operator ", \
-"Subsection",ExpressionUUID->"1b74ca70-bd06-40d6-8cdf-4722dc4841e0"],
+"Subsection",ExpressionUUID->"1eb39c33-2676-4c36-87a2-3ee66db842b6"],
 
 Cell[CellGroupData[{
 
 Cell["Functions", \
-"Subsubsection",ExpressionUUID->"04fe3442-5613-46dc-b3fc-e056f8e0914e"],
+"Subsubsection",ExpressionUUID->"88677da7-5f9e-46fa-bc5b-cf3b91221e30"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 We can confirm that these two expressions for the wave operator are \
 consistent.\
-\>", "Item",ExpressionUUID->"0f180a1b-72e4-480e-95a6-66014f24c2fc"],
+\>", "Item",ExpressionUUID->"9e9325b4-4490-4ad0-8177-a014d7a04f86"],
 
 Cell[BoxData[{
  RowBox[{"Clear", "[", "teukEq0NP", "]"}], "\[IndentingNewLine]", 
@@ -9247,7 +9253,7 @@ Cell[BoxData[{
      RowBox[{
       RowBox[{"operator", "[", "\"\<Full\>\"", "]"}], "[", "psi", "]"}]}]}], 
    "\[IndentingNewLine]", "]"}]}]}], "Input",
- CellLabel->"In[48]:=",ExpressionUUID->"ef9c0cfe-17e6-4228-a37f-c2472ade3076"],
+ CellLabel->"In[48]:=",ExpressionUUID->"9182cef5-d61f-4e69-a11a-d198b38eac8f"],
 
 Cell[BoxData[{
  RowBox[{"Clear", "[", "teukEq4NP", "]"}], "\[IndentingNewLine]", 
@@ -9369,7 +9375,7 @@ Cell[BoxData[{
      RowBox[{
       RowBox[{"operator", "[", "\"\<Full\>\"", "]"}], "[", "psi", "]"}]}]}], 
    "\[IndentingNewLine]", "]"}]}]}], "Input",
- CellLabel->"In[50]:=",ExpressionUUID->"8a81d581-fdb6-4769-a40d-684075d28b0f"],
+ CellLabel->"In[50]:=",ExpressionUUID->"f8b2a4c1-4eb7-45fb-b226-09fd36498c3a"],
 
 Cell[BoxData[{
  RowBox[{"Clear", "[", "teukEq", "]"}], "\[IndentingNewLine]", 
@@ -9536,7 +9542,7 @@ Cell[BoxData[{
         RowBox[{"n", ",", "1", ",", "8"}], "}"}]}], "]"}]}]}], 
    "\[IndentingNewLine]", "\[IndentingNewLine]", "]"}]}]}], "Input",
  CellLabel->
-  "In[52]:=",ExpressionUUID->"11c950ca-1f9e-44df-a19a-af748bea4601"]
+  "In[52]:=",ExpressionUUID->"5f0ee78e-2104-40f6-b506-683e366b4c55"]
 }, Open  ]]
 }, Open  ]],
 
@@ -9546,9 +9552,9 @@ Cell[TextData[{
  Cell[BoxData[
   FormBox[
    SubscriptBox["\[Psi]", "0"], TraditionalForm]],ExpressionUUID->
-  "a3777569-c1ff-4a42-96d4-e604c28b8272"],
+  "80318d71-ebd7-4e2a-9726-2192f4472326"],
  " equation"
-}], "Subsubsection",ExpressionUUID->"4816e75b-a5e4-427f-b499-089f42b2c01a"],
+}], "Subsubsection",ExpressionUUID->"63968ef5-7404-44d3-bbcb-992695850a4c"],
 
 Cell[CellGroupData[{
 
@@ -9557,9 +9563,9 @@ Cell[TextData[{
  Cell[BoxData[
   FormBox[
    SubscriptBox["\[Psi]", "0"], TraditionalForm]],ExpressionUUID->
-  "02d31162-fccf-4bfc-8b96-249c2b9eca1b"],
+  "b2a02062-9f9f-4db5-9a96-4c0a6cc1c4e6"],
  " is straightforward"
-}], "Item",ExpressionUUID->"9323e7f7-26ec-433a-a414-a879c72f2fdb"],
+}], "Item",ExpressionUUID->"6715957f-a541-4d85-9dd0-d31fbf029ce8"],
 
 Cell[CellGroupData[{
 
@@ -9577,7 +9583,7 @@ Cell[BoxData[
      RowBox[{"Simplify", "[", 
       RowBox[{"ComplexExpand", "[", "#", "]"}], "]"}], "&"}]}], 
    "]"}]}]], "Input",
- CellLabel->"In[54]:=",ExpressionUUID->"f8053272-b120-48aa-8a80-901737af3d69"],
+ CellLabel->"In[54]:=",ExpressionUUID->"c244082d-c879-45b9-94b4-e25d7545627e"],
 
 Cell[BoxData[
  RowBox[{
@@ -9904,7 +9910,7 @@ Cell[BoxData[
        SuperscriptBox[
         RowBox[{"Cos", "[", "\[Theta]", "]"}], "2"]}]}], ")"}]}]]}]], "Output",
  CellLabel->
-  "Out[54]=",ExpressionUUID->"77c945e2-89ef-4f77-8dbd-bf5f93832dbc"]
+  "Out[54]=",ExpressionUUID->"54624045-3f66-4749-b762-3b60ed72d4bc"]
 }, Open  ]]
 }, Open  ]],
 
@@ -9913,7 +9919,7 @@ Cell[CellGroupData[{
 Cell["\<\
 From the master equation we have (note the 1/2\[CapitalSigma] term from the \
 source)\
-\>", "Item",ExpressionUUID->"43b2e7c7-3695-466d-8453-cd295373bc34"],
+\>", "Item",ExpressionUUID->"e0920a6e-9a53-4efd-a551-911684b5bfba"],
 
 Cell[BoxData[
  RowBox[{
@@ -9924,7 +9930,7 @@ Cell[BoxData[
      SuperscriptBox["a", "2"], 
      SuperscriptBox[
       RowBox[{"Cos", "[", "\[Theta]", "]"}], "2"]}]}]}], ";"}]], "Input",
- CellLabel->"In[55]:=",ExpressionUUID->"4f0789c7-493a-4530-8d86-d0b55356e74b"],
+ CellLabel->"In[55]:=",ExpressionUUID->"80fb1ffb-b698-4e14-968a-4d7c48216c23"],
 
 Cell[CellGroupData[{
 
@@ -9948,7 +9954,7 @@ Cell[BoxData[
      RowBox[{"Simplify", "[", 
       RowBox[{"ComplexExpand", "[", "#", "]"}], "]"}], "&"}]}], 
    "]"}]}]], "Input",
- CellLabel->"In[56]:=",ExpressionUUID->"7baf8ba1-ba67-45ff-9c83-0b92a3842ae5"],
+ CellLabel->"In[56]:=",ExpressionUUID->"4f7ed508-915b-4c75-80c1-eac1b2406453"],
 
 Cell[BoxData[
  RowBox[{
@@ -10262,7 +10268,7 @@ Cell[BoxData[
        SuperscriptBox[
         RowBox[{"Cos", "[", "\[Theta]", "]"}], "2"]}]}], ")"}]}]]}]], "Output",
  CellLabel->
-  "Out[56]=",ExpressionUUID->"c88fa649-f661-43e4-8b2b-093598f361c6"]
+  "Out[56]=",ExpressionUUID->"acc1e054-a91e-4bb8-8a7d-9fe757976fe0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -10270,11 +10276,11 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"psi0Expr1", "-", "psi0Expr2"}], "//", "Simplify"}]], "Input",
- CellLabel->"In[57]:=",ExpressionUUID->"62bf3884-0a1e-4ef7-b0fc-bfe5686600e8"],
+ CellLabel->"In[57]:=",ExpressionUUID->"e56cea8c-7e5a-46ab-8bad-3a9f7e4ff7bd"],
 
 Cell[BoxData["0"], "Output",
  CellLabel->
-  "Out[57]=",ExpressionUUID->"4dba81e3-404d-4602-81a1-a7e7785e0f21"]
+  "Out[57]=",ExpressionUUID->"58ddade0-4f64-4ef9-b0ea-03c68df2d03b"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -10285,9 +10291,9 @@ Cell[TextData[{
  Cell[BoxData[
   FormBox[
    SubscriptBox["\[Psi]", "4"], TraditionalForm]],ExpressionUUID->
-  "a9112c8d-90b9-4498-a167-2e9cd36167c6"],
+  "06b53e8b-3a67-4178-b27c-99902d867115"],
  " equation"
-}], "Subsubsection",ExpressionUUID->"c110c49b-1367-4813-bad3-638a91f6b77a"],
+}], "Subsubsection",ExpressionUUID->"e1ffc54d-67e4-4970-8123-8ba70b5635f8"],
 
 Cell[CellGroupData[{
 
@@ -10296,9 +10302,9 @@ Cell[TextData[{
  Cell[BoxData[
   FormBox[
    SubscriptBox["\[Psi]", "4"], TraditionalForm]],ExpressionUUID->
-  "6292ee77-c327-4b08-ade9-2ea5349474f2"],
+  "9205ac2f-0b17-4d4c-af36-3771a2949ee3"],
  " from the NP quantities is straightforward."
-}], "Item",ExpressionUUID->"cfb0f81e-fb44-4036-baa2-22f877b91d65"],
+}], "Item",ExpressionUUID->"d41f6bca-142f-4c40-abd0-43c893449d76"],
 
 Cell[CellGroupData[{
 
@@ -10316,7 +10322,7 @@ Cell[BoxData[
      RowBox[{"Simplify", "[", 
       RowBox[{"ComplexExpand", "[", "#", "]"}], "]"}], "&"}]}], 
    "]"}]}]], "Input",
- CellLabel->"In[58]:=",ExpressionUUID->"823be119-6cc1-4d6b-b389-77a36a6ecea9"],
+ CellLabel->"In[58]:=",ExpressionUUID->"8078e978-3f6e-487d-b9af-b8a5ce248347"],
 
 Cell[BoxData[
  RowBox[{
@@ -10696,7 +10702,7 @@ Cell[BoxData[
        SuperscriptBox[
         RowBox[{"Cos", "[", "\[Theta]", "]"}], "2"]}]}], ")"}]}]]}]], "Output",
  CellLabel->
-  "Out[58]=",ExpressionUUID->"966c6c59-94cd-4f6a-8ec7-a9c977a725c6"]
+  "Out[58]=",ExpressionUUID->"c7a653a4-50d9-432d-98ef-0bdd5b071d93"]
 }, Open  ]]
 }, Open  ]],
 
@@ -10707,7 +10713,7 @@ Cell[TextData[{
  Cell[BoxData[
   FormBox[
    SubscriptBox["\[Psi]", "4"], TraditionalForm]],ExpressionUUID->
-  "7c8b90e9-6b42-475c-b7c2-3826c63d84ae"],
+  "cd727d38-8abf-447d-8034-abac39214f5b"],
  " are more subtle. The actual variable we must use is ",
  Cell[BoxData[
   FormBox[
@@ -10715,16 +10721,16 @@ Cell[TextData[{
     SuperscriptBox["\[Rho]", 
      RowBox[{"-", "4"}]], 
     SubscriptBox["\[Psi]", "4"]}], TraditionalForm]],ExpressionUUID->
-  "df67bcde-4550-41fd-b60e-550baf500fac"],
+  "6f70328b-f33a-4ced-8e73-e8df49ebdda9"],
  ". Then, there is a ",
  Cell[BoxData[
   FormBox[
    RowBox[{
     RowBox[{
      SuperscriptBox["\[Rho]", "4"], "/", "2"}], "\[CapitalSigma]"}], 
-   TraditionalForm]],ExpressionUUID->"32821ef0-336e-4209-87ff-fe791a6d07b3"],
+   TraditionalForm]],ExpressionUUID->"23034b25-beb3-4505-b7a2-65803f42f673"],
  " counter term."
-}], "Item",ExpressionUUID->"fde5829a-7cf0-4ac7-973f-b64f4d49dbd4"],
+}], "Item",ExpressionUUID->"7afa1d4d-eeb1-469c-875e-5e9035500709"],
 
 Cell[CellGroupData[{
 
@@ -10757,7 +10763,7 @@ Cell[BoxData[
      RowBox[{"Simplify", "[", 
       RowBox[{"ComplexExpand", "[", "#", "]"}], "]"}], "&"}]}], 
    "]"}]}]], "Input",
- CellLabel->"In[59]:=",ExpressionUUID->"044a384e-1035-4b6d-b295-22ef1cb67b4d"],
+ CellLabel->"In[59]:=",ExpressionUUID->"6b4237ef-d408-4f02-ab21-ecf8d53d1d60"],
 
 Cell[BoxData[
  RowBox[{
@@ -11143,7 +11149,7 @@ Cell[BoxData[
        SuperscriptBox[
         RowBox[{"Cos", "[", "\[Theta]", "]"}], "2"]}]}], ")"}]}]]}]], "Output",
  CellLabel->
-  "Out[59]=",ExpressionUUID->"428e56a8-7583-4874-909a-1f415a950582"]
+  "Out[59]=",ExpressionUUID->"6914f1af-f5d1-4228-97bc-3ea366d1533c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -11151,11 +11157,11 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"psi4Expr1", "-", "psi4Expr2"}], "//", "Simplify"}]], "Input",
- CellLabel->"In[60]:=",ExpressionUUID->"e294b68b-7206-41d8-b151-74857b73c0e7"],
+ CellLabel->"In[60]:=",ExpressionUUID->"20e7aaaa-de42-4919-8639-ff017c103f44"],
 
 Cell[BoxData["0"], "Output",
  CellLabel->
-  "Out[60]=",ExpressionUUID->"27b046a9-eb97-474f-aacc-b992af0952de"]
+  "Out[60]=",ExpressionUUID->"3bd6816f-637d-485e-a6fc-92cda6dc62a0"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -11201,44 +11207,44 @@ Cell["", "RelatedTutorialsSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"4423cafa-6741-423d-b632-d8da48b63b9e"],
+  0,ExpressionUUID->"036c91d8-3b3d-44a4-aec1-8a6b9b234880"],
 
 Cell[TextData[ButtonBox["Introduction to GeneralRelativityTensors",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Introduction to \
 GeneralRelativityTensors"]], \
-"RelatedTutorials",ExpressionUUID->"b454b913-c1d9-495e-8614-46388d2ba04f"],
+"RelatedTutorials",ExpressionUUID->"a472aa23-9a99-46cf-a8ef-3afc1c205477"],
 
 Cell[TextData[ButtonBox["Introduction to Tensor Curves",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Introduction to Tensor Curves"]], \
-"RelatedTutorials",ExpressionUUID->"148c1121-6127-4868-bc3e-78352a1f9324"],
+"RelatedTutorials",ExpressionUUID->"cc3ce98a-23cd-444c-8684-ee82d827e4ee"],
 
 Cell[TextData[ButtonBox["Manipulating and differentiating Tensors",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Manipulating and differentiating \
 Tensors"]], \
-"RelatedTutorials",ExpressionUUID->"9ac700c1-2974-464f-b4d2-e35dd00cf891"],
+"RelatedTutorials",ExpressionUUID->"e23df677-3869-4e09-b01a-6007b8ba6cf0"],
 
 Cell[TextData[ButtonBox["Built in common Tensors",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Built in common Tensors"]], \
-"RelatedTutorials",ExpressionUUID->"6e0a886a-4776-4cf8-ae6d-258989b77e25"],
+"RelatedTutorials",ExpressionUUID->"1ed6fb81-d77a-4a92-b1af-9dae4fc615db"],
 
 Cell[TextData[ButtonBox["Caching Tensor values",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Caching Tensor values"]], \
-"RelatedTutorials",ExpressionUUID->"107b8232-c5fb-432b-9466-7bf4282b69de"]
+"RelatedTutorials",ExpressionUUID->"50683c12-9f7c-40ce-946a-f3771e5aa6b0"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[" ", \
-"FooterCell",ExpressionUUID->"fd894248-8221-4017-a33f-77a603e05a6d"]
+"FooterCell",ExpressionUUID->"69c897e4-af67-45f1-8edc-a0dd0309858d"]
 },
 Saveable->False,
 ScreenStyleEnvironment->"Working",

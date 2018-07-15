@@ -1,12 +1,8 @@
 {
   "More Information" -> {
-      "By default the RawTensorValues of a Tensor on a curve are not evaluated on that curve internally. \
-Thus, derivatives can still be taken with respect to coordinates.",
-      "When TensorValues is called on a Tensor on a curve the internal RawTensorValues are evaluated \
-along the curve.",
-      "When setting the Option \"ParametrizedValues\" -> True ToTensorOnCurve expects vals to be \
-given as parametrized values of the CurveParameter of c."
-
+      "ToTensorOnCurve always returns a Tensor with internal values evaluated on the curve. \
+Thus, derivatives cannot be taken with respect to coordinates.",
+"For Tensors on Curves, TensorValues and RawTensorValues return the same values."
   },
 
   "Basic Examples" -> {
@@ -14,12 +10,15 @@ given as parametrized values of the CurveParameter of c."
     "c1 = ToCurve[\"x1\", gK, {t[\[Chi]], (p M)/(1 + e Cos[\[Chi]]), \[Pi]/2, \[Phi][\[Chi]]}, \[Chi]]",
     "gKC = ToTensorOnCurve[gK, c1]",
     "RawTensorValues[gKC]",
-    "vals = TensorValues[gKC]",
-    "gKC2 = ToTensorOnCurve[\"gCurve\", c1, vals, {-\[Alpha], -\[Beta]}, \"ParametrizedValues\" -> True]",
-    "RawTensorValues[gKC2]"
+    "TensorValues[gKC]"
     },
 
     "See Also" ->
-    {"ToMetric","ToTensor","TensorValues","RawTensorValues","ToCurve","Curve","CurveQ","OnCurveQ","ParametrizedValuesQ"}
+    {"ToTensorFieldOnCurve","TensorValues","RawTensorValues","ToCurve","Curve","CurveQ","OnCurveQ"},
+
+    "Tutorials" -> {
+      "Introduction to Tensor Curves",
+      "Built in common Tensors"
+      }
 
 }

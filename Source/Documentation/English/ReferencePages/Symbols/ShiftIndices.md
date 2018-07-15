@@ -15,6 +15,11 @@ call ShiftIndices explicitly, not with DownValues."
     },
 
     "See Also" ->
-    {"Component","TensorValues"}
+    {"Component","TensorValues"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Manipulating and differentiating Tensors"
+    }
 
 }

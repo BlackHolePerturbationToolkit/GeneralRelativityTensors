@@ -12,6 +12,11 @@
     },
 
     "See Also" ->
-    {"MergeTensors","ContractIndices","MultiplyTensors","AddTensors"}
+    {"MergeTensors","ContractIndices","MultiplyTensors","AddTensors"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Manipulating and differentiating Tensors"
+    }
 
 }

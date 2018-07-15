@@ -12,6 +12,11 @@ which calls InverseMetric internally."
     },
 
     "See Also" ->
-    {"ToMetric","Metric","MetricQ"}
+    {"ToMetric","Metric","MetricQ"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Manipulating and differentiating Tensors"
+    }
 
 }

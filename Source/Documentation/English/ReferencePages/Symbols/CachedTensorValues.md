@@ -18,6 +18,11 @@ using TensorName and IndexPositions as Keys.",
     },
 
     "See Also" ->
-    {"TensorValues","RawTensorValues","$CacheTensorValues","ClearCachedTensorValues"}
+    {"TensorValues","RawTensorValues","$CacheTensorValues","ClearCachedTensorValues"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Caching Tensor values"
+    }
 
 }

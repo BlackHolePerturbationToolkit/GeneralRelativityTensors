@@ -12,6 +12,11 @@ while the second is the \"TensorDisplayName\" which is used for formatted output
     },
 
     "See Also" ->
-    {"ToMetric","ToCurve","ToTensorOnCurve","TensorValues"}
+    {"ToMetric","ToCurve","ToTensorOnCurve","TensorValues"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Built in common Tensors"
+    }
 
 }

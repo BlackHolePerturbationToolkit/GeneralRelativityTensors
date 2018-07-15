@@ -13,6 +13,11 @@
     },
 
     "See Also" ->
-    {"CovariantD"}
+    {"CovariantD"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Built in common Tensors"
+    }
 
 }

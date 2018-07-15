@@ -9,6 +9,11 @@
     },
 
     "See Also" ->
-    {"ChristoffelSymbol","RiemannTensor","RicciScalar","EinsteinTensor","WeylTensor"}
+    {"ChristoffelSymbol","RiemannTensor","RicciScalar","EinsteinTensor","WeylTensor"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Built in common Tensors"
+    }
 
 }

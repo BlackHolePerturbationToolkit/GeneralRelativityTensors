@@ -15,6 +15,13 @@
     },
 
     "See Also" ->
-    {"BianchiIdentities","TensorValues","FourVelocityVector"}
+    {"BianchiIdentities","TensorValues","FourVelocityVector"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Introduction to Tensor Curves",
+      "Manipulating and differentiating Tensors",
+      "Built in common Tensors"
+    }
 
 }

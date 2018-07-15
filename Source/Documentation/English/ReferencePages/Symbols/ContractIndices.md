@@ -11,6 +11,11 @@
     },
 
     "See Also" ->
-    {"MergeTensors","MultiplyTensors","MultiplyTensorScalar","AddTensors"}
+    {"MergeTensors","MultiplyTensors","MultiplyTensorScalar","AddTensors"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Manipulating and differentiating Tensors"
+    }
 
 }

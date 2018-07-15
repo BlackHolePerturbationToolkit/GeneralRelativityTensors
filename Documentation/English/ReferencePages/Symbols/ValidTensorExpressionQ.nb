@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"44acc6d2-a04e-4eee-92b4-50b220c22bd2"],
+   0}},ExpressionUUID->"3f9ca718-e974-46c1-9e47-42c87b090019"],
 
 Cell[TextData[{
  ButtonBox["GeneralRelativityTensors",
@@ -18,12 +18,31 @@ TensorDefinitions"],
  ButtonBox["ValidTensorExpressionQ",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:GeneralRelativityTensors/ref/ValidTensorExpressionQ"]
-}], "LinkTrail",ExpressionUUID->"3071765e-dc3f-4ee2-a9be-b8ee549bb139"],
+}], "LinkTrail",ExpressionUUID->"e6e4b72d-2525-4190-93bd-187fb03a7eb1"],
 
 Cell[BoxData[GridBox[{
    {Cell["GENERALRELATIVITYTENSORS`TENSORDEFINITIONS PACLET SYMBOL", 
-     "PacletNameCell",ExpressionUUID->"31a74711-8da5-490a-b9d5-c2228eb9f66f"],
+     "PacletNameCell",ExpressionUUID->"f5bd4228-2fc5-4a76-8e08-fca003d49d62"],
      Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
+        StripOnInput->False], {
+       RowBox[{"Introduction", " ", "to", " ", "GeneralRelativityTensors"}]:>
+       Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/tutorial/Introduction to \
+GeneralRelativityTensors"], 
+       RowBox[{
+       "Manipulating", " ", "and", " ", "differentiating", " ", "Tensors"}]:>
+       Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/tutorial/Manipulating and \
+differentiating Tensors"]},
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "3e2fa4c5-36bc-4635-929e-5bba826792ec"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
@@ -33,16 +52,16 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "71ecf623-1103-4556-afa5-ee7afc0af9fe"],
+      "d017bfe1-f761-420d-8b82-eb637f50d4f1"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"726ad25b-812f-4634-a9fb-f4351c9d0dc2"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"78b02f4c-b0ea-4f1b-afe9-c103fe3b6250"],
+    }], "AnchorBar",ExpressionUUID->"3bde0ef2-dbab-4e49-817e-f6c4be700a6b"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"625b18eb-88ba-4eb3-8145-6a5d31c7d1bc"],
 
 Cell[CellGroupData[{
 
 Cell["ValidTensorExpressionQ", \
-"ObjectName",ExpressionUUID->"7ed4642d-4c70-4d9d-ba5e-a5fd76fbb74f"],
+"ObjectName",ExpressionUUID->"9f124c1b-7f1c-4b4e-8cdf-1ff9eeb2df09"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -53,11 +72,11 @@ Cell[BoxData[GridBox[{
         ButtonData->
          "paclet:GeneralRelativityTensors/ref/ValidTensorExpressionQ"], "[", 
        StyleBox["expr", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "baaffb37-a7b2-4855-99d4-82c155664569"],
+      "7058063e-24cb-4b49-a445-66796dcbcda4"],
      "\[LineSeparator]tests whether a Tensor expression is valid are returns \
 True if it is and False otherwise."
-    }],ExpressionUUID->"cf9994d1-e038-43ea-bb59-71ca4b72a05e"]}
-  }]], "Usage",ExpressionUUID->"5b509acd-3f79-43e5-91cc-b650fa1e774c"]
+    }],ExpressionUUID->"d4b7de48-2d0b-48ec-b1c4-1dbf5c471065"]}
+  }]], "Usage",ExpressionUUID->"8f5f846a-b604-43e5-8e5d-cbc1a2254b78"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -103,17 +122,17 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"4f355490-e5ef-4024-8c59-cd0531fc3a82"],
+  0,ExpressionUUID->"3ee84029-5691-4e69-a55c-7d98bae6b2fe"],
 
 Cell["\<\
 ValidTensorExpressionQ only returns True/False. It does not explain what is \
 wrong with the expression.\
-\>", "Notes",ExpressionUUID->"a1364808-3e2b-4923-a4be-f94e9d102853"],
+\>", "Notes",ExpressionUUID->"c7c98d6d-0d4a-46ff-8151-7455a88451b0"],
 
 Cell["\<\
 ValidateTensorExpression is like ValidTensorExpressionQ, but will give error \
 messages and Abort.\
-\>", "Notes",ExpressionUUID->"46c9b183-d9f2-4478-be31-46941acef055"]
+\>", "Notes",ExpressionUUID->"71ed6a9b-fb93-4380-8467-c2145461be51"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -155,8 +174,8 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"261ca7f4-0ba3-4818-b461-\
-5652d91d980f"],
+  "PrimaryExamplesSection",ExpressionUUID->"0318b947-3312-4a74-a3b4-\
+b47339ee47bb"],
 
 Cell[CellGroupData[{
 
@@ -164,73 +183,73 @@ Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(6)", "ExampleCount",ExpressionUUID->
-  "d639517e-43d1-42dd-99ed-dc0ba90d6485"]
-}], "ExampleSection",ExpressionUUID->"70ac39c8-0730-4990-bdca-4ccc31952cf0"],
+  "a3340dc9-fb19-49eb-b76f-14bed4440d43"]
+}], "ExampleSection",ExpressionUUID->"671a8439-b778-48bc-9c6b-a69dd3c1be0f"],
 
 Cell[CellGroupData[{
 
 Cell["gS = ToMetric[\"Schwarzschild\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"a125af56-48b1-46c7-b8ba-4279866ec892"],
+ CellLabel->"In[1]:=",ExpressionUUID->"b4070c1e-de58-4201-b549-c9caed4406b0"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"45cdc4d8-3d1b-4297-80b7-d61da17ee5b9"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"4b67d4be-fe24-4682-a0e6-24bde6d05e4f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["ricS = RicciTensor[gS]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"75b9ff17-9ee1-41a4-b045-ed14d4c7473d"],
+ CellLabel->"In[1]:=",ExpressionUUID->"f03ddfd7-b83b-4ea7-830f-362d6b213cb5"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["R", "\[Beta]\[Gamma]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"b8b07ba7-25b0-4043-8bd0-1466a9df97f4"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"20c3cbb9-e6bf-408d-b5bb-7c6684a83b08"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["ValidTensorExpressionQ[gS[-\[Alpha],-\[Beta]]+ricS[-\[Alpha],-\[Beta]]]\
 ", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"788310b3-a5b9-401e-a1d8-44b926271b23"],
+ CellLabel->"In[1]:=",ExpressionUUID->"186acb75-3e21-4d64-b02a-a38d7b4ebb97"],
 
 Cell[BoxData["True"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"068a2343-4e02-4f12-9ed9-9dc3a8ef8ff1"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"d7d9cb38-896e-4a2d-88a1-83bb79dd4620"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["ValidTensorExpressionQ[gS[-\[Alpha],-\[Beta]]ricS[-\[Alpha],-\[Beta]]]",\
  "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"d8fdce4e-f37c-45d8-86b5-0b7d97adf260"],
+ CellLabel->"In[1]:=",ExpressionUUID->"efbb74c0-2bac-46a6-82e4-36087c6a96f4"],
 
 Cell[BoxData["False"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"b30e8600-fe83-4672-bd71-d12ad34f7b4f"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"a08b0508-869a-464d-a88b-004554707d0c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["gRN = ToMetric[\"ReissnerNordstrom\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"3a966e0b-f6cf-42f8-b6ad-74e6600a7e1c"],
+ CellLabel->"In[1]:=",ExpressionUUID->"cbe36016-9c92-4c26-a638-6d78e656b2af"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"91ec6c5c-1aa0-483b-a958-15f079d890ea"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"f1f0cf92-c839-4a42-852e-3b6f30f0e24b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["ValidTensorExpressionQ[gS[-\[Alpha],-\[Beta]]+gRN[-\[Alpha],-\[Beta]]]",\
  "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"e6494116-66b0-4847-bf58-27ceb3066fe5"],
+ CellLabel->"In[1]:=",ExpressionUUID->"bacd04ab-f55e-4871-9611-c506791de519"],
 
 Cell[BoxData["False"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"b37344fc-eef8-403f-8a00-09936c111c63"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"aba84d02-04f2-4381-9130-8d1d97c719c4"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -272,7 +291,7 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"63f5690f-3e5a-43a8-80ae-6612770b25d1"],
+  0,ExpressionUUID->"4c60d67c-33f0-4b8e-94cd-43f492da1b5c"],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -282,19 +301,74 @@ Cell[TextData[{
     ButtonData->
      "paclet:GeneralRelativityTensors/ref/ValidateTensorExpression"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "97dc8d44-bf75-4d6f-91ee-5950d9a27793"],
+  "16ab81bc-ad46-4bad-aff1-02f1efe4e7cd"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
  " "
-}], "SeeAlso",ExpressionUUID->"79cecd09-2978-4e23-b823-11158e4ea212"]
+}], "SeeAlso",ExpressionUUID->"ce86a1e5-6fd7-4841-aec6-a99376194a95"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"a7558931-78d1-4168-8a7a-f7f8ffd6041a"],
+Cell["", "TutorialsSection",
+ WholeCellGroupOpener->True,
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "TUTORIALS", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "TutorialsSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Tutorials"}], 
+        "TutorialsSection"], BaseStyle -> None, 
+       Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+       "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"530a92ea-cdfd-4689-b110-aa64ad512dac"],
 
-Cell[BoxData[""],ExpressionUUID->"eb7e8025-c78b-4c67-be6a-6b1927994a41"]
+Cell[TextData[ButtonBox["Introduction to GeneralRelativityTensors",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:GeneralRelativityTensors/tutorial/Introduction to \
+GeneralRelativityTensors"]], \
+"Tutorials",ExpressionUUID->"a892edc9-56ac-4698-b9a9-84bf93d98d1a"],
+
+Cell[TextData[ButtonBox["Manipulating and differentiating Tensors",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:GeneralRelativityTensors/tutorial/Manipulating and differentiating \
+Tensors"]], "Tutorials",ExpressionUUID->"674b538e-c496-46c1-b882-0b9a43b8ab0b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"cacb2f96-a558-4ab2-a769-f4bee8b8db99"],
+
+Cell[BoxData[""],ExpressionUUID->"d8f047ae-b70f-4896-bc60-e0b7eb046500"]
 }, Open  ]]
 },
 Saveable->False,

@@ -9,12 +9,16 @@ ReorderTensorIndices on individual terms."
     "rieS = RiemannTensor[gS, \"ActWith\" -> Simplify]",
     "rieSSwap = ReorderTensorIndices[rieS[-\[Alpha], -\[Beta], -\[Gamma], -\[Delta]], {3, 4, 1, 2}]",
     "TensorValues[rieSSwap] - TensorValues@rieS[-\[Alpha], -\[Beta], -\[Gamma], -\[Delta]] // Simplify",
-    "(* This is simpler with MergeTensors *)",
     "MergeTensors[rieS[-\[Alpha], -\[Beta], -\[Gamma], -\[Delta]] -
    rieS[-\[Gamma], -\[Delta], -\[Alpha], -\[Beta]], \"ActWith\" -> Simplify] // TensorValues"
     },
 
     "See Also" ->
-    {"MergeTensors","ContractIndices","ShiftIndices"}
+    {"MergeTensors","ContractIndices","ShiftIndices"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Manipulating and differentiating Tensors"
+    }
 
 }

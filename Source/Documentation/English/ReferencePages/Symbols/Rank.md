@@ -9,6 +9,10 @@
     },
 
     "See Also" ->
-    {"Indices","IndexPositions"}
+    {"Indices","IndexPositions"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors"
+    }
 
 }

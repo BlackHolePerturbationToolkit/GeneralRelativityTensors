@@ -17,6 +17,11 @@ the TensorName will be used for the TensorDisplayName also."
     },
 
     "See Also" ->
-    {"TensorDisplayName"}
+    {"TensorDisplayName"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Caching Tensor values"
+    }
 
 }

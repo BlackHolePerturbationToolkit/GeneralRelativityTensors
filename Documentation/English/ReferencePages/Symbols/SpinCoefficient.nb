@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"8dd1186a-2fca-4fff-83b8-a1b2daf7adbe"],
+   0}},ExpressionUUID->"d1290eb1-eab3-4d58-bf73-a6bf1395d226"],
 
 Cell[TextData[{
  ButtonBox["GeneralRelativityTensors",
@@ -18,12 +18,29 @@ CommonTensors"],
  ButtonBox["SpinCoefficient",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:GeneralRelativityTensors/ref/SpinCoefficient"]
-}], "LinkTrail",ExpressionUUID->"15338602-0db3-45a2-b655-4580ce2a2a7d"],
+}], "LinkTrail",ExpressionUUID->"be9f8b3f-0676-4bbf-a3c0-9f5adf4f1ccb"],
 
 Cell[BoxData[GridBox[{
    {Cell["GENERALRELATIVITYTENSORS`COMMONTENSORS PACLET SYMBOL", 
-     "PacletNameCell",ExpressionUUID->"0aac0299-b66f-486b-a23e-14d61a536f99"],
+     "PacletNameCell",ExpressionUUID->"180efcfb-271a-4ecb-8e49-1f04b32869f8"],
      Cell[TextData[{
+     Cell[BoxData[
+      ActionMenuBox[
+       FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
+        StripOnInput->False], {
+       RowBox[{"Built", " ", "in", " ", "common", " ", "Tensors"}]:>
+       Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/tutorial/Built in common Tensors"], 
+       RowBox[{"Examples", " ", "-", " ", 
+        RowBox[{"Wave", " ", "equations"}]}]:>Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/tutorial/Examples - Wave equations"]},
+       
+       Appearance->None,
+       MenuAppearance->Automatic]],
+      LineSpacing->{1.4, 0},ExpressionUUID->
+      "bc9eb68c-5e73-4dab-933a-07c341282f75"],
+     "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
+\[ThickSpace]",
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
@@ -37,16 +54,16 @@ Cell[BoxData[GridBox[{
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "9de8854f-6684-4081-b598-d645725d7c08"],
+      "c5c7a134-83c1-4281-bcf5-af22f38c8390"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"bcc2fd39-ffe1-4d81-b402-48db081a262f"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"d60f40a0-f38d-456a-816b-eb074b2b378f"],
+    }], "AnchorBar",ExpressionUUID->"f211b7af-345d-42fa-ae8d-5bfeaf8fa479"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"ccea7ed0-c0ed-48a9-a91d-0877bb30d895"],
 
 Cell[CellGroupData[{
 
 Cell["SpinCoefficient", \
-"ObjectName",ExpressionUUID->"c0cd0142-947d-4ee3-b9dd-aec455f807d6"],
+"ObjectName",ExpressionUUID->"1b3139fb-0c68-4ffb-8c8c-c0f4892342e9"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -58,12 +75,12 @@ Cell[BoxData[GridBox[{
        "[", 
        StyleBox[
         RowBox[{"m", ",", "s", ",", "conj"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"fecbf67e-9228-482a-9efb-f9f24aac5a42"],
+      ExpressionUUID->"e713be6b-6eb5-48a7-ace6-4a572532554d"],
      "\[LineSeparator]returns the Newman-Penrose spin coefficient \
 corresponding to the string s (such as \"alpha\") on the metric m. The \
 boolean conj can be set True to return the complex conjugate of the \
 coefficient."
-    }],ExpressionUUID->"d72043e9-645d-48ce-ac8a-b20f71253afc"]},
+    }],ExpressionUUID->"14bbfebe-2404-45af-b82d-c1b6afefb1dd"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -73,9 +90,9 @@ coefficient."
        "[", 
        StyleBox[
         RowBox[{"m", ",", "s"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"e5d1f113-4e84-4fce-85eb-ab1a64b963ab"],
+      ExpressionUUID->"d8df68c3-7342-4069-bed5-8bee5618e7a3"],
      "\[LineSeparator]is equivalent to SpinCoefficient[m,s,False],"
-    }],ExpressionUUID->"b0f57658-0e92-4002-abe7-dd52b029d012"]},
+    }],ExpressionUUID->"0a032fb8-b256-45ce-be62-8e161386a3f2"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -85,13 +102,13 @@ coefficient."
        "[", 
        StyleBox[
         RowBox[{"builtIn", ",", "s", ",", "conj"}], "TI"], "]"}]], 
-      "InlineFormula",ExpressionUUID->"571350c3-c3ef-4976-9db0-666be78673cb"],
+      "InlineFormula",ExpressionUUID->"e386ffeb-0d09-4d31-a2e0-80dc2b2b4aeb"],
      
      "\[LineSeparator]is equivalent to \
 SpinCoefficient[ToMetric[builtIn],s,conj], where builtIn can be \
 \"Schwarzschild\" or \"Kerr\"."
-    }],ExpressionUUID->"36d7f9a0-2f49-4c6e-8b8e-9c60e83f7ce8"]}
-  }]], "Usage",ExpressionUUID->"ecff53b6-c9c5-4f05-9615-e147f0be2476"]
+    }],ExpressionUUID->"12f2f226-e160-4fd6-ab67-5b78738a3e9f"]}
+  }]], "Usage",ExpressionUUID->"b793ce5f-8ad5-48cb-a36c-0847009d60d4"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -137,17 +154,17 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"b6f87153-e6b9-4320-8576-41ca87baf426"],
+  0,ExpressionUUID->"104682be-de1b-4972-990a-9c769bf416dd"],
 
 Cell["\<\
 These definitions follow Teukolsky, Astrophysical Journal, Vol. 185, pp. \
 635-648 (1973).\
-\>", "Notes",ExpressionUUID->"fd22c881-bf3f-44d6-9b70-ac1cf5495e77"],
+\>", "Notes",ExpressionUUID->"3c3359d6-7f61-4b76-993e-aac4b29df8e4"],
 
 Cell["\<\
 Possible values of s are \"alpha\", \"beta\", \"gamma\", \"epsilon\", \"kappa\
 \", \"lambda\", \"mu\", \"nu\", \"pi\", \"rho\", \"sigma\", and \"tau\".\
-\>", "Notes",ExpressionUUID->"bbfb1e4d-4483-4dd3-a184-36e46ee7273c"]
+\>", "Notes",ExpressionUUID->"4a21f6e3-de6a-4f6d-bb0f-cae3cddcb64f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -189,8 +206,8 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"c45ea2cf-1360-420e-a32c-\
-421fbce5ab23"],
+  "PrimaryExamplesSection",ExpressionUUID->"c505d24d-9ea5-4e3e-b37a-\
+edf19b56d7f7"],
 
 Cell[CellGroupData[{
 
@@ -198,13 +215,13 @@ Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(2)", "ExampleCount",ExpressionUUID->
-  "92f43672-0dce-4911-b342-cff701ca879e"]
-}], "ExampleSection",ExpressionUUID->"9e27e598-cbfe-4035-9b73-8c7f08aab540"],
+  "066ef2a6-0211-4ad6-a8de-6478c14e5b08"]
+}], "ExampleSection",ExpressionUUID->"e268f6ae-f493-4fe0-8d53-962b372f7fe2"],
 
 Cell[CellGroupData[{
 
 Cell["SpinCoefficient[\"Kerr\", \"alpha\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"aeeb3bb8-aaa7-4641-8757-9e916845a66c"],
+ CellLabel->"In[1]:=",ExpressionUUID->"e30d26e1-3f5c-42a7-b576-02c13112ddaf"],
 
 Cell[BoxData[
  RowBox[{
@@ -228,13 +245,13 @@ Cell[BoxData[
       RowBox[{"r", "-", 
        RowBox[{"\[ImaginaryI]", " ", "a", " ", 
         RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}], "2"]}]]}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"55e05a18-18a1-4b6e-bb59-1ec45794fc48"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"5fe35d9d-6b55-44d5-b866-a32b72cd4f29"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["SpinCoefficient[\"Kerr\", \"alpha\", True]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"7e4707ed-5634-4c39-beaf-dd101150ac45"],
+ CellLabel->"In[1]:=",ExpressionUUID->"fb3e09b3-8e40-4510-9498-3a042896110b"],
 
 Cell[BoxData[
  FractionBox[
@@ -256,7 +273,7 @@ Cell[BoxData[
      RowBox[{"r", "+", 
       RowBox[{"\[ImaginaryI]", " ", "a", " ", 
        RowBox[{"Cos", "[", "\[Theta]", "]"}]}]}], ")"}], "2"]}]]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"6b8e9d46-7a2e-4ddd-832e-aaf5644dcad4"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"6a337f83-b8b8-439e-8479-4693e1a9a88e"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -298,7 +315,7 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"e69a3e0b-e486-4987-93d7-b5b3e72f0ab0"],
+  0,ExpressionUUID->"61b35cfb-d609-4118-8b0f-f7d8d0d0a570"],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -307,7 +324,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:GeneralRelativityTensors/ref/KinnersleyNullVector"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "3062614d-10d0-4027-8939-16380085145c"],
+  "13acc105-91b0-44d9-8bbe-bd02bc625d1a"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -318,7 +335,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:GeneralRelativityTensors/ref/KinnersleyNullTetrad"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "56c8f15d-2510-405e-9a82-5fe81c1e51d1"],
+  "a4bc3aa8-fb00-416c-8984-6b6561b139c0"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -329,15 +346,69 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:GeneralRelativityTensors/ref/KinnersleyDerivative"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "2e118b2f-5eba-4312-8781-908a4d247f4e"]
-}], "SeeAlso",ExpressionUUID->"6165d957-0d47-4b04-8923-0a9101ecf6c9"]
+  "4999729c-4651-49a6-ba79-249b5ae95cbc"]
+}], "SeeAlso",ExpressionUUID->"ebfbcb7c-ac0c-4c87-bf00-aa044cfcb0f3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"f1ab3880-b54e-413b-8903-e95fadb5079e"],
+Cell["", "TutorialsSection",
+ WholeCellGroupOpener->True,
+ CellFrameLabels->{{
+    FEPrivate`If[
+     FEPrivate`Or[
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "6.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "7.0"], 
+      FEPrivate`SameQ[FEPrivate`$ProductVersion, "8.0"]], 
+     Cell[
+      TextData[
+       ButtonBox[
+       "TUTORIALS", BaseStyle -> None, Appearance -> {Automatic, None}, 
+        Evaluator -> None, Method -> "Preemptive", 
+        ButtonFunction :> (FrontEndExecute[{
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], All, ButtonCell], 
+           FrontEndToken["OpenCloseGroup"], 
+           FrontEnd`SelectionMove[
+            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]], 
+      "TutorialsSection"], 
+     TextData[
+      ButtonBox[
+       Cell[
+        TextData[{
+          Cell[
+           BoxData[
+            TemplateBox[{24}, "Spacer1"]]], "Tutorials"}], 
+        "TutorialsSection"], BaseStyle -> None, 
+       Appearance -> {Automatic, None}, Evaluator -> None, Method -> 
+       "Preemptive", ButtonFunction :> (FrontEndExecute[{
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], All, ButtonCell], 
+          FrontEndToken["OpenCloseGroup"], 
+          FrontEnd`SelectionMove[
+           FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
+   None, None}},
+ CellFrameLabelMargins->
+  0,ExpressionUUID->"569b1544-e273-4524-a485-812dd7f946ff"],
 
-Cell[BoxData[""],ExpressionUUID->"0c54b9c1-dd21-4fef-973b-678a366a5f77"]
+Cell[TextData[ButtonBox["Built in common Tensors",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:GeneralRelativityTensors/tutorial/Built in common Tensors"]], \
+"Tutorials",ExpressionUUID->"5fe2b062-3b05-496a-a2f5-07c9a2ebc87b"],
+
+Cell[TextData[ButtonBox["Examples - Wave equations",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:GeneralRelativityTensors/tutorial/Examples - Wave equations"]], \
+"Tutorials",ExpressionUUID->"4cf7408f-7776-4341-9b25-980887deb3ae"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[" ", "FooterCell",ExpressionUUID->"5e8842c5-c96e-483e-a707-21ecef11a783"],
+
+Cell[BoxData[""],ExpressionUUID->"4ba32712-459a-41c4-add0-90c377991f1f"]
 }, Open  ]]
 },
 Saveable->False,

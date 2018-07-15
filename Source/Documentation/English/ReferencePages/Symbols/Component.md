@@ -10,12 +10,16 @@ call Component explicitly, not with DownValues."
     "gK = ToMetric[\"Kerr\"]",
     "Component[gK, {t, t}]",
     "gK[t, t]",
-    "(* By default the values computed by Component are not simplified. *)",
     "gK[t, -t]",
     "Component[gK, {t, -t}, \"ActWith\" -> Simplify]"
     },
 
     "See Also" ->
-    {"ShiftIndices","TensorValues"}
+    {"ShiftIndices","TensorValues"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Manipulating and differentiating Tensors"
+    }
 
 }
