@@ -5,8 +5,8 @@
   "Basic Examples" -> {
     "gS = ToMetric[\"Schwarzschild\"]",
     "IndexPositions[gS]",
-    "rieS = RiemannTensor[gS]",
-    "IndexPositions[rieS]"
+    "chrS = ChristoffelSymbol[gS]",
+    "IndexPositions[chrS]"
     },
 
     "See Also" ->

@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"6b832eb2-c828-4eb3-a07a-a52a8c9691b7"],
+   0}},ExpressionUUID->"2bcc3678-f058-423e-ad1f-5d64f040e99e"],
 
 Cell[TextData[{
  ButtonBox["GeneralRelativityTensors",
@@ -18,11 +18,11 @@ TensorManipulation"],
  ButtonBox["MergeTensors",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:GeneralRelativityTensors/ref/MergeTensors"]
-}], "LinkTrail",ExpressionUUID->"a344786e-941e-444c-be00-8fe7b42dddd9"],
+}], "LinkTrail",ExpressionUUID->"ee200807-ab82-440a-9d3b-53b828130666"],
 
 Cell[BoxData[GridBox[{
    {Cell["GENERALRELATIVITYTENSORS`TENSORMANIPULATION PACLET SYMBOL", 
-     "PacletNameCell",ExpressionUUID->"a1509ed4-e844-42c4-8d7a-5c3e37f565f1"],
+     "PacletNameCell",ExpressionUUID->"bc890a87-d8f6-474b-862d-9b239cecb6b2"],
      Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
@@ -33,21 +33,21 @@ Cell[BoxData[GridBox[{
        "paclet:GeneralRelativityTensors/ref/MultiplyTensors"], 
        "MultiplyTensorScalar":>Documentation`HelpLookup[
        "paclet:GeneralRelativityTensors/ref/MultiplyTensorScalar"], 
-       "SumTensors":>Documentation`HelpLookup[
-       "paclet:GeneralRelativityTensors/ref/SumTensors"]},
+       "AddTensors":>Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/AddTensors"]},
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "3955c7ed-f36c-4eb2-b836-7c52d9bda742"],
+      "75d27965-3374-43b8-8a62-68cd68bfd4e9"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"3652d4c4-a243-4f5a-8441-1a0e37fafe45"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"595bbc1b-2038-4c46-b734-437538a9e8d6"],
+    }], "AnchorBar",ExpressionUUID->"c8944425-7f5e-4c61-8114-2fa27b121268"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"2aae567f-1d2e-4c81-8a5d-60e653958f36"],
 
 Cell[CellGroupData[{
 
 Cell["MergeTensors", \
-"ObjectName",ExpressionUUID->"0c6cb445-e337-48ba-acf2-7a0866aad9d7"],
+"ObjectName",ExpressionUUID->"a35961e2-cfa4-4bb5-9da9-9615b3df0a5f"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
@@ -59,11 +59,11 @@ Cell[BoxData[GridBox[{
        
        StyleBox[
         RowBox[{"expr", ",", "n"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"1af32d13-9d0d-4b27-b1e2-11c3722d34cc"],
+      ExpressionUUID->"a3a6de12-5445-4311-b32f-f5905a98ddd9"],
      "\[LineSeparator]calls MultiplyTensors, MultiplyTensorScalar, \
-SumTensors, and ContractIndices to merge the Tensor expression expr into one \
+AddTensors, and ContractIndices to merge the Tensor expression expr into one \
 Tensor with TensorName n."
-    }],ExpressionUUID->"b2f38487-f016-46d5-bfe4-cb9c6ae6bba8"]},
+    }],ExpressionUUID->"6e3fa897-460d-4205-b3e7-cb646b0b01ba"]},
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
@@ -72,12 +72,12 @@ Tensor with TensorName n."
         ButtonData->"paclet:GeneralRelativityTensors/ref/MergeTensors"], "[", 
        
        StyleBox["expr", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
-      "71a05fec-ccd0-46ca-8d9e-c8eeb224c9e4"],
+      "2c2e99b1-0cdc-42f1-bdaa-1f87d788a2ed"],
      "\[LineSeparator]merges the Tensor expression expr and forms a new \
 TensorName and TensorDisplayName from a combination of the Tensors making up \
 the expression."
-    }],ExpressionUUID->"da702af1-61f4-4e7c-9537-2bb51ee9b11a"]}
-  }]], "Usage",ExpressionUUID->"39901e3f-ebc5-4d80-982d-1c7e58e3cf3b"]
+    }],ExpressionUUID->"1056a910-63af-41e9-9210-72ddbbddea22"]}
+  }]], "Usage",ExpressionUUID->"6270606d-d04d-485c-af1b-4545e37ef41b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -123,40 +123,40 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"3307a2c2-09a5-4d9b-bc9d-f1e479907af3"],
+  0,ExpressionUUID->"df41497a-ee1f-445d-a78d-140f68c268fd"],
 
 Cell["\<\
 It is generally simpler to call MergeTensors than to individually call the \
 other functions that it calls.\
-\>", "Notes",ExpressionUUID->"d852098a-1b58-4490-bc2b-655eae8ef682"],
+\>", "Notes",ExpressionUUID->"fde54c1d-4643-4e38-b091-54dff6259d5a"],
 
 Cell["\<\
 For complicated expressions, MergeTensors may initially fail to completely \
 merge the expression into one Tensor.  By default MergeTensors will call \
 itself again and continue to combine terms. The number of times it may call \
 itself  is controlled by the Option NestQuantity.\
-\>", "Notes",ExpressionUUID->"d915ae8d-200b-40b8-962a-65baf6dd54fc"],
+\>", "Notes",ExpressionUUID->"b74d4503-6856-4028-bfb8-de0f8805eb03"],
 
 Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"e9bdbc59-483e-44f6-82f8-08a94fcd2e43"],
+"Notes",ExpressionUUID->"f6e8d788-9e05-4026-a38f-0b2b3ac56c77"],
 
 Cell[BoxData[GridBox[{
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "c1fce35d-6919-4666-9204-e4fefa246a23"], "ActWith", "Identity", 
+     "4c73db31-51aa-4cb6-a872-31469c31a5d9"], "ActWith", "Identity", 
     Cell["\<\
 Function that is applied to the elements of the tensor as they are calculated.\
-\>", "TableText",ExpressionUUID->"71c82c83-b27a-4a0f-a07d-c1f0badbd8a1"]},
+\>", "TableText",ExpressionUUID->"0269ef9f-56f9-45ec-b50b-2a409dbde4a1"]},
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "d6faa160-762f-4950-8fe9-a4904b854fd7"], "ActWithNested", "Identity", 
+     "ffadbf28-25b7-429f-a2b2-708d084ffd68"], "ActWithNested", "Identity", 
     Cell["\<\
 Function that is applied to the elements of the tensor and also passed to any \
 other functions called internally.\
-\>", "TableText",ExpressionUUID->"5bcdb15d-ad4f-4d45-8d0f-e4ccdf232fc8"]},
+\>", "TableText",ExpressionUUID->"b41dde13-dc3e-4740-92b0-ad311ad06e6c"]},
    {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "11f079e9-34ac-4143-b5b0-fd5a7c4a00c7"], "NestQuantity", "3", Cell["\<\
+     "72a0d32f-ec07-4644-9fd7-be5612c978c1"], "NestQuantity", "3", Cell["\<\
 Number of times MergeTensors can call itself as it continues to try to create \
 one Tensor from an expression\
-\>", "TableText",ExpressionUUID->"2f8d41b4-7205-4339-a7c9-26e825284a67"]}
+\>", "TableText",ExpressionUUID->"d971c8ea-29ac-4acb-b4fe-b04dd8d1d49d"]}
   },
   GridBoxAlignment->{
    "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
@@ -168,7 +168,7 @@ one Tensor from an expression\
  GridBoxDividers->{
   "Rows" -> {{
      True, True, True, 
-      True}}}},ExpressionUUID->"8b26ca65-e697-42c6-8f33-fe23d8be45a8"]
+      True}}}},ExpressionUUID->"a7464a7b-1fdc-48f5-92e7-0f88bc6ea190"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -210,8 +210,8 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"8926c986-bfeb-492f-a7ed-\
-6116e83b8f7b"],
+  "PrimaryExamplesSection",ExpressionUUID->"28e81dc7-cb95-4bea-a4d3-\
+678d612ac7d2"],
 
 Cell[CellGroupData[{
 
@@ -219,49 +219,49 @@ Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
  Cell["(6)", "ExampleCount",ExpressionUUID->
-  "0da5ce99-ee94-4ea5-b7d3-bf20bd9a6071"]
-}], "ExampleSection",ExpressionUUID->"28f99f1e-ccdc-49d1-b072-440695f0130c"],
+  "3709b82e-5c82-47b4-97a2-34e6fdf5e790"]
+}], "ExampleSection",ExpressionUUID->"8f7a4a81-6d6e-44fd-b485-3deece560229"],
 
 Cell[CellGroupData[{
 
 Cell["gRN = ToMetric[\"ReissnerNordstrom\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"27afb760-0539-4af2-b87d-fd76e111142a"],
+ CellLabel->"In[1]:=",ExpressionUUID->"37c18ce0-037a-4c59-b246-5b1e0194a010"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"4fc1f3e7-8885-4a5b-b87b-f5021b7ea5ff"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"c1f8b49b-9058-4835-a232-08e216aaabdc"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["ricTRN = RicciTensor[gRN]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"06a48162-1993-4433-8c00-6b9b5d6c4eee"],
+ CellLabel->"In[1]:=",ExpressionUUID->"04b74342-2f11-4b6f-ac6f-d02aea775c6c"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["R", "\[Beta]\[Gamma]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"fed213b8-9d0d-4560-b6f3-b6277b816e7f"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"a9f44291-f8a4-4ca1-8474-161a731e11bf"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["ricSRN = RicciScalar[gRN]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"d4349954-453a-4114-b9db-a4c9bb843b14"],
+ CellLabel->"In[1]:=",ExpressionUUID->"1ab9d298-f474-4ae9-942c-3e63dfe322b2"],
 
 Cell[BoxData[
  TagBox["\<\"R\"\>",
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"5e329a7e-245d-4d80-b064-fa20c7c1e545"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"30988608-1e7c-470f-95b8-1b567a698504"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["einRNExpr = ricTRN[-\[Alpha], -\[Beta]] - gRN[-\[Alpha], -\[Beta]] \
 ricSRN/2", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"83d9ff51-1c88-4b58-bd25-d601921f056a"],
+ CellLabel->"In[1]:=",ExpressionUUID->"ab191db6-a4ac-485d-a2ab-21f4d5162126"],
 
 Cell[BoxData[
  RowBox[{
@@ -275,7 +275,7 @@ Cell[BoxData[
     TagBox[
      SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
      DisplayForm]}], "2"]}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"61117dec-5e78-40e7-b54f-2efc8c4a482f"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"71f830e4-6b1f-4d19-b543-19064bc1bcd5"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -284,19 +284,19 @@ Cell["\<\
 einRN = MergeTensors[einRNExpr, {\"EinsteinRN\", \"G\"}, ActWith -> Simplify]\
 \
 \>", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"4e04294c-d799-41b3-b9cf-bd56cbccf612"],
+ CellLabel->"In[1]:=",ExpressionUUID->"8f1752b7-2cc7-451b-babc-539f378d0b13"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["G", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"9e46da93-5ba5-4f2c-8c96-19b92e08a959"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"e7b3cc15-2aaa-43aa-bdd1-89295a01b844"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["einRN // TensorValues", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"ef831d22-30a2-40ee-b6b6-2dfc805a5c7a"],
+ CellLabel->"In[1]:=",ExpressionUUID->"4732bc57-6791-47a4-b8e7-5404242f8669"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -344,7 +344,7 @@ Cell[BoxData[
        SuperscriptBox[
         RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}], 
       SuperscriptBox["r", "2"]]}], "}"}]}], "}"}]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"7d05e6b7-7a77-4d27-982d-dd03111d9a84"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"8bc4e25d-d26d-4de4-a253-b4b592879d8b"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -386,7 +386,7 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"40399fdc-9f43-4827-8b5e-9cead8ee2578"],
+  0,ExpressionUUID->"a94a8c26-c98d-49bd-87cd-067cacf52aad"],
 
 Cell[TextData[{
  Cell[BoxData[
@@ -395,7 +395,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:GeneralRelativityTensors/ref/ContractIndices"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "2fdd0010-8c12-4e1a-b582-595267893d52"],
+  "39c65fd9-74d1-4fa4-bf14-9cbe0c100ecb"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -406,7 +406,7 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:GeneralRelativityTensors/ref/MultiplyTensors"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "289ff133-53bf-44c4-b3ab-6c1c651d66d5"],
+  "58fb6962-d4ee-46fc-818e-50ac9bee3e90"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
@@ -417,26 +417,26 @@ Cell[TextData[{
     BaseStyle->"Link",
     ButtonData->"paclet:GeneralRelativityTensors/ref/MultiplyTensorScalar"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "35d612cb-699b-42ba-bd9a-7bd0d056d22a"],
+  "dae9d19c-3fb6-416a-8142-4bed4f27bab0"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
  " ",
  Cell[BoxData[
   StyleBox[
-   ButtonBox["SumTensors",
+   ButtonBox["AddTensors",
     BaseStyle->"Link",
-    ButtonData->"paclet:GeneralRelativityTensors/ref/SumTensors"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/AddTensors"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "5a8286c2-ac5f-4779-8bac-b1e96f31f429"]
-}], "SeeAlso",ExpressionUUID->"f86b8fcd-e618-434e-821d-723ba0a1f960"]
+  "453e4fd9-7a12-478d-8501-6b9e47ab4666"]
+}], "SeeAlso",ExpressionUUID->"89dd7572-dd30-4681-a9f7-f64e45fcd15b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"17382627-002b-43f7-a902-552753a4e1c6"],
+Cell[" ", "FooterCell",ExpressionUUID->"f0ea4583-9643-40ff-961a-03c14d1a5da9"],
 
-Cell[BoxData[""],ExpressionUUID->"b65f914b-8ab6-48bc-95c1-d62845a3629c"]
+Cell[BoxData[""],ExpressionUUID->"3c9b6e64-55bc-46d2-88ed-dc255886db73"]
 }, Open  ]]
 },
 Saveable->False,
@@ -457,7 +457,7 @@ Symbol", "language" -> "en", "paclet" ->
     "GeneralRelativityTensors`TensorManipulation", "status" -> "None", 
     "summary" -> 
     "MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, \
-SumTensors, and ContractIndices to merge the Tensor expression expr into one \
+AddTensors, and ContractIndices to merge the Tensor expression expr into one \
 Tensor with TensorName n.\nMergeTensors[expr] merges the Tensor expression \
 expr and forms a new TensorName and TensorDisplayName from a combination of \
 the Tensors making up the expression.", 

@@ -1,8 +1,8 @@
 {
  "Application" -> "GeneralRelativityTensors",
  "Package" -> "GeneralRelativityTensors",
- "Title" -> "An application for tensor calculations in general relativity",
- "Summary" -> "An application for tensor calculations in general relativity",
+ "Title" -> "GeneralRelativityTensors: An application for tensor calculations",
+ "Summary" -> "GeneralRelativityTensors: An application for tensor calculations",
  "Description" ->
    {"The GeneralRelativityTensors application provides functions for ",
     "coordinate based calculations, particularly in the context of black holes."},
@@ -46,7 +46,7 @@
       {"ContractIndices", "Trace over repeated indices"},
       {"MultiplyTensors", "Outer product of Tensors"},
       {"MultiplyTensorScalar", "Product of a Tensor and a scalar"},
-      {"SumTensors", "Sum of Tensors"},
+      {"AddTensors", "Sum of Tensors"},
       {"D","D is overloaded. It takes the partial derivative of a Tensor."},
       {"CovariantD", "Covariant derivative of a Tensor expression"}
     }
@@ -64,7 +64,7 @@
       {"MaxwellPotential", "Electromagnetic four vector potential"},
       {"FieldStrengthTensor","Field strength tensor for a vector potential"},
       {"MaxwellStressEnergyTensor","Stress energy tensor for a field strength tensor"},
-      {"FourVelocity","Four-velocity for common spacetimes"},
+      {"FourVelocityVector","Four-velocity for common spacetimes"},
       {"KinnersleyNullVector","Null vector common in Newman-Penrose calculations"},
       {"KinnersleyNullTetrad","The four Kinnersley null vectors"},
       {"KinnersleyDerivative","Derivative associated with a Kinnersley null vector"},

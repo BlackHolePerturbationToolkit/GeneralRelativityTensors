@@ -25,6 +25,10 @@ while the second is the \"DisplayName\" which is used for formatted output in a 
     },
 
     "See Also" ->
-    {"ToTensor","ToCurve","ToTensorOnCurve","TensorValues"}
+    {"Metric","MetricQ","ToTensor","ToCurve","ToTensorOnCurve","TensorValues"},
+
+    "Tutorials" -> {
+        "Introduction to GeneralRelativityTensors",
+        "Introduction to Tensor Curves"}
 
 }

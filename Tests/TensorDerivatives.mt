@@ -3,7 +3,7 @@ gRN = ToMetric["ReissnerNordstrom"];
 rieRN = RiemannTensor[gRN];
 ricTRN = RicciTensor[gRN];
 ricSRN = RicciScalar[gRN];
-uS = FourVelocity["SchwarzschildGeneric"];
+uS = FourVelocityVector["SchwarzschildGeneric"];
 
 Test[
 	Simplify[TensorValues[D[gRN[\[Alpha], \[Beta]], -\[Alpha]]]-{{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}, {{(

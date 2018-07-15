@@ -3,7 +3,7 @@ gRN = ToMetric["ReissnerNordstrom"];
 rieRN = RiemannTensor[gRN];
 ricTRN = RicciTensor[gRN];
 ricSRN = RicciScalar[gRN];
-uS = FourVelocity["SchwarzschildGeneric"];
+uS = FourVelocityVector["SchwarzschildGeneric"];
 
 Test[
 	Simplify[TensorValues@ShiftIndices[gK,{\[Alpha], \[Beta]}]-TensorValues@InverseMetric[gK]],
@@ -65,9 +65,9 @@ M + r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/r[\[Tau]]^3])/
 ]
 
 Test[
-	Simplify[TensorValues@SumTensors[gK, gK]-TensorValues@MultiplyTensorScalar[2, gK]],
+	Simplify[TensorValues@AddTensors[gK, gK]-TensorValues@MultiplyTensorScalar[2, gK]],
 	{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},
-	TestID->"MultiplyTensorScalar-SumTensors"	
+	TestID->"MultiplyTensorScalar-AddTensors"	
 ]
 
 Test[

@@ -14,12 +14,12 @@ TensorRules::usage="TensorRules[t] returns a List of Rules with possible \
 coordinates of Tensor t as keys and TensorValues as values.";
 
 MergeTensors::usage="MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, \
-SumTensors, and ContractIndices to merge the Tensor expression expr into one Tensor with TensorName n.
+AddTensors, and ContractIndices to merge the Tensor expression expr into one Tensor with TensorName n.
 MergeTensors[expr] merges the Tensor expression expr and \
 forms a new TensorName and TensorDisplayName from a combination of the Tensors making up the expression.";
-SumTensors::usage="SumTensors[t1,t2,...,n] sums the Tensors t1, t2, \
+AddTensors::usage="AddTensors[t1,t2,...,n] sums the Tensors t1, t2, \
 etc., forming a new Tensor with TensorName n.
-SumTensors[t1,t2,...] sums the Tensors t1, t2, etc., and \
+AddTensors[t1,t2,...] sums the Tensors t1, t2, etc., and \
 forms a new TensorName and TensorDisplayName from a combination of the Tensors making up the expression.";
 MultiplyTensors::usage="MultiplyTensors[t1,t2,...,n] forms the outer product of the \
 Tensors t1, t2, etc., creating a new Tensor with TensorName n.
@@ -62,7 +62,7 @@ Options[ShiftIndices]={"ActWith"->Identity};
 Options[Component]=Options[ShiftIndices];
 Options[TensorRules]=Options[ShiftIndices];
 Options[ContractIndices]=Options[ShiftIndices];
-Options[SumTensors]=Options[ShiftIndices];
+Options[AddTensors]=Options[ShiftIndices];
 Options[MultiplyTensors]=Options[ShiftIndices];
 Options[MultiplyTensorScalar]=Options[ShiftIndices];
 Options[TraceReverse]=Join[Options[ShiftIndices],{"ActWithNested"->Identity}];
@@ -74,7 +74,7 @@ DocumentationBuilder`OptionDescriptions["ShiftIndices"] = {"ActWith"->"Function 
 DocumentationBuilder`OptionDescriptions["Component"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["TensorRules"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["ContractIndices"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
-DocumentationBuilder`OptionDescriptions["SumTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
+DocumentationBuilder`OptionDescriptions["AddTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["MultiplyTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["MultiplyTensorScalar"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["TraceReverse"] = Join[DocumentationBuilder`OptionDescriptions["ShiftIndices"],
@@ -269,8 +269,8 @@ If[Sort[inds1]=!=Sort[inds2],
 ]
 
 
-Clear[SumTensors]
-Tensor/:SumTensors[t1_Tensor,t2_Tensor,opts:OptionsPattern[]]:=
+Clear[AddTensors]
+Tensor/:AddTensors[t1_Tensor,t2_Tensor,opts:OptionsPattern[]]:=
 Module[{simpFn,posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvFunc},
 
 	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot sum Abstract Tensors."];Abort[]];
@@ -310,10 +310,10 @@ Module[{simpFn,posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvF
 								"Name"->"("<>TensorName[t1]<>"+"<>TensorName[t2]<>")-Auto",
 								"DisplayName"->"("<>TensorDisplayName[t1]<>"+"<>TensorDisplayName[t2]<>")"]]]
 ];
-Tensor/:SumTensors[t1_Tensor,opts:OptionsPattern[]]:=t1;
-Tensor/:SumTensors[t1_Tensor,t2__Tensor,opts:OptionsPattern[]]:=Fold[SumTensors[#1,#2,opts]&,t1,{t2}]
-Tensor/:SumTensors[t1_Tensor,t2__Tensor,name_String,opts:OptionsPattern[]]:=SetTensorName[SumTensors[t1,t2,opts],name]
-Tensor/:SumTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String},opts:OptionsPattern[]]:=SetTensorName[SumTensors[t1,t2,opts],{name,displayName}]
+Tensor/:AddTensors[t1_Tensor,opts:OptionsPattern[]]:=t1;
+Tensor/:AddTensors[t1_Tensor,t2__Tensor,opts:OptionsPattern[]]:=Fold[AddTensors[#1,#2,opts]&,t1,{t2}]
+Tensor/:AddTensors[t1_Tensor,t2__Tensor,name_String,opts:OptionsPattern[]]:=SetTensorName[AddTensors[t1,t2,opts],name]
+Tensor/:AddTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String},opts:OptionsPattern[]]:=SetTensorName[AddTensors[t1,t2,opts],{name,displayName}]
 
 
 Clear[validateProductIndices]
@@ -423,7 +423,7 @@ Module[{expr1,expr2,expr3,expr4,simpFn,simpFnNest,nestNum},
 	nestNum=OptionValue["NestQuantity"];
 	expr1=Expand[expr]/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2,"ActWith"->simpFnNest];
 	expr2=expr1 /. n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t,"ActWith"->simpFnNest];
-	expr3=ContractIndices[expr2,"ActWith"->simpFnNest]/.Plus[t1_Tensor,t2__Tensor]:>SumTensors[t1,t2,"ActWith"->simpFnNest];
+	expr3=ContractIndices[expr2,"ActWith"->simpFnNest]/.Plus[t1_Tensor,t2__Tensor]:>AddTensors[t1,t2,"ActWith"->simpFnNest];
 	expr4=If[MatchQ[expr3,_Tensor]||nestNum==0,expr3,MergeTensors[expr3,"ActWithNested"->simpFnNest,"ActWith"->simpFn,"NestQuantity"->(nestNum-1)]];
 	If[MatchQ[expr4,_Tensor],ActOnTensorValues[simpFn,expr4],expr4]
 ]

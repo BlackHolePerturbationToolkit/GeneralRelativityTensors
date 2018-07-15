@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "TutorialColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"746e2a1a-0e77-45f6-bcd2-d22104437569"],
+   0}},ExpressionUUID->"f774a9e0-018b-4ea6-8231-6c454d464a5f"],
 
 Cell[TextData[{
  ButtonBox["GeneralRelativityTensors",
@@ -14,11 +14,11 @@ Cell[TextData[{
   ButtonData->
    "paclet:GeneralRelativityTensors/tutorial/Manipulating and Differentiating \
 Tensors"]
-}], "LinkTrail",ExpressionUUID->"9d2c1bec-f060-426c-a7ef-30094bf14b7f"],
+}], "LinkTrail",ExpressionUUID->"1cee4b8b-a4f7-41e4-86dd-19b6de92e04b"],
 
 Cell[BoxData[GridBox[{
    {Cell["MANIPULATING AND DIFFERENTIATING TENSORS TUTORIAL", 
-     "PacletNameCell",ExpressionUUID->"22b7ae30-0532-48cc-9bbc-bf33011ebad6"],
+     "PacletNameCell",ExpressionUUID->"6aee166e-7fdd-4dca-90a3-accd5469e851"],
      Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
@@ -45,7 +45,7 @@ Curves"],
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "54c453cd-c81f-4b36-ad2f-aeb615b7b3d0"],
+      "30bf69ce-e6e7-49e6-b22e-2b1ed8396847"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -65,41 +65,41 @@ Curves"],
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "95d5100e-2264-473f-bb5e-639c917251bb"]
-    }], "AnchorBar",ExpressionUUID->"4f3540cd-d12d-46d5-92de-dd7a94bb104d"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"e416a9e1-4543-4e1f-b79a-22e23c5f2f13"],
+      "1af97513-71b2-4a39-b198-9b6e42090c57"]
+    }], "AnchorBar",ExpressionUUID->"9b8df078-1975-469e-af7a-a9b5c77bee43"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"82da1ae6-0b51-4fe5-b25d-7c57e86f46a2"],
 
 Cell[CellGroupData[{
 
 Cell["Tensor manipulation and differentiation", \
-"Title",ExpressionUUID->"303fe56e-2de6-409a-97d9-21a509635d4b"],
+"Title",ExpressionUUID->"56d7a5b3-34fb-4d03-bb94-e616ac5ade17"],
 
 Cell["\<\
 The GeneralRelativityTensors application provides functions for partial and \
 covariant differentiation. Sums and products of Tensors can be computed in \
 useful ways.\
-\>", "Text",ExpressionUUID->"925fc075-aed4-43d1-9385-97f1a01b6d1b"],
+\>", "Text",ExpressionUUID->"15de5750-e495-4981-a54a-c89c74ac1700"],
 
 Cell[BoxData[
  RowBox[{"<<", "GeneralRelativityTensors`"}]], "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"bb9be6f7-497b-41ae-8ed0-1581878b84fe"],
+ CellLabel->"In[1]:=",ExpressionUUID->"0adc28a4-7b8c-4798-bf8f-70a1bbc7b389"],
 
 Cell[CellGroupData[{
 
 Cell["Shifting Tensor indices", \
-"Section",ExpressionUUID->"5657d810-3dbc-42a8-b658-b0f37fbc19e5"],
+"Section",ExpressionUUID->"7307ce73-aca0-4c03-abcb-0747e8e64f5a"],
 
 Cell[CellGroupData[{
 
 Cell["Indices are raised and lowered with ShiftIndices.", \
-"Item",ExpressionUUID->"7839d512-75c6-4b7d-b07a-f19e90727a73"],
+"Item",ExpressionUUID->"a50ff008-ec9f-45a5-b4bd-ff178e9666e8"],
 
 Cell[BoxData[GridBox[{
    {
     RowBox[{
      ButtonBox["ShiftIndices",
       BaseStyle->"Link",
-      ButtonData->"paclet:Tensors/ref/ShiftIndices"], "[", 
+      ButtonData->"paclet:GeneralRelativityTensors/ref/ShiftIndices"], "[", 
      RowBox[{
       StyleBox["t", "TI"], 
       StyleBox[",", "TI",
@@ -116,29 +116,29 @@ Cell[BoxData[GridBox[{
       FontFamily->"Times",
       FontWeight->"Regular",
       FontSlant->"Italic"]
-    }], "TableText",ExpressionUUID->"487c4c94-bd59-4a83-8f5c-b6aa7fa2dbda"]}
+    }], "TableText",ExpressionUUID->"dba87df4-1c04-4ec0-a8cc-1c7d97f626b9"]}
   }]], "DefinitionBox",
- CellID->27847004,ExpressionUUID->"b4d00969-b37c-4887-a390-686dd3d8d879"]
+ CellID->27847004,ExpressionUUID->"835205ce-a4ff-47ab-9d36-097c9ddff7b6"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 Positive indices are contravariant. Negative indices are covariant.\
-\>", "Item",ExpressionUUID->"f808cb60-4c76-4d48-89d7-3662fbc75906"],
+\>", "Item",ExpressionUUID->"9fa445cf-47c8-4e2b-a2d2-772ff56cd4f6"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"gS", "=", 
   RowBox[{"ToMetric", "[", "\"\<Schwarzschild\>\"", "]"}]}]], "Input",
- CellLabel->"In[2]:=",ExpressionUUID->"c677c1b0-2bc1-4a62-8357-c2276140cc2f"],
+ CellLabel->"In[2]:=",ExpressionUUID->"534bd33a-f380-4a5f-a9c5-8b6ad6ae9963"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[2]=",ExpressionUUID->"aa80c32c-e6a6-4f1c-984b-217b8b5f4423"]
+ CellLabel->"Out[2]=",ExpressionUUID->"68a0d935-1ee5-4803-92e8-5069972a0c29"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -148,13 +148,13 @@ Cell[BoxData[
   RowBox[{"gS", ",", 
    RowBox[{"{", 
     RowBox[{"\[Alpha]", ",", "\[Beta]"}], "}"}]}], "]"}]], "Input",
- CellLabel->"In[3]:=",ExpressionUUID->"7c79c4ef-bd01-44a0-bc85-02262c23ad16"],
+ CellLabel->"In[3]:=",ExpressionUUID->"5f3a9f36-d86c-4656-a959-12b20587b055"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "", "\[Alpha]\[Beta]"],
   DisplayForm]], "Output",
- CellLabel->"Out[3]=",ExpressionUUID->"c5aaa154-f61a-4c29-8f1c-9339d5942b2e"]
+ CellLabel->"Out[3]=",ExpressionUUID->"27a77e3c-06d8-4422-a1b4-b2b339cd0140"]
 }, Open  ]]
 }, Open  ]],
 
@@ -162,33 +162,33 @@ Cell[CellGroupData[{
 
 Cell["\<\
 It is usually easier to raise and lower indices with DownValues\
-\>", "Item",ExpressionUUID->"56d2dbfd-fc41-4a90-91fa-01cfd3acf759"],
+\>", "Item",ExpressionUUID->"5d31fcec-6f1c-4587-9bbf-be94a78c2e2e"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"gS", "[", 
   RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}]], "Input",
- CellLabel->"In[4]:=",ExpressionUUID->"e550f7e4-69b0-42d8-aebd-22c3ae8a6015"],
+ CellLabel->"In[4]:=",ExpressionUUID->"9b57450f-c347-4ca5-8936-e3f0bdd915c2"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "", "\[Alpha]\[Beta]"],
   DisplayForm]], "Output",
- CellLabel->"Out[4]=",ExpressionUUID->"3303fe4c-5a70-4998-aa25-44df98859dde"]
+ CellLabel->"Out[4]=",ExpressionUUID->"6bd43c70-2fd8-4ae0-a389-35227a697675"]
 }, Open  ]]
 }, Open  ]],
 
 Cell["\<\
 Internally the metric computes new values when indices are raised or lowered.\
 \
-\>", "Item",ExpressionUUID->"b0db05bb-d99b-4466-bfc0-dfffcffb609b"],
+\>", "Item",ExpressionUUID->"27692682-ec93-4c8d-866d-9caf9bf6f427"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 By default the values computed by ShiftIndices are not simplified.\
-\>", "Item",ExpressionUUID->"9fe9bdbc-6ff7-4c51-8ca7-11f2de5d456b"],
+\>", "Item",ExpressionUUID->"bbacad8e-3952-4d69-813d-fc2a1254322b"],
 
 Cell[CellGroupData[{
 
@@ -199,7 +199,7 @@ Cell[BoxData[
     RowBox[{"\[Alpha]", ",", 
      RowBox[{"-", "\[Beta]"}]}], "]"}], "//", "TensorValues"}], "//", 
   "MatrixForm"}]], "Input",
- CellLabel->"In[5]:=",ExpressionUUID->"fe12cbaa-53d6-410c-b6cc-26fde24a68c2"],
+ CellLabel->"In[5]:=",ExpressionUUID->"57a5135c-4208-4e03-983b-7aeae677c4a1"],
 
 Cell[BoxData[
  TagBox[
@@ -251,7 +251,7 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[5]//MatrixForm=",ExpressionUUID->"b6b150ae-8d77-4d07-b17e-e139466a1f40"]
+  "Out[5]//MatrixForm=",ExpressionUUID->"5bd23d24-a925-451b-8dda-369fb9f8832f"]
 }, Open  ]]
 }, Open  ]],
 
@@ -260,7 +260,7 @@ Cell[CellGroupData[{
 Cell["\<\
 In order to act with a function on the values, call ShiftIndices explicitly \
 and use the Option \[OpenCurlyDoubleQuote]ActWith\[CloseCurlyDoubleQuote].\
-\>", "Item",ExpressionUUID->"24f33ee8-073c-462a-bf21-e6370f313a5f"],
+\>", "Item",ExpressionUUID->"042fd831-9e08-41fe-be0b-28d3c981e122"],
 
 Cell[CellGroupData[{
 
@@ -274,7 +274,7 @@ Cell[BoxData[
        RowBox[{"-", "\[Beta]"}]}], "}"}], ",", 
      RowBox[{"ActWith", "\[Rule]", "Simplify"}]}], "]"}], "//", 
    "TensorValues"}], "//", "MatrixForm"}]], "Input",
- CellLabel->"In[6]:=",ExpressionUUID->"e96bbd4b-d57e-486e-9c1b-e49b360ceb13"],
+ CellLabel->"In[6]:=",ExpressionUUID->"ab9edef0-ed3e-45e5-b2d8-a6d328329274"],
 
 Cell[BoxData[
  TagBox[
@@ -297,7 +297,7 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[6]//MatrixForm=",ExpressionUUID->"ddc4472c-e300-459d-9f43-ec901e17c792"]
+  "Out[6]//MatrixForm=",ExpressionUUID->"1e2b867a-4c20-4f11-958a-0c9712fdf586"]
 }, Open  ]]
 }, Open  ]],
 
@@ -306,7 +306,7 @@ Cell[CellGroupData[{
 Cell["\<\
 A Tensor\[CloseCurlyQuote]s repeated indices are not traced out until \
 ContractIndices or MergeTensors is called. See below.\
-\>", "Item",ExpressionUUID->"3c66cd8e-b0be-4487-9222-dcc40adf2f6c"],
+\>", "Item",ExpressionUUID->"15cca534-3878-47bf-95ed-9e9cdeebcf59"],
 
 Cell[CellGroupData[{
 
@@ -318,7 +318,7 @@ Cell[BoxData[
      RowBox[{"\[Alpha]", ",", 
       RowBox[{"-", "\[Alpha]"}]}], "]"}], "//", "TensorValues"}], "//", 
    "Simplify"}], "//", "MatrixForm"}]], "Input",
- CellLabel->"In[7]:=",ExpressionUUID->"053f632d-2986-4e47-8954-cc60ea8aa75f"],
+ CellLabel->"In[7]:=",ExpressionUUID->"aade921a-e588-4a0f-8779-90e1c79df0ee"],
 
 Cell[BoxData[
  TagBox[
@@ -341,7 +341,7 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[7]//MatrixForm=",ExpressionUUID->"86c8f391-eb67-47e9-84e5-be70081ac3d7"]
+  "Out[7]//MatrixForm=",ExpressionUUID->"6d28e2a6-a1b5-455e-a1a3-3698a4dc8c26"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -349,57 +349,45 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Forming new Tensors with MergeTensors", \
-"Section",ExpressionUUID->"6f68fd3d-4707-450d-be6b-03ab5f5afb7b"],
+"Section",ExpressionUUID->"91590880-c4dd-4bf9-8c61-81e671ba627f"],
 
 Cell["\<\
 Often, we want to add or multiply Tensors. We may also want to trace out \
 variables.\
-\>", "Item",ExpressionUUID->"916e1af3-6865-4894-8301-aa820f3b7476"],
+\>", "Item",ExpressionUUID->"0e0f4d33-8bab-4753-a248-94690ff606da"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 The GeneralRelativityTensors application provides the following functions for \
 performing the actions:\
-\>", "Item",ExpressionUUID->"58b5ceae-b452-4fdb-be3b-b7b823c84df4"],
+\>", "Item",ExpressionUUID->"a1b60131-d183-4d52-8aba-a86d30e0d535"],
 
 Cell[CellGroupData[{
 
-Cell[TextData[StyleBox[ButtonBox["MultiplyTensors",
+Cell[TextData[ButtonBox["MultiplyTensors",
  BaseStyle->"Link",
- ButtonData->"paclet:Tensors/ref/MultiplyTensors"],
- FontFamily->"Source Code Pro",
- FontSize->12,
- FontWeight->
-  "Regular"]], \
-"Subitem",ExpressionUUID->"5beba1a9-b820-4143-9bb6-a38d43f270db"],
+ ButtonData->
+  "paclet:GeneralRelativityTensors/ref/MultiplyTensors"]], \
+"Subitem",ExpressionUUID->"081e1cbe-cada-45bd-a664-c93ec197e00f"],
 
-Cell[TextData[StyleBox[ButtonBox["MultiplyTensorScalar",
+Cell[TextData[ButtonBox["MultiplyTensorScalar",
  BaseStyle->"Link",
- ButtonData->"paclet:Tensors/ref/MultiplyTensorScalar"],
- FontFamily->"Source Code Pro",
- FontSize->12,
- FontWeight->
-  "Regular"]], \
-"Subitem",ExpressionUUID->"bb50f5c5-9efe-4de1-8e7b-155d7ddefb54"],
+ ButtonData->
+  "paclet:GeneralRelativityTensors/ref/MultiplyTensorScalar"]], \
+"Subitem",ExpressionUUID->"56e54e77-1322-473e-be54-9495cf3bc28d"],
 
-Cell[TextData[StyleBox[ButtonBox["SumTensors",
+Cell[TextData[ButtonBox["AddTensors",
  BaseStyle->"Link",
- ButtonData->"paclet:Tensors/ref/SumTensors"],
- FontFamily->"Source Code Pro",
- FontSize->12,
- FontWeight->
-  "Regular"]], \
-"Subitem",ExpressionUUID->"0c858044-9da9-4327-9de9-de93cf10730c"],
+ ButtonData->
+  "paclet:GeneralRelativityTensors/ref/AddTensors"]], \
+"Subitem",ExpressionUUID->"fb0fee52-fc01-446a-8e83-2c0f307e6cb5"],
 
-Cell[TextData[StyleBox[ButtonBox["ContractIndices",
+Cell[TextData[ButtonBox["ContractIndices",
  BaseStyle->"Link",
- ButtonData->"paclet:Tensors/ref/ContractIndices"],
- FontFamily->"Source Code Pro",
- FontSize->12,
- FontWeight->
-  "Regular"]], \
-"Subitem",ExpressionUUID->"9ac65bb8-3022-45d2-b5a4-4d3e6c8af1f5"]
+ ButtonData->
+  "paclet:GeneralRelativityTensors/ref/ContractIndices"]], \
+"Subitem",ExpressionUUID->"b6e6c4e1-e4e2-4e52-bf6a-58024e8e5500"]
 }, Open  ]]
 }, Open  ]],
 
@@ -410,20 +398,20 @@ Cell[TextData[{
  StyleBox["MergeTensors",
   FontWeight->"Bold"],
  ", which calls each of these as sub-functions."
-}], "Item",ExpressionUUID->"27037d33-9030-4898-9344-5e005cb5ff34"],
+}], "Item",ExpressionUUID->"135caa3d-3fff-4d66-acda-695a1d562d44"],
 
 Cell[BoxData[GridBox[{
    {
     RowBox[{
      ButtonBox["MergeTensors",
       BaseStyle->"Link",
-      ButtonData->"paclet:Tensors/ref/MergeTensors"], "[", 
+      ButtonData->"paclet:GeneralRelativityTensors/ref/MergeTensors"], "[", 
      StyleBox["expr", "TI"], "]"}], Cell["\<\
 adds and multiplies Tensors, and then traces over repeated indices, returning \
 one Tensor\
-\>", "TableText",ExpressionUUID->"67c02281-b803-480f-97b7-e66619bdfe4b"]}
+\>", "TableText",ExpressionUUID->"beced3b6-b034-49c5-bf66-d5ab41f87c8e"]}
   }]], "DefinitionBox",
- CellID->1334,ExpressionUUID->"46fbf8fc-0b48-4566-85ac-5a0f357373f8"]
+ CellID->1334,ExpressionUUID->"e3145d71-6c35-486c-be0e-b0e5e243f44b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -431,43 +419,43 @@ Cell[CellGroupData[{
 Cell["\<\
 MergeTensors has the following useful Options, which each have the default \
 value of Identity.\
-\>", "Item",ExpressionUUID->"4d4d56e5-8181-4400-9aa8-9ab8ae98f83e"],
+\>", "Item",ExpressionUUID->"2776159e-4735-4001-be7a-fae5b755bb35"],
 
 Cell[BoxData[GridBox[{
    {"ActWith", Cell["\<\
 applies the Option value (a function) to each of the elements of the Tensor \
 that MergeTensors forms\
-\>", "TableText",ExpressionUUID->"75ca800c-7d5e-4a5b-9a34-20916e0bd791"]},
+\>", "TableText",ExpressionUUID->"1ef7fe93-0a82-4871-bf00-07fba5f27128"]},
    {"ActWithNested", Cell["\<\
 same as ActWith, but the function is also passed to functions that \
 MergeTensors calls internally\
-\>", "TableText",ExpressionUUID->"b4125648-ea40-4f94-b748-41271766d525"]}
+\>", "TableText",ExpressionUUID->"7b925ba0-1e9a-4584-9016-bb7a5a2c0d43"]}
   }]], "DefinitionBox",
- CellID->1128635629,ExpressionUUID->"5aeae879-da5e-47ba-9764-2637d16830d8"]
+ CellID->1128635629,ExpressionUUID->"1e986792-1e78-4f36-a09f-dbf7d6ab8658"]
 }, Open  ]],
 
 Cell["These same options are available in many functions.", \
-"Item",ExpressionUUID->"f8e2c629-6d49-44fb-99d2-ac33fa1f0020"],
+"Item",ExpressionUUID->"ce676ae8-48f3-43a2-83d8-7365e577d82a"],
 
 Cell["ActWithNested can be useful for large expressions.", \
-"Item",ExpressionUUID->"9079c9dd-bb40-4db0-ae0b-a3055d962a9c"],
+"Item",ExpressionUUID->"eaebe48e-be7a-401b-a6ba-4e1ac4878ece"],
 
 Cell[CellGroupData[{
 
 Cell["Example", \
-"Subsection",ExpressionUUID->"a70a493d-404b-49aa-83f1-794705c9fd91"],
+"Subsection",ExpressionUUID->"fa150128-58eb-4e20-ba20-02a6cfa2809a"],
 
 Cell["\<\
 Let\[CloseCurlyQuote]s check that the Einstein Tensor vanishes in the \
 Schwarzschild spacetime\
-\>", "Item",ExpressionUUID->"5bdbf8b2-6014-4241-b9d6-cc5c79e7fded"],
+\>", "Item",ExpressionUUID->"534a95a4-e5cb-40a2-a638-dfc560aa9812"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 First compute the Ricci Tensor and Scalar from the metric, and then form the \
 trace-reverse of the Ricci Tensor.\
-\>", "Item",ExpressionUUID->"94c935f6-a5f5-4838-b72c-7385837424e2"],
+\>", "Item",ExpressionUUID->"366df770-a090-46bd-b745-3b185fec853d"],
 
 Cell[CellGroupData[{
 
@@ -476,18 +464,18 @@ Cell[BoxData[{
   RowBox[{"RicciTensor", "[", "gS", "]"}]}], "\[IndentingNewLine]", 
  RowBox[{"ricSS", "=", 
   RowBox[{"RicciScalar", "[", "gS", "]"}]}]}], "Input",
- CellLabel->"In[8]:=",ExpressionUUID->"c28564b2-c255-454d-950c-3356f3426eb9"],
+ CellLabel->"In[8]:=",ExpressionUUID->"88ebccc3-1653-4fb8-aa5c-f59803c12f7a"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["R", "\[Beta]\[Gamma]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[8]=",ExpressionUUID->"12236244-920b-429a-a03b-e0de7a037f4d"],
+ CellLabel->"Out[8]=",ExpressionUUID->"760d4125-10cc-4064-9bd0-b8af651037ec"],
 
 Cell[BoxData[
  TagBox["\<\"R\"\>",
   DisplayForm]], "Output",
- CellLabel->"Out[9]=",ExpressionUUID->"ec33f128-8344-4fa6-9eac-8c25ea66b95b"]
+ CellLabel->"Out[9]=",ExpressionUUID->"ada897f0-6027-4c87-abcb-b36acb63faf0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -505,7 +493,7 @@ Cell[BoxData[
       RowBox[{"-", "\[Alpha]"}], ",", 
       RowBox[{"-", "\[Beta]"}]}], "]"}], " ", 
     RowBox[{"ricSS", "/", "2"}]}]}]}]], "Input",
- CellLabel->"In[10]:=",ExpressionUUID->"674c26a6-233f-439d-ad4b-4fd8874904c0"],
+ CellLabel->"In[10]:=",ExpressionUUID->"ab44502a-b4d1-4aa6-8446-768520991ae0"],
 
 Cell[BoxData[
  RowBox[{
@@ -520,19 +508,19 @@ Cell[BoxData[
      SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
      DisplayForm]}], "2"]}]], "Output",
  CellLabel->
-  "Out[10]=",ExpressionUUID->"a4bdeadc-4a8a-4ac6-b6ba-15bbb26ccc2b"]
+  "Out[10]=",ExpressionUUID->"217d03d9-b8b8-4029-946d-99b85e1dbc0b"]
 }, Open  ]]
 }, Open  ]],
 
 Cell["\<\
 This expression is not yet a Tensor, but rather the sum and product of three \
 different Tensors, along with the number 1/2. \
-\>", "Item",ExpressionUUID->"93699b24-5971-42d8-a289-35d1c5f5fddb"],
+\>", "Item",ExpressionUUID->"4ffe05c0-1dc0-4cde-b6d8-d832c7a3bf4b"],
 
 Cell[CellGroupData[{
 
 Cell["We combine them together with the MergeTensors.", \
-"Item",ExpressionUUID->"5dfd8e27-f216-486f-9ccc-27f34b009aca"],
+"Item",ExpressionUUID->"8b7a07c8-acc1-43ed-8db4-b48e2e14c1b0"],
 
 Cell[CellGroupData[{
 
@@ -544,21 +532,21 @@ Cell[BoxData[
      RowBox[{"\"\<EinsteinSchwarzschild\>\"", ",", "\"\<G\>\""}], "}"}], ",", 
     
     RowBox[{"ActWith", "\[Rule]", "Simplify"}]}], "]"}]}]], "Input",
- CellLabel->"In[11]:=",ExpressionUUID->"d5b95c81-d1e7-4b78-81ba-b1301656b63d"],
+ CellLabel->"In[11]:=",ExpressionUUID->"bf258c74-b115-47a4-b578-c948f1b5be6e"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["G", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[11]=",ExpressionUUID->"855a6386-0d85-4711-9adb-21f9fa0768a7"]
+  "Out[11]=",ExpressionUUID->"1b6947b0-3994-4db1-9d39-7e42136991a4"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"einS", "//", "TensorValues"}]], "Input",
- CellLabel->"In[12]:=",ExpressionUUID->"4c4310f9-3238-4159-9ed3-2f1eca569e59"],
+ CellLabel->"In[12]:=",ExpressionUUID->"7a0c89aa-e6a3-4a86-847f-d4874d3b31f4"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -572,7 +560,7 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[12]=",ExpressionUUID->"123072a1-1336-4495-9f02-6caecff5dea5"]
+  "Out[12]=",ExpressionUUID->"684bfaae-7c22-4413-b9f6-e35588465214"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -580,15 +568,15 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Errors to avoid", \
-"Subsection",ExpressionUUID->"8d4cbaf2-92a6-4bd9-afe1-b1f1b5d519e2"],
+"Subsection",ExpressionUUID->"fd5b0a4d-905c-4a9c-aba8-a43ea852e681"],
 
 Cell[CellGroupData[{
 
 Cell["The normal rules of index gymnastics must be followed.", \
-"Item",ExpressionUUID->"7961aa8f-0ae9-4cb3-b84b-de68916a669d"],
+"Item",ExpressionUUID->"dccb6d41-dd7f-4965-8a33-d2b21bc2ef96"],
 
 Cell["Only Tensors with same indices may be summed.", \
-"Subitem",ExpressionUUID->"6f20a31d-5708-41fb-8a48-677c9b46b144"],
+"Subitem",ExpressionUUID->"4a60cd69-1dc1-46dc-9155-dae15295d58f"],
 
 Cell[CellGroupData[{
 
@@ -599,7 +587,7 @@ Cell[BoxData[
     RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}], "+", 
    RowBox[{"ricTS", "[", 
     RowBox[{"\[Beta]", ",", "\[Gamma]"}], "]"}]}]}]], "Input",
- CellLabel->"In[13]:=",ExpressionUUID->"92c43af1-354e-48db-b2e4-5944dba9e008"],
+ CellLabel->"In[13]:=",ExpressionUUID->"8ce85503-5189-40e3-a181-52ae5b05bc55"],
 
 Cell[BoxData[
  RowBox[{
@@ -610,14 +598,14 @@ Cell[BoxData[
    SubsuperscriptBox["R", "", "\[Beta]\[Gamma]"],
    DisplayForm]}]], "Output",
  CellLabel->
-  "Out[13]=",ExpressionUUID->"da5167f3-0b1d-40aa-b09b-5c91bc1b6cc6"]
+  "Out[13]=",ExpressionUUID->"c25f76b6-257f-4091-972f-8e80295b9880"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"MergeTensors", "[", "errorExpr1", "]"}]], "Input",
- CellLabel->"In[14]:=",ExpressionUUID->"fb7e114f-06fd-4dba-b53f-3f90454fb28c"],
+ CellLabel->"In[14]:=",ExpressionUUID->"a778ffa6-2763-4f17-90f3-89e9f78e071f"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -634,30 +622,30 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[14]:=",ExpressionUUID->"7182fb43-0b98-49ba-b74d-907da8626669"],
+In[14]:=",ExpressionUUID->"97bc4595-01d5-4c82-86cd-3a6940fddb8c"],
 
 Cell[BoxData["$Aborted"], "Output",
  CellLabel->
-  "Out[14]=",ExpressionUUID->"577fe7da-d042-4291-a7da-502509358cfa"]
+  "Out[14]=",ExpressionUUID->"67d469c6-2e51-40cb-a919-5e46c94f9926"]
 }, Open  ]],
 
 Cell["\<\
 An index may be repeated only once, and it must be up once and down once\
-\>", "Subitem",ExpressionUUID->"206de6c7-6d9e-4186-a6d2-29db10fa4e22"],
+\>", "Subitem",ExpressionUUID->"58a3fb3f-fc93-4aee-b10a-366c4d605edd"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"rieS", "=", 
   RowBox[{"RiemannTensor", "[", "gS", "]"}]}]], "Input",
- CellLabel->"In[15]:=",ExpressionUUID->"c6c55ed2-66e0-44b8-8d15-af252038229f"],
+ CellLabel->"In[15]:=",ExpressionUUID->"be44fca2-4296-4b12-84b9-0ac0ba0512dc"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["R", "\[Alpha]\[Beta]\[Gamma]\[Delta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[15]=",ExpressionUUID->"de99e2f1-df42-4478-a12f-f34acfde1231"]
+  "Out[15]=",ExpressionUUID->"3219d7c4-6027-41b0-9481-e70a14e0b4d4"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -668,7 +656,7 @@ Cell[BoxData[
    RowBox[{"-", "\[Beta]"}], ",", 
    RowBox[{"-", "\[Alpha]"}], ",", 
    RowBox[{"-", "\[Alpha]"}]}], "]"}]], "Input",
- CellLabel->"In[16]:=",ExpressionUUID->"739b7683-a3bd-4614-9cd6-b65227a37838"],
+ CellLabel->"In[16]:=",ExpressionUUID->"454e740d-8a99-45cf-b83d-444611c1ce2a"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -680,11 +668,11 @@ Cell[BoxData[
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[16]:=",ExpressionUUID->"dd7ae8cf-970a-47a4-9122-ca9b20ff8ae8"],
+In[16]:=",ExpressionUUID->"a49ce9c0-f416-4b44-8c67-00fa4f069198"],
 
 Cell[BoxData["$Aborted"], "Output",
  CellLabel->
-  "Out[16]=",ExpressionUUID->"977d9524-096c-46a8-9510-2f73c568196c"]
+  "Out[16]=",ExpressionUUID->"a060b6a9-4167-4cfa-b018-f8f5f4b0b09a"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -695,7 +683,7 @@ Cell[BoxData[
    RowBox[{"-", "\[Beta]"}], ",", 
    RowBox[{"-", "\[Alpha]"}], ",", 
    RowBox[{"-", "\[Alpha]"}]}], "]"}]], "Input",
- CellLabel->"In[17]:=",ExpressionUUID->"4d8af72b-93f7-4d7e-8f81-36486e6c7687"],
+ CellLabel->"In[17]:=",ExpressionUUID->"b0e8a909-7002-4153-b515-ac0507b3ec9d"],
 
 Cell[BoxData[
  InterpretationBox[
@@ -708,29 +696,29 @@ down): ", {Temp`\[Alpha]}],
   Editable->False]], "Print",
  CellLabel->
   "During evaluation of \
-In[17]:=",ExpressionUUID->"280d369b-6131-4634-92d1-0f8ed68c8ca5"],
+In[17]:=",ExpressionUUID->"1d58c3f8-3443-456b-9081-58c847786899"],
 
 Cell[BoxData["$Aborted"], "Output",
  CellLabel->
-  "Out[17]=",ExpressionUUID->"183deaa0-25f6-4a0c-b2e1-8c73e8f5d698"]
+  "Out[17]=",ExpressionUUID->"7d762fc6-9d23-4e70-ae7d-65fcf15bcc33"]
 }, Open  ]],
 
 Cell["Tensors with different metrics cannot be combined", \
-"Subitem",ExpressionUUID->"2f03574b-3474-4346-b326-27e976f92731"],
+"Subitem",ExpressionUUID->"60d58e77-88f4-4dbb-b165-4582cb6bb12c"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"gRN", "=", 
   RowBox[{"ToMetric", "[", "\"\<ReissnerNordstrom\>\"", "]"}]}]], "Input",
- CellLabel->"In[18]:=",ExpressionUUID->"02468a62-30ca-4989-a867-0744968b119a"],
+ CellLabel->"In[18]:=",ExpressionUUID->"4f0a263c-d9a6-47d3-bc9d-08a51e7c51d9"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[18]=",ExpressionUUID->"a6996c0c-0220-4dbb-a3fa-a2a604a9eced"]
+  "Out[18]=",ExpressionUUID->"f33478f0-5631-4663-a884-608cd5182755"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -738,16 +726,16 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"MergeTensors", "[", 
   RowBox[{"gRN", "+", "gS"}], "]"}]], "Input",
- CellLabel->"In[19]:=",ExpressionUUID->"5bea29cb-73e1-4f8d-940d-87257c9b7119"],
+ CellLabel->"In[19]:=",ExpressionUUID->"a499f0f2-cefc-44cb-a555-073bd569ec34"],
 
 Cell[BoxData["\<\"Cannot sum Tensors with different metrics.\"\>"], "Print",
  CellLabel->
   "During evaluation of \
-In[19]:=",ExpressionUUID->"e584ca4a-15b6-4bd7-afa4-5262b1c35f8b"],
+In[19]:=",ExpressionUUID->"d82dd8fc-474d-4fb9-9c7a-1b14dce1c49e"],
 
 Cell[BoxData["$Aborted"], "Output",
  CellLabel->
-  "Out[19]=",ExpressionUUID->"98caf4d3-cc38-48f8-8236-85bf3b2ca00b"]
+  "Out[19]=",ExpressionUUID->"967089ea-ad05-4384-90b6-466ee87f534a"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -756,42 +744,42 @@ Cell[BoxData["$Aborted"], "Output",
 Cell[CellGroupData[{
 
 Cell["Reordering Tensor indices", \
-"Section",ExpressionUUID->"1dc1116e-5723-4ef6-b3fe-7dd45b82eaf5"],
+"Section",ExpressionUUID->"f100a3b4-5b07-40f1-860b-3fb04ef3bc9e"],
 
 Cell[CellGroupData[{
 
 Cell["General principles and using MergeTensors", \
-"Subsection",ExpressionUUID->"e5df93e7-d412-4a01-8112-c6f38ccce1af"],
+"Subsection",ExpressionUUID->"533cc509-00d4-4d05-a56b-76e19e49b5de"],
 
 Cell["\<\
 When a Tensor is shown in a notebook it has formatted output with indices.\
-\>", "Item",ExpressionUUID->"e050ed22-853c-4bf2-b47d-efb7402fb158"],
+\>", "Item",ExpressionUUID->"bb53637e-20d8-4278-858c-d8fba740af9d"],
 
 Cell[TextData[{
  "For instance, consider the field strength tensor for the ",
  StyleBox["Reissner",
   IgnoreSpellCheck->True],
  "-Nordstr\[ODoubleDot]m spacetime."
-}], "Item",ExpressionUUID->"10f7fb71-a85c-480d-aa15-f71cf99f8fc9"],
+}], "Item",ExpressionUUID->"44a4f42f-a4dc-4a3c-9db2-86b627471a1e"],
 
 Cell[CellGroupData[{
 
 Cell["It is a rank-2 antisymmetric Tensor.", \
-"Item",ExpressionUUID->"33803639-bf8c-4844-b9c6-e566efe18820"],
+"Item",ExpressionUUID->"08629bbb-037d-40bf-bbfa-5bf52889b679"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"fsRN", "=", 
   RowBox[{"FieldStrengthTensor", "[", "\"\<RN\>\"", "]"}]}]], "Input",
- CellLabel->"In[20]:=",ExpressionUUID->"a75effe5-79d3-418c-886d-2df888096a10"],
+ CellLabel->"In[20]:=",ExpressionUUID->"c505a0e5-aef3-4239-b390-916c381a0427"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["F", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[20]=",ExpressionUUID->"cd47126f-fe76-4a76-a023-8b27b97b73d1"]
+  "Out[20]=",ExpressionUUID->"ff88ff65-8f09-410f-9975-4eeded368c22"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -799,7 +787,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"fsRN", "//", "TensorValues"}], "//", "MatrixForm"}]], "Input",
- CellLabel->"In[21]:=",ExpressionUUID->"a7d190df-ace0-4acd-90ce-e74054cadde9"],
+ CellLabel->"In[21]:=",ExpressionUUID->"ff89017b-2159-4c13-af47-543b62e46022"],
 
 Cell[BoxData[
  TagBox[
@@ -827,15 +815,15 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[21]//MatrixForm=",ExpressionUUID->"088b335a-afa5-4ad9-a815-\
-f4b97c308ac4"]
+  "Out[21]//MatrixForm=",ExpressionUUID->"6e21f8d9-344e-47f7-aca6-\
+511ae0c4afba"]
 }, Open  ]]
 }, Open  ]],
 
 Cell["\<\
 Those specific indices are arbitrary until they are traced over or used in an \
 operation with another Tensor\
-\>", "Item",ExpressionUUID->"8dd612dd-a630-498d-bf37-6d2a04702b87"],
+\>", "Item",ExpressionUUID->"0ff3e1fc-1711-4705-a62f-2afbeed1f79a"],
 
 Cell[CellGroupData[{
 
@@ -843,7 +831,7 @@ Cell["\<\
 That is, simply writing the following will not change the Tensor\
 \[CloseCurlyQuote]s values internally, even though the order of the two \
 indices has changed\
-\>", "Item",ExpressionUUID->"992c78c6-7354-480c-bf68-e3ec37aaf7f0"],
+\>", "Item",ExpressionUUID->"32ad3aea-ba03-4bfe-a62a-ac0d8e037d95"],
 
 Cell[CellGroupData[{
 
@@ -852,14 +840,14 @@ Cell[BoxData[
   RowBox[{
    RowBox[{"-", "\[Beta]"}], ",", 
    RowBox[{"-", "\[Alpha]"}]}], "]"}]], "Input",
- CellLabel->"In[22]:=",ExpressionUUID->"033e676d-45c8-4b3f-90c4-d7e88bb6014a"],
+ CellLabel->"In[22]:=",ExpressionUUID->"22e125a6-8fac-4417-bcb1-2231df63f163"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["F", "\[Beta]\[Alpha]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[22]=",ExpressionUUID->"981a0afa-0d67-48c6-9e3a-9270536c2d17"]
+  "Out[22]=",ExpressionUUID->"4d297c75-a236-4118-9e02-a843aac2cbcd"]
 }, Open  ]]
 }, Open  ]],
 
@@ -867,7 +855,7 @@ Cell[CellGroupData[{
 
 Cell["\<\
 See this by calling TensorValues on the two versions of the Tensor.\
-\>", "Item",ExpressionUUID->"d386ecc3-77c4-4b36-8901-b2e5185b942b"],
+\>", "Item",ExpressionUUID->"1bced7b0-d822-4969-80fd-757f9cec7949"],
 
 Cell[CellGroupData[{
 
@@ -883,7 +871,7 @@ Cell[BoxData[
     RowBox[{
      RowBox[{"-", "\[Beta]"}], ",", 
      RowBox[{"-", "\[Alpha]"}]}], "]"}], "]"}]}]], "Input",
- CellLabel->"In[23]:=",ExpressionUUID->"0eb096db-8be6-410a-8a99-967e0ab2796a"],
+ CellLabel->"In[23]:=",ExpressionUUID->"f5f267db-994c-4cfc-b689-b6241f659629"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -897,7 +885,7 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[23]=",ExpressionUUID->"08dea228-d038-4f2b-bbb5-8302a7747ca1"]
+  "Out[23]=",ExpressionUUID->"161dab61-3242-45e9-a2b5-b07515998d32"]
 }, Open  ]]
 }, Open  ]],
 
@@ -906,7 +894,7 @@ Cell[CellGroupData[{
 Cell["\<\
 However, If we first combine them into one Tensor, using MergeTensors, we do \
 see an effect.\
-\>", "Item",ExpressionUUID->"6c686c4c-ec92-4cf7-a122-4ef719146308"],
+\>", "Item",ExpressionUUID->"cc87e71e-416a-4ad6-98ae-6b35c5b4e8ba"],
 
 Cell[CellGroupData[{
 
@@ -922,7 +910,7 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"-", "\[Beta]"}], ",", 
       RowBox[{"-", "\[Alpha]"}]}], "]"}]}], "]"}], "]"}]], "Input",
- CellLabel->"In[24]:=",ExpressionUUID->"9e8dd946-c01e-4286-bf96-2fd7f30f97a8"],
+ CellLabel->"In[24]:=",ExpressionUUID->"a47baf36-cdbc-4dd3-9708-db8328545693"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -943,14 +931,14 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[24]=",ExpressionUUID->"f528bc62-0bd8-4d4b-9ce2-d277765ecea1"]
+  "Out[24]=",ExpressionUUID->"938b98be-9b75-4619-be66-5a9a8368665e"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Of course, the field strength tensor is antisymmetric so:", \
-"Item",ExpressionUUID->"acd5e711-e769-4208-8b1b-2215875060e9"],
+"Item",ExpressionUUID->"2e8002d4-1bb2-4cb6-b7b9-8da3030987c8"],
 
 Cell[CellGroupData[{
 
@@ -966,7 +954,7 @@ Cell[BoxData[
      RowBox[{
       RowBox[{"-", "\[Beta]"}], ",", 
       RowBox[{"-", "\[Alpha]"}]}], "]"}]}], "]"}], "]"}]], "Input",
- CellLabel->"In[25]:=",ExpressionUUID->"a19b7ce9-f356-4ad7-a49e-0e889f136f5b"],
+ CellLabel->"In[25]:=",ExpressionUUID->"f0fab6a1-07ec-4f79-9c60-c40d8461c9af"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -980,7 +968,7 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[25]=",ExpressionUUID->"69b43fe5-e919-4dae-ad9d-a1f4cea3ee8b"]
+  "Out[25]=",ExpressionUUID->"ef3df49d-d80a-4053-a144-8d9dee7bb632"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -988,23 +976,23 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Using ReorderTensorIndices", \
-"Subsection",ExpressionUUID->"9fc9f768-7ac3-4e42-9263-8d25a37e2ebb"],
+"Subsection",ExpressionUUID->"aee2c120-d095-437e-ad16-35b445a6d640"],
 
 Cell["\<\
 Sometimes it is useful to just change the order of one Tensor\
 \[CloseCurlyQuote]s indices.\
-\>", "Item",ExpressionUUID->"e495aee0-5d61-436f-a404-c9394c69a6ae"],
+\>", "Item",ExpressionUUID->"64c1250d-cb94-4853-9375-ec31f4461203"],
 
 Cell[CellGroupData[{
 
 Cell["This is done with the function ReorderTensorIndices", \
-"Item",ExpressionUUID->"969062e5-ed82-4a94-bc81-62a5a59076a1"],
+"Item",ExpressionUUID->"763fe06b-537b-4a1c-8101-239c8ffe3786"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"?", "ReorderTensorIndices"}]], "Input",
- CellLabel->"In[26]:=",ExpressionUUID->"f2632487-07db-437c-a709-051d1e6d72ab"],
+ CellLabel->"In[26]:=",ExpressionUUID->"f629f798-83e5-4fa1-bbf7-30db3dc4b514"],
 
 Cell[BoxData[
  RowBox[{"\<\"ReorderTensorIndices[t,order,n] returns the Tensor t renamed n \
@@ -1020,15 +1008,15 @@ equivalent, but with an automatically generated name for the new Tensor.\"\>",
     "paclet:GeneralRelativityTensors/ref/ReorderTensorIndices"]}]], "Print", \
 "PrintUsage",
  CellTags->
-  "Info263740591031-6352629",ExpressionUUID->"142f588f-c348-4817-bbf2-\
-0eeb5aff83b1"]
+  "Info263740651245-9176000",ExpressionUUID->"9b2956e2-06f6-4af3-8bac-\
+e737b530394b"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["For instance, we can take the Transpose of fsRN with", \
-"Item",ExpressionUUID->"b8515759-f0a9-4edf-ba6e-4ffef4cc05ab"],
+"Item",ExpressionUUID->"cbe6a394-c0a2-418a-9b4a-a65b78bc366d"],
 
 Cell[CellGroupData[{
 
@@ -1038,14 +1026,14 @@ Cell[BoxData[
    RowBox[{"fsRN", ",", 
     RowBox[{"{", 
      RowBox[{"2", ",", "1"}], "}"}]}], "]"}]}]], "Input",
- CellLabel->"In[27]:=",ExpressionUUID->"627582c9-d6a4-44fa-b2cd-c63803ade471"],
+ CellLabel->"In[27]:=",ExpressionUUID->"4c9e1f9e-e3ce-43be-ac3f-78e763324dfe"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["F", "\[Beta]\[Alpha]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[27]=",ExpressionUUID->"080bfaa5-8789-4bb3-b20b-cb300f9a9a87"]
+  "Out[27]=",ExpressionUUID->"8425f205-3285-419a-b16a-62ba2d7c014e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1053,7 +1041,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"fsRNT", "//", "TensorValues"}], "//", "MatrixForm"}]], "Input",
- CellLabel->"In[28]:=",ExpressionUUID->"cd76c742-0f6f-479a-aaf7-6ecd63de041f"],
+ CellLabel->"In[28]:=",ExpressionUUID->"31c8bbe0-7729-47a0-8f35-8c73b428014c"],
 
 Cell[BoxData[
  TagBox[
@@ -1081,8 +1069,8 @@ Cell[BoxData[
   Function[BoxForm`e$, 
    MatrixForm[BoxForm`e$]]]], "Output",
  CellLabel->
-  "Out[28]//MatrixForm=",ExpressionUUID->"3e556ac5-67fa-4a64-a32f-\
-f9fe584478a9"]
+  "Out[28]//MatrixForm=",ExpressionUUID->"dc4b7e5a-2357-4969-8406-\
+47d374802324"]
 }, Open  ]]
 }, Open  ]],
 
@@ -1091,7 +1079,7 @@ Cell[CellGroupData[{
 Cell["\<\
 ReorderTensorIndices can perform larger reorderings. Here we swap the indices \
 in positions 1 and 2 with those in 3 and 4 in the Schwarzschild Riemann Tensor\
-\>", "Item",ExpressionUUID->"c6ba8ec6-82b6-4c43-a932-01a3f2bc5a51"],
+\>", "Item",ExpressionUUID->"82c95226-fb35-4fc7-9982-3e8d643556c4"],
 
 Cell[CellGroupData[{
 
@@ -1100,14 +1088,14 @@ Cell[BoxData[
   RowBox[{"RiemannTensor", "[", 
    RowBox[{"gS", ",", 
     RowBox[{"ActWith", "\[Rule]", "Simplify"}]}], "]"}]}]], "Input",
- CellLabel->"In[29]:=",ExpressionUUID->"9b8f114d-d81c-4a8f-b22e-31c3020ca147"],
+ CellLabel->"In[29]:=",ExpressionUUID->"6b3232a1-08da-43b7-b808-44ebcaa5aa55"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["R", "\[Alpha]\[Beta]\[Gamma]\[Delta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[29]=",ExpressionUUID->"cb23ddff-0cf5-4cfe-877b-ca6d183f92af"]
+  "Out[29]=",ExpressionUUID->"b88de013-a4b8-4659-9bb7-45943996453a"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1124,14 +1112,14 @@ Cell[BoxData[
       RowBox[{"-", "\[Delta]"}]}], "]"}], ",", 
     RowBox[{"{", 
      RowBox[{"3", ",", "4", ",", "1", ",", "2"}], "}"}]}], "]"}]}]], "Input",
- CellLabel->"In[30]:=",ExpressionUUID->"e6b3fefc-fff7-4488-9cc3-2851ca98a423"],
+ CellLabel->"In[30]:=",ExpressionUUID->"2ed6e37a-3616-4071-9ce0-a89598e1ac9c"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["R", "\[Gamma]\[Delta]\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[30]=",ExpressionUUID->"1494554e-1e4d-4460-a3c1-88e90da55a1c"]
+  "Out[30]=",ExpressionUUID->"34547950-91f9-4470-bcc4-2a52ee7246d2"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1147,7 +1135,7 @@ Cell[BoxData[
       RowBox[{"-", "\[Beta]"}], ",", 
       RowBox[{"-", "\[Gamma]"}], ",", 
       RowBox[{"-", "\[Delta]"}]}], "]"}]}]}], "//", "Simplify"}]], "Input",
- CellLabel->"In[31]:=",ExpressionUUID->"c74620bb-bdbe-4d26-98f1-eed940c21d30"],
+ CellLabel->"In[31]:=",ExpressionUUID->"df5d3a68-4375-403d-80df-98a3b0860ec3"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1325,7 +1313,7 @@ Cell[BoxData[
         RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]}], 
     "}"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[31]=",ExpressionUUID->"73451fa1-29f0-4784-9225-b1b40c6b1253"]
+  "Out[31]=",ExpressionUUID->"0e85951f-3d5f-47fa-b1b0-d171d49b3bf7"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -1334,17 +1322,17 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Partial derivatives", \
-"Section",ExpressionUUID->"1ff02863-54d1-4b19-b4b2-d2aca1e5ab52"],
+"Section",ExpressionUUID->"8c620189-8de9-48bd-9261-4a2668e91e1d"],
 
 Cell[CellGroupData[{
 
 Cell["Derivatives with respect to spacetime coordinates", \
-"Subsection",ExpressionUUID->"b4ea5ac6-97a9-4813-afac-1c884831a8df"],
+"Subsection",ExpressionUUID->"515046de-49c2-4f51-b768-9ce1c034cc73"],
 
 Cell[CellGroupData[{
 
 Cell["D is overloaded to take derivatives with respect to indices", \
-"Item",ExpressionUUID->"a895f18e-909b-4495-930a-9cf3f84affe6"],
+"Item",ExpressionUUID->"fb7d062a-3670-4eb9-8980-748fc747f98a"],
 
 Cell[CellGroupData[{
 
@@ -1355,7 +1343,7 @@ Cell[BoxData[
     RowBox[{"gS", "[", 
      RowBox[{"\[Alpha]", ",", "\[Beta]"}], "]"}], ",", 
     RowBox[{"-", "\[Alpha]"}]}], "]"}]}]], "Input",
- CellLabel->"In[32]:=",ExpressionUUID->"4e5b8171-7710-40f0-9c50-b69c3ab47913"],
+ CellLabel->"In[32]:=",ExpressionUUID->"8f226eb5-6f5a-4910-83bc-b47af0126fe2"],
 
 Cell[BoxData[
  TagBox[
@@ -1366,7 +1354,7 @@ Cell[BoxData[
    RowBox[{"  ", "\[Alpha]\[Beta]"}]],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[32]=",ExpressionUUID->"b6b30a8f-9f35-45ec-869e-95c57c4572c8"]
+  "Out[32]=",ExpressionUUID->"fa355bb0-ed8d-4081-8f11-5dd0efe91136"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1374,7 +1362,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"gSDiv", "//", "TensorValues"}], "//", "Simplify"}]], "Input",
- CellLabel->"In[33]:=",ExpressionUUID->"ecd8b11f-039c-448a-bf3a-8757a035c4a8"],
+ CellLabel->"In[33]:=",ExpressionUUID->"3b16ddb6-102d-4bdc-95b4-330bd223a5dd"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1421,7 +1409,7 @@ Cell[BoxData[
       RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]}], 
   "}"}]], "Output",
  CellLabel->
-  "Out[33]=",ExpressionUUID->"8f76a566-135d-4794-a452-c3e63d4730df"]
+  "Out[33]=",ExpressionUUID->"59ca5285-ebc4-453e-9159-d84e4b988b19"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -1429,24 +1417,24 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Derivatives with respect to a curve parameter", \
-"Subsection",ExpressionUUID->"46286297-707a-47c4-ae1c-53a7f8be443f"],
+"Subsection",ExpressionUUID->"da9ab18d-95ed-44ed-bd22-11085cb2669e"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{"uS", "=", 
   RowBox[{
-  "FourVelocity", "[", "\"\<SchwarzschildGeneric\>\"", 
+  "FourVelocityVector", "[", "\"\<SchwarzschildGeneric\>\"", 
    "]"}]}], "\[IndentingNewLine]", 
  RowBox[{"uS", "//", "TensorValues"}]}], "Input",
- CellLabel->"In[34]:=",ExpressionUUID->"07d8e0c3-17e5-490d-b408-ff89d9a33e45"],
+ CellLabel->"In[34]:=",ExpressionUUID->"6330daff-6a40-4e55-9426-aaf30c8664f5"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["u", "", "\[Alpha]"], "[", "\<\"\[Tau]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[34]=",ExpressionUUID->"932cb8f3-e9c4-416f-b040-e6f2844c0423"],
+ CellLabel->"Out[34]=",ExpressionUUID->"46881fdc-9214-45e0-8461-ab699d5693be"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1475,7 +1463,7 @@ Cell[BoxData[
     SuperscriptBox[
      RowBox[{"r", "[", "\[Tau]", "]"}], "2"]]}], "}"}]], "Output",
  CellLabel->
-  "Out[35]=",ExpressionUUID->"b95986d1-9de5-456f-8312-834cc392abd3"]
+  "Out[35]=",ExpressionUUID->"db65890d-2944-4351-96cc-4b0bc4d8f2ae"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1484,7 +1472,7 @@ Cell[BoxData[
  RowBox[{"uSdiv", "=", 
   RowBox[{"D", "[", 
    RowBox[{"uS", ",", "\[Tau]"}], "]"}]}]], "Input",
- CellLabel->"In[36]:=",ExpressionUUID->"126c78bb-41f4-422f-91ed-094ee0107c49"],
+ CellLabel->"In[36]:=",ExpressionUUID->"faa3f14b-ed93-4661-b311-19f0db09d991"],
 
 Cell[BoxData[
  TagBox[
@@ -1495,7 +1483,7 @@ Cell[BoxData[
    "[", "\<\"\[Tau]\"\>", "]"}],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[36]=",ExpressionUUID->"a27d9f2a-8338-43b7-aeaf-c8b48df2917b"]
+  "Out[36]=",ExpressionUUID->"493b60ce-4d1c-45c3-9348-d0ad99c887af"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1503,7 +1491,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"uSdiv", "//", "TensorValues"}], "//", "Simplify"}]], "Input",
- CellLabel->"In[37]:=",ExpressionUUID->"ddcdafaf-4a24-49b6-92a4-ab12444a5c66"],
+ CellLabel->"In[37]:=",ExpressionUUID->"fa9a3bf0-5998-4d37-add0-d3efd3f99fe9"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1565,7 +1553,7 @@ Cell[BoxData[
      SuperscriptBox[
       RowBox[{"r", "[", "\[Tau]", "]"}], "3"]]}]}], "}"}]], "Output",
  CellLabel->
-  "Out[37]=",ExpressionUUID->"5eaab430-7c5e-47e8-9c0f-faa839f47cc5"]
+  "Out[37]=",ExpressionUUID->"a3a8ff66-e9d8-4e2b-b61b-3b870873ba7f"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -1573,54 +1561,74 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Covariant derivatives", \
-"Section",ExpressionUUID->"2293de9d-7cd8-4b81-b787-499b5cc58e75"],
+"Section",ExpressionUUID->"eacf5f63-2e86-4057-bc1b-81a0c5cf13ac"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 Usually we want to take covariant derivatives, which we do with CovariantD\
-\>", "Item",ExpressionUUID->"abf8cc5b-ef90-452f-9c2c-195c93022660"],
+\>", "Item",ExpressionUUID->"0702a7f4-db45-4c65-9f68-322cc76804b8"],
 
 Cell[BoxData[GridBox[{
    {
     RowBox[{
      ButtonBox["CovariantD",
       BaseStyle->"Link",
-      ButtonData->"paclet:Tensors/ref/CovariantD"], "[", 
+      ButtonData->"paclet:GeneralRelativityTensors/ref/CovariantD"], "[", 
      RowBox[{
-      StyleBox["t",
+      StyleBox["expr",
        FontFamily->"Times",
        FontWeight->"Regular",
        FontSlant->"Italic"], ",", 
-      StyleBox["ind",
+      StyleBox["ind1",
+       FontFamily->"Times",
+       FontWeight->"Regular",
+       FontSlant->"Italic"], 
+      StyleBox[",",
+       FontFamily->"Times",
+       FontWeight->"Regular",
+       FontSlant->"Italic"], 
+      StyleBox[" ",
+       FontFamily->"Times",
+       FontWeight->"Regular",
+       FontSlant->"Italic"], 
+      StyleBox["ind2",
+       FontFamily->"Times",
+       FontWeight->"Regular",
+       FontSlant->"Italic"], 
+      StyleBox[",",
+       FontFamily->"Times",
+       FontWeight->"Regular",
+       FontSlant->"Italic"], 
+      StyleBox["...",
        FontFamily->"Times",
        FontWeight->"Regular",
        FontSlant->"Italic"]}], "]"}], Cell[TextData[{
-     "the covariant derivative of a Tensor ",
-     StyleBox["t",
-      FontFamily->"Times",
-      FontWeight->"Regular",
-      FontSlant->"Italic"],
-     " with repect to the spacetime index ",
-     StyleBox["ind",
+     "the covariant derivative of a Tensor expression with repect to the \
+spacetime indices ",
+     StyleBox["ind1, ind2, ...",
       FontFamily->"Times",
       FontWeight->"Regular",
       FontSlant->"Italic"]
-    }], "TableText",ExpressionUUID->"f93d6de8-b23d-422d-853c-07dee50ab20c"]},
+    }], "TableText",ExpressionUUID->"891fca57-cdc5-40e2-8068-102b5bcf1a61"]},
    {
     RowBox[{
-     ButtonBox["CovariantD",
+     ButtonBox["",
       BaseStyle->"Link",
-      ButtonData->"paclet:Tensors/ref/CovariantD"], "[", 
+      ButtonData->"paclet:Tensors/ref/CovariantD"], 
      RowBox[{
-      StyleBox["t",
-       FontFamily->"Times",
-       FontWeight->"Regular",
-       FontSlant->"Italic"], ",", 
-      StyleBox["u",
-       FontFamily->"Times",
-       FontWeight->"Regular",
-       FontSlant->"Italic"]}], "]"}], Cell[TextData[{
+      ButtonBox["CovariantD",
+       BaseStyle->"Link",
+       ButtonData->"paclet:GeneralRelativityTensors/ref/CovariantD"], "[", 
+      RowBox[{
+       StyleBox["t",
+        FontFamily->"Times",
+        FontWeight->"Regular",
+        FontSlant->"Italic"], ",", 
+       StyleBox["u",
+        FontFamily->"Times",
+        FontWeight->"Regular",
+        FontSlant->"Italic"]}], "]"}]}], Cell[TextData[{
      "the covariant derivative of a Tensor ",
      StyleBox["t",
       FontFamily->"Times",
@@ -1631,41 +1639,41 @@ Cell[BoxData[GridBox[{
       FontFamily->"Times",
       FontWeight->"Regular",
       FontSlant->"Italic"]
-    }], "TableText",ExpressionUUID->"a174f0d9-8446-444d-8d4d-e8c419046b7e"]}
+    }], "TableText",ExpressionUUID->"57dc42b8-30fb-4062-bbf5-0f70d65fefe9"]}
   }]], "DefinitionBox",
- CellID->1000094061,ExpressionUUID->"e131dfc7-c4ce-450e-b932-dc977b2290d4"]
+ CellID->1000094061,ExpressionUUID->"c48c12bb-baf0-4aa8-bf46-45c076c9ba6e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Derivatives with respect to spacetime coordinates", \
-"Subsection",ExpressionUUID->"5b7ed9d7-5d3c-4e7f-b2f7-3ec234263a25"],
+"Subsection",ExpressionUUID->"a4000d42-c289-4b59-bbc0-7e5c9153d087"],
 
 Cell[CellGroupData[{
 
 Cell["Consider the ReissnerNordstrom metric", \
-"Item",ExpressionUUID->"a20dab76-73fd-4f27-b444-a0bdf4b20a47"],
+"Item",ExpressionUUID->"698ed933-bf6e-4d86-bcfe-278d35a9f8e4"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"gRN", "=", 
   RowBox[{"ToMetric", "[", "\"\<ReissnerNordstrom\>\"", "]"}]}]], "Input",
- CellLabel->"In[38]:=",ExpressionUUID->"e0d3021b-d9ee-4091-8360-4f3ba37422bd"],
+ CellLabel->"In[38]:=",ExpressionUUID->"4c00ff53-637a-4df5-aa7c-5b39237ccb00"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[38]=",ExpressionUUID->"4fe6af66-a774-4e08-8cb6-0c90f81ada67"]
+  "Out[38]=",ExpressionUUID->"a1856133-0b78-404e-bf37-c917792a06cf"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["The covariant derivative of the metric should vanish", \
-"Item",ExpressionUUID->"46f0251f-ef5d-430e-ba1e-b3a563ebd84d"],
+"Item",ExpressionUUID->"f7eca389-8708-4fa3-91ac-15c511dc4e4c"],
 
 Cell[CellGroupData[{
 
@@ -1674,7 +1682,7 @@ Cell[BoxData[
   RowBox[{"CovariantD", "[", 
    RowBox[{"gRN", ",", 
     RowBox[{"-", "\[Gamma]"}]}], "]"}]}]], "Input",
- CellLabel->"In[39]:=",ExpressionUUID->"1fd9b33c-e4c7-44d7-bd6d-2978fb89dfcd"],
+ CellLabel->"In[39]:=",ExpressionUUID->"b9465454-1748-4d5d-9e89-7c85fbe8b249"],
 
 Cell[BoxData[
  RowBox[{
@@ -1702,7 +1710,7 @@ Cell[BoxData[
     SubsuperscriptBox["g", "\[Delta]\[Beta]", ""],
     DisplayForm]}]}]], "Output",
  CellLabel->
-  "Out[39]=",ExpressionUUID->"f781d23e-1697-428d-8de8-bb7d03c6366b"]
+  "Out[39]=",ExpressionUUID->"3f072f24-550e-40e9-abfb-f946162c2635"]
 }, Open  ]]
 }, Open  ]],
 
@@ -1710,7 +1718,7 @@ Cell[CellGroupData[{
 
 Cell["\<\
 Merge these different terms in order to see the identity is satisfied\
-\>", "Item",ExpressionUUID->"94df83b0-952f-4698-90ef-af6d7ad58e5a"],
+\>", "Item",ExpressionUUID->"563a47a1-65f5-4a1f-ac89-d0de8861d720"],
 
 Cell[CellGroupData[{
 
@@ -1719,7 +1727,7 @@ Cell[BoxData[
   RowBox[{
    RowBox[{"MergeTensors", "[", "dgRN", "]"}], "//", "TensorValues"}], "//", 
   "Simplify"}]], "Input",
- CellLabel->"In[40]:=",ExpressionUUID->"34d6a1f1-3c12-4907-a3f5-cad95e23ee09"],
+ CellLabel->"In[40]:=",ExpressionUUID->"364bb549-5b53-463f-b78d-e09f53ed7ab0"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1766,7 +1774,7 @@ Cell[BoxData[
       RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]}], 
   "}"}]], "Output",
  CellLabel->
-  "Out[40]=",ExpressionUUID->"37d5e82d-f6a7-415f-8e1f-68f3affa905d"]
+  "Out[40]=",ExpressionUUID->"983916bb-32fe-415d-85c3-9c78d9ef7187"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -1774,20 +1782,20 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Derivatives along four velocities", \
-"Subsection",ExpressionUUID->"3adcffab-a833-4d99-836a-ce8d148169f7"],
+"Subsection",ExpressionUUID->"50932cc3-8bf3-4ef3-afb0-616ebb6736e4"],
 
 Cell[CellGroupData[{
 
 Cell["Parallel transport a 4-velocity along itself", \
-"Item",ExpressionUUID->"ebb06c6e-622c-4aae-8cdb-7f111c46b623"],
+"Item",ExpressionUUID->"afe8b78a-3b98-4873-af71-b31823242389"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"uS", "=", 
   RowBox[{
-  "FourVelocity", "[", "\"\<SchwarzschildGeneric\>\"", "]"}]}]], "Input",
- CellLabel->"In[41]:=",ExpressionUUID->"e3d01175-6f31-4e1f-af6a-3380e54050c1"],
+  "FourVelocityVector", "[", "\"\<SchwarzschildGeneric\>\"", "]"}]}]], "Input",
+ CellLabel->"In[41]:=",ExpressionUUID->"3e226b96-8b9e-4161-8c67-8481a4f11131"],
 
 Cell[BoxData[
  TagBox[
@@ -1795,7 +1803,7 @@ Cell[BoxData[
    SubsuperscriptBox["u", "", "\[Alpha]"], "[", "\<\"\[Tau]\"\>", "]"}],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[41]=",ExpressionUUID->"7da4a4f6-8df9-4a62-8ffe-46a32cff4671"]
+  "Out[41]=",ExpressionUUID->"31ae962b-811c-40f3-8ae4-c1b5aa24ee9e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1804,7 +1812,7 @@ Cell[BoxData[
  RowBox[{"covDuS", "=", 
   RowBox[{"CovariantD", "[", 
    RowBox[{"uS", ",", "uS"}], "]"}]}]], "Input",
- CellLabel->"In[42]:=",ExpressionUUID->"c12973df-3920-4e04-91b3-19902404b662"],
+ CellLabel->"In[42]:=",ExpressionUUID->"333c3c5f-b185-4490-a565-4143973248fd"],
 
 Cell[BoxData[
  RowBox[{
@@ -1831,7 +1839,7 @@ Cell[BoxData[
     "[", "\<\"\[Tau]\"\>", "]"}],
    DisplayForm]}]], "Output",
  CellLabel->
-  "Out[42]=",ExpressionUUID->"181af324-7c66-4a98-93fc-afbe1b24feaa"]
+  "Out[42]=",ExpressionUUID->"68394139-7990-40ce-846c-c740f63abe68"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1842,7 +1850,7 @@ Cell[BoxData[
    RowBox[{"MergeTensors", "[", 
     RowBox[{"covDuS", ",", 
      RowBox[{"ActWith", "\[Rule]", "Simplify"}]}], "]"}]}]}]], "Input",
- CellLabel->"In[43]:=",ExpressionUUID->"df16b7d3-c416-49e9-9d59-d4eab0b68ad6"],
+ CellLabel->"In[43]:=",ExpressionUUID->"7699f7d1-3243-412a-819f-eacfa9381109"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2094,7 +2102,7 @@ Cell[BoxData[
      SuperscriptBox[
       RowBox[{"r", "[", "\[Tau]", "]"}], "3"]}]]}], "}"}]], "Output",
  CellLabel->
-  "Out[43]=",ExpressionUUID->"2a7260fc-bd41-432a-b4e5-15e9dd283d7a"]
+  "Out[43]=",ExpressionUUID->"d5591dd2-f2e9-421c-be93-4f23a774badb"]
 }, Open  ]]
 }, Open  ]],
 
@@ -2102,7 +2110,7 @@ Cell[CellGroupData[{
 
 Cell["This should vanish, but we need to plug back in for \
 r\[CloseCurlyQuote][\[Tau]]", \
-"Item",ExpressionUUID->"ba4390c5-da3a-42f5-82b6-cb7656f49517"],
+"Item",ExpressionUUID->"0063a73d-39a6-4a77-a05a-6c381c6cb598"],
 
 Cell[CellGroupData[{
 
@@ -2117,7 +2125,7 @@ Cell[BoxData[
         RowBox[{"Coordinates", "[", "uS", "]"}], "[", "\[Tau]", "]"}], "]"}], 
       ",", "\[Tau]"}], "]"}], "->", 
     RowBox[{"TensorValues", "[", "uS", "]"}]}], "]"}]}]], "Input",
- CellLabel->"In[44]:=",ExpressionUUID->"cd0172f5-d9a4-4efb-bc76-b5b9c68f4753"],
+ CellLabel->"In[44]:=",ExpressionUUID->"f1de4271-264d-4e83-aaa7-572618dc835a"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2162,7 +2170,7 @@ Cell[BoxData[
      SuperscriptBox[
       RowBox[{"r", "[", "\[Tau]", "]"}], "2"]]}]}], "}"}]], "Output",
  CellLabel->
-  "Out[44]=",ExpressionUUID->"99a1d6f2-b9d4-4a16-b688-e7878bf7f535"]
+  "Out[44]=",ExpressionUUID->"9654e447-9aa5-4eff-93c0-2670d91cb1b2"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -2170,7 +2178,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{
   RowBox[{"vals", "/.", "uSRules"}], "//", "Simplify"}]], "Input",
- CellLabel->"In[45]:=",ExpressionUUID->"16fc9e55-4ad9-4398-92c4-be9559199dab"],
+ CellLabel->"In[45]:=",ExpressionUUID->"18d72f3f-9e05-44ef-95e0-bbb185c624f4"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2411,7 +2419,7 @@ Cell[BoxData[
      SuperscriptBox[
       RowBox[{"r", "[", "\[Tau]", "]"}], "3"]}]]}], "}"}]], "Output",
  CellLabel->
-  "Out[45]=",ExpressionUUID->"af54f82a-aec6-43f1-bf36-2ecce089ef81"]
+  "Out[45]=",ExpressionUUID->"e6526d63-3c3b-433c-aa0e-6c62bc66786a"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -2456,43 +2464,43 @@ Cell["", "RelatedTutorialsSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"751e5093-0eb2-4759-baa4-eab0301a99cd"],
+  0,ExpressionUUID->"175ecee2-df4a-4c77-871c-028fc20baddb"],
 
 Cell[TextData[ButtonBox["Introduction to GeneralRelativityTensors",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Introduction to \
 GeneralRelativityTensors"]], \
-"RelatedTutorials",ExpressionUUID->"f61a8f38-5dee-4f11-8099-2fa1cd3259fb"],
+"RelatedTutorials",ExpressionUUID->"89b2b72d-8bd9-4689-b540-61791934051f"],
 
 Cell[TextData[ButtonBox["Introduction to Tensor Curves",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Introduction to Tensor Curves"]], \
-"RelatedTutorials",ExpressionUUID->"3c2f0a57-8766-43c2-b1e6-f6928ae70b7a"],
+"RelatedTutorials",ExpressionUUID->"6fcec1f4-586e-49b0-9b94-c18ed7382386"],
 
 Cell[TextData[ButtonBox["Built in common Tensors",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Built in common Tensors"]], \
-"RelatedTutorials",ExpressionUUID->"a9c1b03c-05d0-4376-a32d-b062261b02b3"],
+"RelatedTutorials",ExpressionUUID->"877ad046-6646-4360-8908-07736a167841"],
 
 Cell[TextData[ButtonBox["Caching Tensor values",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Caching Tensor values"]], \
-"RelatedTutorials",ExpressionUUID->"40695e83-5cc4-4e11-8d5d-b778ad44fc32"],
+"RelatedTutorials",ExpressionUUID->"0c6c9dd9-f1d3-4ebf-b138-6ffd24da9800"],
 
 Cell[TextData[ButtonBox["Examples - Wave equations",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Examples - Wave equations"]], \
-"RelatedTutorials",ExpressionUUID->"e7ae2a29-dec2-484a-a33b-f155ebeaed69"]
+"RelatedTutorials",ExpressionUUID->"b31650ba-c0ef-4653-b362-5be12292c56d"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[" ", \
-"FooterCell",ExpressionUUID->"437cc42f-6132-41c9-8691-1b0def35dccf"]
+"FooterCell",ExpressionUUID->"2174f69c-b5b6-4a15-8426-717589f54926"]
 },
 Saveable->False,
 ScreenStyleEnvironment->"Working",

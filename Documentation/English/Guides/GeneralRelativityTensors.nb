@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "GuideColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"fb7f323b-687f-4c07-8dc7-5c704ff45a1e"],
+   0}},ExpressionUUID->"98de1e3b-dc1b-4d8d-a10a-50c70190ae15"],
 
 Cell[TextData[{
  ButtonBox["GeneralRelativityTensors",
@@ -9,14 +9,15 @@ Cell[TextData[{
   ButtonData->
    "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["An application for tensor calculations in general relativity",
+ ButtonBox["GeneralRelativityTensors: An application for tensor calculations",
+  
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors"]
-}], "LinkTrail",ExpressionUUID->"151532ef-22d1-4187-940c-1646a5ddac9f"],
+}], "LinkTrail",ExpressionUUID->"b268947d-0efa-4a17-b97c-2889fe12147a"],
 
 Cell[BoxData[GridBox[{
    {Cell["GENERALRELATIVITYTENSORS GUIDE", "PacletNameCell",ExpressionUUID->
-     "ac8e6279-a137-43cb-9307-d5d12838d9b9"], Cell[TextData[{
+     "ea575c98-ea72-4f1e-a471-4fcb66a8a35f"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Tutorials \[RightGuillemet]\"\>",
@@ -47,7 +48,7 @@ differentiating Tensors"],
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "d95eaec1-bf44-465d-ab78-e85071718fad"],
+      "161f45e7-944d-4e3e-a006-dc6a42caa8b9"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -67,623 +68,624 @@ differentiating Tensors"],
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "6cd871ef-12f5-4fe9-9684-f16ca64682c8"]
-    }], "AnchorBar",ExpressionUUID->"eb7f18a1-99f0-404b-b374-5eb233ea773b"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"48452ae6-9293-45cc-8498-9d9602732659"],
+      "e902fdd8-8115-41c1-8cd0-59da2491ac36"]
+    }], "AnchorBar",ExpressionUUID->"7dbef47c-331b-48fd-8295-6ded4f64dd15"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"975d7df3-3d14-433f-88af-94e8aa281b9e"],
 
 Cell[CellGroupData[{
 
-Cell["An application for tensor calculations in general relativity", \
-"GuideTitle",ExpressionUUID->"7dc2e1c8-76f2-4c4e-bef5-dd02fe441a0b"],
+Cell["\<\
+GeneralRelativityTensors: An application for tensor calculations\
+\>", "GuideTitle",ExpressionUUID->"d2d21c62-1a6c-46f6-aff0-9b0f9b6b6779"],
 
 Cell["\<\
 The GeneralRelativityTensors application provides functions for coordinate \
 based calculations, particularly in the context of black holes.\
-\>", "GuideAbstract",ExpressionUUID->"a2457bcc-a1b5-4528-962e-e40a496cc6e3"],
+\>", "GuideAbstract",ExpressionUUID->"a5d247e2-f80e-4f77-ad54-5c0966a6c640"],
 
 Cell[CellGroupData[{
 
 Cell["Tensor creation and common functions", \
-"GuideFunctionsSubsection",ExpressionUUID->"af455222-0636-4462-bbbb-\
-edf36826a8ee"],
+"GuideFunctionsSubsection",ExpressionUUID->"b4fdb157-d71b-4172-9cb0-\
+fe8d70753869"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["ToTensor",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/ToTensor"]], 
-  "InlineFunctionSans",ExpressionUUID->"80637657-a130-43cb-b1d1-4b690fe02526"],
+  "InlineFunctionSans",ExpressionUUID->"da59e3f5-8b84-46eb-8653-e51d2bbe0f83"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Form a new Tensor"
-}], "GuideText",ExpressionUUID->"c285caf8-9041-47d4-b6a3-e7386521e15c"],
+}], "GuideText",ExpressionUUID->"a1903822-4e77-4a7d-b810-6376bdbab0eb"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["ToMetric",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/ToMetric"]], 
-  "InlineFunctionSans",ExpressionUUID->"60b2c55c-7db7-49c3-b301-9deaba79a28e"],
+  "InlineFunctionSans",ExpressionUUID->"21a8d0e4-f5c2-4406-900f-8bc39e002796"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Form a new metric Tensor"
-}], "GuideText",ExpressionUUID->"79f97cca-f244-4bc8-9f18-24e5e13ff96a"],
+}], "GuideText",ExpressionUUID->"93631817-336b-4669-a277-6f10481d8953"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["ToCurve",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/ToCurve"]], 
-  "InlineFunctionSans",ExpressionUUID->"20c53f1a-4d12-48a9-8600-fe7bb9f2a29e"],
+  "InlineFunctionSans",ExpressionUUID->"f35fdd80-80cd-431f-a60f-294f130dee35"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Form a new Curve Tensor"
-}], "GuideText",ExpressionUUID->"e65dbf4d-c7d0-481c-9fdf-0e0e1270dc3b"],
+}], "GuideText",ExpressionUUID->"208483fd-447d-4a84-81b4-4f54b3f4f19f"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["ToTensorOnCurve",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/ToTensorOnCurve"]], 
-  "InlineFunctionSans",ExpressionUUID->"33ff62b5-40ca-4af1-a859-dc224fecfc3a"],
+  "InlineFunctionSans",ExpressionUUID->"e48438e4-a70a-4996-a535-d5c7d9fd6a6c"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Form a new Tensor on a Curve"
-}], "GuideText",ExpressionUUID->"98f70774-9175-4786-9b81-cc4ddff1c24d"],
+}], "GuideText",ExpressionUUID->"80cd1b59-0f5f-4b9c-b77d-4cfbf5d78590"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["RawTensorValues",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/RawTensorValues"]], 
-  "InlineFunctionSans",ExpressionUUID->"5316e602-7d89-4eb7-8c40-244532ca94fc"],
+  "InlineFunctionSans",ExpressionUUID->"ae297f90-b390-4aec-9e1a-12a5875a30be"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Values stored internally by Tensor"
-}], "GuideText",ExpressionUUID->"39537f02-2893-44c7-adb0-f8ddd8ac1b53"],
+}], "GuideText",ExpressionUUID->"92299b7b-d703-4b51-9762-310699372287"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["TensorValues",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/TensorValues"]], 
-  "InlineFunctionSans",ExpressionUUID->"edea70d4-027d-47a4-933d-02f2c4c11a5e"],
+  "InlineFunctionSans",ExpressionUUID->"6cd279cd-8e22-4305-94b6-a967a289c473"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Values stored internally by Tensor, potentially evaluated on a Curve"
-}], "GuideText",ExpressionUUID->"6449b0ea-71ce-4752-9a08-b80ae905aceb"],
+}], "GuideText",ExpressionUUID->"a42b7df8-0692-4e75-9955-2cca72e77061"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["Rank",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/Rank"]], 
-  "InlineFunctionSans",ExpressionUUID->"dabb65fd-92f3-4a94-bd19-e6686d29b74b"],
+  "InlineFunctionSans",ExpressionUUID->"042f28f9-3396-4c53-a97b-19786266feba"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Rank of Tensor"
-}], "GuideText",ExpressionUUID->"505af289-d181-424d-924e-d87a71e6a6ed"],
+}], "GuideText",ExpressionUUID->"53f2db4e-d5c0-46ed-b1fe-347b07404d78"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["Indices",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/Indices"]], 
-  "InlineFunctionSans",ExpressionUUID->"cd76062d-cd9f-4087-814a-c790d8fc0dfe"],
+  "InlineFunctionSans",ExpressionUUID->"695e7fa6-5794-45fb-9c07-54df4dfc61be"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "List of Indices of Tensor"
-}], "GuideText",ExpressionUUID->"847a4612-6edf-4da4-9d50-c0e40b40bb60"],
+}], "GuideText",ExpressionUUID->"86973a32-5025-4ac3-bfc7-db0698a8c594"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["PossibleIndices",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/PossibleIndices"]], 
-  "InlineFunctionSans",ExpressionUUID->"74e91f9c-7ddb-4176-927b-36b3a3b29687"],
+  "InlineFunctionSans",ExpressionUUID->"86f503ce-85d5-4cb1-96d8-9aa591220f98"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "List of all possible indices of Tensor"
-}], "GuideText",ExpressionUUID->"3cea230b-6e6e-44ae-b695-d265c71480b3"],
+}], "GuideText",ExpressionUUID->"7939d1c2-ce52-4d03-a256-8447a15b70b5"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["IndexPositions",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/IndexPositions"]], 
-  "InlineFunctionSans",ExpressionUUID->"b0142fa8-d50e-4fdc-b9a7-f1d9cf28b48a"],
+  "InlineFunctionSans",ExpressionUUID->"ab61358d-1842-4c6a-975d-dba1eeabf20a"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "List of elements \"Up\" and \"Down\" giving the positions of Tensor \
 indices"
-}], "GuideText",ExpressionUUID->"0891c636-ad4a-4bdf-818b-d5476bb174a2"],
+}], "GuideText",ExpressionUUID->"0434e1e5-a14a-430f-b259-3750fcb7094f"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["Dimensions",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/Dimensions"]], 
-  "InlineFunctionSans",ExpressionUUID->"da14592d-7da4-4d76-b073-af645e837a10"],
+  "InlineFunctionSans",ExpressionUUID->"d78f528f-c1a6-4c18-a1f6-e4eced67a12a"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Dimensions is overloaded. For GeneralRelativityTensors it gives the number \
 of dimensions of the manifold."
-}], "GuideText",ExpressionUUID->"f3b9ed9e-b95d-4ac1-85b4-239be7d0bc50"],
+}], "GuideText",ExpressionUUID->"649227f0-39cd-419f-b657-52f98de60fd9"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["Coordinates",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/Coordinates"]], 
-  "InlineFunctionSans",ExpressionUUID->"0b8ef9b4-3ccf-477a-8db7-d5241a389ee3"],
+  "InlineFunctionSans",ExpressionUUID->"d687cdbf-b733-468c-93e3-7c49aa315eb9"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "List of the coordinates of the Tensor"
-}], "GuideText",ExpressionUUID->"661946ba-92c4-4786-bb74-02b15ad2df7c"],
+}], "GuideText",ExpressionUUID->"c6a23a29-4742-4b38-b41d-65a406321ef9"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["TensorRules",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/TensorRules"]], 
-  "InlineFunctionSans",ExpressionUUID->"9079888e-c267-4089-979c-6b567bad893f"],
+  "InlineFunctionSans",ExpressionUUID->"a8393889-aa30-4cbf-be7a-9ef33717268e"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "List of Rules showing Tensor values for given components"
-}], "GuideText",ExpressionUUID->"85fc813e-89df-4cea-95c8-4666bcdc724d"],
+}], "GuideText",ExpressionUUID->"1cbacc63-81dc-4f8e-8df0-a1d566caf9ec"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["TensorName",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/TensorName"]], 
-  "InlineFunctionSans",ExpressionUUID->"1fccdf9f-2fff-4182-8cc8-9cf147e96a96"],
+  "InlineFunctionSans",ExpressionUUID->"34a568a5-e60f-41bc-a9c2-535637053754"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Internal name of Tensor"
-}], "GuideText",ExpressionUUID->"3af0567e-721c-42df-bb06-2eedef91ba8c"],
+}], "GuideText",ExpressionUUID->"7d2a17b0-8878-4792-abea-ad36c323dc3f"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["TensorDisplayName",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/TensorDisplayName"]], 
-  "InlineFunctionSans",ExpressionUUID->"afd194fc-a7e0-4047-bcdf-5f108d303223"],
+  "InlineFunctionSans",ExpressionUUID->"b7c2ec05-d68e-4ba1-ab5d-2f5f7e249289"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Name used for display of Tensor in notebook"
-}], "GuideText",ExpressionUUID->"c897e29c-9990-4fc0-8b72-285bfc69f84e"],
+}], "GuideText",ExpressionUUID->"2f7af76a-c860-431b-b9f4-9799f9f51a74"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["Metric",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/Metric"]], 
-  "InlineFunctionSans",ExpressionUUID->"9c0ee39a-0ad2-4d8f-a845-1fc9fe9e9785"],
+  "InlineFunctionSans",ExpressionUUID->"c9dce21c-4020-435b-8953-118770247a49"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Metric associated with the Tensor"
-}], "GuideText",ExpressionUUID->"095164a1-e410-401e-a975-4921e25879ff"],
+}], "GuideText",ExpressionUUID->"1e92bbb8-e194-4c97-a59e-0ceb3112a244"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["InverseMetric",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/InverseMetric"]], 
-  "InlineFunctionSans",ExpressionUUID->"ae1098f5-f31d-41b0-81d2-5b7ead076524"],
+  "InlineFunctionSans",ExpressionUUID->"bc4777b5-2f36-45f6-a4f1-c14f5bc6a22a"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Inverse metric associated with the Tensor"
-}], "GuideText",ExpressionUUID->"7cb7b9d2-8df0-42ad-aee9-9e28c1a100ad"],
+}], "GuideText",ExpressionUUID->"634f092e-6947-4766-add5-cfdc3791ebbc"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["Curve",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/Curve"]], 
-  "InlineFunctionSans",ExpressionUUID->"db1a3acb-4b4c-401d-b7f5-6ba4963bc515"],
+  "InlineFunctionSans",ExpressionUUID->"24f8204f-5b03-449f-9050-c0f925116709"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Curve associated with the Tensor"
-}], "GuideText",ExpressionUUID->"8ab9c3a4-c584-4604-b1e3-c40847f16d31"],
+}], "GuideText",ExpressionUUID->"5ff16345-ce23-4656-bf89-9c6703dd913f"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["MetricQ",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/MetricQ"]], 
-  "InlineFunctionSans",ExpressionUUID->"8ab9d573-4a84-422c-a938-509c1033b5d7"],
+  "InlineFunctionSans",ExpressionUUID->"1999488a-fb84-4afc-ad57-41acfd5359e7"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Test whether a Tensor is a metric"
-}], "GuideText",ExpressionUUID->"e6c057cd-dd1c-4849-b251-4c43248e4538"],
+}], "GuideText",ExpressionUUID->"90e1f231-2020-4680-ab9c-ba022b9f4d37"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["CurveQ",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/CurveQ"]], 
-  "InlineFunctionSans",ExpressionUUID->"8d4dfa99-ab1d-450b-b52c-a30eeb105de1"],
+  "InlineFunctionSans",ExpressionUUID->"37644b1c-6b59-497b-bb20-28098bb7a031"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Test whether a Tensor is a Curve"
-}], "GuideText",ExpressionUUID->"25bfedc9-affc-4a83-91f0-c68db7c4358e"],
+}], "GuideText",ExpressionUUID->"d693d4ca-e7fc-4b5a-a914-823c89b16821"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["OnCurveQ",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/OnCurveQ"]], 
-  "InlineFunctionSans",ExpressionUUID->"40426d12-269b-4442-8b1e-58890d452f3d"],
+  "InlineFunctionSans",ExpressionUUID->"65bbaa4d-19b2-45e7-882c-76d0efa846eb"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Test whether a Tensor is on a Curve"
-}], "GuideText",ExpressionUUID->"69b13055-0397-48a9-8abc-def502cd125b"],
+}], "GuideText",ExpressionUUID->"eee17240-b4eb-4413-a6d5-e5a94fedc180"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["ValidTensorExpressionQ",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/ValidTensorExpressionQ"]], 
-  "InlineFunctionSans",ExpressionUUID->"8f5bfb2a-e557-4674-839a-f07c1457d5ce"],
+  "InlineFunctionSans",ExpressionUUID->"6dfa6f98-9df0-4e95-b68c-7591f3d37465"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Test whether a Tensor expression is valid (in indices and metrics)"
-}], "GuideText",ExpressionUUID->"78beb7dd-f8af-45f1-9ebe-83a061ac8e46"],
+}], "GuideText",ExpressionUUID->"007ed984-36e5-4db5-8db2-b8b1480b6921"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["ValidateTensorExpression",
   BaseStyle->"Link",
   ButtonData->
    "paclet:GeneralRelativityTensors/ref/ValidateTensorExpression"]], 
-  "InlineFunctionSans",ExpressionUUID->"2f748cd5-dbe4-43f1-b335-3d1bfbdf7f87"],
+  "InlineFunctionSans",ExpressionUUID->"369b08d2-fc22-4216-a867-67fdfe0d8f0c"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Similar to ValidTensorExpressionQ, but aborts and prints error messages"
-}], "GuideText",ExpressionUUID->"e1e20d54-587c-423c-b02a-809984b0e450"]
+}], "GuideText",ExpressionUUID->"49cf67ff-6983-412d-ad03-0d7d8b03b516"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Tensor manipulation", \
-"GuideFunctionsSubsection",ExpressionUUID->"06ff1a31-36e3-4fb8-bb53-\
-5097414e2e6b"],
+"GuideFunctionsSubsection",ExpressionUUID->"0258b4fa-6d3e-404e-bcf2-\
+ba35f255189c"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["ShiftIndices",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/ShiftIndices"]], 
-  "InlineFunctionSans",ExpressionUUID->"d5f31e83-a881-47ac-bde6-e176244b812c"],
+  "InlineFunctionSans",ExpressionUUID->"1646fad6-d7d0-4cbd-bb6d-601333e702c3"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Raise and lower indices on a Tensor"
-}], "GuideText",ExpressionUUID->"a6c0e5a2-fa81-456b-8a16-71ab82479368"],
+}], "GuideText",ExpressionUUID->"fb10988d-5f69-436a-acf9-66a8717927aa"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["ActOnTensorValues",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/ActOnTensorValues"]], 
-  "InlineFunctionSans",ExpressionUUID->"c578e82f-4c82-407a-8471-957f567ec4a5"],
+  "InlineFunctionSans",ExpressionUUID->"c5f1195c-257d-4fdf-b0e8-694d927f4f61"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Apply a function to the values of a Tensor"
-}], "GuideText",ExpressionUUID->"08233c5c-f172-42ab-af05-c06fe2fb8b7b"],
+}], "GuideText",ExpressionUUID->"0f12cd5c-6f41-47c9-815b-dccef37e0db7"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["MergeTensors",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/MergeTensors"]], 
-  "InlineFunctionSans",ExpressionUUID->"1f067231-d6b1-465c-a4a4-752a05b722da"],
+  "InlineFunctionSans",ExpressionUUID->"b970215d-832a-4f73-a947-d242814effd8"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Combine an expression into a single Tensor"
-}], "GuideText",ExpressionUUID->"1ed690ee-d0ea-45f5-9821-48d38a0ce380"],
+}], "GuideText",ExpressionUUID->"ed1736be-9a07-4b73-8418-8ed90dd24928"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["ContractIndices",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/ContractIndices"]], 
-  "InlineFunctionSans",ExpressionUUID->"728863ec-6be8-4030-bc8b-25e0445ccfb4"],
+  "InlineFunctionSans",ExpressionUUID->"c0eb8c70-7877-437b-a891-590776847ce9"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Trace over repeated indices"
-}], "GuideText",ExpressionUUID->"dec7d54f-fa16-48e7-ac23-a54f9e4efaaa"],
+}], "GuideText",ExpressionUUID->"b6707e91-f8f1-4209-a287-c9e5a1676664"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["MultiplyTensors",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/MultiplyTensors"]], 
-  "InlineFunctionSans",ExpressionUUID->"0f59754b-f04c-44a2-8fb7-441a9b11aaf0"],
+  "InlineFunctionSans",ExpressionUUID->"33978171-b28a-41cf-96e9-86936c17636c"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Outer product of Tensors"
-}], "GuideText",ExpressionUUID->"2632e0eb-78f5-487e-b650-e87ae0a4d97d"],
+}], "GuideText",ExpressionUUID->"db0df485-d37a-43c7-bc9d-0824a4d030aa"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["MultiplyTensorScalar",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/MultiplyTensorScalar"]], 
-  "InlineFunctionSans",ExpressionUUID->"7def3d73-04f2-4c93-aa21-c9895fbe7192"],
+  "InlineFunctionSans",ExpressionUUID->"e73af03b-0e68-409b-9aae-37ab4ba5abac"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Product of a Tensor and a scalar"
-}], "GuideText",ExpressionUUID->"7bf28aae-425e-4192-ab38-984628ff3055"],
+}], "GuideText",ExpressionUUID->"51e7b657-42a6-4447-849f-a5ba0c02b007"],
 
 Cell[TextData[{
- Cell[TextData[ButtonBox["SumTensors",
+ Cell[TextData[ButtonBox["AddTensors",
   BaseStyle->"Link",
-  ButtonData->"paclet:GeneralRelativityTensors/ref/SumTensors"]], 
-  "InlineFunctionSans",ExpressionUUID->"bf15f23a-7953-40c7-9f21-3dbee13ab16d"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/AddTensors"]], 
+  "InlineFunctionSans",ExpressionUUID->"6db34faf-c5be-4c7c-b028-a503e8291e4a"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Sum of Tensors"
-}], "GuideText",ExpressionUUID->"f690e723-1f5c-4be2-9294-d19a769956aa"],
+}], "GuideText",ExpressionUUID->"98d5bc52-b45d-4881-a16b-d6cea4f7896c"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["D",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/D"]], "InlineFunctionSans",
-  ExpressionUUID->"656fcb22-6544-45d3-89e1-434ff4590f2f"],
+  ExpressionUUID->"fd8df6a0-d36e-4b83-824d-6b34222c0fdf"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "D is overloaded. It takes the partial derivative of a Tensor."
-}], "GuideText",ExpressionUUID->"b08ecc3b-9551-4c61-af64-153658a47c11"],
+}], "GuideText",ExpressionUUID->"83836e83-c518-492e-82cd-69c0bb9c740c"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["CovariantD",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/CovariantD"]], 
-  "InlineFunctionSans",ExpressionUUID->"cf3f059b-a216-4528-8687-182ef96bc1c3"],
+  "InlineFunctionSans",ExpressionUUID->"452489c2-cf38-4366-8439-e5d6356cf742"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Covariant derivative of a Tensor expression"
-}], "GuideText",ExpressionUUID->"f24bf1b6-36d4-4939-a0e2-e0e912c8b183"]
+}], "GuideText",ExpressionUUID->"39a5f218-f22f-4bf2-a116-75ed63ede72c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Common Tensors and functions", \
-"GuideFunctionsSubsection",ExpressionUUID->"01f1de6c-9e3a-4817-8f11-\
-62b2adf3fee4"],
+"GuideFunctionsSubsection",ExpressionUUID->"d2e304b7-b4f1-49a1-b55a-\
+35e7554782f1"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["ChristoffelSymbol",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/ChristoffelSymbol"]], 
-  "InlineFunctionSans",ExpressionUUID->"fd3ac898-2180-44f3-b45a-952344e73cc3"],
+  "InlineFunctionSans",ExpressionUUID->"06d91bcf-b0d5-4a84-b71c-58f837f8a26e"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Connection coefficients for a metric"
-}], "GuideText",ExpressionUUID->"ddf3fec2-276f-4ecf-8041-1c45c796b0a2"],
+}], "GuideText",ExpressionUUID->"56dd89bd-f620-4141-908f-5a919f32bea6"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["RiemannTensor",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/RiemannTensor"]], 
-  "InlineFunctionSans",ExpressionUUID->"c7c6e1fd-d5df-4a50-8873-6230e608ca2a"],
+  "InlineFunctionSans",ExpressionUUID->"85166972-2293-4ce5-b097-1f995a5bccdf"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Riemann tensor for a metric"
-}], "GuideText",ExpressionUUID->"67234fdf-3916-4881-b346-f2d6ed5dc4ca"],
+}], "GuideText",ExpressionUUID->"46b91a3c-ec8a-48e1-8fc7-5bcefc1c9ffd"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["RicciTensor",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/RicciTensor"]], 
-  "InlineFunctionSans",ExpressionUUID->"33ae6e62-96f2-475e-9042-b96fd8929384"],
+  "InlineFunctionSans",ExpressionUUID->"566d96ec-0539-46b7-8447-ff91ceb9e7c3"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Ricci tensor for a metric"
-}], "GuideText",ExpressionUUID->"11e68006-efc4-445b-8ee9-21053042a738"],
+}], "GuideText",ExpressionUUID->"f15c1bfd-42da-4190-a8ef-2231cdd08855"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["RicciScalar",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/RicciScalar"]], 
-  "InlineFunctionSans",ExpressionUUID->"e702aa90-6821-45db-b301-99dc12e89c73"],
+  "InlineFunctionSans",ExpressionUUID->"15ac7511-9782-478b-8675-ab305e0c4234"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Ricci scalar for a metric"
-}], "GuideText",ExpressionUUID->"5c54894d-cfcb-448e-80be-a8d62cd21334"],
+}], "GuideText",ExpressionUUID->"1bfcb923-dcd6-416d-9d50-e89bc3eb8ca9"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["EinsteinTensor",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/EinsteinTensor"]], 
-  "InlineFunctionSans",ExpressionUUID->"8dc057d9-51a2-44be-99dc-789589a9fd5d"],
+  "InlineFunctionSans",ExpressionUUID->"a0158bc9-2be4-456f-9aab-90b427bf211f"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Einstein tensor for a metric"
-}], "GuideText",ExpressionUUID->"6b643efd-6c72-4e98-8db1-dc81f5f08c84"],
+}], "GuideText",ExpressionUUID->"ef619c42-49ba-48b8-bdcd-dfd00e3e2a5d"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["WeylTensor",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/WeylTensor"]], 
-  "InlineFunctionSans",ExpressionUUID->"ffb60727-7d81-4149-aa43-29fd18990031"],
+  "InlineFunctionSans",ExpressionUUID->"824c2ba4-7873-4890-97f4-c71a0e328e53"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Weyl Tensor for a metric"
-}], "GuideText",ExpressionUUID->"bbfabfd4-f37d-431e-8a0c-86d6d421efb0"],
+}], "GuideText",ExpressionUUID->"326c837d-645f-469d-91a9-abdd6af3a32e"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["CottonTensor",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/CottonTensor"]], 
-  "InlineFunctionSans",ExpressionUUID->"99ae861c-de7e-4a73-94f1-3bbab26300f2"],
+  "InlineFunctionSans",ExpressionUUID->"0779b462-5716-44c4-bcc4-e99470b44cb5"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Cotton Tensor for a metric"
-}], "GuideText",ExpressionUUID->"0dc947e2-701c-4e5e-9f7b-9a21fdf58635"],
+}], "GuideText",ExpressionUUID->"06804718-5efb-445a-935c-f1ef22c48d5d"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KretschmannScalar",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/KretschmannScalar"]], 
-  "InlineFunctionSans",ExpressionUUID->"b383bee2-34ba-468f-bc68-26bf46e2d240"],
+  "InlineFunctionSans",ExpressionUUID->"12e3d045-64de-4ea2-9147-80c38e8f7f2b"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Kretschmann scalar for a metric"
-}], "GuideText",ExpressionUUID->"9e0218c5-9694-44b7-a7b0-c3794081620b"],
+}], "GuideText",ExpressionUUID->"e813e590-91c0-47c4-9804-34df0e500db4"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["MaxwellPotential",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/MaxwellPotential"]], 
-  "InlineFunctionSans",ExpressionUUID->"d64d8dd1-dcfc-4d72-a2bf-721a85462471"],
+  "InlineFunctionSans",ExpressionUUID->"74dc4533-4e9f-468c-a586-2c2150ade162"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Electromagnetic four vector potential"
-}], "GuideText",ExpressionUUID->"2e1442a4-f6f3-4c66-bca5-4ea1cb5546d8"],
+}], "GuideText",ExpressionUUID->"3e24a992-aa96-42f0-8ebb-8f19e0a35ae0"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["FieldStrengthTensor",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/FieldStrengthTensor"]], 
-  "InlineFunctionSans",ExpressionUUID->"302e4887-bd5e-4b64-8be2-8b86c1d7b3fc"],
+  "InlineFunctionSans",ExpressionUUID->"2cac3031-2f52-42d6-a32c-3e54626cc7f1"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Field strength tensor for a vector potential"
-}], "GuideText",ExpressionUUID->"4a66edb9-0c4e-4448-aa82-dc061be2f40f"],
+}], "GuideText",ExpressionUUID->"b6734746-94e0-40a7-85e4-795af5f8d7e8"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["MaxwellStressEnergyTensor",
   BaseStyle->"Link",
   ButtonData->
    "paclet:GeneralRelativityTensors/ref/MaxwellStressEnergyTensor"]], 
-  "InlineFunctionSans",ExpressionUUID->"d9c2c01f-2a8f-43a9-b3f2-d7eb81b3ffdb"],
+  "InlineFunctionSans",ExpressionUUID->"42623c08-70db-4364-a90e-63fedb6976fa"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Stress energy tensor for a field strength tensor"
-}], "GuideText",ExpressionUUID->"60392309-2d0d-4fb6-9bd1-b0c4d93897cf"],
+}], "GuideText",ExpressionUUID->"f856d391-9656-4987-931c-f95db591f62b"],
 
 Cell[TextData[{
- Cell[TextData[ButtonBox["FourVelocity",
+ Cell[TextData[ButtonBox["FourVelocityVector",
   BaseStyle->"Link",
-  ButtonData->"paclet:GeneralRelativityTensors/ref/FourVelocity"]], 
-  "InlineFunctionSans",ExpressionUUID->"412a01c2-589b-4956-ad5d-7fca2ee46db8"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/FourVelocityVector"]], 
+  "InlineFunctionSans",ExpressionUUID->"d5a4a27a-b85f-403c-9a00-bdf261f604fd"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Four-velocity for common spacetimes"
-}], "GuideText",ExpressionUUID->"51fd435f-21a4-4969-9c2b-aae23ef0e059"],
+}], "GuideText",ExpressionUUID->"b8e26b09-6a1a-44ee-8dd3-ead84b2003b2"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KinnersleyNullVector",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/KinnersleyNullVector"]], 
-  "InlineFunctionSans",ExpressionUUID->"6391b74b-26db-4223-a01f-1909f270d446"],
+  "InlineFunctionSans",ExpressionUUID->"25e27102-e42a-4fe1-8f73-9dc5fd28e1b0"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Null vector common in Newman-Penrose calculations"
-}], "GuideText",ExpressionUUID->"f4877b88-05f1-4600-b0fd-c5883b0016a2"],
+}], "GuideText",ExpressionUUID->"abb4bd32-368c-4896-b1c1-9b4a1330dbb1"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KinnersleyNullTetrad",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/KinnersleyNullTetrad"]], 
-  "InlineFunctionSans",ExpressionUUID->"d5afd536-74c1-4742-89e2-0561a1cfaeaa"],
+  "InlineFunctionSans",ExpressionUUID->"406b3ffe-386c-4adf-a9f2-c4bc42e43322"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "The four Kinnersley null vectors"
-}], "GuideText",ExpressionUUID->"dc0c3457-39d7-43b3-bf1c-b685a394dd5b"],
+}], "GuideText",ExpressionUUID->"8a8df42a-3b6e-47d0-991b-27cff91b1599"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["KinnersleyDerivative",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/KinnersleyDerivative"]], 
-  "InlineFunctionSans",ExpressionUUID->"e3d2ed55-9a49-4343-90fc-5dabc180d76b"],
+  "InlineFunctionSans",ExpressionUUID->"5d528d31-e05b-4261-ba48-430db39cd75d"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Derivative associated with a Kinnersley null vector"
-}], "GuideText",ExpressionUUID->"52684e42-aff2-4cfc-b021-47bbab8ad234"],
+}], "GuideText",ExpressionUUID->"5c489a2c-68c7-4dc1-bcf7-033ee02a9488"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["SpinCoefficient",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/SpinCoefficient"]], 
-  "InlineFunctionSans",ExpressionUUID->"45e07493-6269-41a7-9160-1e999edbeb57"],
+  "InlineFunctionSans",ExpressionUUID->"5c635053-aa28-488c-b69b-7c8d0a184d47"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "One of 12 Newman-Penrose spin coefficients"
-}], "GuideText",ExpressionUUID->"3fe34f65-636e-495e-b7e0-f1d64eb4eac6"],
+}], "GuideText",ExpressionUUID->"e198ebad-b8c9-4f1a-9dff-d256e9a9f3f6"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["BianchiIdentities",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/BianchiIdentities"]], 
-  "InlineFunctionSans",ExpressionUUID->"b72a08bb-d49d-4371-93cf-ae9b7f59ad88"],
+  "InlineFunctionSans",ExpressionUUID->"e5f6da6a-6f6b-4aa7-b3c0-8c715089deb7"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Bianchi identities for a metric"
-}], "GuideText",ExpressionUUID->"dc67964b-5fe0-46df-baca-321d6c6066df"]
+}], "GuideText",ExpressionUUID->"7dca37c7-1244-4cb5-a510-eab2a4f32655"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Caching Tensor values", \
-"GuideFunctionsSubsection",ExpressionUUID->"4bd94ed6-c316-4023-aaf5-\
-236f97b2a86c"],
+"GuideFunctionsSubsection",ExpressionUUID->"49736e91-1ac9-48c7-9c85-\
+0616c1ec248d"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["$CacheTensorValues",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/$CacheTensorValues"]], 
-  "InlineFunctionSans",ExpressionUUID->"22bc4c52-37d9-4758-a4d6-9a6f8b98bcb7"],
+  "InlineFunctionSans",ExpressionUUID->"5d4c8d8b-77c9-416c-84fe-67cba2fb9ab2"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Global variable for caching"
-}], "GuideText",ExpressionUUID->"fbab8893-faad-476e-90ac-2e6287315ae4"],
+}], "GuideText",ExpressionUUID->"734b0782-8f40-4df5-892f-51708c916f20"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["CachedTensorValues",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/CachedTensorValues"]], 
-  "InlineFunctionSans",ExpressionUUID->"2454553a-e832-4c79-8f2d-07eff97ed221"],
+  "InlineFunctionSans",ExpressionUUID->"22ddaff6-5afe-422f-be4f-a730cb903cf4"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Values that are cached internally"
-}], "GuideText",ExpressionUUID->"0799ddda-65b2-4fad-bd04-4ec2ecec7f5a"],
+}], "GuideText",ExpressionUUID->"669ea2f9-9c18-4475-b944-ee9ebaab8298"],
 
 Cell[TextData[{
  Cell[TextData[ButtonBox["ClearCachedTensorValues",
   BaseStyle->"Link",
   ButtonData->"paclet:GeneralRelativityTensors/ref/ClearCachedTensorValues"]],
    "InlineFunctionSans",ExpressionUUID->
-  "c080fc98-bb13-4451-ace9-b31cd6ee9be2"],
+  "aaf893e5-d38e-4c82-89b9-f33f9ff0283b"],
  " ",
  StyleBox["\[LongDash]", "GuideEmDash"],
  " ",
  "Remove internally cached values"
-}], "GuideText",ExpressionUUID->"057b69ea-dbc0-4ac0-a27f-9b4dcbaa5613"]
+}], "GuideText",ExpressionUUID->"9900c56c-1cc9-44ae-91e6-e517dd82dee2"]
 }, Open  ]]
 }, Open  ]],
 
@@ -699,59 +701,60 @@ Cell["", "GuideTutorialsSection",
      Cell["TUTORIALS", "GuideTutorialsSection"], 
      Cell["Tutorials", "GuideTutorialsSection"]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"3afbe302-a67e-478c-914c-ba961b621880"],
+  0,ExpressionUUID->"fba5dd9f-c5aa-423e-a3ab-efd86e531a71"],
 
 Cell[TextData[ButtonBox["Introduction to GeneralRelativityTensors",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Introduction to \
 GeneralRelativityTensors"]], \
-"GuideTutorial",ExpressionUUID->"05a997b6-c0cf-4dd7-be34-1cfd3028b1d3"],
+"GuideTutorial",ExpressionUUID->"48f56b63-ca5a-47e9-85af-630f80948436"],
 
 Cell[TextData[ButtonBox["Introduction to Tensor Curves",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Introduction to Tensor Curves"]], \
-"GuideTutorial",ExpressionUUID->"7e4b7b07-eb44-44b0-bbc4-fd2535e8ca53"],
+"GuideTutorial",ExpressionUUID->"af46d095-d693-4f28-96ac-1d20f324fe54"],
 
 Cell[TextData[ButtonBox["Manipulating and differentiating Tensors",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Manipulating and differentiating \
 Tensors"]], \
-"GuideTutorial",ExpressionUUID->"da47ff35-9e06-4190-bea6-c6868d6f4b53"],
+"GuideTutorial",ExpressionUUID->"ad5b2fdc-d006-4e55-9216-989119cc940b"],
 
 Cell[TextData[ButtonBox["Built in common Tensors",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Built in common Tensors"]], \
-"GuideTutorial",ExpressionUUID->"7bec2d05-8014-4862-9931-02ec2bedc905"],
+"GuideTutorial",ExpressionUUID->"f034925f-260d-4b9b-be2e-6af547135180"],
 
 Cell[TextData[ButtonBox["Caching Tensor values",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Caching Tensor values"]], \
-"GuideTutorial",ExpressionUUID->"776ed933-364d-418a-95cf-738e93832cbc"],
+"GuideTutorial",ExpressionUUID->"07f03868-7f25-4452-8896-cb1bddb252ac"],
 
 Cell[TextData[ButtonBox["Examples - Wave equations",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Examples - Wave equations"]], \
-"GuideTutorial",ExpressionUUID->"8eb366cc-babd-4845-befe-a30dd5a74da7"]
+"GuideTutorial",ExpressionUUID->"d8a81ebb-bd04-43a4-bfb9-a3fcff1b9b30"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"3e9d3098-9c3c-4cdd-8ae3-84cd4254eb72"],
+Cell[" ", "FooterCell",ExpressionUUID->"981e8215-0af9-40f6-a229-47304e95cdb5"],
 
-Cell[BoxData[""],ExpressionUUID->"7e8fc00b-50f6-4b52-a268-78ee4fbd94ee"]
+Cell[BoxData[""],ExpressionUUID->"03501687-2295-43af-9f88-5d1a3f2e4941"]
 }, Open  ]]
 },
 Saveable->False,
 ScreenStyleEnvironment->"Working",
 WindowSize->{725, 750},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-WindowTitle->"An application for tensor calculations in general relativity",
+WindowTitle->"GeneralRelativityTensors: An application for tensor \
+calculations",
 Visible->True,
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
@@ -761,12 +764,12 @@ TaggingRules->{
     "keywords" -> {"GeneralRelativityTensors"}, "index" -> True, "label" -> 
     "Tensors Application", "language" -> "en", "paclet" -> 
     "GeneralRelativityTensors", "status" -> "None", "summary" -> 
-    "An application for tensor calculations in general relativity", 
+    "GeneralRelativityTensors: An application for tensor calculations", 
     "synonyms" -> {"Tensors"}, "title" -> 
-    "An application for tensor calculations in general relativity", 
+    "GeneralRelativityTensors: An application for tensor calculations", 
     "windowTitle" -> 
-    "An application for tensor calculations in general relativity", "type" -> 
-    "Guide", "uri" -> 
+    "GeneralRelativityTensors: An application for tensor calculations", 
+    "type" -> "Guide", "uri" -> 
     "GeneralRelativityTensors/guide/GeneralRelativityTensors", 
     "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> "", "LinkTrails" -> 
   ""},

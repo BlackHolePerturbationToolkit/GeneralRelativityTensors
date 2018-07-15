@@ -3,7 +3,7 @@
   },
 
   "Basic Examples" -> {
-      "uS = FourVelocity[\"SchwarzschildGeneric\"]",
+      "uS = FourVelocityVector[\"SchwarzschildGeneric\"]",
       "xS = Curve[uS]",
       "CurveRules[xS]"
     },

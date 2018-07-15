@@ -11,6 +11,6 @@
     },
 
     "See Also" ->
-    {"MergeTensors","MultiplyTensors","MultiplyTensorScalar","SumTensors"}
+    {"MergeTensors","MultiplyTensors","MultiplyTensorScalar","AddTensors"}
 
 }

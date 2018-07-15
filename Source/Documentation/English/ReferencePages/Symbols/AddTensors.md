@@ -1,12 +1,12 @@
 {
   "More Information" -> {
-      "It is generally simpler to call MergeTensors than to call SumTensors (which MergeTensors does internally)."
+      "It is generally simpler to call MergeTensors than to call AddTensors (which MergeTensors does internally)."
   },
 
   "Basic Examples" -> {
     "gS = ToMetric[\"Schwarzschild\"]",
-    "SumTensors[gS, gS]",
-    "twoGSa = SumTensors[gS, gS, {\"2SchwarzschildMetricA\", \"2g\"}]",
+    "AddTensors[gS, gS]",
+    "twoGSa = AddTensors[gS, gS, {\"2SchwarzschildMetricA\", \"2g\"}]",
     "twoGSb = MultiplyTensorScalar[2, gS, {\"2SchwarzschildMetricB\", \"2g\"}]",
     "TensorValues[twoGS] - TensorValues[twoGSb] // Simplify"
     },

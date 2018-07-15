@@ -12,6 +12,6 @@
     },
 
     "See Also" ->
-    {"MergeTensors","ContractIndices","MultiplyTensorScalar","SumTensors"}
+    {"MergeTensors","ContractIndices","MultiplyTensorScalar","AddTensors"}
 
 }

@@ -18,6 +18,8 @@ WeylTensor::usage="WeylTensor[m] returns the Weyl Tensor with index positions \
 {\"Down\",\"Down\",\"Down\",\"Down\"} computed from the metric Tensor m.";
 CottonTensor::usage="CottonTensor[m] returns the Cotton Tensor with index positions \
 {\"Down\",\"Down\",\"Down\",} computed from the metric Tensor m.";
+KretschmannScalar::usage="KretschmannScalar[m] returns the \
+Kretschmann scalar (Riemann tensor squared) associated with the metric m.";
 
 KinnersleyNullVector::usage="KinnersleyNullVector[m,v] returns \
 the contravariant Kinnersley null vector associated with metric Tensor m and \
@@ -44,8 +46,6 @@ SpinCoefficient[builtIn,s,conj] is equivalent to \
 SpinCoefficient[ToMetric[builtIn],s,conj], where builtIn \
 can be \"Schwarzschild\" or \"Kerr\".";
 
-KretschmannScalar::usage="KretschmannScalar[m] returns the \
-Kretschmann scalar (Riemann tensor squared) associated with the metric m.";
 BianchiIdentities::usage="BianchiIdentities[m,n] returns the \
 n-th contracted Bianchi identities, where \
 n can be 0, 1, or 2. 
@@ -64,7 +64,7 @@ MaxwellStressEnergyTensor[builtIn] is equivalent to MaxwellStressEnergyTensor[Fi
 The current choices for builtIn are \"ReissnerNordstrom\" (or \"RN\") and \"KerrNewman\" (or \"KN\").";
 
 
-FourVelocity::usage="FourVelocity[builtIn] returns the four velocity associated with the string builtIn. \
+FourVelocityVector::usage="FourVelocityVector[builtIn] returns the four velocity associated with the string builtIn. \
 Choices are \"KerrGeneric\" and \"SchwarzschildGeneric\".";
 
 LeviCivitaSymbol::usage="LeviCivitaSymbol[builtIn] returns the Levi-Civita symbol associated with the 
@@ -791,8 +791,8 @@ SpinCoefficient[str_String,coeff_String,conj_?BooleanQ]:=SpinCoefficient[ToMetri
 SpinCoefficient[str_String,coeff_String]:=SpinCoefficient[str,coeff,False]
 
 
-Clear[FourVelocity]
-FourVelocity["KerrGeneric"]:=
+Clear[FourVelocityVector]
+FourVelocityVector["KerrGeneric"]:=
 Module[{t,r,th,ph,tau,EE,JJ,M,rhoSq,Delta,ut,ur,uth,uph,QQ,a,x1},
 
 	{t,r,th,ph,tau,EE,JJ,M,QQ,a}=Symbol/@{"t","r","\[Theta]","\[Phi]","\[Tau]","\[ScriptCapitalE]","\[ScriptCapitalJ]","M","Q","a"};
@@ -803,22 +803,24 @@ Module[{t,r,th,ph,tau,EE,JJ,M,rhoSq,Delta,ut,ur,uth,uph,QQ,a,x1},
 	ur=1/rhoSq Sqrt[(EE(r[tau]^2+a^2)-a JJ)^2-Delta(r[tau]^2+(JJ-a EE)^2+QQ)];
 	uth=1/rhoSq Sqrt[QQ-Cot[th[tau]]^2 JJ^2-a^2 Cos[th[tau]]^2 (1-EE^2)];
 	uph=1/rhoSq (Csc[th[tau]]^2 JJ+a EE((r[tau]^2+a^2)/Delta-1)-(a^2 JJ)/Delta);
-	x1 = ToCurve[{"FourVelocityGenericKerr","x"},ToMetric["Kerr"],{t[tau],r[tau],th[tau],ph[tau]},tau];
+	x1 = ToCurve[{"CurveGenericKerr","x"},ToMetric["Kerr"],{t[tau],r[tau],th[tau],ph[tau]},tau];
 	
-	ToTensorOnCurve[{"FourVelocityGenericKerr","u"},x1,{ut,ur,uth,uph}]
-]
+	ToTensorOnCurve[{"FourVelocityVectorGenericKerr","u"},x1,{ut,ur,uth,uph}]
+];
+FourVelocityVector["KerrGen"]:=FourVelocityVector["KerrGeneric"]
 
 
-FourVelocity["SchwarzschildGeneric"]:=
+FourVelocityVector["SchwarzschildGeneric"]:=
 Module[{t,r,th,ph,tau,EE,JJ,M,x1,ur},
 
 	{t,r,th,ph,tau,EE,JJ,M}=Symbol/@{"t","r","\[Theta]","\[Phi]","\[Tau]","\[ScriptCapitalE]","\[ScriptCapitalJ]","M"};
 
-	x1 = ToCurve[{"FourVelocityGenericSchwarzschild","x"},ToMetric["Schwarzschild"],{t[tau],r[tau],\[Pi]/2,ph[tau]},tau];
+	x1 = ToCurve[{"CurveGenericSchwarzschild","x"},ToMetric["Schwarzschild"],{t[tau],r[tau],\[Pi]/2,ph[tau]},tau];
 	ur = Sqrt[EE^2-(1-(2M)/r[tau])(1+JJ^2/r[tau]^2)];
 
-	ToTensorOnCurve[{"FourVelocityGenericSchwarzschild","u"},x1,{EE/(1-(2 M)/r[tau]),ur,0,JJ/r[tau]^2}]
-]
+	ToTensorOnCurve[{"FourVelocityVectorGenericSchwarzschild","u"},x1,{EE/(1-(2 M)/r[tau]),ur,0,JJ/r[tau]^2}]
+];
+FourVelocityVector["SchwGen"]:=FourVelocityVector["SchwarzschildGeneric"]
 
 
 Clear[TensorSphericalHarmonic]

@@ -18,6 +18,12 @@ using TensorName and IndexPositions as Keys.",
     },
 
     "See Also" ->
-    {"TensorValues","RawTensorValues","CachedTensorValues","ClearCachedTensorValues"}
+    {"TensorValues","RawTensorValues","CachedTensorValues","ClearCachedTensorValues"},
+
+    "Tutorials" -> {
+      "Introduction to GeneralRelativityTensors",
+      "Caching Tensor values",
+      "Examples - Wave equations"
+    }
 
 }

@@ -7,7 +7,7 @@ TensorValues return the same values."
   "Basic Examples" -> {
     "gS = ToMetric[\"Schwarzschild\"]",
     "TensorValues[gS]",
-    "uS = FourVelocity[\"SchwarzschildGeneric\"]",
+    "uS = FourVelocityVector[\"SchwarzschildGeneric\"]",
     "TensorValues[uS]",
     "gSF = ToTensorFieldOnCurve[gS,Curve[uS]]",
     "RawTensorValues[gSF]",
