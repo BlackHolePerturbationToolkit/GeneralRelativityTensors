@@ -531,13 +531,12 @@ Clear[ToTensorOnCurve]
 Tensor/:ToTensorOnCurve[t1_Tensor,c1_?CurveQ]:=
 Module[{params,vals},
 	
-	If[TensorName@Metric@t1=!=TensorName[(Association@@c1)["Metric"]],
+	If[TensorName@Metric@t1=!=TensorName@Metric@c1,
 		Print["Cannot put Tensor on a curve with a different metric."];
 		Abort[]
 	];
-	
 	vals=TensorValues@ToTensorFieldOnCurve[t1,c1];
-	params = {t1,{"Values",vals},{"Curve",c1},{"CurveParameter",CurveParameter@c1}};
+	params = {t1,{"Name",TensorName[t1]<>"Curve"},{"Values",vals},{"Curve",c1},{"CurveParameter",CurveParameter@c1},{"IsMetric",False},{"Metric",Metric[t1]}};
 	Fold[SetTensorKeyValue[#1,Sequence@@#2]&,params]
 ]
 
