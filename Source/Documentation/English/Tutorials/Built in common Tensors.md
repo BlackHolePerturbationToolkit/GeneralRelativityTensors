@@ -6,6 +6,7 @@
    "Introduction to Tensor Curves",
    "Manipulating and differentiating Tensors",
    "Built in common Tensors",
+   "Pattern matching with Tensors",
    "Caching Tensor values"
  },
  "Keywords" -> {"Tensors","GeneralRelativityTensors"},

@@ -6,6 +6,7 @@
    "Introduction to Tensor Curves",
    "Manipulating and differentiating Tensors",
    "Built in common Tensors",
+   "Pattern matching with Tensors",
    "Examples - Wave equations"
  },
  "Keywords" -> {"Tensors", "Cache","GeneralRelativityTensors"},

@@ -49,7 +49,8 @@
       {"MultiplyTensorScalar", "Product of a Tensor and a scalar"},
       {"AddTensors", "Sum of Tensors"},
       {"D","D is overloaded. It takes the partial derivative of a Tensor."},
-      {"CovariantD", "Covariant derivative of a Tensor expression"}
+      {"CovariantD", "Covariant derivative of a Tensor expression"},
+      {"TensorPattern", "A Tensor with Patterns for indices for matching and replacements"}
     }
    },
    {"Title" -> "Common Tensors and functions",
@@ -87,6 +88,7 @@
    "Manipulating and differentiating Tensors",
    "Built in common Tensors",
    "Caching Tensor values",
+   "Pattern matching with Tensors",
    "Examples - Wave equations"
  }
 }

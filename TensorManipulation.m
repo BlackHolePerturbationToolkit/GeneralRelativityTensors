@@ -12,6 +12,8 @@ Tensor t according to the given List inds, adjusting \
 the values using the Tensor's associated metric.";
 TensorRules::usage="TensorRules[t] returns a List of Rules with possible \
 coordinates of Tensor t as keys and TensorValues as values.";
+TensorPattern::usage="TensorPattern[t,patInds] returns the Tensor t but with its \
+indices replaced by patInds, a List of patterns.";
 
 MergeTensors::usage="MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, \
 AddTensors, and ContractIndices to merge the Tensor expression expr into one Tensor with TensorName n.
@@ -88,7 +90,8 @@ DocumentationBuilder`OptionDescriptions["MergeTensors"] = Join[DocumentationBuil
 Tensor/:RepeatedIndexQ[t_Tensor]:=Length[DeleteDuplicates@(Indices[t]/.-sym_Symbol:>sym)]<Length[Indices[t]];
 Tensor/:t_Tensor[inds__]/;Complement[{inds}/.-sym_Symbol:>sym,PossibleIndices[t]]==={}:=ShiftIndices[t,{inds}]
 Tensor/:t_Tensor[inds__]/;(Coordinates[t]=!=Undefined)&&Complement[{inds}/.-sym_Symbol:>sym,Coordinates[t]]==={}:=Component[t,{inds}]
-Tensor/:t_Tensor[inds__]:=(Print["The given indices ",{inds}, " are neither entirely in the List of PossibleIndices, nor Coordinates of ", t];Abort[])
+Tensor/:t_Tensor[patternInds__]/;MatchQ[{patternInds},{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}]:=TensorPattern[t,{patternInds}]
+Tensor/:t_Tensor[inds__]:=(Print["The given indices ",{inds}, " are not entirely in the List of PossibleIndices, or Coordinates of ", t, ", and they are not not all Patterns."];Abort[])
 
 
 (*The commented code is for when we add unique indices with dollar signs*)
@@ -140,7 +143,7 @@ Module[{},
 	validateTensorIndices[t,inds];
 	
 	Fold[shiftIndex[#1,#2,OptionValue["ActWith"]]&,t,Thread[{Range@Length[inds],inds}]]
-]
+]/;ContainsAll[PossibleIndices[t],DeleteDuplicates[(inds/.-nn_Symbol:>nn)]]
 
 
 Clear[shiftIndex]
@@ -195,6 +198,24 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 ]
 
 
+Clear[TensorPattern]
+TensorPattern[t_Tensor,patternInds_List]:=
+Module[{pis,inds,params,a},
+	If[Total@Rank[t]=!=Length@patternInds,
+		If[Length@patternInds =!= 1 || (patternInds=!={__} && patternInds=!={___} && Not[MatchQ[patternInds,{Pattern[a,__]}]] && Not[MatchQ[patternInds,{Pattern[a,___]}]]),
+			Print["TensorPattern called with ",  Length@patternInds , " Pattern indices, but the Tensor ", t, " is rank ", Rank[t]];
+			Abort[]
+		]
+	];
+	
+	ToTensor[Join[KeyDrop[Association@@t,{"Indices","Values","Metric","Curve"}],
+					Association["Values"->_,
+								"Metric"->_,
+								"Curve"->_,
+								"Indices"->patternInds]]]
+]/;MatchQ[patternInds,{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}]
+
+
 Clear[ContractIndices]
 Options[ContractIndices]
 ContractIndices[expr_,opts:OptionsPattern[]]:=expr/.t_Tensor:>ContractIndices[t,opts]
@@ -231,7 +252,7 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 				Table[Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]],
 				{Length@indsNew}];
 	
-	ToTensor[Join[KeyDrop[Association@@t,{"Indices","Name"}],
+	ToTensor[Join[KeyDrop[Association@@t,{"Indices","Name","Indices"}],
 					Association["Name"->TensorName[t]<>"-Auto",
 								"Values"->vals,
 								"Indices"->indsNew]]]
@@ -250,7 +271,7 @@ Module[{indsPos,indsAbstr,indsAbstrUp,coordsPos,indsUp},
 	indsAbstr=MapThread[If[MatchQ[#1,_Symbol],#2,-#2]&,{inds,indsAbstrUp}];
 	
 	Part[TensorValues[ShiftIndices[t,{Sequence@@indsAbstr},opts]],Sequence@@coordsPos]
-]
+]/;ContainsAll[Coordinates[t],DeleteDuplicates[(inds/.-nn_Symbol:>nn)]]
 
 
 Tensor/:TensorRules[t_Tensor,opts:OptionsPattern[]]:=

@@ -102,13 +102,16 @@ $CacheTensorValues=False;
 Tensor/:Format[t_Tensor]:=formatTensor[TensorDisplayName@t,Indices@t,CurveParameter@t]
 
 
+Attributes[Tensor]={Orderless};
+
+
 Clear[formatTensor]
 formatTensor[name_,inds_,param_]:=
 Module[{upStr,dnStr,out1},
 	out1=If[inds==={},
 		name,
-		dnStr=StringJoin[If[MatchQ[#,-_Symbol],ToString[#/.-x_:>x],"  "]&/@inds];
-		upStr=StringJoin[If[Not@MatchQ[#,-_Symbol],ToString[#],"  "]&/@inds];
+		dnStr=StringJoin[If[MatchQ[#,-_Symbol|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],ToString[#/.-x_:>x],StringJoin@Table["  ",StringLength[ToString[#/.-x_:>x]]]]&/@inds];
+		upStr=StringJoin[If[Not@MatchQ[#,-_Symbol|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],ToString[#],StringJoin@Table["  ",StringLength[ToString[#/.-x_:>x]]]]&/@inds];
 		SubsuperscriptBox[name,StringReplace[dnStr, StartOfString ~~Whitespace~~EndOfString:> ""],StringReplace[upStr, StartOfString ~~Whitespace~~EndOfString:> ""]]
 	];
 	DisplayForm@If[param=!=Undefined,
@@ -172,16 +175,26 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Print["The following extra keys were in the tensor formation: "<>ToString[Complement[Keys[assoc],keys]]];
 		Abort[]
 	];
-	If[Not@MatchQ[assoc["Indices"]/.-sym_Symbol:>sym,{___Symbol}],Print["Indices must be a list of Symbols (and negative Symbols)"];Abort[]];
+	
+	
+	If[MatchQ[assoc["Metric"],Verbatim[_]]||MatchQ[assoc["Values"],Verbatim[_]]||MatchQ[assoc["Curve"],Verbatim[_]]||MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}],
+		If[Not[MatchQ[assoc["Metric"],Verbatim[_]]&&MatchQ[assoc["Values"],Verbatim[_]]&&MatchQ[assoc["Curve"],Verbatim[_]]&&MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}]],
+			Print["A TensorPattern must have patterns for Metric, Values, Curve, and Indices."];
+			Abort[]
+		]
+	];	
+	
+	If[Not@MatchQ[assoc["Indices"]/.-sym_Symbol:>sym,{___Symbol}]&&Not@MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}],
+		Print["Indices can be a list of Symbols (and negative Symbols) or Patterns (and negative Patterns)."];Abort[]];
 	If[Not@MatchQ[assoc["PossibleIndices"],{___Symbol}],Print["PossibleIndices must be a list of Symbols"];Abort[]];
 
-	If[assoc["Indices"]=!={}&&assoc["PossibleIndices"]=!={}&&Intersection[assoc["Indices"]/.(-a_Symbol:>a),assoc["PossibleIndices"]]==={},
+	If[Not@MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}]&&assoc["Indices"]=!={}&&assoc["PossibleIndices"]=!={}&&Intersection[assoc["Indices"]/.(-a_Symbol:>a),assoc["PossibleIndices"]]==={},
 		Print["Given Indices ", assoc["Indices"]/.(-a_Symbol:>a), " are not found in List of with PossibleIndices ", assoc["PossibleIndices"]];
 		Abort[];
 	];
 
-	indexChoices=If[assoc["PossibleIndices"]==={},assoc["Indices"],assoc["PossibleIndices"]];
-
+	indexChoices=DeleteCases[If[assoc["PossibleIndices"]==={},assoc["Indices"],assoc["PossibleIndices"]],_Pattern|-_Pattern];
+	
 	If[DeleteDuplicates[If[assoc[#]=!=Undefined,Head[assoc[#]],##&[]]&/@listKeys]=!={List},
 		Print["The following Options were not given as lists: "<>ToString[If[assoc[#]=!=Undefined&&Head[assoc[#]]=!=List,#,##&[]]&/@listKeys]];
 		Abort[]
@@ -204,11 +217,13 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 	];
 	
 	If[Not@MatchQ[assoc["Values"],_List]&&assoc["Values"]=!=Undefined&&Length[assoc["Indices"]]=!=0,
-		Print["Scalar quantity given with indices."];
-		Abort[]
+		If[Not[MatchQ[assoc["Values"],Verbatim[_]]]&&Not@MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}],
+			Print["Scalar quantity given with indices."];
+			Abort[]
+		]
 	];
 
-	If[assoc["Metric"]=!=Undefined&&assoc["Metric"]=!="Self"&&Not@MetricQ[assoc["Metric"]],
+	If[assoc["Metric"]=!=Undefined&&assoc["Metric"]=!="Self"&&Not@MetricQ[assoc["Metric"]]&&Not[MatchQ[assoc["Metric"],Verbatim[_]]],
 		Print["Given Option \"Metric\" is not a metric tensor."];
 		Abort[]
 	];
@@ -244,7 +259,7 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Abort[]
 	];
 	
-	If[assoc["Curve"]=!=Undefined&&assoc["Curve"]=!="Self"&&Not@CurveQ[assoc["Curve"]],
+	If[assoc["Curve"]=!=Undefined&&assoc["Curve"]=!="Self"&&Not@CurveQ[assoc["Curve"]]&&Not[MatchQ[assoc["Curve"],Verbatim[_]]],
 		Print["Given Option \"Curve\" is not a Curve."];
 		Abort[]
 	];

@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "TutorialColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"0d45452f-c582-4707-923e-606a7d7f9b39"],
+   0}},ExpressionUUID->"a2b928a8-bd51-419b-acf4-83367bfdcbc3"],
 
 Cell[TextData[{
  ButtonBox["GeneralRelativityTensors",
@@ -12,11 +12,11 @@ Cell[TextData[{
  ButtonBox["Caching Tensor values",
   BaseStyle->{"Link", "LinkTrail"},
   ButtonData->"paclet:GeneralRelativityTensors/tutorial/Caching Tensor values"]
-}], "LinkTrail",ExpressionUUID->"c71e2200-254c-4ec6-8625-cb2cd1de8236"],
+}], "LinkTrail",ExpressionUUID->"a8d468fa-7714-4dad-a99e-8d96b73d9274"],
 
 Cell[BoxData[GridBox[{
    {Cell["CACHING TENSOR VALUES TUTORIAL", "PacletNameCell",ExpressionUUID->
-     "8742fe4f-9cf3-484e-a578-fbd40a30fd31"], Cell[TextData[{
+     "c5f0dd13-785a-459a-a65c-b2071190b984"], Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"Related Tutorials \[RightGuillemet]\"\>",
@@ -37,6 +37,10 @@ differentiating Tensors"],
        RowBox[{"Built", " ", "in", " ", "common", " ", "Tensors"}]:>
        Documentation`HelpLookup[
        "paclet:GeneralRelativityTensors/tutorial/Built in common Tensors"], 
+       RowBox[{"Pattern", " ", "matching", " ", "with", " ", "Tensors"}]:>
+       Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/tutorial/Pattern matching with \
+Tensors"], 
        RowBox[{"Examples", " ", "-", " ", 
         RowBox[{"Wave", " ", "equations"}]}]:>Documentation`HelpLookup[
        "paclet:GeneralRelativityTensors/tutorial/Examples - Wave equations"]},
@@ -44,7 +48,7 @@ differentiating Tensors"],
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "8f995bc5-69ff-4ea0-b8c6-4a89a3ab0115"],
+      "b3dcc072-a96a-414e-a56e-706c78d74327"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
@@ -64,50 +68,50 @@ differentiating Tensors"],
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "77f0aa26-0ccb-437c-bd9c-9cf23769935e"]
-    }], "AnchorBar",ExpressionUUID->"297a5cec-e570-4221-aef6-9b5d09a47c7c"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"16418598-e358-4ecf-ada4-2bc061fd535a"],
+      "a4d7afa3-30af-4ebc-bc75-41308c2b8141"]
+    }], "AnchorBar",ExpressionUUID->"1c7078f2-2535-46cc-90ec-82ca9a622b13"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"0d8e5fb4-9800-4eab-bedb-09a34923a67c"],
 
 Cell[CellGroupData[{
 
 Cell["GeneralRelativityTensors - Caching  Tensor values", \
-"Title",ExpressionUUID->"c5f72053-f064-4013-a8ca-3bde248667ad"],
+"Title",ExpressionUUID->"d9993c47-cffd-4c55-b1d7-7ca9b58a3af0"],
 
 Cell["\<\
 By default Tensor values are not cached. In the right contexts, turning on \
 caching can greatly speed up calculations.\
-\>", "Text",ExpressionUUID->"aa4645c9-81ee-4d1d-982b-640eb37d2f94"],
+\>", "Text",ExpressionUUID->"c95590cc-9ace-48e3-82c9-551f6ca3a412"],
 
 Cell[BoxData[
  RowBox[{"<<", "GeneralRelativityTensors`"}]], "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"0d4b49d1-0356-4d71-8349-e4cd93e84f73"],
+ CellLabel->"In[1]:=",ExpressionUUID->"08ab8357-138c-4ca4-aa93-3bce48e4a3b9"],
 
 Cell[CellGroupData[{
 
 Cell["Default storage of Tensor values", \
-"Section",ExpressionUUID->"1c0da326-655b-4fed-b8e3-9dd91ddbdc16"],
+"Section",ExpressionUUID->"a2c6c362-9a68-43dd-af93-e408988f81d4"],
 
 Cell["\<\
 Fundamentally, a Tensor is just a Sequence of Rules wrapped in the Head \
 Tensor.\
-\>", "Item",ExpressionUUID->"27b2b821-6f66-4519-8735-b4bdf0f61719"],
+\>", "Item",ExpressionUUID->"c1eef3d8-722c-4815-b1bb-841359d653c6"],
 
 Cell["\<\
 The values of the Tensor are associated with the Key \
 \[OpenCurlyDoubleQuote]Values\[CloseCurlyDoubleQuote]\
-\>", "Item",ExpressionUUID->"4fa2fdfe-f003-4cf6-9b47-09e93f1c0e89"],
+\>", "Item",ExpressionUUID->"9abb85be-b132-4b6b-aecc-f34aa70bf19d"],
 
 Cell[CellGroupData[{
 
 Cell["For example:", \
-"Item",ExpressionUUID->"f73ac005-1882-4a43-ae49-a16e28bf7ed2"],
+"Item",ExpressionUUID->"e50d2d4a-2385-49cd-ae89-eb86157706e3"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"List", "@@", 
   RowBox[{"ToMetric", "[", "\"\<S2\>\"", "]"}]}]], "Input",
- CellLabel->"In[2]:=",ExpressionUUID->"d31b9f99-3f62-4188-b0d6-7a3b7bcba7c2"],
+ CellLabel->"In[2]:=",ExpressionUUID->"bd9b3fc7-c6a0-462c-8386-5cee82e46790"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -145,7 +149,7 @@ Cell[BoxData[
         SuperscriptBox[
          RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}], "}"}]}], "}"}]}]}], 
   "}"}]], "Output",
- CellLabel->"Out[2]=",ExpressionUUID->"bc20cbfc-07d0-486e-842d-e57150a6f513"]
+ CellLabel->"Out[2]=",ExpressionUUID->"867a0f1b-8cf7-4cf5-b358-38434e259361"]
 }, Open  ]]
 }, Open  ]],
 
@@ -154,7 +158,7 @@ Cell[CellGroupData[{
 Cell["\<\
 The best way to retrieve those values is with the functions RawTensorValues \
 and TensorValues\
-\>", "Item",ExpressionUUID->"981f994d-1cb9-42f8-a106-42eff3641fb2"],
+\>", "Item",ExpressionUUID->"514d756f-e392-496d-9170-7ff4587803e8"],
 
 Cell[BoxData[GridBox[{
    {
@@ -168,7 +172,7 @@ Cell[BoxData[GridBox[{
       FontFamily->"Times",
       FontWeight->"Regular",
       FontSlant->"Italic"]
-    }], "TableText",ExpressionUUID->"d40ca8be-04cc-4af9-a02a-1bf0496ff08e"]},
+    }], "TableText",ExpressionUUID->"899f09e1-691d-4a36-abaa-718296625fda"]},
    {
     RowBox[{
      ButtonBox["TensorValues",
@@ -181,28 +185,28 @@ Cell[BoxData[GridBox[{
       FontWeight->"Regular",
       FontSlant->"Italic"],
      " has an associated curve, evaluate the values on that curve"
-    }], "TableText",ExpressionUUID->"4fc451ff-c20f-44e5-b622-9fb85ae06597"]}
+    }], "TableText",ExpressionUUID->"bf565f64-f94e-4b55-bf50-2040032aec98"]}
   }]], "DefinitionBox",
- CellID->340746825,ExpressionUUID->"59035622-8d42-4b18-a2e0-ef5a83e5f652"]
+ CellID->340746825,ExpressionUUID->"b1f15a1f-6836-4e02-8984-a699971f97e3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Here is a Tensor field, the Schwarzschild metric.", \
-"Item",ExpressionUUID->"f24d0c0d-d27c-4e7f-91ca-97969274129b"],
+"Item",ExpressionUUID->"73451304-82d7-4630-bf3d-819df8775932"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"gS", "=", 
   RowBox[{"ToMetric", "[", "\"\<Schw\>\"", "]"}]}]], "Input",
- CellLabel->"In[3]:=",ExpressionUUID->"a469218d-3fcd-431c-ba27-497734765664"],
+ CellLabel->"In[3]:=",ExpressionUUID->"78c6cd61-103c-40d4-8f1e-03f44506cc26"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[3]=",ExpressionUUID->"6f1b34a5-b9f0-493a-ab97-a25f55e3fd8a"]
+ CellLabel->"Out[3]=",ExpressionUUID->"a2be3078-2fd7-4f60-b47a-a5ced7f790ac"]
 }, Open  ]]
 }, Open  ]],
 
@@ -210,13 +214,13 @@ Cell[CellGroupData[{
 
 Cell["\<\
 RawTensorValues and TensorValues give different the same result.\
-\>", "Item",ExpressionUUID->"4f3d3542-4dc7-4b66-b16a-1cf8a726eb30"],
+\>", "Item",ExpressionUUID->"6b90787d-205f-4166-9464-4247b50a3a83"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"RawTensorValues", "[", "gS", "]"}]], "Input",
- CellLabel->"In[4]:=",ExpressionUUID->"74f0c6ff-2b8f-49a0-bd78-9007060702c1"],
+ CellLabel->"In[4]:=",ExpressionUUID->"95761e12-2d55-4cea-bfbe-56e8b2215533"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -244,14 +248,14 @@ Cell[BoxData[
       SuperscriptBox[
        RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}]}], "}"}]}], 
   "}"}]], "Output",
- CellLabel->"Out[4]=",ExpressionUUID->"8083745f-b082-46bf-bca5-7c0aa8249626"]
+ CellLabel->"Out[4]=",ExpressionUUID->"9f64fe4f-9723-4d64-be10-dafc8a712964"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"TensorValues", "[", "gS", "]"}]], "Input",
- CellLabel->"In[5]:=",ExpressionUUID->"50d0f4fe-8922-46ca-adc9-fd74fbd2860f"],
+ CellLabel->"In[5]:=",ExpressionUUID->"67be1b6e-0056-446d-b196-61e564a1ba79"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -279,14 +283,14 @@ Cell[BoxData[
       SuperscriptBox[
        RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}]}], "}"}]}], 
   "}"}]], "Output",
- CellLabel->"Out[5]=",ExpressionUUID->"10891fc1-704f-4e74-b83d-aa6d99810838"]
+ CellLabel->"Out[5]=",ExpressionUUID->"00e575bc-d345-4a3c-9ac5-0329872847e7"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Here is a curve in Schwarzschild spacetime.", \
-"Item",ExpressionUUID->"cb123d33-f594-4266-ab99-e0bc390c6b90"],
+"Item",ExpressionUUID->"d54fb6b4-55fe-4bab-ad26-7c22ade72fe9"],
 
 Cell[CellGroupData[{
 
@@ -303,21 +307,21 @@ Cell[BoxData[
       RowBox[{"\[Theta]", "[", "\[Tau]", "]"}], ",", 
       RowBox[{"\[Phi]", "[", "\[Tau]", "]"}]}], "}"}], ",", "\[Tau]"}], 
    "]"}]}]], "Input",
- CellLabel->"In[6]:=",ExpressionUUID->"fa566965-c8dd-4187-994e-6a8788e79787"],
+ CellLabel->"In[6]:=",ExpressionUUID->"ea7e2db6-7761-48b7-961e-3b6e8309428c"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["x", "", "\[Alpha]"], "[", "\<\"\[Tau]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[6]=",ExpressionUUID->"292756fa-d4aa-4c4b-b240-ad1985d3751e"]
+ CellLabel->"Out[6]=",ExpressionUUID->"9d57200a-f1eb-457a-bf31-83524f1647bc"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["We now associate that curve with a Tensor field", \
-"Item",ExpressionUUID->"011e2358-e025-45e6-9f87-2debab320799"],
+"Item",ExpressionUUID->"6d9e35cb-424d-4766-8487-a250c54c63ba"],
 
 Cell[CellGroupData[{
 
@@ -325,26 +329,26 @@ Cell[BoxData[
  RowBox[{"gSF", "=", 
   RowBox[{"ToTensorFieldOnCurve", "[", 
    RowBox[{"gS", ",", "x1"}], "]"}]}]], "Input",
- CellLabel->"In[7]:=",ExpressionUUID->"ed75d6e6-2948-4947-bc26-2ea43d1dd157"],
+ CellLabel->"In[7]:=",ExpressionUUID->"ea0f01d0-08c8-4156-a3be-4a55c19b9279"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[7]=",ExpressionUUID->"f5bac0d0-9f42-41e6-b41d-18c3e7b1b7ea"]
+ CellLabel->"Out[7]=",ExpressionUUID->"c921b990-5f45-44a0-90a0-9cff83e4e19a"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Now, RawTensorValues and TensorValues give different results", \
-"Item",ExpressionUUID->"45b12581-46b8-418c-9aa7-b514358e8084"],
+"Item",ExpressionUUID->"e24fe0a0-b67a-41eb-8e3a-ddb83253e882"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"RawTensorValues", "[", "gSF", "]"}]], "Input",
- CellLabel->"In[8]:=",ExpressionUUID->"2e30ca7d-c5be-4a0c-99ff-c93571f04ff6"],
+ CellLabel->"In[8]:=",ExpressionUUID->"d311f3fd-1cb9-4630-85a9-1470622c6b1c"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -372,14 +376,14 @@ Cell[BoxData[
       SuperscriptBox[
        RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}]}], "}"}]}], 
   "}"}]], "Output",
- CellLabel->"Out[8]=",ExpressionUUID->"e805da1e-7bff-4dee-94e1-06ec71639dcb"]
+ CellLabel->"Out[8]=",ExpressionUUID->"36c062e1-2dcd-404b-b382-9fd4bbb2eb73"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"TensorValues", "[", "gSF", "]"}]], "Input",
- CellLabel->"In[9]:=",ExpressionUUID->"e3caad80-0e98-49e0-8f1e-fe74a74c87ec"],
+ CellLabel->"In[9]:=",ExpressionUUID->"c375ea58-1173-4f7e-a0cb-77b0603247e8"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -413,7 +417,7 @@ Cell[BoxData[
        RowBox[{"Sin", "[", 
         RowBox[{"\[Theta]", "[", "\[Tau]", "]"}], "]"}], "2"]}]}], "}"}]}], 
   "}"}]], "Output",
- CellLabel->"Out[9]=",ExpressionUUID->"be8a9a99-8c16-400e-a1fc-fcc849623a80"]
+ CellLabel->"Out[9]=",ExpressionUUID->"a660f30d-542b-4b11-af9c-0b99bf6d9483"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -421,23 +425,23 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Caching Tensor values", \
-"Section",ExpressionUUID->"ba7c6647-7979-4f06-8b2a-70ded9fa7d9e"],
+"Section",ExpressionUUID->"875cd54d-4342-47c8-8749-349f1ab5ebd9"],
 
 Cell[CellGroupData[{
 
 Cell["Functions", \
-"Subsection",ExpressionUUID->"f402e531-cc4c-4513-9ba9-582b80b79b0d"],
+"Subsection",ExpressionUUID->"635c920c-8c9e-4f18-a519-242237e90bfa"],
 
 Cell["\<\
 Large and repeated calculations can benefit from caching Tensor values.\
-\>", "Item",ExpressionUUID->"c6346c00-cc94-463d-ae9e-b475324df644"],
+\>", "Item",ExpressionUUID->"4d5bf3dd-7cef-48ee-9d9b-d42f6b0013b3"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 By default this is off, but it can be turned on by setting the global \
 variable $CacheTensorValues to True\
-\>", "Item",ExpressionUUID->"5828f084-0b44-4f5c-8159-e00015fd9c51"],
+\>", "Item",ExpressionUUID->"36e6fe93-7874-475c-a7e7-362c926f0863"],
 
 Cell[BoxData[GridBox[{
    {
@@ -445,16 +449,16 @@ Cell[BoxData[GridBox[{
      BaseStyle->"Link",
      ButtonData->"paclet:GeneralRelativityTensors/ref/$CacheTensorValues"], 
     Cell["Boolean determining whether Tensor values are cached", "TableText",
-     ExpressionUUID->"6f1eb787-aa3f-49e4-b4bc-95a340e6d275"]}
+     ExpressionUUID->"1f39f69a-6f20-459e-a51f-885ce3d299ee"]}
   }]], "DefinitionBox",
- CellID->2079569539,ExpressionUUID->"5664aba5-f855-4247-8a30-175855684597"]
+ CellID->2079569539,ExpressionUUID->"736a7387-a009-46c6-b7d8-d3735b151209"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 Cached values can be examined and removed with the following functions:\
-\>", "Item",ExpressionUUID->"9df16072-9111-49c6-af7a-92bfee98db0c"],
+\>", "Item",ExpressionUUID->"8c35279e-a63c-4e73-81cf-9b8643a1976e"],
 
 Cell[BoxData[GridBox[{
    {
@@ -470,7 +474,7 @@ Cell[BoxData[GridBox[{
       FontWeight->"Regular",
       FontSlant->"Italic"],
      " that are cached"
-    }], "TableText",ExpressionUUID->"8a834cd4-39ab-4bfb-b4d2-72a9651ba1e4"]},
+    }], "TableText",ExpressionUUID->"0df284b2-ce48-4f33-9203-798e65ff3416"]},
    {
     RowBox[{
      ButtonBox["ClearCachedTensorValues",
@@ -483,15 +487,15 @@ Cell[BoxData[GridBox[{
       FontFamily->"Times",
       FontWeight->"Regular",
       FontSlant->"Italic"]
-    }], "TableText",ExpressionUUID->"3fe5bd97-cd33-476c-94cb-5423d54e34a3"]}
+    }], "TableText",ExpressionUUID->"0dbe072f-b5f3-4fa0-ba6a-fa6c3bcaee12"]}
   }]], "DefinitionBox",
- CellID->1788114926,ExpressionUUID->"be46b33c-e37b-4e54-8667-e4aeb2b1ed66"]
+ CellID->1788114926,ExpressionUUID->"4eb211c9-cbd5-405a-8590-d289af1062a3"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["These functions can also be called for all Tensors:", \
-"Item",ExpressionUUID->"90ac447e-0b79-42c3-acbc-a789e28329ff"],
+"Item",ExpressionUUID->"dcbca943-9977-4fb2-aaee-052ce109856a"],
 
 Cell[BoxData[GridBox[{
    {
@@ -501,7 +505,7 @@ Cell[BoxData[GridBox[{
       ButtonData->"paclet:GeneralRelativityTensors/ref/CachedTensorValues"], 
      "[", "All", "]"}], Cell[
     "All Tensor values that are cached", "TableText",ExpressionUUID->
-     "df514d0f-91f4-4062-8a1c-cb1664c25dd6"]},
+     "a5b108f2-9ccd-41c8-8925-9d3f28a5f0ee"]},
    {
     RowBox[{
      ButtonBox["ClearCachedTensorValues",
@@ -510,49 +514,49 @@ Cell[BoxData[GridBox[{
        "paclet:GeneralRelativityTensors/ref/ClearCachedTensorValues"], "[", 
      "All", "]"}], Cell[
     "Remove all cached Tensor values", "TableText",ExpressionUUID->
-     "35ca140f-0ff2-4489-8fcd-ce488cc8e09e"]}
+     "db7919b7-c2e6-47f4-96df-2169cc9575a2"]}
   }]], "DefinitionBox",
- CellID->71144484,ExpressionUUID->"d87a0ce7-6963-4c86-9cf0-810f1326ebf7"]
+ CellID->71144484,ExpressionUUID->"c4c40842-4581-402d-b709-bfe1b8958a70"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Examples", \
-"Subsection",ExpressionUUID->"6a4e0b9d-90b3-47e2-8ca0-4c5deb5349e0"],
+"Subsection",ExpressionUUID->"48381151-ee55-4dfc-b6c6-e5da82a3b0d5"],
 
 Cell[CellGroupData[{
 
 Cell["Storage of one value", \
-"Subsubsection",ExpressionUUID->"a6de89f2-e8bf-48f1-a4e3-c11b4362d8f6"],
+"Subsubsection",ExpressionUUID->"355447c4-3635-4f94-8a8d-35cf9a32220f"],
 
 Cell[CellGroupData[{
 
 Cell["Set $CacheTensorValues:", \
-"Item",ExpressionUUID->"cea246d0-02cd-4429-90f6-abf595f45050"],
+"Item",ExpressionUUID->"6b43226e-3e66-4cf0-8fcd-0e680e0129ba"],
 
 Cell[BoxData[
  RowBox[{
   RowBox[{"$CacheTensorValues", "=", "True"}], ";"}]], "Input",
  CellLabel->
-  "In[10]:=",ExpressionUUID->"b7d01e50-fd5f-4412-8a3b-c7e6e0c881ff"]
+  "In[10]:=",ExpressionUUID->"b360459b-b6a9-4d16-ab09-98481aa446e4"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Originally nothing is cached.", \
-"Item",ExpressionUUID->"1fa7a184-851b-4258-9a72-ae0ed8ce961b"],
+"Item",ExpressionUUID->"9f9dad9f-fc13-4c65-8cf3-8ed1934c928d"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"CachedTensorValues", "[", "All", "]"}]], "Input",
- CellLabel->"In[11]:=",ExpressionUUID->"4f49227e-eb50-40dd-9baa-edc70134963d"],
+ CellLabel->"In[11]:=",ExpressionUUID->"524fae68-3cf0-47ce-9a67-dfb9f805d09d"],
 
 Cell[BoxData[
  RowBox[{"{", "}"}]], "Output",
  CellLabel->
-  "Out[11]=",ExpressionUUID->"e5da7db1-bcf7-4df6-901d-7b95465d2285"]
+  "Out[11]=",ExpressionUUID->"365607a5-8b60-4165-995f-30b593a322e8"]
 }, Open  ]]
 }, Open  ]],
 
@@ -560,13 +564,13 @@ Cell[CellGroupData[{
 
 Cell["\<\
 Call TensorValues on a Tensor and then its values are stored.\
-\>", "Item",ExpressionUUID->"b9579d7f-d496-48b4-92ac-b4fb9ae31a02"],
+\>", "Item",ExpressionUUID->"3ace7d20-c6f4-4622-90a5-24a9ea6901c8"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"TensorValues", "[", "gS", "]"}]], "Input",
- CellLabel->"In[12]:=",ExpressionUUID->"14750ff6-28cc-4635-a62c-5cfd6249b0ac"],
+ CellLabel->"In[12]:=",ExpressionUUID->"7484fbb6-75fe-454a-a372-018abcacf6c4"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -595,14 +599,14 @@ Cell[BoxData[
        RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}]}], "}"}]}], 
   "}"}]], "Output",
  CellLabel->
-  "Out[12]=",ExpressionUUID->"66c2f387-d7e1-45c9-a960-222627972822"]
+  "Out[12]=",ExpressionUUID->"b943ac59-62ce-4e79-976c-865fe7630276"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"CachedTensorValues", "[", "All", "]"}]], "Input",
- CellLabel->"In[13]:=",ExpressionUUID->"7e2c9287-17fc-4219-bcd4-c715e68e78ef"],
+ CellLabel->"In[13]:=",ExpressionUUID->"c6241537-c054-4875-8584-d5e54de7746c"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -639,7 +643,7 @@ Cell[BoxData[
           RowBox[{"Sin", "[", "\[Theta]", "]"}], "2"]}]}], "}"}]}], "}"}]}], 
    "}"}], "}"}]], "Output",
  CellLabel->
-  "Out[13]=",ExpressionUUID->"1983c682-ee45-4e54-8a41-4d8097a916fc"]
+  "Out[13]=",ExpressionUUID->"a3269f73-915a-4207-9775-cefda9e85284"]
 }, Open  ]]
 }, Open  ]],
 
@@ -647,13 +651,13 @@ Cell[CellGroupData[{
 
 Cell["\<\
 Cached values are stored as DownValues of the Symbol RawTensorValues.\
-\>", "Item",ExpressionUUID->"431d94d5-821c-40b7-aa68-5ffe2c6b97aa"],
+\>", "Item",ExpressionUUID->"f84491e1-4c32-4552-a77f-e6164eb53622"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"DownValues", "[", "RawTensorValues", "]"}]], "Input",
- CellLabel->"In[14]:=",ExpressionUUID->"37950dac-0807-4417-b32f-1dd1f989a1b2"],
+ CellLabel->"In[14]:=",ExpressionUUID->"20a6447c-a68f-4871-b916-bc63df16944f"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -733,44 +737,44 @@ Cell[BoxData[
      RowBox[{"RawTensorValues", "[", "___", "]"}], "]"}], "\[RuleDelayed]", 
     "Undefined"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[14]=",ExpressionUUID->"a2de449b-8f9b-4800-b714-c19c67c0cbf3"]
+  "Out[14]=",ExpressionUUID->"5cb2bdab-3796-47c6-9db6-4b9480dcb6a7"]
 }, Open  ]]
 }, Open  ]],
 
 Cell["\<\
 Note that cached values are stored relative to their TensorName. Thus, it is \
 important to choose unique names for Tensors when using caching.\
-\>", "Item",ExpressionUUID->"319962d6-a8b5-47ed-ac82-2b6e754d1b33"]
+\>", "Item",ExpressionUUID->"8d1e7ec4-3af6-49bb-bd0f-e8ef72c388a6"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Nested caching", \
-"Subsubsection",ExpressionUUID->"d7f806cd-91d1-4261-842a-2b941ead250a"],
+"Subsubsection",ExpressionUUID->"d55d527d-9a9a-4883-ad93-f7869ab1b55c"],
 
 Cell["\<\
 Often when computing the values of a Tensor, other Tensors must be computed \
 behind the scene.\
-\>", "Item",ExpressionUUID->"74a1f2af-89db-44db-938b-8cee943a5ee8"],
+\>", "Item",ExpressionUUID->"aa4c0f56-d726-4782-9f0b-a7fd2c9cdda7"],
 
 Cell["\<\
 For instance,  finding a Christoffel symbol requires knowing the inverse \
 metric.\
-\>", "Item",ExpressionUUID->"04b6c1ca-2505-4703-8236-0b8e399a63c3"],
+\>", "Item",ExpressionUUID->"af6d633f-dc3f-4bd4-a830-98e141e6f943"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 Therefore, when we make the following call, in addition to the final value, \
 the inverse metric is also cached.\
-\>", "Item",ExpressionUUID->"481ee2f4-953a-4c73-bf57-7bbd473e418e"],
+\>", "Item",ExpressionUUID->"5675b749-57ea-40f4-aee1-94b4a1c80325"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"chrS", "=", 
   RowBox[{"ChristoffelSymbol", "[", "gS", "]"}]}]], "Input",
- CellLabel->"In[15]:=",ExpressionUUID->"2a04b15e-a317-4d81-9266-67a39c47d3e6"],
+ CellLabel->"In[15]:=",ExpressionUUID->"a59dda88-0235-4b46-9a7b-3ab7e7412fd2"],
 
 Cell[BoxData[
  TagBox[
@@ -779,14 +783,14 @@ Cell[BoxData[
    RowBox[{"\[Alpha]", "    "}]],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[15]=",ExpressionUUID->"d816a41e-c397-458f-ae46-737ef2f86065"]
+  "Out[15]=",ExpressionUUID->"0434faf1-a5b8-42c1-8839-3b10f1016c0f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"CachedTensorValues", "[", "All", "]"}]], "Input",
- CellLabel->"In[16]:=",ExpressionUUID->"3a205348-6e4e-4046-ba3b-7b813e741f22"],
+ CellLabel->"In[16]:=",ExpressionUUID->"f430b624-17ee-4ee7-9663-6177899e1a8f"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -961,7 +965,7 @@ Cell[BoxData[
            SuperscriptBox["r", "2"]]}], "}"}]}], "}"}]}]}], "}"}]}], 
   "}"}]], "Output",
  CellLabel->
-  "Out[16]=",ExpressionUUID->"d1b344e7-de91-45fe-9708-ed5ef11b9311"]
+  "Out[16]=",ExpressionUUID->"aae66b52-770a-406e-830e-fa198c7ae73f"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
@@ -971,12 +975,12 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Notes on simplification", \
-"Section",ExpressionUUID->"fdf18b11-b26f-4245-91aa-530dee0561c3"],
+"Section",ExpressionUUID->"40026bad-258f-447b-bb33-00b694ac5fbe"],
 
 Cell["\<\
 Because Tensor functions call each other, many Tensor values can quickly wind \
 up cached.\
-\>", "Item",ExpressionUUID->"ec1146b0-9635-4936-9ed2-d23569e927b7"],
+\>", "Item",ExpressionUUID->"9ea54276-13a2-4c82-b341-feb430286108"],
 
 Cell[CellGroupData[{
 
@@ -984,28 +988,28 @@ Cell["\<\
 For instance, here we compute the Einstein tensor for Schwarzschild, and \
 Christoffel symbols, the Riemann tensor, the Ricci tensor, and the Ricci \
 scalar are all cached.\
-\>", "Item",ExpressionUUID->"ac522122-af43-4de1-9ab5-dfc52d49c722"],
+\>", "Item",ExpressionUUID->"d40a290d-2be1-4190-8e1b-7cbdb3841f69"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"einS", "=", 
   RowBox[{"EinsteinTensor", "[", "gS", "]"}]}]], "Input",
- CellLabel->"In[17]:=",ExpressionUUID->"fc4c9927-37ba-4580-aa0c-9b0244d279af"],
+ CellLabel->"In[17]:=",ExpressionUUID->"913ff213-b78c-40bd-b34d-b8d55b40520c"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["G", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[17]=",ExpressionUUID->"9d1130e5-735d-49c8-8b99-f4819b8f2b82"]
+  "Out[17]=",ExpressionUUID->"da883935-fb90-4399-a4a4-a4997ddca0d4"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Here are the Keys without the Values:", \
-"Item",ExpressionUUID->"88306db2-889e-4ce2-89a8-11e6bc7b0791"],
+"Item",ExpressionUUID->"c0e3b760-2305-4bea-8026-6a3fc1f31355"],
 
 Cell[CellGroupData[{
 
@@ -1014,7 +1018,7 @@ Cell[BoxData[
   RowBox[{"CachedTensorValues", "[", "All", "]"}], "[", 
   RowBox[{"[", 
    RowBox[{"All", ",", "All", ",", "1"}], "]"}], "]"}]], "Input",
- CellLabel->"In[18]:=",ExpressionUUID->"7fe90ae7-f93c-428b-8f4a-aa55eda3966c"],
+ CellLabel->"In[18]:=",ExpressionUUID->"a0003436-8b13-44fa-a731-74961a4c7673"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1070,7 +1074,7 @@ Cell[BoxData[
         RowBox[{"\<\"Up\"\>", ",", "\<\"Up\"\>"}], "}"}]}], "}"}]}], "}"}]}], 
   "}"}]], "Output",
  CellLabel->
-  "Out[18]=",ExpressionUUID->"42a27106-5903-4084-b6ef-6f8ebe4dfd0d"]
+  "Out[18]=",ExpressionUUID->"1a8f95fe-994d-4916-8546-b30a0a7d11c0"]
 }, Open  ]]
 }, Open  ]],
 
@@ -1079,14 +1083,14 @@ Cell[CellGroupData[{
 Cell["\<\
 Advanced students of general relativity may have heard that Schwarzschild is \
 a vacuum spacetime, but this is not immediately clear:\
-\>", "Item",ExpressionUUID->"34220e12-9ff4-4033-9209-579d2f98ef47"],
+\>", "Item",ExpressionUUID->"a72a06b9-59ce-4a20-aee9-5c69e53ac5ea"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{
   RowBox[{"TensorValues", "[", "einS", "]"}], "//", "Short"}]], "Input",
- CellLabel->"In[19]:=",ExpressionUUID->"a4577c66-ecea-4f3c-b263-5df7333a1e92"],
+ CellLabel->"In[19]:=",ExpressionUUID->"fe5bb4ef-57d7-4cf3-afeb-a8076f30662f"],
 
 Cell[BoxData[
  TagBox[
@@ -1094,21 +1098,21 @@ Cell[BoxData[
    RowBox[{"\[LeftSkeleton]", "1", "\[RightSkeleton]"}], "}"}],
   Short]], "Output",
  CellLabel->
-  "Out[19]//Short=",ExpressionUUID->"a0645f98-d29c-4147-a0e7-784d98bda128"]
+  "Out[19]//Short=",ExpressionUUID->"e3edbf4a-b919-4b63-a389-8de9eb94d859"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Of course, Simplify fixes this problem.", \
-"Item",ExpressionUUID->"df967103-6511-4ae1-8f40-30aca05fc29c"],
+"Item",ExpressionUUID->"0cead518-8b92-485c-a529-5acc24e786b8"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Simplify", "[", 
   RowBox[{"TensorValues", "[", "einS", "]"}], "]"}]], "Input",
- CellLabel->"In[20]:=",ExpressionUUID->"12151e05-e9f2-4ae8-b365-8be635c432a1"],
+ CellLabel->"In[20]:=",ExpressionUUID->"e29dff76-4c81-46fb-9746-186af2219a21"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1122,7 +1126,7 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[20]=",ExpressionUUID->"50f84637-78ab-4ab0-90bf-a7521177ff56"]
+  "Out[20]=",ExpressionUUID->"ccc4f84c-18ca-4f2a-9bd3-1456453898c2"]
 }, Open  ]]
 }, Open  ]],
 
@@ -1131,41 +1135,41 @@ Cell[TextData[{
  StyleBox["before",
   FontSlant->"Italic"],
  " the caching is performed."
-}], "Item",ExpressionUUID->"7fae2419-10b1-4f3e-8ad1-e34a5b59bf5a"],
+}], "Item",ExpressionUUID->"d7d46cc5-1cbe-4b9a-b284-8e66c409d3cb"],
 
 Cell[CellGroupData[{
 
 Cell["This is done with the following common options.", \
-"Item",ExpressionUUID->"b0641493-7c8c-470a-aac1-5f51b7c5d891"],
+"Item",ExpressionUUID->"1c5770f5-d917-402a-944c-4a30fec80d2b"],
 
 Cell[BoxData[GridBox[{
    {"ActWith", Cell["\<\
 applies the Option value (a function) to each of the elements of the Tensor \
 that is formed\
-\>", "TableText",ExpressionUUID->"c38fb777-4c30-4430-9cdc-50c896959439"]},
+\>", "TableText",ExpressionUUID->"63354420-66ae-48b0-ac44-0855e85838fa"]},
    {"ActWithNested", Cell["\<\
 same as ActWith, but the function is also passed to functions that are called \
 internally\
-\>", "TableText",ExpressionUUID->"60b1e47c-9d27-420b-9c0d-552625858c69"]}
+\>", "TableText",ExpressionUUID->"0ca7b0f8-678f-4810-bfbc-0996fe1c694d"]}
   }]], "DefinitionBox",
- CellID->1128635629,ExpressionUUID->"a9b14398-c0af-42a5-bb32-ad29a755d664"]
+ CellID->1128635629,ExpressionUUID->"9529362f-ebe1-4671-8aea-da4342b09d8c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Clear the cached values.", \
-"Item",ExpressionUUID->"8014f4dc-5ed7-4eb4-a08c-4fe715f7bf10"],
+"Item",ExpressionUUID->"4e352c12-efab-429b-9b87-ebb5edfc362d"],
 
 Cell[BoxData[
  RowBox[{"ClearCachedTensorValues", "[", "All", "]"}]], "Input",
  CellLabel->
-  "In[21]:=",ExpressionUUID->"7beffbe4-f471-4d1c-a0db-bd3ba921f7da"]
+  "In[21]:=",ExpressionUUID->"dda4e492-a14c-4b44-aa2d-563abca3def4"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Re-compute the Einstein tensor, but with simplification.", \
-"Item",ExpressionUUID->"2fb9e398-3eb1-43bf-94d2-0f5571f89e6f"],
+"Item",ExpressionUUID->"62cf9b50-dc96-4f51-aab4-770b5a86ff59"],
 
 Cell[CellGroupData[{
 
@@ -1174,27 +1178,27 @@ Cell[BoxData[
   RowBox[{"EinsteinTensor", "[", 
    RowBox[{"gS", ",", 
     RowBox[{"ActWithNested", "\[Rule]", "Simplify"}]}], "]"}]}]], "Input",
- CellLabel->"In[22]:=",ExpressionUUID->"04c839ab-1027-433c-a537-5b4610ce573c"],
+ CellLabel->"In[22]:=",ExpressionUUID->"20d82e93-5df7-445b-81fe-9113d28e067a"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["G", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
  CellLabel->
-  "Out[22]=",ExpressionUUID->"28b13fbf-5e0d-4db8-85eb-772bce8febe4"]
+  "Out[22]=",ExpressionUUID->"e34aaf5b-be14-422d-a508-4266280ee6c8"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Now the Einstein tensor vanishes immediately.", \
-"Item",ExpressionUUID->"e8f985cc-a29a-471a-aa75-5cea16f3c713"],
+"Item",ExpressionUUID->"1fb4bae7-0057-424f-838a-013876152a4a"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"TensorValues", "[", "einS", "]"}]], "Input",
- CellLabel->"In[23]:=",ExpressionUUID->"0f027db5-eabb-427c-ab09-71631d518b39"],
+ CellLabel->"In[23]:=",ExpressionUUID->"9b0bfc42-4c31-42d7-bebc-372d956b0a24"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1208,7 +1212,7 @@ Cell[BoxData[
    RowBox[{"{", 
     RowBox[{"0", ",", "0", ",", "0", ",", "0"}], "}"}]}], "}"}]], "Output",
  CellLabel->
-  "Out[23]=",ExpressionUUID->"031c2e48-56bb-486f-83a7-ef2673e9d25a"]
+  "Out[23]=",ExpressionUUID->"15566292-499c-42df-a538-390875fad356"]
 }, Open  ]]
 }, Open  ]],
 
@@ -1216,13 +1220,13 @@ Cell[CellGroupData[{
 
 Cell["\<\
 Also, nested values like the Riemann tensor have been simplified.\
-\>", "Item",ExpressionUUID->"5b11ec63-b779-4c55-a0e4-6cae630c80ae"],
+\>", "Item",ExpressionUUID->"96b91d54-a2d5-4951-bfa0-b703d3a39dbe"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"CachedTensorValues", "[", "All", "]"}]], "Input",
- CellLabel->"In[24]:=",ExpressionUUID->"a7715fa2-d87a-482c-9a03-5538ad4b63c8"],
+ CellLabel->"In[24]:=",ExpressionUUID->"b9c938cf-610e-4b3c-8cb3-13c0895bbef3"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2124,7 +2128,7 @@ Cell[BoxData[
            SuperscriptBox["r", "2"]]}], "}"}]}], "}"}]}]}], "}"}]}], 
   "}"}]], "Output",
  CellLabel->
-  "Out[24]=",ExpressionUUID->"8f1458a3-6e17-4662-9243-9be6cb8e9a9b"]
+  "Out[24]=",ExpressionUUID->"9d39e6e8-dde7-4a4c-a797-0dffb63671aa"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -2132,25 +2136,25 @@ Cell[BoxData[
 Cell[CellGroupData[{
 
 Cell["Turning off caching", \
-"Section",ExpressionUUID->"e3c16fd7-3249-49a2-be2c-af2cab617a4d"],
+"Section",ExpressionUUID->"bcf11d6c-7276-4620-9ccd-4436f66054cf"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 Note that simply re-setting $CacheTensorValues to False does not remove \
 already cached values.\
-\>", "Item",ExpressionUUID->"5a1fe9cd-7604-4087-b530-6aaedd9923e7"],
+\>", "Item",ExpressionUUID->"255a5a71-9b36-480c-845a-d1326c901662"],
 
 Cell[BoxData[
  RowBox[{
   RowBox[{"$CacheTensorValues", "=", "False"}], ";"}]], "Input",
- CellLabel->"In[25]:=",ExpressionUUID->"734f2cd3-035c-403f-9a54-b702d7d3458b"],
+ CellLabel->"In[25]:=",ExpressionUUID->"014ff98b-7b2f-4a21-af18-ab5cbec67b2d"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"CachedTensorValues", "[", "gS", "]"}]], "Input",
- CellLabel->"In[26]:=",ExpressionUUID->"bab4111d-5bf1-4bcb-a209-b0542e5c00a6"],
+ CellLabel->"In[26]:=",ExpressionUUID->"3cbfeee2-eb01-46fb-aefb-39e6d4cf15b0"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -2215,29 +2219,29 @@ Cell[BoxData[
           RowBox[{"Csc", "[", "\[Theta]", "]"}], "2"], 
          SuperscriptBox["r", "2"]]}], "}"}]}], "}"}]}]}], "}"}]], "Output",
  CellLabel->
-  "Out[26]=",ExpressionUUID->"4a5ad110-cfc9-48dd-a4fd-24d1bb84f0b2"]
+  "Out[26]=",ExpressionUUID->"bb90c89d-b719-4c02-b40b-1a1abc7e8af1"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["Call ClearCachedTensorValues instead.", \
-"Item",ExpressionUUID->"d0ff5578-4041-43ee-b7a0-9f032fd5f6bb"],
+"Item",ExpressionUUID->"3e245081-fa7a-41d2-9fd5-344569208e0a"],
 
 Cell[BoxData[
  RowBox[{"ClearCachedTensorValues", "[", "All", "]"}]], "Input",
- CellLabel->"In[27]:=",ExpressionUUID->"60a44e3e-5a6c-4d51-bd6a-7dddbeaa17e7"],
+ CellLabel->"In[27]:=",ExpressionUUID->"db29efd2-fdce-4995-a853-73b830388b38"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"CachedTensorValues", "[", "All", "]"}]], "Input",
- CellLabel->"In[28]:=",ExpressionUUID->"b1934758-4461-43e8-acc9-8cf1c2afe13e"],
+ CellLabel->"In[28]:=",ExpressionUUID->"854a3048-0fcc-41e1-860d-14d1dd9a5025"],
 
 Cell[BoxData[
  RowBox[{"{", "}"}]], "Output",
  CellLabel->
-  "Out[28]=",ExpressionUUID->"5f84baab-7755-456e-9d81-fcd62647d6ae"]
+  "Out[28]=",ExpressionUUID->"f0e73b62-84c0-4908-908d-6b4e9a7c4cad"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -2281,44 +2285,50 @@ Cell["", "RelatedTutorialsSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"d45f1e82-3edf-43fc-8244-48b938293415"],
+  0,ExpressionUUID->"078f1f21-ed79-43ab-bac7-c06b5255c822"],
 
 Cell[TextData[ButtonBox["Introduction to GeneralRelativityTensors",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Introduction to \
 GeneralRelativityTensors"]], \
-"RelatedTutorials",ExpressionUUID->"866b9abb-009f-4805-a977-5b3fb1e98454"],
+"RelatedTutorials",ExpressionUUID->"9935af52-4766-4538-bd6f-f6f7fbe3cd20"],
 
 Cell[TextData[ButtonBox["Introduction to Tensor Curves",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Introduction to Tensor Curves"]], \
-"RelatedTutorials",ExpressionUUID->"1bad7bef-c544-4e12-91c8-b9b28115414b"],
+"RelatedTutorials",ExpressionUUID->"34d17e14-0cd3-4d64-aad6-1bd04d728771"],
 
 Cell[TextData[ButtonBox["Manipulating and differentiating Tensors",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Manipulating and differentiating \
 Tensors"]], \
-"RelatedTutorials",ExpressionUUID->"f6216ede-b660-4420-9da5-6e020ba9ab8b"],
+"RelatedTutorials",ExpressionUUID->"d117a31b-4317-4edc-a4b2-14debc76eb81"],
 
 Cell[TextData[ButtonBox["Built in common Tensors",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Built in common Tensors"]], \
-"RelatedTutorials",ExpressionUUID->"718978f4-0e2f-4a70-b336-44c6ba2fde05"],
+"RelatedTutorials",ExpressionUUID->"44f1c608-dc6d-4bfe-90ad-fac2d3f37caa"],
+
+Cell[TextData[ButtonBox["Pattern matching with Tensors",
+ BaseStyle->"Link",
+ ButtonData->
+  "paclet:GeneralRelativityTensors/tutorial/Pattern matching with Tensors"]], \
+"RelatedTutorials",ExpressionUUID->"a5ef69ac-36c1-47ef-b23b-e2608a07551b"],
 
 Cell[TextData[ButtonBox["Examples - Wave equations",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Examples - Wave equations"]], \
-"RelatedTutorials",ExpressionUUID->"293f8338-e9bf-4cfe-acdf-109ac99cd832"]
+"RelatedTutorials",ExpressionUUID->"37442f3e-3d33-4044-b92c-03238f465ff0"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[" ", \
-"FooterCell",ExpressionUUID->"3b4c49db-7617-4220-9df1-9fe548bd360e"]
+"FooterCell",ExpressionUUID->"c211543a-7537-4502-822d-fbcc52199eb0"]
 },
 Saveable->False,
 ScreenStyleEnvironment->"Working",

@@ -6,6 +6,7 @@
    "Introduction to Tensor Curves",
    "Built in common Tensors",
    "Caching Tensor values",
+   "Pattern matching with Tensors",
    "Examples - Wave equations"
  },
  "Keywords" -> {"Tensors","GeneralRelativityTensors"},
