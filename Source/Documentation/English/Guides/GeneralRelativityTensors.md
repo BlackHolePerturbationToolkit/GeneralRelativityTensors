@@ -13,6 +13,7 @@
  "Packages" -> {
    {"Title" -> "Tensor creation and common functions",
     "DetailedFunctions" -> {
+      {"Tensor", "Head for tensors in GeneralRelativityTensors"},
       {"ToTensor", "Form a new Tensor"},
       {"ToMetric", "Form a new metric Tensor"},
       {"ToCurve", "Form a new Curve Tensor"},

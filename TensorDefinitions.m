@@ -102,17 +102,18 @@ $CacheTensorValues=False;
 Tensor/:Format[t_Tensor]:=formatTensor[TensorDisplayName@t,Indices@t,CurveParameter@t]
 
 
-Attributes[Tensor]={Orderless};
+(*Attributes[Tensor]={Orderless};*)
 
 
 Clear[formatTensor]
 formatTensor[name_,inds_,param_]:=
-Module[{upStr,dnStr,out1},
+Module[{upStr,dnStr,out1,nameStr},
+	nameStr = If[MatchQ[name,_String],name,ToString[name]];
 	out1=If[inds==={},
-		name,
-		dnStr=StringJoin[If[MatchQ[#,-_Symbol|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],ToString[#/.-x_:>x],StringJoin@Table["  ",StringLength[ToString[#/.-x_:>x]]]]&/@inds];
-		upStr=StringJoin[If[Not@MatchQ[#,-_Symbol|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],ToString[#],StringJoin@Table["  ",StringLength[ToString[#/.-x_:>x]]]]&/@inds];
-		SubsuperscriptBox[name,StringReplace[dnStr, StartOfString ~~Whitespace~~EndOfString:> ""],StringReplace[upStr, StartOfString ~~Whitespace~~EndOfString:> ""]]
+		nameStr,
+		dnStr=StringJoin[If[MatchQ[#,-_Symbol|Verbatim[-_Symbol]|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],ToString[#/.-x_:>x],StringJoin@Table["  ",StringLength[ToString[#/.-x_:>x]]]]&/@inds];
+		upStr=StringJoin[If[Not@MatchQ[#,-_Symbol|Verbatim[-_Symbol]|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],ToString[#],StringJoin@Table["  ",StringLength[ToString[#/.-x_:>x]]]]&/@inds];
+		SubsuperscriptBox[nameStr,StringReplace[dnStr, StartOfString ~~Whitespace~~EndOfString:> ""],StringReplace[upStr, StartOfString ~~Whitespace~~EndOfString:> ""]]
 	];
 	DisplayForm@If[param=!=Undefined,
 		out1[ToString[param]],
@@ -121,19 +122,19 @@ Module[{upStr,dnStr,out1},
 ]
 
 
-Tensor/:Coordinates[t_Tensor]:=(Association@@t)["Coordinates"]
-Tensor/:Curve[t_Tensor]:=If[(Association@@t)["Curve"]==="Self",t,(Association@@t)["Curve"]]
-Tensor/:Rank[t_Tensor]:=Module[{inds,co},inds=Indices[t];co=Count[inds,-_Symbol];{Length[inds]-co,co}];
-Tensor/:AbstractQ[t_Tensor]:=(Association@@t)["Abstract"]
+Coordinates[t_Tensor]:=(Association@@t)["Coordinates"]
+Curve[t_Tensor]:=If[(Association@@t)["Curve"]==="Self",t,(Association@@t)["Curve"]]
+Rank[t_Tensor]:=Module[{inds,co},inds=Indices[t];co=Count[inds,-_Symbol];{Length[inds]-co,co}];
+AbstractQ[t_Tensor]:=(Association@@t)["Abstract"]
 Tensor/:Dimensions[t_Tensor]:=(Association@@t)["Dimensions"]
-Tensor/:Indices[t_Tensor]:=(Association@@t)["Indices"]
-Tensor/:PossibleIndices[t_Tensor]:=(Association@@t)["PossibleIndices"]
-Tensor/:CurveParameter[t_Tensor]:=(Association@@t)["CurveParameter"]
+Indices[t_Tensor]:=(Association@@t)["Indices"]
+PossibleIndices[t_Tensor]:=(Association@@t)["PossibleIndices"]
+CurveParameter[t_Tensor]:=(Association@@t)["CurveParameter"]
 CurveQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["IsCurve"]
 OnCurveQ[t_]:=MatchQ[t,_Tensor]&&(CurveParameter[t]=!=Undefined)
-Tensor/:TensorName[t_Tensor]:=(Association@@t)["Name"]
-Tensor/:TensorDisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
-Tensor/:IndexPositions[t_Tensor]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
+TensorName[t_Tensor]:=(Association@@t)["Name"]
+TensorDisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
+IndexPositions[t_Tensor]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
 MetricQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["IsMetric"];
 
 
@@ -159,7 +160,7 @@ Module[{vals},
 
 
 Clear[CurveRules]
-Tensor/:CurveRules[c1_Tensor?CurveQ]:=Thread[Coordinates@c1->RawTensorValues@c1]
+CurveRules[c1_Tensor?CurveQ]:=Thread[Coordinates@c1->RawTensorValues@c1]
 
 
 Clear[ToTensor]
@@ -176,24 +177,22 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Abort[]
 	];
 	
+	If[Keys[assoc]=!=Sort[keys],
+		Print["Tensors must be formed from keys in alphabetical order."];
+		Abort[]
+	];
 	
-	If[MatchQ[assoc["Metric"],Verbatim[_]]||MatchQ[assoc["Values"],Verbatim[_]]||MatchQ[assoc["Curve"],Verbatim[_]]||MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}],
-		If[Not[MatchQ[assoc["Metric"],Verbatim[_]]&&MatchQ[assoc["Values"],Verbatim[_]]&&MatchQ[assoc["Curve"],Verbatim[_]]&&MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}]],
-			Print["A TensorPattern must have patterns for Metric, Values, Curve, and Indices."];
-			Abort[]
-		]
-	];	
-	
-	If[Not@MatchQ[assoc["Indices"]/.-sym_Symbol:>sym,{___Symbol}]&&Not@MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}],
-		Print["Indices can be a list of Symbols (and negative Symbols) or Patterns (and negative Patterns)."];Abort[]];
+	If[Not@MatchQ[assoc["Indices"]/.-sym_Symbol:>sym,{___Symbol}],
+		Print["Indices can be a list of Symbols (and negative Symbols)."];Abort[]];
+		
 	If[Not@MatchQ[assoc["PossibleIndices"],{___Symbol}],Print["PossibleIndices must be a list of Symbols"];Abort[]];
 
-	If[Not@MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}]&&assoc["Indices"]=!={}&&assoc["PossibleIndices"]=!={}&&Intersection[assoc["Indices"]/.(-a_Symbol:>a),assoc["PossibleIndices"]]==={},
+	If[assoc["Indices"]=!={}&&assoc["PossibleIndices"]=!={}&&Intersection[assoc["Indices"]/.(-a_Symbol:>a),assoc["PossibleIndices"]]==={},
 		Print["Given Indices ", assoc["Indices"]/.(-a_Symbol:>a), " are not found in List of with PossibleIndices ", assoc["PossibleIndices"]];
 		Abort[];
 	];
 
-	indexChoices=DeleteCases[If[assoc["PossibleIndices"]==={},assoc["Indices"],assoc["PossibleIndices"]],_Pattern|-_Pattern];
+	indexChoices=If[assoc["PossibleIndices"]==={},assoc["Indices"],assoc["PossibleIndices"]];
 	
 	If[DeleteDuplicates[If[assoc[#]=!=Undefined,Head[assoc[#]],##&[]]&/@listKeys]=!={List},
 		Print["The following Options were not given as lists: "<>ToString[If[assoc[#]=!=Undefined&&Head[assoc[#]]=!=List,#,##&[]]&/@listKeys]];
@@ -205,38 +204,37 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Abort[]
 	];
 	
-	If[(assoc["Coordinates"]=!=Undefined&&assoc["Dimensions"]=!=Undefined)&&Length@assoc["Coordinates"]=!=assoc["Dimensions"],
-		Print["The number of coordinates given does not match the number of dimensions."];
-		Abort[]
+	If[(assoc["Coordinates"]=!=Undefined&&
+		assoc["Dimensions"]=!=Undefined)&&
+		Length@assoc["Coordinates"]=!=assoc["Dimensions"],
+			Print["The number of coordinates given does not match the number of dimensions."];
+			Abort[]
 	];
 
-	If[(MatchQ[assoc["Values"],_List]&&assoc["Values"]=!=Undefined&&assoc["Dimensions"]=!=Undefined)&&
-							Dimensions[assoc["Values"]]=!=Table[assoc["Dimensions"],{Length[assoc["Indices"]]}],
+	If[(MatchQ[assoc["Values"],_List]&&
+		assoc["Dimensions"]=!=Undefined)&&
+		Dimensions[assoc["Values"]]=!=Table[assoc["Dimensions"],{Length[assoc["Indices"]]}],
+		
 		Print["Provided values are inconsistent with given tensor rank and number of dimensions."];
 		Abort[]
 	];
 	
 	If[Not@MatchQ[assoc["Values"],_List]&&assoc["Values"]=!=Undefined&&Length[assoc["Indices"]]=!=0,
-		If[Not[MatchQ[assoc["Values"],Verbatim[_]]]&&Not@MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}],
-			Print["Scalar quantity given with indices."];
+		Print["Scalar quantity given with indices."];
 			Abort[]
-		]
 	];
 
-	If[assoc["Metric"]=!=Undefined&&assoc["Metric"]=!="Self"&&Not@MetricQ[assoc["Metric"]]&&Not[MatchQ[assoc["Metric"],Verbatim[_]]],
+	If[assoc["Metric"]=!=Undefined
+		&&assoc["Metric"]=!="Self"
+		&&Not@MetricQ[assoc["Metric"]],
 		Print["Given Option \"Metric\" is not a metric tensor."];
 		Abort[]
 	];
 
-	If[assoc["Coordinates"]=!=Undefined&&Intersection[assoc["Coordinates"],indexChoices]=!={},
-		Print["The following elements appear as both indices and coordinates: "<>ToString[Intersection[assoc["Coordinates"],indexChoices]]];
-		Abort[]
-	];
-		
-	If[DeleteDuplicates[If[assoc[#]=!=Undefined,Head[assoc[#]],##&[]]&/@listKeys]=!={List},
-		Print[DeleteDuplicates[If[assoc[#]=!=Undefined,Head[assoc[#]],##&[]]&/@listKeys]];
-		Print["The following Options must be given as lists: "<>ToString[If[assoc[#]=!=Undefined&&Head[assoc[#]]=!=List,#,##&[]]&/@listKeys]];
-		Abort[]
+	If[assoc["Coordinates"]=!=Undefined&&
+		Intersection[assoc["Coordinates"],indexChoices]=!={},
+			Print["The following elements appear as both indices and coordinates: "<>ToString[Intersection[assoc["Coordinates"],indexChoices]]];
+			Abort[]
 	];
 		
 	If[Not@BooleanQ[assoc["IsMetric"]],
@@ -259,7 +257,9 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Abort[]
 	];
 	
-	If[assoc["Curve"]=!=Undefined&&assoc["Curve"]=!="Self"&&Not@CurveQ[assoc["Curve"]]&&Not[MatchQ[assoc["Curve"],Verbatim[_]]],
+	If[assoc["Curve"]=!=Undefined&&
+		assoc["Curve"]=!="Self"&&
+		Not@CurveQ[assoc["Curve"]],
 		Print["Given Option \"Curve\" is not a Curve."];
 		Abort[]
 	];
@@ -278,6 +278,155 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 ]
 
 
+(*Clear[ToTensor]
+ToTensor[assoc_Association]:=
+Module[{keys,nullKeys,listKeys,indexChoices},
+	keys={"IsMetric","Metric","Coordinates","Name","DisplayName","Indices","Values",
+			"Abstract","Dimensions","PossibleIndices","IsCurve","Curve","CurveParameter"};
+	nullKeys={"Metric","Coordinates","Values","PossibleIndices","Dimensions"};
+	listKeys={"Coordinates","PossibleIndices","Indices"};
+
+	If[Sort@Keys[assoc]=!=Sort[keys],
+		Print["The following keys are missing in the tensor formation: "<>ToString[Complement[keys,Keys[assoc]]]];
+		Print["The following extra keys were in the tensor formation: "<>ToString[Complement[Keys[assoc],keys]]];
+		Abort[]
+	];
+	
+	If[MatchQ[assoc["Name"],_Pattern|Verbatim[_]],
+		If[Not[MatchQ[assoc["Abstract"],Verbatim[_]]&&
+				MatchQ[assoc["Coordinates"],Verbatim[_]]&&
+				MatchQ[assoc["Curve"],Verbatim[_]]&&
+				MatchQ[assoc["CurveParameter"],Verbatim[_]]&&
+				MatchQ[assoc["DisplayName"],Verbatim[_]]&&
+				MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}]&&
+				MatchQ[assoc["IsCurve"],Verbatim[_]]&&
+				MatchQ[assoc["IsMetric"],Verbatim[_]]&&
+				MatchQ[assoc["Metric"],Verbatim[_]]&&
+				MatchQ[assoc["PossibleIndices"],Verbatim[_]]],
+			Print["A Blank TensorPattern must have Blank[] for all values except \"Indices\"."];
+			Abort[]
+		]
+	];
+	
+	If[Not@MatchQ[assoc["Name"],_Pattern|Verbatim[_]] && (MatchQ[assoc["Metric"],Verbatim[_]]||
+									MatchQ[assoc["Values"],Verbatim[_]]||
+									MatchQ[assoc["Curve"],Verbatim[_]]||
+									MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}]),
+		If[Not[MatchQ[assoc["Metric"],Verbatim[_]]&&MatchQ[assoc["Values"],Verbatim[_]]&&MatchQ[assoc["Curve"],Verbatim[_]]&&MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}]],
+			Print["A TensorPattern must have patterns for Metric, Values, Curve, and Indices."];
+			Abort[]
+		]
+	];	
+	
+	If[Not@MatchQ[assoc["Indices"]/.-sym_Symbol:>sym,{___Symbol}]&&Not@MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}],
+		Print["Indices can be a list of Symbols (and negative Symbols) or Patterns (and negative Patterns)."];Abort[]];
+	If[Not@MatchQ[assoc["PossibleIndices"],{___Symbol}|Verbatim[_]],Print["PossibleIndices must be a list of Symbols"];Abort[]];
+
+	If[Not@MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}]&&assoc["Indices"]=!={}&&assoc["PossibleIndices"]=!={}&&Intersection[assoc["Indices"]/.(-a_Symbol:>a),assoc["PossibleIndices"]]==={},
+		Print["Given Indices ", assoc["Indices"]/.(-a_Symbol:>a), " are not found in List of with PossibleIndices ", assoc["PossibleIndices"]];
+		Abort[];
+	];
+
+	indexChoices=DeleteCases[If[assoc["PossibleIndices"]==={},assoc["Indices"],assoc["PossibleIndices"]],_Pattern|-_Pattern];
+	
+	If[Not@MatchQ[assoc["Name"],_Pattern|Verbatim[_]] &&
+		DeleteDuplicates[If[assoc[#]=!=Undefined,Head[assoc[#]],##&[]]&/@listKeys]=!={List},
+		Print["The following Options were not given as lists: "<>ToString[If[assoc[#]=!=Undefined&&Head[assoc[#]]=!=List,#,##&[]]&/@listKeys]];
+		Abort[]
+	];
+
+	If[Not[assoc["Abstract"]]&&MemberQ[assoc[#]&/@nullKeys,Undefined],
+		Print["\"Abstract\"->False is inconsistent with Undefined values for "<>ToString[If[assoc[#]===Undefined,#,##&[]]&/@nullKeys]];
+		Abort[]
+	];
+	
+	If[(assoc["Coordinates"]=!=Undefined&&
+		assoc["Dimensions"]=!=Undefined)&&
+		Length@assoc["Coordinates"]=!=assoc["Dimensions"]&&
+		Not[MatchQ[assoc["Dimensions"],Verbatim[_]] && MatchQ[assoc["Coordinates"],Verbatim[_]]],
+			Print["The number of coordinates given does not match the number of dimensions."];
+			Abort[]
+	];
+
+	If[(MatchQ[assoc["Values"],_List]&&
+		assoc["Values"]=!=Undefined&&
+		assoc["Dimensions"]=!=Undefined)&&
+		Dimensions[assoc["Values"]]=!=Table[assoc["Dimensions"],{Length[assoc["Indices"]]}],
+		
+		Print["Provided values are inconsistent with given tensor rank and number of dimensions."];
+		Abort[]
+	];
+	
+	If[Not@MatchQ[assoc["Values"],_List]&&assoc["Values"]=!=Undefined&&Length[assoc["Indices"]]=!=0,
+		If[Not[MatchQ[assoc["Values"],Verbatim[_]]]&&Not@MatchQ[assoc["Indices"],{Repeated[_Pattern|-_Pattern|Verbatim[_]|Verbatim[__]|Verbatim[___]|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]]}],
+			Print["Scalar quantity given with indices."];
+			Abort[]
+		]
+	];
+
+	If[assoc["Metric"]=!=Undefined
+		&&assoc["Metric"]=!="Self"
+		&&Not@MetricQ[assoc["Metric"]]
+		&&Not[MatchQ[assoc["Metric"],Verbatim[_]]],
+		Print["Given Option \"Metric\" is not a metric tensor."];
+		Abort[]
+	];
+
+	If[assoc["Coordinates"]=!=Undefined&&
+		Intersection[assoc["Coordinates"],indexChoices]=!={}&&
+		Not@MatchQ[assoc["Coordinates"],Verbatim[_]],
+			Print["The following elements appear as both indices and coordinates: "<>ToString[Intersection[assoc["Coordinates"],indexChoices]]];
+			Abort[]
+	];
+		
+	If[Not@MatchQ[assoc["Name"],_Pattern|Verbatim[_]] && 
+		(DeleteDuplicates[If[assoc[#]=!=Undefined,Head[assoc[#]],##&[]]&/@listKeys]=!={List}),
+			Print[DeleteDuplicates[If[assoc[#]=!=Undefined,Head[assoc[#]],##&[]]&/@listKeys]];
+			Print["The following Options must be given as lists: "<>ToString[If[assoc[#]=!=Undefined&&Head[assoc[#]]=!=List,#,##&[]]&/@listKeys]];
+			Abort[]
+	];
+		
+	If[Not@BooleanQ[assoc["IsMetric"]]&&Not[MatchQ[assoc["IsMetric"],Verbatim[_]]],
+		Print["\"IsMetric\" must be True or False."];
+		Abort[]
+	];
+	
+	If[Not@MatchQ[assoc["CurveParameter"],_Symbol]&&Not[MatchQ[assoc["CurveParameter"],Verbatim[_]]],
+		Print["\"CurveParameter\" must be a Symbol."];
+		Abort[]
+	];
+
+	If[Not@BooleanQ[assoc["IsCurve"]]Not[MatchQ[assoc["IsCurve"],Verbatim[_]]],
+		Print["\"IsCurve\" must be True or False."];
+		Abort[]
+	];
+
+	If[assoc["IsCurve"]&&(assoc["CurveParameter"]===Undefined),
+		Print["Curves must be parametrized."];
+		Abort[]
+	];
+	
+	If[assoc["Curve"]=!=Undefined&&
+		assoc["Curve"]=!="Self"&&
+		Not@CurveQ[assoc["Curve"]]&&Not[MatchQ[assoc["Curve"],Verbatim[_]]],
+		Print["Given Option \"Curve\" is not a Curve."];
+		Abort[]
+	];
+	
+	If[MemberQ[assoc["PossibleIndices"],assoc["CurveParameter"]],
+		Print["\"CurveParameter\" cannot also be a possible index."];
+		Abort[]
+	];
+	
+	If[assoc["CurveParameter"]=!=Undefined && Not[MatchQ[assoc["CurveParameter"],Verbatim[_]]],
+		checkForParam[assoc["Values"],assoc["Coordinates"],assoc["CurveParameter"]];
+	];
+
+	If[#=!=Undefined&&Not[AutoNameQ[assoc["Name"]]]&&$CacheTensorValues,RawTensorValues[assoc["Name"],If[MatchQ[#,_Symbol],"Up","Down"]&/@assoc["Indices"]]=#]&[assoc["Values"]];
+	Tensor@@(Normal@assoc/.("PossibleIndices"->_):>("PossibleIndices"->indexChoices))
+]*)
+
+
 ToTensor[{name_String,dispName_String},metric_Tensor?MetricQ,vals_,indsGiven_:Undefined]:=
 Module[{coords,posInds,dims,inds,nInds},
 
@@ -288,19 +437,20 @@ Module[{coords,posInds,dims,inds,nInds},
 	dims=Dimensions[metric];
 	nInds=If[MatchQ[vals,_List],Length@Dimensions[vals],0];
 	inds=If[indsGiven===Undefined,Take[posInds,nInds],indsGiven];
-	ToTensor[Association["Coordinates"->coords,
-						"Metric"->metric,
-						"IsMetric"->False,
-						"Name"->name,
+						
+	ToTensor[KeySort@Association["Abstract"->False,
+						"Coordinates"->coords,
+						"Curve"->Undefined,
+						"CurveParameter"->Undefined,
+						"Dimensions"->dims,
 						"DisplayName"->dispName,
 						"Indices"->inds,
+						"IsCurve"->False,
+						"IsMetric"->False,
+						"Metric"->metric,
+						"Name"->name,
 						"PossibleIndices"->posInds,
-						"Abstract"->False,
-						"Values"->vals,
-						"Dimensions"->dims,
-						"CurveParameter"->Undefined,
-						"Curve"->Undefined,
-						"IsCurve"->False]]
+						"Values"->vals]]
 ]
 ToTensor[name_String,metric_Tensor?MetricQ,vals_List,indsGiven_:Undefined]:=ToTensor[{name,name},metric,vals,indsGiven];
 
@@ -342,7 +492,7 @@ Module[{keys,dims,posInds,inds},
 	];
 
 	dims=If[assoc["Coordinates"]=!=Undefined,Length@assoc["Coordinates"],assoc["Coordinates"]];
-	ToTensor[Join[KeyDrop[assoc,{"PossibleIndices","Indices"}],
+	ToTensor[KeySort@Join[KeyDrop[assoc,{"PossibleIndices","Indices"}],
 					Association["Metric"->"Self",
 								"IsMetric"->True,
 								"Dimensions"->dims,
@@ -393,19 +543,19 @@ Module[{posInds,coords,dims},
 	
 	checkForParam[vals,coords,param];
 
-	ToTensor[Association["Coordinates"->coords,
-					"Metric"->metric,
-					"IsMetric"->False,
-					"Name"->name,
-					"DisplayName"->dispName,
-					"Indices"->{First@posInds},
-					"PossibleIndices"->posInds,
-					"Abstract"->False,
-					"Values"->vals,
-					"Dimensions"->dims,
-					"IsCurve"->True,
-					"Curve"->"Self",
-					"CurveParameter"->param]]
+	ToTensor[KeySort@Association["Abstract"->False,
+								"Coordinates"->coords,
+								"Curve"->"Self",
+								"CurveParameter"->param,
+								"Dimensions"->dims,
+								"DisplayName"->dispName,
+								"Indices"->{First@posInds},
+								"IsCurve"->True,
+								"IsMetric"->False,
+								"Metric"->metric,
+								"Name"->name,
+								"PossibleIndices"->posInds,
+								"Values"->vals]]
 ]
 ToCurve[name_String,metric_Tensor?MetricQ,vals_List,param_Symbol]:=ToCurve[{name,name},metric,vals,param];
 
@@ -425,7 +575,7 @@ Module[{coordsP,temp,coordsPTemp,coordsPRules,exprTemp,notCurves},
 ]
 
 
-Tensor/:Metric[t_Tensor]:=Which[(Association@@t)["Metric"]==="Self",
+Metric[t_Tensor]:=Which[(Association@@t)["Metric"]==="Self",
 								t,
 								Curve@t=!=Undefined,
 								ToTensorFieldOnCurve[(Association@@t)["Metric"],Curve@t],
@@ -447,8 +597,7 @@ Module[{metrics,metricNames},
 
 
 Clear[InverseMetric]
-Tensor/:InverseMetric[t_Tensor]:=If[Metric@t===Undefined,Undefined,InverseMetric@Metric@t];
-Tensor/:InverseMetric[t_Tensor?MetricQ]:=InverseMetric[t]=
+InverseMetric[t_Tensor?MetricQ]:=InverseMetric[t]=
 Module[{assoc,tvStored,tv,posUp},
 
 	posUp={"Up","Up"};
@@ -462,14 +611,15 @@ Module[{assoc,tvStored,tv,posUp},
 		];
 	
 	assoc=Association@@t;
-	ToTensor[Join[KeyDrop[assoc,{"Indices","Metric"}],
+	ToTensor[KeySort@Join[KeyDrop[assoc,{"Indices","Metric"}],
 					Association["Indices"->Indices[t]/.-sym_Symbol:>sym,
 								"Values"->tv,
 								"Metric"->Metric[t]]]]
-]
+];
+InverseMetric[t_Tensor]:=If[Metric@t===Undefined,Undefined,InverseMetric@Metric@t];
 
 
-Tensor/:ActOnTensorValues[fn_,t_Tensor]:=SetRawTensorValues[t,Map[fn,RawTensorValues[t],{Total@Rank[t]}]]
+ActOnTensorValues[fn_,t_Tensor]:=SetRawTensorValues[t,Map[fn,RawTensorValues[t],{Total@Rank[t]}]]
 
 
 Clear[ClearCachedTensorValues]
@@ -491,45 +641,45 @@ AutoNameQ[s_String]:=StringMatchQ[s,__~~"-Auto"]
 
 
 Clear[SetTensorKeyValue]
-Tensor/:SetTensorKeyValue[t_Tensor,key_String,value_]:=ToTensor[Join[KeyDrop[(Association@@t),{key}],Association[key->value]]]
+SetTensorKeyValue[t_Tensor,key_String,value_]:=ToTensor[KeySort@Join[KeyDrop[(Association@@t),{key}],Association[key->value]]]
 
 
 Clear[SetMetric]
-Tensor/:SetMetric[t_Tensor,m_Tensor]:=If[t=!=m,SetTensorKeyValue[t,"Metric",m],t]
+SetMetric[t_Tensor,m_Tensor]:=If[t=!=m,SetTensorKeyValue[t,"Metric",m],t]
 
 
 Clear[SetIndices]
-Tensor/:SetIndices[t_Tensor,inds___List]:=SetTensorKeyValue[t,"Indices",inds]
+SetIndices[t_Tensor,inds___List]:=SetTensorKeyValue[t,"Indices",inds]
 
 
 Clear[SetPossibleIndices]
-Tensor/:SetPossibleIndices[t_Tensor,inds_List]:=SetTensorKeyValue[t,"PossibleIndices",inds]
+SetPossibleIndices[t_Tensor,inds_List]:=SetTensorKeyValue[t,"PossibleIndices",inds]
 
 
 Clear[SetCoordinates]
-Tensor/:SetCoordinates[t_Tensor,coords_List]:=SetTensorKeyValue[t,"Coordinates",coords]
+SetCoordinates[t_Tensor,coords_List]:=SetTensorKeyValue[t,"Coordinates",coords]
 
 
 Clear[SetTensorName]
-Tensor/:SetTensorName[t_Tensor,{name_String,dispName_String}]:=SetTensorDisplayName[SetTensorKeyValue[t,"Name",name],dispName]
-Tensor/:SetTensorName[t_Tensor,name_String]:=SetTensorName[t,{name,name}]
+SetTensorName[t_Tensor,{name_String,dispName_String}]:=SetTensorDisplayName[SetTensorKeyValue[t,"Name",name],dispName]
+SetTensorName[t_Tensor,name_String]:=SetTensorName[t,{name,name}]
 
 
 Clear[SetTensorDisplayName]
-Tensor/:SetTensorDisplayName[t_Tensor,name_String]:=SetTensorKeyValue[t,"DisplayName",name]
+SetTensorDisplayName[t_Tensor,name_String]:=SetTensorKeyValue[t,"DisplayName",name]
 
 
 Clear[SetAsAbstract]
-Tensor/:SetAsAbstract[t_Tensor,tf_?BooleanQ]:=SetTensorKeyValue[t,"Abstract",tf]
+SetAsAbstract[t_Tensor,tf_?BooleanQ]:=SetTensorKeyValue[t,"Abstract",tf]
 
 
 Clear[SetRawTensorValues]
-Tensor/:SetRawTensorValues[t_Tensor,values_List]:=SetTensorKeyValue[t,"Values",values]
-Tensor/:SetRawTensorValues[t_Tensor,values_]/;Rank[t]==={0,0}:=SetTensorKeyValue[t,"Values",values]
+SetRawTensorValues[t_Tensor,values_List]:=SetTensorKeyValue[t,"Values",values]
+SetRawTensorValues[t_Tensor,values_]/;Rank[t]==={0,0}:=SetTensorKeyValue[t,"Values",values]
 
 
 Clear[ToTensorFieldOnCurve]
-Tensor/:ToTensorFieldOnCurve[t1_Tensor,c1_?CurveQ]:=
+ToTensorFieldOnCurve[t1_Tensor,c1_?CurveQ]:=
 Module[{params,paramVals},
 	
 	If[TensorName@Metric@t1=!=TensorName[(Association@@c1)["Metric"]],
@@ -543,7 +693,7 @@ Module[{params,paramVals},
 
 
 Clear[ToTensorOnCurve]
-Tensor/:ToTensorOnCurve[t1_Tensor,c1_?CurveQ]:=
+ToTensorOnCurve[t1_Tensor,c1_?CurveQ]:=
 Module[{params,vals},
 	
 	If[TensorName@Metric@t1=!=TensorName@Metric@c1,

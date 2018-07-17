@@ -25,7 +25,7 @@ DocumentationBuilder`OptionDescriptions["CovariantD"] = {"ActWith"->"Function wh
 "MergeNested"->"If multiple derivatives are taken, this Boolean controlling whether merging happens after each sub-derivative."};
 
 
-Tensor/:ChristoffelSymbol[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
+ChristoffelSymbol[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
 Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c,chrValue},
 	simpFn=OptionValue["ActWith"];
 	gT=Metric[t];
@@ -46,7 +46,7 @@ Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c,chrValue},
 			RawTensorValues[name,{"Up","Down","Down"}]
 		];
 
-	ToTensor[Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+	ToTensor[KeySort@Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],
 			Association["Metric"->gT,
 						"IsMetric"->False,
 						"Values"->vals,
@@ -97,7 +97,7 @@ Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords,va
 	vals=Table[D[tvs[[Sequence@@indsLocal[2]]],coords[[Sequence@@indsLocal[1]]]],Evaluate[Sequence@@itrs]];
 	valsSimp=Map[simpFn,vals,{Length@indsFinal}];
 
-	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Metric","Name","IsMetric","Indices","Values"}],
+	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Metric","Name","IsMetric","Indices","Values"}],
 					Association["IsMetric"->False,
 								"Metric"->Metric[t1],
 								"Values"->valsSimp,
@@ -120,7 +120,7 @@ Module[{vals},
 
 	vals=Map[simpFn[D[#,param]]&,RawTensorValues[t1],{Total@Rank@t1}];
 
-	ToTensor[Join[KeyDrop[Association@@t1,{"DisplayName","Name","Values","IsCurve","Curve"}],
+	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Name","Values","IsCurve","Curve"}],
 					Association["IsCurve"->False,
 								"Curve"->Curve[t1],
 								"Values"->vals,
@@ -140,7 +140,7 @@ Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 	chrDummy=If[MatchQ[tensorInd,-_Symbol],chr[dummy,tensorInd,derivInd],chr[tensorInd,-dummy,derivInd]];
 
 	newInds=inds/.tensorIndUp->dummy;
-	tNew=ToTensor[Join[KeyDrop[(Association@@t),{"Indices","Metric","IsMetric"}],
+	tNew=ToTensor[KeySort@Join[KeyDrop[(Association@@t),{"Indices","Metric","IsMetric"}],
 						Association["Indices"->newInds,
 									"Metric"->Metric[t],
 									"IsMetric"->False]]];
