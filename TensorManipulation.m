@@ -13,7 +13,9 @@ the values using the Tensor's associated metric.";
 TensorRules::usage="TensorRules[t] returns a List of Rules with possible \
 coordinates of Tensor t as keys and TensorValues as values.";
 TensorPattern::usage="TensorPattern[t,patInds] returns the Tensor t but with its \
-indices replaced by patInds, a List of patterns.";
+indices replaced by patInds, a List of patterns.
+TensorPattern[_,patInds] returns Tensor with its \
+indices replaced by patInds, a List of patterns, and all other values replaced by Blank[].";
 
 MergeTensors::usage="MergeTensors[expr,n] calls MultiplyTensors, MultiplyTensorScalar, \
 AddTensors, and ContractIndices to merge the Tensor expression expr into one Tensor with TensorName n.
