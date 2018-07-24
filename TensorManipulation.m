@@ -466,15 +466,19 @@ MultiplyTensorScalar[t1_Tensor,n_,{name_String,displayName_String},opts:OptionsP
 
 Clear[MergeTensors]
 MergeTensors[expr_,opts:OptionsPattern[]]:=
-Module[{expr1,expr2,expr3,expr4,simpFn,simpFnNest,nestNum},
+Module[{expr1,expr2,expr3,expr4,expr5,simpFn,simpFnNest,nestNum,exprExpand},
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
 	nestNum=OptionValue["NestQuantity"];
-	expr1=Expand[expr]/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2,"ActWith"->simpFnNest];
-	expr2=expr1 /. n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t,"ActWith"->simpFnNest];
-	expr3=ContractIndices[expr2,"ActWith"->simpFnNest]/.Plus[t1_Tensor,t2__Tensor]:>AddTensors[t1,t2,"ActWith"->simpFnNest];
-	expr4=If[MatchQ[expr3,_Tensor]||nestNum==0,expr3,MergeTensors[expr3,"ActWithNested"->simpFnNest,"ActWith"->simpFn,"NestQuantity"->(nestNum-1)]];
-	If[MatchQ[expr4,_Tensor],ActOnTensorValues[simpFn,expr4],expr4]
+	
+	exprExpand=Expand[expr];
+	expr1=If[Cases[{exprExpand},Times[___, _Tensor ,__Tensor],3]=!={},exprExpand/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2,"ActWith"->simpFnNest],exprExpand];
+	expr2=If[Cases[{expr1},Times[n_,_Tensor]/;Not[MatchQ[n,_Tensor]],3]=!={},expr1/.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t,"ActWith"->simpFnNest],expr1];
+	expr3=ContractIndices[expr2];
+	expr4=If[Cases[{expr3},Plus[_Tensor,__Tensor],3]=!={},expr3/.Plus[t1_Tensor,t2__Tensor]:>AddTensors[t1,t2,"ActWith"->simpFnNest],expr3];
+	expr5=If[MatchQ[expr4,_Tensor]||nestNum==0,expr4,MergeTensors[expr4,"ActWithNested"->simpFnNest,"ActWith"->simpFn,"NestQuantity"->(nestNum-1)]];
+
+	If[MatchQ[expr5,_Tensor],ActOnTensorValues[simpFn,expr5],expr5]
 ]
 MergeTensors[expr_,name_String,opts:OptionsPattern[]]:=SetTensorName[MergeTensors[expr,opts],name]
 MergeTensors[expr_,{name_String,dispName_String},opts:OptionsPattern[]]:=SetTensorName[MergeTensors[expr,opts],{name,dispName}]
