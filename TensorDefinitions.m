@@ -415,9 +415,10 @@ Module[{coordsP,temp,coordsPTemp,coordsPRules,exprTemp,notCurves},
 	coordsPTemp=temp[ToString@#]& /@coords;
 	coordsPRules=Thread[coordsP->coordsPTemp];
 	exprTemp=expr/.coordsPRules;
-	notCurves=Cases[{exprTemp},Alternatives@@coords,Infinity];
+	notCurves=Complement[DeleteDuplicates@Cases[{exprTemp},(Alternatives@@coords),Infinity],{param}];
+
 	If[notCurves=!={},
-		Print["The following coordinates are given without being parametrized by the curve parameter: ",notCurves ];
+		Print["The following coordinates are given without being parametrized by the curve parameter: ",notCurves];
 		Abort[]
 	];
 ]
