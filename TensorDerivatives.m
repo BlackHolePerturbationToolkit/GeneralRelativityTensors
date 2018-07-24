@@ -46,9 +46,9 @@ Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c,chrValue},
 			RawTensorValues[name,{"Up","Down","Down"}]
 		];
 
-	ToTensor[KeySort@Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+	ToTensor[KeySort@Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","MetricQ","Indices"}],
 			Association["Metric"->gT,
-						"IsMetric"->False,
+						"MetricQ"->False,
 						"Values"->vals,
 						"DisplayName"->"\[CapitalGamma]",
 						"Name"->name,
@@ -97,8 +97,8 @@ Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords,va
 	vals=Table[D[tvs[[Sequence@@indsLocal[2]]],coords[[Sequence@@indsLocal[1]]]],Evaluate[Sequence@@itrs]];
 	valsSimp=Map[simpFn,vals,{Length@indsFinal}];
 
-	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Metric","Name","IsMetric","Indices","Values"}],
-					Association["IsMetric"->False,
+	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Metric","Name","MetricQ","Indices","Values"}],
+					Association["MetricQ"->False,
 								"Metric"->Metric[t1],
 								"Values"->valsSimp,
 								"DisplayName"->"(\[PartialD]"<>TensorDisplayName[t1]<>")",
@@ -120,8 +120,8 @@ Module[{vals},
 
 	vals=Map[simpFn[D[#,param]]&,RawTensorValues[t1],{Total@Rank@t1}];
 
-	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Name","Values","IsCurve","Curve"}],
-					Association["IsCurve"->False,
+	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Name","Values","CurveQ","Curve"}],
+					Association["CurveQ"->False,
 								"Curve"->Curve[t1],
 								"Values"->vals,
 								"DisplayName"->"(d"<>TensorDisplayName[t1]<>"/d"<>ToString[param]<>")",
@@ -140,10 +140,10 @@ Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 	chrDummy=If[MatchQ[tensorInd,-_Symbol],chr[dummy,tensorInd,derivInd],chr[tensorInd,-dummy,derivInd]];
 
 	newInds=inds/.tensorIndUp->dummy;
-	tNew=ToTensor[KeySort@Join[KeyDrop[(Association@@t),{"Indices","Metric","IsMetric"}],
+	tNew=ToTensor[KeySort@Join[KeyDrop[(Association@@t),{"Indices","Metric","MetricQ"}],
 						Association["Indices"->newInds,
 									"Metric"->Metric[t],
-									"IsMetric"->False]]];
+									"MetricQ"->False]]];
 	If[tensorIndUp===tensorInd,1,-1]tNew chrDummy
 ]
 

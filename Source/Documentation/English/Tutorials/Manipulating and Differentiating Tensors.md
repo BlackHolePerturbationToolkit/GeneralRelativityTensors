@@ -4,7 +4,7 @@
  "Related Tutorials" -> {
    "Introduction to GeneralRelativityTensors",
    "Introduction to Tensor Curves",
-   "Built in common Tensors",
+   "Low level Tensor operations",
    "Caching Tensor values",
    "Pattern matching with Tensors",
    "Examples - Wave equations"

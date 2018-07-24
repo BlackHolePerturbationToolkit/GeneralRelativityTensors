@@ -229,15 +229,15 @@ Module[{pis,inds,params,a},
 
 
 TensorPattern[p_,patternInds_List]:=
-Tensor["Abstract"->_,
+Tensor["AbstractQ"->_,
 			"Coordinates"->_,
 			"Curve"->_,
 			"CurveParameter"->_,
 			"Dimensions"->_,
 			"DisplayName"->_,
 			"Indices"->patternInds,
-			"IsCurve"->_,
-			"IsMetric"->_,
+			"CurveQ"->_,
+			"MetricQ"->_,
 			"Metric"->_,
 			"Name"->_,
 			"PossibleIndices"->_,
@@ -350,8 +350,8 @@ Module[{simpFn,posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvF
 			Table[tvs[1][[Sequence@@indsLocal[1]]]+tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]],
 			{Length@indsFinal}];
 	
-	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","IsMetric","Values","Indices","PossibleIndices"}],
-					Association["IsMetric"->False,
+	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","MetricQ","Values","Indices","PossibleIndices"}],
+					Association["MetricQ"->False,
 								"Metric"->Metric[t1],
 								"Indices"->indsFinal,
 								"Values"->vals,
@@ -417,8 +417,8 @@ Module[{simpFn,posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,inds
 			Table[tvs[1][[Sequence@@indsLocal[1]]]tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]],
 			{Length@indsFinal}];
 	
-	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","IsMetric","Values","Indices","PossibleIndices"}],
-					Association["IsMetric"->False,
+	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","MetricQ","Values","Indices","PossibleIndices"}],
+					Association["MetricQ"->False,
 								"Metric"->Metric[t1],
 								"Indices"->indsFinal,
 								"Values"->vals,
@@ -450,8 +450,8 @@ Module[{simpFn,vals,name,dispName,ratStr},
 		{"(("<>ToString[n]<>")"<>TensorName[t]<>")-Auto","(("<>ratStr<>")\[CenterDot]"<>TensorDisplayName[t]<>")"},
 		{"("<>ToString[n]<>TensorName[t]<>")-Auto","("<>ratStr<>"\[CenterDot]"<>TensorDisplayName[t]<>")"}
 	];
-	ToTensor[KeySort@Join[KeyDrop[Association@@t,{"DisplayName","Name","IsMetric","Values","Metric"}],
-					Association["IsMetric"->False,
+	ToTensor[KeySort@Join[KeyDrop[Association@@t,{"DisplayName","Name","MetricQ","Values","Metric"}],
+					Association["MetricQ"->False,
 								"Metric"->Metric[t],
 								"Values"->vals,
 								"DisplayName"->dispName,
@@ -519,9 +519,9 @@ Module[{is,pis},
 		Abort[]
 	];
 
-	ToTensor[KeySort@Join[KeyDrop[Association@@t,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+	ToTensor[KeySort@Join[KeyDrop[Association@@t,{"DisplayName","Name","Metric","MetricQ","Indices"}],
 			Association["Metric"->Metric[t],
-						"IsMetric"->False,
+						"MetricQ"->False,
 						"Values"->Transpose[RawTensorValues[t],inds],
 						"DisplayName"->displayName,
 						"Name"->name,

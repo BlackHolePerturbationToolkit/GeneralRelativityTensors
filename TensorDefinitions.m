@@ -19,8 +19,7 @@ ToTensorFieldOnCurve::usage="ToTensorFieldOnCurve[t,c] returns the Tensor t with
 Internally t is still treated as a function of the manifold's coordinates.";
 CurveParameter::usage="CurveParameter[t] returns the parmeter which parametrizes the Tensor \
 t along the Curve. It returns Undefined if t is not on a Curve.";
-Curve::usage="Curve[t] returns the curve that \
-t is defined along.";
+Curve::usage="Curve[t] returns the Curve associated with Tensor t.";
 OnCurveQ::usage="OnCurveQ[t] returns True if the values of Tensor t are evaluatated along on a Curve. \
 OnCurveQ[t] also returns True if t is a Curve";
 CurveQ::usage="CurveQ[t] returns True if the Tensor t is a Curve."
@@ -30,8 +29,7 @@ CurveRules::usage="CurveRules[c] returns a list of rules sending the coordinates
 of a Curve c to its values."
 
 ToMetric::usage="ToMetric[n,coords,vals,posInds] returns a metric Tensor with TensorName \
-n, Coordinates coords, TensorValues \
-vals, and PossibleIndices posInds.
+n, Coordinates coords, TensorValues vals, and PossibleIndices posInds.
 ToMetric[builtIn] returns a built-in metric Tensor, where builtIn is a String such as \"Schwarzschild\".";
 InverseMetric::usage="InverseMetric[t] returns the inverse metric Tensor associated with the Tensor \
 t, or Undefined if no metric was set. If t is on a curve, InverseMetric[t] returns \
@@ -59,8 +57,21 @@ TensorName::usage="TensorName[t] returns the name of Tensor \
 t which is used for storing cached values in the Symbol RawTensorValues.";
 TensorDisplayName::usage="TensorDisplayName[t] returns the name of \
 Tensor t that is used for formatted output.";
-SetTensorName::usage="SetTensorName[t,n] returns the Tensor t \
-with its TensorName changed to n.";
+
+SetTensorKeyValue::usage="SetTensorKeyValue[t,key,value] returns the Tensor t with the appropriate Rule changed to key->value.";
+SetTensorName::usage="SetTensorName[t,n] returns the Tensor t with its TensorName changed to n.";
+SetTensorDisplayName::usage="SetTensorDisplayName[t,n] returns the Tensor t with its TensorDisplayName changed to n.";
+SetTensorValues::usage="SetTensorValues[t,vals] returns the Tensor t with its RawTensorValues set to vals.";
+SetDimensions::usage="SetDimensions[t,dims] returns the Tensor t with its Dimensions set to dims.";
+SetCoordinates::usage="SetCoordinates[t,coords] returns the Tensor t with its Coordinates set to coords.";
+SetIndices::usage="SetIndices[t,inds] returns the Tensor t with its Indices set to inds.";
+SetPossibleIndices::usage="SetIndices[t,posInds] returns the Tensor t with its PossibleIndices set to posInds.";
+SetMetric::usage="SetMetric[t,m] returns the Tensor t with its Metric set to m.";
+SetMetricQ::usage="SetMetricQ[t,bool] returns the Tensor t with its MetricQ flag set to bool (True or False).";
+SetCurve::usage="SetCurve[t,c] returns the Tensor t with its Curve set to c.";
+SetCurveQ::usage="SetCurveQ[t,bool] returns the Tensor t with its CurveQ flag set to bool (True or False).";
+SetCurveParameter::usage="SetCurve[t,param] returns the Tensor t with its CurveParameter set to param.";
+SetAbstractQ::usage="SetAbstractQ[t,bool] returns the Tensor t with its AbstractQ flag set to bool (True or False).";
 
 RawTensorValues::usage="RawTensorValues[n,inds] returns the cached values of a Tensor \
 with TensorName n and indices in positions inds or \
@@ -83,7 +94,6 @@ CachedTensorValues[t] returns a List of Rules showing all cached expressions \
 for the Tensor t (stored in the Symbol RawTensorValues).
 CachedTensorValues[All] returns a List of Rules showing all cached expressions (stored in the Symbol RawTensorValues)."
 $CacheTensorValues::usage="$CacheTensorValues is a global boolean (with default value False) specifying whether to cache Tensor values in the symbol RawTensorValues."
-SetRawTensorValues::usage="SetRawTensorValues[t,vals] returns the Tensor t with its RawTensorValues set to vals.";
 ActOnTensorValues::usage="ActOnTensorValues[f,t] acts with the functions f on the values of Tensor t and returns the resulting tensor.";
 
 AbstractQ::usage="AbstractQ[t] returns True if the Tensor t is treated as Abstract.";
@@ -94,6 +104,37 @@ aborts if it is not.";
 
 
 Begin["`Private`"];
+
+
+Options[SetTensorKeyValue]={"IgnoreWarnings"->False};
+Options[SetMetricQ]=Options[SetTensorKeyValue];
+Options[SetMetric]=Options[SetTensorKeyValue];
+Options[SetCurve]=Options[SetTensorKeyValue];
+Options[SetCurveQ]=Options[SetTensorKeyValue];
+Options[SetCurveParameter]=Options[SetTensorKeyValue];
+Options[SetIndices]=Options[SetTensorKeyValue];
+Options[SetPossibleIndices]=Options[SetTensorKeyValue];
+Options[SetDimensions]=Options[SetTensorKeyValue];
+Options[SetCoordinates]=Options[SetTensorKeyValue];
+Options[SetTensorName]=Options[SetTensorKeyValue];
+Options[SetTensorDisplayName]=Options[SetTensorKeyValue];
+Options[SetAbstractQ]=Options[SetTensorKeyValue];
+Options[SetTensorValues]=Options[SetTensorKeyValue];
+
+DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"] = {"IgnoreWarnings"->"If True, the Tensor's key value will be set regardless of whether it violates built-in warnings."};
+DocumentationBuilder`OptionDescriptions["SetMetricQ"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetMetric"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetCurve"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetCurveQ"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetCurveParameter"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetIndices"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetPossibleIndices"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetDimensions"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetCoordinates"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetTensorName"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetTensorDisplayName"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetAbstractQ"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetTensorValues"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
 
 
 $CacheTensorValues=False;
@@ -122,17 +163,17 @@ Module[{upStr,dnStr,out1,nameStr},
 Coordinates[t_Tensor]:=(Association@@t)["Coordinates"]
 Curve[t_Tensor]:=If[(Association@@t)["Curve"]==="Self",t,(Association@@t)["Curve"]]
 Rank[t_Tensor]:=Module[{inds,co},inds=Indices[t];co=Count[inds,-_Symbol];{Length[inds]-co,co}];
-AbstractQ[t_Tensor]:=(Association@@t)["Abstract"]
+AbstractQ[t_Tensor]:=(Association@@t)["AbstractQ"]
 Tensor/:Dimensions[t_Tensor]:=(Association@@t)["Dimensions"]
 Indices[t_Tensor]:=(Association@@t)["Indices"]
 PossibleIndices[t_Tensor]:=(Association@@t)["PossibleIndices"]
 CurveParameter[t_Tensor]:=(Association@@t)["CurveParameter"]
-CurveQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["IsCurve"]
+CurveQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["CurveQ"]
 OnCurveQ[t_]:=MatchQ[t,_Tensor]&&(CurveParameter[t]=!=Undefined)
 TensorName[t_Tensor]:=(Association@@t)["Name"]
 TensorDisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
 IndexPositions[t_Tensor]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
-MetricQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["IsMetric"];
+MetricQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["MetricQ"];
 
 
 PossibleIndices[expr_]:=PossibleIndices[Metric[expr]]
@@ -163,8 +204,8 @@ CurveRules[c1_Tensor?CurveQ]:=Thread[Coordinates@c1->RawTensorValues@c1]
 Clear[ToTensor]
 ToTensor[assoc_Association]:=
 Module[{keys,nullKeys,listKeys,indexChoices},
-	keys={"IsMetric","Metric","Coordinates","Name","DisplayName","Indices","Values",
-			"Abstract","Dimensions","PossibleIndices","IsCurve","Curve","CurveParameter"};
+	keys={"MetricQ","Metric","Coordinates","Name","DisplayName","Indices","Values",
+			"AbstractQ","Dimensions","PossibleIndices","CurveQ","Curve","CurveParameter"};
 	nullKeys={"Metric","Coordinates","Values","PossibleIndices","Dimensions"};
 	listKeys={"Coordinates","PossibleIndices","Indices"};
 
@@ -196,8 +237,8 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Abort[]
 	];
 
-	If[Not[assoc["Abstract"]]&&MemberQ[assoc[#]&/@nullKeys,Undefined],
-		Print["\"Abstract\"->False is inconsistent with Undefined values for "<>ToString[If[assoc[#]===Undefined,#,##&[]]&/@nullKeys]];
+	If[Not[assoc["AbstractQ"]]&&MemberQ[assoc[#]&/@nullKeys,Undefined],
+		Print["\"AbstractQ\"->False is inconsistent with Undefined values for "<>ToString[If[assoc[#]===Undefined,#,##&[]]&/@nullKeys]];
 		Abort[]
 	];
 	
@@ -227,6 +268,16 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Print["Given Option \"Metric\" is not a metric tensor."];
 		Abort[]
 	];
+	
+	If[assoc["Metric"]=!="Self" && (assoc["Coordinates"] =!= Coordinates[assoc["Metric"]]),
+		Print["Metric's Coordinates and given Coordinates are inconsistent: ", Coordinates[assoc["Metric"]], " and ",assoc["Coordinates"]];
+		Abort[]
+	];
+
+	If[assoc["Metric"]=!="Self" && (assoc["Dimensions"] =!= Dimensions[assoc["Metric"]]),
+		Print["Metric's Dimensions and given Dimensions are inconsistent ", Dimensions[assoc["Metric"]], " and ",assoc["Dimensions"]];
+		Abort[]
+	];
 
 	If[assoc["Coordinates"]=!=Undefined&&
 		Intersection[assoc["Coordinates"],indexChoices]=!={},
@@ -234,8 +285,8 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 			Abort[]
 	];
 		
-	If[Not@BooleanQ[assoc["IsMetric"]],
-		Print["\"IsMetric\" must be True or False."];
+	If[Not@BooleanQ[assoc["MetricQ"]],
+		Print["\"MetricQ\" must be True or False."];
 		Abort[]
 	];
 	
@@ -244,12 +295,12 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Abort[]
 	];
 
-	If[Not@BooleanQ[assoc["IsCurve"]],
-		Print["\"IsCurve\" must be True or False."];
+	If[Not@BooleanQ[assoc["CurveQ"]],
+		Print["\"CurveQ\" must be True or False."];
 		Abort[]
 	];
 
-	If[assoc["IsCurve"]&&(assoc["CurveParameter"]===Undefined),
+	If[assoc["CurveQ"]&&(assoc["CurveParameter"]===Undefined),
 		Print["Curves must be parametrized."];
 		Abort[]
 	];
@@ -278,7 +329,7 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 ToTensor[{name_String,dispName_String},metric_Tensor?MetricQ,vals_,indsGiven_:Undefined]:=
 Module[{coords,posInds,dims,inds,nInds},
 
-	If[AbstractQ[metric],Print["Tensor with values cannot be defined using \"Abstract\" metric."];Abort[]];
+	If[AbstractQ[metric],Print["Tensor with values cannot be defined using \"AbstractQ\" metric."];Abort[]];
 
 	coords=Coordinates[metric];	
 	posInds=PossibleIndices[metric];
@@ -286,15 +337,15 @@ Module[{coords,posInds,dims,inds,nInds},
 	nInds=If[MatchQ[vals,_List],Length@Dimensions[vals],0];
 	inds=If[indsGiven===Undefined,Take[posInds,nInds],indsGiven];
 						
-	ToTensor[KeySort@Association["Abstract"->False,
+	ToTensor[KeySort@Association["AbstractQ"->False,
 						"Coordinates"->coords,
 						"Curve"->Undefined,
 						"CurveParameter"->Undefined,
 						"Dimensions"->dims,
 						"DisplayName"->dispName,
 						"Indices"->inds,
-						"IsCurve"->False,
-						"IsMetric"->False,
+						"CurveQ"->False,
+						"MetricQ"->False,
 						"Metric"->metric,
 						"Name"->name,
 						"PossibleIndices"->posInds,
@@ -321,7 +372,7 @@ Clear[ToMetric]
 ToMetric[assoc_Association]:=
 Module[{keys,dims,posInds,inds},
 	
-	keys={"Coordinates","Name","Indices","Values","Abstract","PossibleIndices","DisplayName","CurveParameter","Curve","IsCurve"};
+	keys={"Coordinates","Name","Indices","Values","AbstractQ","PossibleIndices","DisplayName","CurveParameter","Curve","CurveQ"};
 	
 	If[Sort@Keys[assoc]=!=Sort[keys],
 		Print["The following keys are missing in the metric tensor formation: "<>ToString[Complement[keys,Keys[assoc]]]];
@@ -342,13 +393,13 @@ Module[{keys,dims,posInds,inds},
 	dims=If[assoc["Coordinates"]=!=Undefined,Length@assoc["Coordinates"],assoc["Coordinates"]];
 	ToTensor[KeySort@Join[KeyDrop[assoc,{"PossibleIndices","Indices"}],
 					Association["Metric"->"Self",
-								"IsMetric"->True,
+								"MetricQ"->True,
 								"Dimensions"->dims,
 								"PossibleIndices"->posInds,
 								"Indices"->inds,
 								"CurveParameter"->Undefined,
 								"Curve"->Undefined,
-								"IsCurve"->False]]]
+								"CurveQ"->False]]]
 ]
 
 
@@ -368,11 +419,11 @@ Module[{inds,posInds},
 					"DisplayName"->dispName,
 					"Indices"->inds,
 					"PossibleIndices"->posInds,
-					"Abstract"->False,
+					"AbstractQ"->False,
 					"Values"->vals,
 					"CurveParameter"->Undefined,
 					"Curve"->Undefined,
-					"IsCurve"->False]
+					"CurveQ"->False]
 		]
 ]
 ToMetric[{name_String,dispName_String},coords_,vals_]:=ToMetric[{name,dispName},coords,vals,"Greek"]
@@ -391,15 +442,15 @@ Module[{posInds,coords,dims},
 	
 	checkForParam[vals,coords,param];
 
-	ToTensor[KeySort@Association["Abstract"->False,
+	ToTensor[KeySort@Association["AbstractQ"->False,
 								"Coordinates"->coords,
 								"Curve"->"Self",
 								"CurveParameter"->param,
 								"Dimensions"->dims,
 								"DisplayName"->dispName,
 								"Indices"->{First@posInds},
-								"IsCurve"->True,
-								"IsMetric"->False,
+								"CurveQ"->True,
+								"MetricQ"->False,
 								"Metric"->metric,
 								"Name"->name,
 								"PossibleIndices"->posInds,
@@ -468,7 +519,7 @@ Module[{assoc,tvStored,tv,posUp},
 InverseMetric[t_Tensor]:=If[Metric@t===Undefined,Undefined,InverseMetric@Metric@t];
 
 
-ActOnTensorValues[fn_,t_Tensor]:=SetRawTensorValues[t,Map[fn,RawTensorValues[t],{Total@Rank[t]}]]
+ActOnTensorValues[fn_,t_Tensor]:=SetTensorValues[t,Map[fn,RawTensorValues[t],{Total@Rank[t]}]]
 
 
 Clear[ClearCachedTensorValues]
@@ -490,41 +541,65 @@ AutoNameQ[s_String]:=StringMatchQ[s,__~~"-Auto"]
 
 
 Clear[SetTensorKeyValue]
-SetTensorKeyValue[t_Tensor,key_String,value_]:=ToTensor[KeySort@Join[KeyDrop[(Association@@t),{key}],Association[key->value]]]
+SetTensorKeyValue[t_Tensor,key_String,value_,opts:OptionsPattern[]]:=
+If[OptionValue["IgnoreWarnings"],
+	Tensor[Normal[KeySort@Join[KeyDrop[(Association@@t),{key}],Association[key->value]]]],
+	ToTensor[KeySort@Join[KeyDrop[(Association@@t),{key}],Association[key->value]]]
+]
 
 
 Clear[SetMetric]
-SetMetric[t_Tensor,m_Tensor]:=If[t=!=m,SetTensorKeyValue[t,"Metric",m],t]
+SetMetric[t_Tensor,m_Tensor,opts:OptionsPattern[]]:=If[t=!=m,SetTensorKeyValue[t,"Metric",m,opts],t]
+
+
+Clear[SetMetricQ]
+SetMetricQ[t_Tensor,bool_?BooleanQ,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"MetricQ",bool,opts]
+
+
+Clear[SetCurve]
+SetCurve[t_Tensor,c_Tensor,opts:OptionsPattern[]]:=If[t=!=c,SetTensorKeyValue[t,"Curve",c],t,opts]
+
+
+Clear[SetCurveQ]
+SetCurveQ[t_Tensor,bool_?BooleanQ,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"CurveQ",bool,opts]
+
+
+Clear[SetCurveParameter]
+SetCurveParameter[t_Tensor,param_Symbol,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"CurveParameter",param,opts]
 
 
 Clear[SetIndices]
-SetIndices[t_Tensor,inds___List]:=SetTensorKeyValue[t,"Indices",inds]
+SetIndices[t_Tensor,inds___List,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"Indices",inds,opts]
 
 
 Clear[SetPossibleIndices]
-SetPossibleIndices[t_Tensor,inds_List]:=SetTensorKeyValue[t,"PossibleIndices",inds]
+SetPossibleIndices[t_Tensor,inds_List,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"PossibleIndices",inds,opts]
+
+
+Clear[SetDimensions]
+SetDimensions[t_Tensor,dims_Integer?NonNegative,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"Dimensions",dims,opts]
 
 
 Clear[SetCoordinates]
-SetCoordinates[t_Tensor,coords_List]:=SetTensorKeyValue[t,"Coordinates",coords]
+SetCoordinates[t_Tensor,coords_List,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"Coordinates",coords,opts]
 
 
 Clear[SetTensorName]
-SetTensorName[t_Tensor,{name_String,dispName_String}]:=SetTensorDisplayName[SetTensorKeyValue[t,"Name",name],dispName]
-SetTensorName[t_Tensor,name_String]:=SetTensorName[t,{name,name}]
+SetTensorName[t_Tensor,{name_String,dispName_String},opts:OptionsPattern[]]:=SetTensorDisplayName[SetTensorKeyValue[t,"Name",name,opts],dispName,opts]
+SetTensorName[t_Tensor,name_String,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"Name",name,opts]
 
 
 Clear[SetTensorDisplayName]
-SetTensorDisplayName[t_Tensor,name_String]:=SetTensorKeyValue[t,"DisplayName",name]
+SetTensorDisplayName[t_Tensor,name_String,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"DisplayName",name,opts]
 
 
-Clear[SetAsAbstract]
-SetAsAbstract[t_Tensor,tf_?BooleanQ]:=SetTensorKeyValue[t,"Abstract",tf]
+Clear[SetAbstractQ]
+SetAbstractQ[t_Tensor,bool_?BooleanQ,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"AbstractQ",bool,opts]
 
 
-Clear[SetRawTensorValues]
-SetRawTensorValues[t_Tensor,values_List]:=SetTensorKeyValue[t,"Values",values]
-SetRawTensorValues[t_Tensor,values_]/;Rank[t]==={0,0}:=SetTensorKeyValue[t,"Values",values]
+Clear[SetTensorValues]
+SetTensorValues[t_Tensor,values_List,opts:OptionsPattern[]]:=(ClearCachedTensorValues[t];SetTensorKeyValue[t,"Values",values,opts])
+SetTensorValues[t_Tensor,values_,opts:OptionsPattern[]]/;Rank[t]==={0,0}:=(ClearCachedTensorValues[t];SetTensorKeyValue[t,"Values",values,opts])
 
 
 Clear[ToTensorFieldOnCurve]
@@ -550,7 +625,7 @@ Module[{params,vals},
 		Abort[]
 	];
 	vals=TensorValues@ToTensorFieldOnCurve[t1,c1];
-	params = {t1,{"Name",TensorName[t1]<>"Curve"},{"Values",vals},{"Curve",c1},{"CurveParameter",CurveParameter@c1},{"IsMetric",False},{"Metric",Metric[t1]}};
+	params = {t1,{"Name",TensorName[t1]<>"Curve"},{"Values",vals},{"Curve",c1},{"CurveParameter",CurveParameter@c1},{"MetricQ",False},{"Metric",Metric[t1]}};
 	Fold[SetTensorKeyValue[#1,Sequence@@#2]&,params]
 ]
 

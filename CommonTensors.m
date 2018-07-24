@@ -112,11 +112,11 @@ Module[{t,x,y,z,\[Alpha],\[Beta]},
 				"DisplayName"->"\[Eta]",
 				"Indices"->{-\[Alpha],-\[Beta]},
 				"PossibleIndices"->"Greek",
-				"Abstract"->False,
+				"AbstractQ"->False,
 				"Values"->{{-1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}},
 				"CurveParameter"->Undefined,
 				"Curve"->Undefined,
-				"IsCurve"->False]]
+				"CurveQ"->False]]
 ];
 ToMetric["Mink"]:=ToMetric["Minkowski"];
 
@@ -131,11 +131,11 @@ Module[{t,r,\[Theta],\[Phi],\[Alpha],\[Beta]},
 				"DisplayName"->"\[Eta]",
 				"Indices"->{-\[Alpha],-\[Beta]},
 				"PossibleIndices"->"Greek",
-				"Abstract"->False,
+				"AbstractQ"->False,
 				"Values"->{{-1,0,0,0},{0,1,0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},
 				"CurveParameter"->Undefined,
 				"Curve"->Undefined,
-				"IsCurve"->False]]
+				"CurveQ"->False]]
 ];
 ToMetric["MinkSph"]:=ToMetric["MinkowskiSpherical"];
 
@@ -150,11 +150,11 @@ Module[{t,r,\[Theta],\[Phi],M,\[Alpha],\[Beta]},
 				"DisplayName"->"g",
 				"Indices"->{-\[Alpha],-\[Beta]},
 				"PossibleIndices"->"Greek",
-				"Abstract"->False,
+				"AbstractQ"->False,
 				"Values"->{{-1+(2 M)/r,0,0,0},{0,1/(1-(2 M)/r),0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},
 				"CurveParameter"->Undefined,
 				"Curve"->Undefined,
-				"IsCurve"->False]]
+				"CurveQ"->False]]
 ];
 ToMetric["Schw"]:=ToMetric["Schwarzschild"]
 
@@ -169,11 +169,11 @@ Module[{t,r,M,a,b},
 				"DisplayName"->"g",
 				"Indices"->{-a,-b},
 				"PossibleIndices"->"Latin",
-				"Abstract"->False,
+				"AbstractQ"->False,
 				"Values"->{{-1+(2 M)/r,0},{0,1/(1-(2 M)/r)}},
 				"CurveParameter"->Undefined,
 				"Curve"->Undefined,
-				"IsCurve"->False]]
+				"CurveQ"->False]]
 ];
 ToMetric["SchwM2"]:=ToMetric["SchwarzschildM2"];
 
@@ -196,14 +196,14 @@ Module[{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta]},
 				"DisplayName"->"g",
 				"Indices"->{-\[Alpha],-\[Beta]},
 				"PossibleIndices"->"Greek",
-				"Abstract"->False,
+				"AbstractQ"->False,
 				"Values"->{{(-a^2+2 M r-r^2+a^2 Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2),0,0,-((2 a M r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2))},
 							{0,(r^2+a^2 Cos[\[Theta]]^2)/(a^2-2 M r+r^2),0,0},
 							{0,0,r^2+a^2 Cos[\[Theta]]^2,0},
 							{-((2 a M r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2)),0,0,(Sin[\[Theta]]^2 ((a^2+r^2)^2-a^2 (a^2-2 M r+r^2) Sin[\[Theta]]^2))/(r^2+a^2 Cos[\[Theta]]^2)}},
 				"CurveParameter"->Undefined,
 				"Curve"->Undefined,
-				"IsCurve"->False]]
+				"CurveQ"->False]]
 ];
 
 
@@ -225,11 +225,11 @@ Module[{t,r,\[Theta],\[Phi],M,Q,\[Alpha],\[Beta]},
 				"DisplayName"->"g",
 				"Indices"->{-\[Alpha],-\[Beta]},
 				"PossibleIndices"->"Greek",
-				"Abstract"->False,
+				"AbstractQ"->False,
 				"Values"->{{-1+(2 M)/r-Q^2/r^2,0,0,0},{0,1/(1-(2 M)/r+Q^2/r^2),0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},
 				"CurveParameter"->Undefined,
 				"Curve"->Undefined,
-				"IsCurve"->False]]
+				"CurveQ"->False]]
 ];
 ToMetric["RN"]:=ToMetric["ReissnerNordstrom"];
 
@@ -244,11 +244,11 @@ Module[{t,r,M,Q,a,b},
 				"DisplayName"->"g",
 				"Indices"->{-a,-b},
 				"PossibleIndices"->"Latin",
-				"Abstract"->False,
+				"AbstractQ"->False,
 				"Values"->{{-1+(2 M)/r-Q^2/r^2,0},{0,1/(1-(2 M)/r+Q^2/r^2)}},
 				"CurveParameter"->Undefined,
 				"Curve"->Undefined,
-				"IsCurve"->False]]
+				"CurveQ"->False]]
 ];
 ToMetric["RNM2"]:=ToMetric["ReissnerNordstromM2"]
 
@@ -268,14 +268,14 @@ Module[{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta],rhoSq,capDelta,QQ},
 				"DisplayName"->"g",
 				"Indices"->{-\[Alpha],-\[Beta]},
 				"PossibleIndices"->"Greek",
-				"Abstract"->False,
+				"AbstractQ"->False,
 				"Values"->{{-((capDelta-a^2 Sin[\[Theta]]^2)/rhoSq),0,0,(a Sin[\[Theta]]^2 (capDelta-r^2-a^2))/rhoSq},
 							{0,rhoSq/capDelta,0,0},
 							{0,0,rhoSq,0},
 							{(a Sin[\[Theta]]^2 (capDelta-r^2-a^2))/rhoSq,0,0,-((Sin[\[Theta]]^2 (a^2 capDelta Sin[\[Theta]]^2-r^4-2r^2 a^2-a^4))/rhoSq)}},
 				"CurveParameter"->Undefined,
 				"Curve"->Undefined,
-				"IsCurve"->False]]
+				"CurveQ"->False]]
 ];
 ToMetric["KN"]:=ToMetric["KerrNewman"]
 
@@ -333,9 +333,9 @@ Module[{n,xx,vals,name,simpFn,simpFnNest,valsTemp,chr,
 				RawTensorValues[name,{"Down","Down","Down","Down"}]
 			];
 
-	ToTensor[KeySort@Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+	ToTensor[KeySort@Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","MetricQ","Indices"}],
 		Association["Metric"->gT,
-					"IsMetric"->False,
+					"MetricQ"->False,
 					"Values"->vals,
 					"DisplayName"->"R",
 					"Name"->name,
@@ -356,9 +356,9 @@ Module[{rie,name,i,j,k,simpFnNest,simpFn},
 	
 	If[RawTensorValues[name,{"Down","Down"}]===Undefined,
 		ContractIndices[rie[i,-j,-i,-k],{name,"R"},"ActWith"->simpFn],
-		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","MetricQ","Indices"}],
 						Association["Metric"->g,
-									"IsMetric"->False,
+									"MetricQ"->False,
 									"Values"->RawTensorValues[name,{"Down","Down"}],
 									"DisplayName"->"R",
 									"Name"->name,
@@ -380,9 +380,9 @@ Module[{ric,i,name,simpFnNest,simpFn},
 	
 	If[RawTensorValues[name,{}]===Undefined,
 		ContractIndices[ShiftIndices[ric,{-i,i},"ActWith"->simpFnNest],{name,"R"},"ActWith"->simpFn],
-		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","MetricQ","Indices"}],
 					Association["Metric"->g,
-								"IsMetric"->False,
+								"MetricQ"->False,
 								"Values"->RawTensorValues[name,{}],
 								"DisplayName"->"R",
 								"Name"->name,
@@ -407,9 +407,9 @@ Module[{ricT,ricS,name,i,j,simpFnNest,simpFn},
 	
 	If[RawTensorValues[name,{"Down","Down"}]===Undefined,
 		MergeTensors[ricT[-i,-j]-1/2 ricS g[-i,-j],{name,"G"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
-		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","MetricQ","Indices"}],
 					Association["Metric"->g,
-								"IsMetric"->False,
+								"MetricQ"->False,
 								"Values"->RawTensorValues[name,{"Down","Down"}],
 								"DisplayName"->"G",
 								"Name"->name,
@@ -439,9 +439,9 @@ Module[{rie,ricT,ricS,dim,i,k,l,m,name,simpFnNest,simpFn},
 		MergeTensors[ShiftIndices[rie,{-i,-k,-l,-m},"ActWith"->simpFnNest]+
 				1/(dim-2) (ricT[-i,-m]g[-k,-l]-ricT[-i,-l]g[-k,-m]+ricT[-k,-l]g[-i,-m]-ricT[-k,-m]g[-i,-l])
 				+ricS/((dim-1)(dim-2)) (g[-i,-l]g[-k,-m]-g[-i,-m]g[-k,-l]),{name,"C"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
-		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","MetricQ","Indices"}],
 					Association["Metric"->g,
-								"IsMetric"->False,
+								"MetricQ"->False,
 								"Values"->RawTensorValues[name,{"Down","Down","Down","Down"}],
 								"DisplayName"->"C",
 								"Name"->name,
@@ -471,9 +471,9 @@ Module[{ricT,ricS,dim,i,j,k,name,simpFnNest,simpFn},
 			+1/(2(Dimensions[g]-1)) (CovariantD[MergeTensors[ricS g[-i,-k],"ActWithNested"->simpFnNest],-j]
 								- CovariantD[MergeTensors[ricS g[-i,-j],"ActWithNested"->simpFnNest],-k]),
 								{name,"C"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
-		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","MetricQ","Indices"}],
 					Association["Metric"->g,
-								"IsMetric"->False,
+								"MetricQ"->False,
 								"Values"->RawTensorValues[name,{"Down","Down","Down"}],
 								"DisplayName"->"C",
 								"Name"->name,
@@ -520,9 +520,9 @@ Module[{g,name,i,j,simpFnNest,simpFn},
 	
 	If[RawTensorValues[name,{"Down","Down"}]===Undefined,
 		MergeTensors[CovariantD[AA[-i],-j]-CovariantD[AA[-j],-i],{name,"F"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
-		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","MetricQ","Indices"}],
 					Association["Metric"->g,
-								"IsMetric"->False,
+								"MetricQ"->False,
 								"Values"->RawTensorValues[name,{"Down","Down"}],
 								"DisplayName"->"F",
 								"Name"->name,
@@ -550,9 +550,9 @@ Module[{g,name,i,k,l,m,simpFnNest,simpFn},
 		MergeTensors[1/(4\[Pi]) (ShiftIndices[FF,{i,-k},"ActWith"->simpFnNest] ShiftIndices[FF,{l,k},"ActWith"->simpFnNest]
 								-1/4 ShiftIndices[g,{i,l},"ActWith"->simpFnNest]FF[-k,-m]ShiftIndices[FF,{k,m},"ActWith"->simpFnNest]),
 								{name,"T"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
-		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","MetricQ","Indices"}],
 					Association["Metric"->g,
-								"IsMetric"->False,
+								"MetricQ"->False,
 								"Values"->RawTensorValues[name,{"Up","Up"}],
 								"DisplayName"->"T",
 								"Name"->name,
@@ -577,9 +577,9 @@ Module[{rie,name,i,j,k,l,simpFnNest,simpFn},
 	If[RawTensorValues[name,{}]===Undefined,
 		MergeTensors[ShiftIndices[rie,{i,j,k,l},"ActWith"->simpFnNest]ShiftIndices[rie,{-i,-j,-k,-l},"ActWith"->simpFnNest],
 				{name,"K"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
-		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","IsMetric","Indices"}],
+		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","MetricQ","Indices"}],
 					Association["Metric"->g,
-								"IsMetric"->False,
+								"MetricQ"->False,
 								"Values"->RawTensorValues[name,{}],
 								"DisplayName"->"K",
 								"Name"->name,

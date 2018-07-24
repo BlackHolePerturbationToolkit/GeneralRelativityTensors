@@ -54,6 +54,23 @@
       {"TensorPattern", "A Tensor with Patterns for indices for matching and replacements"}
     }
    },
+   {"Title" -> "Low level operators",
+    "DetailedFunctions" -> {
+      {"SetTensorKeyValue", "Change an internal key-value pair"},
+      {"SetTensorName", "Change internal name"},
+      {"SetTensorDisplayName", "Change string used for display"},
+      {"SetTensorValues", "Change internal values"},
+      {"SetMetric", "Change the Tensor's associated metric"},
+      {"SetMetricQ", "Change internal MetricQ flag"},
+      {"SetCurve", "Change the Tensor's associated Curve"},
+      {"SetCurveParameter", "Change the Tensor's associated CurveParameter"},
+      {"SetCurveQ", "Change internal CurveQ flag"},
+      {"SetCoordinates", "Change internal coordinates"},
+      {"SetIndices", "Change internal indices"},
+      {"SetPossibleIndices", "Change internal list of possible indices"},
+      {"SetDimensions", "Change internal value of dimensions"}
+    }
+   },
    {"Title" -> "Common Tensors and functions",
     "DetailedFunctions" -> {
       {"ChristoffelSymbol", "Connection coefficients for a metric"},
@@ -87,6 +104,7 @@
    "Introduction to GeneralRelativityTensors",
    "Introduction to Tensor Curves",
    "Manipulating and differentiating Tensors",
+   "Low level Tensor operations",
    "Built in common Tensors",
    "Caching Tensor values",
    "Pattern matching with Tensors",
