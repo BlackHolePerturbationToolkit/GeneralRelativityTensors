@@ -5,10 +5,11 @@
 
 packages =
 { 
+  "CommonTensors",
   "TensorDefinitions",
   "TensorDerivatives",
   "TensorManipulation",
-  "CommonTensors"
+  "Utils"
 };
 
 packageSymbols = Map[# -> DocumentedSymbols["GeneralRelativityTensors", #] &, packages];

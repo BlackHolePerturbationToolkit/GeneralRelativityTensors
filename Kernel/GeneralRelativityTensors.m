@@ -5,10 +5,11 @@ BeginPackage["GeneralRelativityTensors`"]
 Begin["`Private`"]
 
 
-packages={"GeneralRelativityTensors`TensorDefinitions`",
-			"GeneralRelativityTensors`CommonTensors`",
+packages={"GeneralRelativityTensors`CommonTensors`",
+			"GeneralRelativityTensors`TensorDefinitions`",
 			"GeneralRelativityTensors`TensorDerivatives`",
-			"GeneralRelativityTensors`TensorManipulation`"};
+			"GeneralRelativityTensors`TensorManipulation`",
+			"GeneralRelativityTensors`Utils`"};
 
 
 End[]

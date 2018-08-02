@@ -3,7 +3,8 @@
 BeginPackage["GeneralRelativityTensors`CommonTensors`",
 			{"GeneralRelativityTensors`TensorDefinitions`",
 			 "GeneralRelativityTensors`TensorDerivatives`",
-			 "GeneralRelativityTensors`TensorManipulation`"}];
+			 "GeneralRelativityTensors`TensorManipulation`",
+			 "GeneralRelativityTensors`Utils`"}];
 
 
 RiemannTensor::usage="RiemannTensor[m] returns the Riemann Tensor with \
@@ -102,197 +103,143 @@ DocumentationBuilder`OptionDescriptions["KretschmannScalar"] = DocumentationBuil
 DocumentationBuilder`OptionDescriptions["BianchiIdentities"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
 
 
+reDef@
 ToMetric["Minkowski"]:=
-Module[{t,x,y,z,\[Alpha],\[Beta]},	
+Module[{t,x,y,z},	
 
-	{t,x,y,z,\[Alpha],\[Beta]}=Symbol/@{"t","x","y","z","\[Alpha]","\[Beta]"};
+	{t,x,y,z}=Symbol/@{"t","x","y","z"};
 
-	ToMetric[Association["Name"->"MinkowskiMetric",
-				"Coordinates"->{t,x,y,z},
-				"DisplayName"->"\[Eta]",
-				"Indices"->{-\[Alpha],-\[Beta]},
-				"PossibleIndices"->"Greek",
-				"AbstractQ"->False,
-				"Values"->{{-1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}},
-				"CurveParameter"->Undefined,
-				"Curve"->Undefined,
-				"CurveQ"->False]]
+	ToMetric[{"MinkowskiMetric","\[Eta]"},{t,x,y,z},{{-1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}},"Greek"]
 ];
-ToMetric["Mink"]:=ToMetric["Minkowski"];
+reDef@ToMetric["Mink"]:=ToMetric["Minkowski"];
 
 
+reDef@
 ToMetric["MinkowskiSpherical"]:=
-Module[{t,r,\[Theta],\[Phi],\[Alpha],\[Beta]},	
+Module[{t,r,\[Theta],\[Phi]},	
 
-	{t,r,\[Theta],\[Phi],\[Alpha],\[Beta]}=Symbol/@{"t","r","\[Theta]","\[Phi]","\[Alpha]","\[Beta]"};
+	{t,r,\[Theta],\[Phi]}=Symbol/@{"t","r","\[Theta]","\[Phi]"};
 
-	ToMetric[Association["Name"->"MinkowskiMetric",
-				"Coordinates"->{t,r,\[Theta],\[Phi]},
-				"DisplayName"->"\[Eta]",
-				"Indices"->{-\[Alpha],-\[Beta]},
-				"PossibleIndices"->"Greek",
-				"AbstractQ"->False,
-				"Values"->{{-1,0,0,0},{0,1,0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},
-				"CurveParameter"->Undefined,
-				"Curve"->Undefined,
-				"CurveQ"->False]]
+	ToMetric[{"MinkowskiSphericalMetric","\[Eta]"},{t,r,\[Theta],\[Phi]},{{-1,0,0,0},{0,1,0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},"Greek"]
 ];
-ToMetric["MinkSph"]:=ToMetric["MinkowskiSpherical"];
+reDef@ToMetric["MinkSph"]:=ToMetric["MinkowskiSpherical"];
 
 
+reDef@
 ToMetric["Schwarzschild"]:=
-Module[{t,r,\[Theta],\[Phi],M,\[Alpha],\[Beta]},	
+Module[{t,r,\[Theta],\[Phi],M},	
 
-	{t,r,\[Theta],\[Phi],M,\[Alpha],\[Beta]}=Symbol/@{"t","r","\[Theta]","\[Phi]","M","\[Alpha]","\[Beta]"};
-	
-	ToMetric[Association["Name"->"SchwarzschildMetric",
-				"Coordinates"->{t,r,\[Theta],\[Phi]},
-				"DisplayName"->"g",
-				"Indices"->{-\[Alpha],-\[Beta]},
-				"PossibleIndices"->"Greek",
-				"AbstractQ"->False,
-				"Values"->{{-1+(2 M)/r,0,0,0},{0,1/(1-(2 M)/r),0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},
-				"CurveParameter"->Undefined,
-				"Curve"->Undefined,
-				"CurveQ"->False]]
+	{t,r,\[Theta],\[Phi],M}=Symbol/@{"t","r","\[Theta]","\[Phi]","M"};
+				
+	ToMetric[{"SchwarzschildMetric","g"},{t,r,\[Theta],\[Phi]},{{-1+(2 M)/r,0,0,0},{0,1/(1-(2 M)/r),0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},"Greek"]
 ];
-ToMetric["Schw"]:=ToMetric["Schwarzschild"]
+reDef@ToMetric["Schw"]:=ToMetric["Schwarzschild"]
 
 
+reDef@
 ToMetric["SchwarzschildM2"]:=
-Module[{t,r,M,a,b},	
+Module[{t,r,M},	
 
-	{t,r,M,a,b}=Symbol/@{"t","r","M","a","b"};
-	
-	ToMetric[Association["Name"->"SchwarzschildM2Metric",
-				"Coordinates"->{t,r},
-				"DisplayName"->"g",
-				"Indices"->{-a,-b},
-				"PossibleIndices"->"Latin",
-				"AbstractQ"->False,
-				"Values"->{{-1+(2 M)/r,0},{0,1/(1-(2 M)/r)}},
-				"CurveParameter"->Undefined,
-				"Curve"->Undefined,
-				"CurveQ"->False]]
+	{t,r,M}=Symbol/@{"t","r","M"};
+
+	ToMetric[{"SchwarzschildM2Metric","g"},{t,r},{{-1+(2 M)/r,0},{0,1/(1-(2 M)/r)}},"Latin"]
+
 ];
-ToMetric["SchwM2"]:=ToMetric["SchwarzschildM2"];
+reDef@ToMetric["SchwM2"]:=ToMetric["SchwarzschildM2"];
 
 
+reDef@
 ToMetric["SchwarzschildS2"]:=
 Module[{th,ph,r},
+
 	{th,ph,r}=Symbol/@{"\[Theta]","\[Phi]","r"};
+	
 	ToMetric[{"SchwarzschildS2Metric","g"},{th,ph},r^2 RawTensorValues[ToMetric["TwoSphere"]],"CapitalLatin"]
 ];
-ToMetric["SchwS2"]:=ToMetric["SchwarzschildS2"];
+reDef@ToMetric["SchwS2"]:=ToMetric["SchwarzschildS2"];
 
 
+reDef@
 ToMetric["Kerr"]:=
-Module[{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta]},	
+Module[{t,r,\[Theta],\[Phi],M,a},	
 
-	{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta]}=Symbol/@{"t","r","\[Theta]","\[Phi]","M","a","\[Alpha]","\[Beta]"};
-
-	ToMetric[Association["Name"->"KerrMetric",
-				"Coordinates"->{t,r,\[Theta],\[Phi]},
-				"DisplayName"->"g",
-				"Indices"->{-\[Alpha],-\[Beta]},
-				"PossibleIndices"->"Greek",
-				"AbstractQ"->False,
-				"Values"->{{(-a^2+2 M r-r^2+a^2 Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2),0,0,-((2 a M r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2))},
+	{t,r,\[Theta],\[Phi],M,a}=Symbol/@{"t","r","\[Theta]","\[Phi]","M","a"};
+	
+	ToMetric[{"KerrMetric","g"},{t,r,\[Theta],\[Phi]},{{(-a^2+2 M r-r^2+a^2 Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2),0,0,-((2 a M r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2))},
 							{0,(r^2+a^2 Cos[\[Theta]]^2)/(a^2-2 M r+r^2),0,0},
 							{0,0,r^2+a^2 Cos[\[Theta]]^2,0},
-							{-((2 a M r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2)),0,0,(Sin[\[Theta]]^2 ((a^2+r^2)^2-a^2 (a^2-2 M r+r^2) Sin[\[Theta]]^2))/(r^2+a^2 Cos[\[Theta]]^2)}},
-				"CurveParameter"->Undefined,
-				"Curve"->Undefined,
-				"CurveQ"->False]]
+							{-((2 a M r Sin[\[Theta]]^2)/(r^2+a^2 Cos[\[Theta]]^2)),0,0,(Sin[\[Theta]]^2 ((a^2+r^2)^2-a^2 (a^2-2 M r+r^2) Sin[\[Theta]]^2))/(r^2+a^2 Cos[\[Theta]]^2)}},"Greek"]
+
 ];
 
 
+reDef@
 ToMetric["TwoSphere"]:=
 Module[{th,ph},
 	{th,ph}=Symbol/@{"\[Theta]","\[Phi]"};
 	ToMetric[{"TwoSphereMetric","\[CapitalOmega]"},{th,ph},{{1,0},{0,Sin[th]^2}},"CapitalLatin"]
 ];
-ToMetric["S2"]:=ToMetric["TwoSphere"];
+reDef@ToMetric["S2"]:=ToMetric["TwoSphere"];
 
 
+reDef@
 ToMetric["ReissnerNordstrom"]:=
-Module[{t,r,\[Theta],\[Phi],M,Q,\[Alpha],\[Beta]},	
+Module[{t,r,\[Theta],\[Phi],M,Q},	
 
-	{t,r,\[Theta],\[Phi],M,Q,\[Alpha],\[Beta]}=Symbol/@{"t","r","\[Theta]","\[Phi]","M","Q","\[Alpha]","\[Beta]"};
+	{t,r,\[Theta],\[Phi],M,Q}=Symbol/@{"t","r","\[Theta]","\[Phi]","M","Q"};
 	
-	ToMetric[Association["Name"->"ReissnerNordstromMetric",
-				"Coordinates"->{t,r,\[Theta],\[Phi]},
-				"DisplayName"->"g",
-				"Indices"->{-\[Alpha],-\[Beta]},
-				"PossibleIndices"->"Greek",
-				"AbstractQ"->False,
-				"Values"->{{-1+(2 M)/r-Q^2/r^2,0,0,0},{0,1/(1-(2 M)/r+Q^2/r^2),0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},
-				"CurveParameter"->Undefined,
-				"Curve"->Undefined,
-				"CurveQ"->False]]
+	ToMetric[{"ReissnerNordstromMetric","g"},{t,r,\[Theta],\[Phi]},{{-1+(2 M)/r-Q^2/r^2,0,0,0},{0,1/(1-(2 M)/r+Q^2/r^2),0,0},{0,0,r^2,0},{0,0,0,r^2 Sin[\[Theta]]^2}},"Greek"]
 ];
-ToMetric["RN"]:=ToMetric["ReissnerNordstrom"];
+reDef@ToMetric["RN"]:=ToMetric["ReissnerNordstrom"];
 
 
+reDef@
 ToMetric["ReissnerNordstromM2"]:=
-Module[{t,r,M,Q,a,b},	
+Module[{t,r,M,Q},	
 
-	{t,r,M,Q,a,b}=Symbol/@{"t","r","M","Q","a","b"};
+	{t,r,M,Q}=Symbol/@{"t","r","M","Q"};
 	
-	ToMetric[Association["Name"->"ReissnerNordstromM2Metric",
-				"Coordinates"->{t,r},
-				"DisplayName"->"g",
-				"Indices"->{-a,-b},
-				"PossibleIndices"->"Latin",
-				"AbstractQ"->False,
-				"Values"->{{-1+(2 M)/r-Q^2/r^2,0},{0,1/(1-(2 M)/r+Q^2/r^2)}},
-				"CurveParameter"->Undefined,
-				"Curve"->Undefined,
-				"CurveQ"->False]]
+	ToMetric[{"ReissnerNordstromM2Metric","g"},{t,r},{{-1+(2 M)/r-Q^2/r^2,0},{0,1/(1-(2 M)/r+Q^2/r^2)}},"Latin"]
 ];
-ToMetric["RNM2"]:=ToMetric["ReissnerNordstromM2"]
+reDef@ToMetric["RNM2"]:=ToMetric["ReissnerNordstromM2"]
 
 
-ToMetric["ReissnerNordstromS2"]:=SetTensorName[ToMetric["SchwarzschildS2"],{"ReissnerNordstromS2Metric","g"}];
-ToMetric["RNS2"]:=ToMetric["ReissnerNordstromS2"];
+reDef@ToMetric["ReissnerNordstromS2"]:=SetTensorName[ToMetric["SchwarzschildS2"],{"ReissnerNordstromS2Metric","g"}];
+reDef@ToMetric["RNS2"]:=ToMetric["ReissnerNordstromS2"];
 
 
-ToMetric["KerrNewman"]:=
-Module[{t,r,\[Theta],\[Phi],M,a,\[Alpha],\[Beta],rhoSq,capDelta,QQ},	
+reDef@ToMetric["KerrNewman"]:=
+Module[{t,r,\[Theta],\[Phi],M,a,rhoSq,capDelta,QQ},	
 
-	{t,r,\[Theta],\[Phi],M,QQ,a,\[Alpha],\[Beta]}=Symbol/@{"t","r","\[Theta]","\[Phi]","M","Q","a","\[Alpha]","\[Beta]"};
+	{t,r,\[Theta],\[Phi],M,QQ,a}=Symbol/@{"t","r","\[Theta]","\[Phi]","M","Q","a"};
 	rhoSq=r^2+a^2 Cos[\[Theta]]^2;
 	capDelta=r^2-2M r+a^2+QQ^2;
-	ToMetric[Association["Name"->"KerrNewmanMetric",
-				"Coordinates"->{t,r,\[Theta],\[Phi]},
-				"DisplayName"->"g",
-				"Indices"->{-\[Alpha],-\[Beta]},
-				"PossibleIndices"->"Greek",
-				"AbstractQ"->False,
-				"Values"->{{-((capDelta-a^2 Sin[\[Theta]]^2)/rhoSq),0,0,(a Sin[\[Theta]]^2 (capDelta-r^2-a^2))/rhoSq},
+	
+	ToMetric[{"KerrNewmanMetric","g"},{t,r,\[Theta],\[Phi]},{{-((capDelta-a^2 Sin[\[Theta]]^2)/rhoSq),0,0,(a Sin[\[Theta]]^2 (capDelta-r^2-a^2))/rhoSq},
 							{0,rhoSq/capDelta,0,0},
 							{0,0,rhoSq,0},
-							{(a Sin[\[Theta]]^2 (capDelta-r^2-a^2))/rhoSq,0,0,-((Sin[\[Theta]]^2 (a^2 capDelta Sin[\[Theta]]^2-r^4-2r^2 a^2-a^4))/rhoSq)}},
-				"CurveParameter"->Undefined,
-				"Curve"->Undefined,
-				"CurveQ"->False]]
+							{(a Sin[\[Theta]]^2 (capDelta-r^2-a^2))/rhoSq,0,0,-((Sin[\[Theta]]^2 (a^2 capDelta Sin[\[Theta]]^2-r^4-2r^2 a^2-a^4))/rhoSq)}},"Greek"]
 ];
-ToMetric["KN"]:=ToMetric["KerrNewman"]
+reDef@ToMetric["KN"]:=ToMetric["KerrNewman"]
 
 
-Clear[LeviCivitaSymbol]
+def@
 LeviCivitaSymbol["TwoSphere"]:=
 Module[{th,ph,A,B},
 	{th,ph,A,B}=Symbol/@{"\[Theta]","\[Phi]","A","B"};
 	ToTensor[{"LeviCivitaSymbol","\[CurlyEpsilon]"},ToMetric["TwoSphere"],{{0,Sin[th]},{-Sin[th],0}},{-A,-B}]
 ];
-LeviCivitaSymbol["S2"]:=LeviCivitaSymbol["TwoSphere"]
+reDef@LeviCivitaSymbol["S2"]:=LeviCivitaSymbol["TwoSphere"]
 
 
-Clear[RiemannTensor]
+def@
 RiemannTensor[gT_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{n,xx,vals,name,simpFn,simpFnNest,valsTemp,chr,
-		a,b,c,d,rieValueTrue,rieValue,metVal,gvals,numCallsM=0,numCallsR=0},
+Module[{n,xx,vals,name,simpFn,simpFnNest,chr,
+		a,b,c,d,rieValueTrue,rieValue,metVal,gvals,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
+			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."}};
+	TestOptions[tests,{opts}];
 	
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
@@ -343,9 +290,14 @@ Module[{n,xx,vals,name,simpFn,simpFnNest,valsTemp,chr,
 ]
 
 
-Clear[RicciTensor]
+def@
 RicciTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{rie,name,i,j,k,simpFnNest,simpFn},
+Module[{rie,name,i,j,k,simpFnNest,simpFn,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
+			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."}};
+	TestOptions[tests,{opts}];
+
 
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
@@ -367,9 +319,13 @@ Module[{rie,name,i,j,k,simpFnNest,simpFn},
 ]
 
 
-Clear[RicciScalar]
+def@
 RicciScalar[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{ric,i,name,simpFnNest,simpFn},
+Module[{ric,i,name,simpFnNest,simpFn,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
+			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."}};
+	TestOptions[tests,{opts}];
 
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
@@ -392,9 +348,13 @@ Module[{ric,i,name,simpFnNest,simpFn},
 ]
 
 
-Clear[EinsteinTensor]
+def@
 EinsteinTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{ricT,ricS,name,i,j,simpFnNest,simpFn},
+Module[{ricT,ricS,name,i,j,simpFnNest,simpFn,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
+			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."}};
+	TestOptions[tests,{opts}];
 
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
@@ -418,9 +378,13 @@ Module[{ricT,ricS,name,i,j,simpFnNest,simpFn},
 ]
 
 
-Clear[WeylTensor]
+def@
 WeylTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{rie,ricT,ricS,dim,i,k,l,m,name,simpFnNest,simpFn},
+Module[{rie,ricT,ricS,dim,i,k,l,m,name,simpFnNest,simpFn,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
+			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."}};
+	TestOptions[tests,{opts}];
 
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
@@ -450,9 +414,13 @@ Module[{rie,ricT,ricS,dim,i,k,l,m,name,simpFnNest,simpFn},
 ]
 
 
-Clear[CottonTensor]
+def@
 CottonTensor[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{ricT,ricS,dim,i,j,k,name,simpFnNest,simpFn},
+Module[{ricT,ricS,dim,i,j,k,name,simpFnNest,simpFn,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
+			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."}};
+	TestOptions[tests,{opts}];
 
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
@@ -482,7 +450,7 @@ Module[{ricT,ricS,dim,i,j,k,name,simpFnNest,simpFn},
 ]
 
 
-Clear[MaxwellPotential]
+def@
 MaxwellPotential["ReissnerNordstrom"]:=
 Module[{QQ,r,ind,met},
 	met=ToMetric["ReissnerNordstrom"];
@@ -490,9 +458,10 @@ Module[{QQ,r,ind,met},
 	{QQ,r}=Symbol/@{"Q","r"};
 	ToTensor[{"MaxwellPotential"<>TensorName[met],"A"},met,{QQ/r,0,0,0},{-ind}]
 ];
-MaxwellPotential["RN"]:=MaxwellPotential["ReissnerNordstrom"];
+reDef@MaxwellPotential["RN"]:=MaxwellPotential["ReissnerNordstrom"];
 
 
+reDef@
 MaxwellPotential["KerrNewman"]:=
 Module[{QQ,r,ind,met,rhoSq,a,th,M},
 	met=ToMetric["KerrNewman"];
@@ -501,12 +470,16 @@ Module[{QQ,r,ind,met,rhoSq,a,th,M},
 	rhoSq=r^2+a^2 Cos[th]^2;
 	ToTensor[{"MaxwellPotential"<>TensorName[met],"A"},met,{(QQ r)/rhoSq,0,0,-((a r QQ Sin[th]^2)/rhoSq )},{-ind}]
 ];
-MaxwellPotential["KN"]:=MaxwellPotential["KerrNewman"];
+reDef@MaxwellPotential["KN"]:=MaxwellPotential["KerrNewman"];
 
 
-Clear[FieldStrengthTensor]
+def@
 FieldStrengthTensor[AA_Tensor,opts:OptionsPattern[]]:=
-Module[{g,name,i,j,simpFnNest,simpFn},
+Module[{g,name,i,j,simpFnNest,simpFn,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
+			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."}};
+	TestOptions[tests,{opts}];
 
 	If[Total@Rank[AA]=!=1,Print["Field strength tensor must be derived from a Rank 1 tensor"];Abort[]];
 	If[AbstractQ[AA],Print["Field strength tensor requires a non-abstract potential"];Abort[]];
@@ -529,12 +502,16 @@ Module[{g,name,i,j,simpFnNest,simpFn},
 								"Indices"->{-i,-j}]]]
 	]
 ];
-FieldStrengthTensor[str_String,opts:OptionsPattern[]]:=FieldStrengthTensor[MaxwellPotential[str],opts];
+reDef@FieldStrengthTensor[str_String,opts:OptionsPattern[]]:=FieldStrengthTensor[MaxwellPotential[str],opts];
 
 
-Clear[MaxwellStressEnergyTensor]
+def@
 MaxwellStressEnergyTensor[FF_Tensor,opts:OptionsPattern[]]:=
-Module[{g,name,i,k,l,m,simpFnNest,simpFn},
+Module[{g,name,i,k,l,m,simpFnNest,simpFn,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
+			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."}};
+	TestOptions[tests,{opts}];
 
 	If[Total@Rank[FF]=!=2,Print["Maxwell stress energy tensor must be derived from a Rank 2 tensor"];Abort[]];
 	If[AbstractQ[FF],Print["Maxwell stress energy requires a non-abstract field strength tensor"];Abort[]];
@@ -559,12 +536,16 @@ Module[{g,name,i,k,l,m,simpFnNest,simpFn},
 								"Indices"->{i,k}]]]
 	]
 ];
-MaxwellStressEnergyTensor[str_String,opts:OptionsPattern[]]:=MaxwellStressEnergyTensor[FieldStrengthTensor[MaxwellPotential[str],opts],opts];
+reDef@MaxwellStressEnergyTensor[str_String,opts:OptionsPattern[]]:=MaxwellStressEnergyTensor[FieldStrengthTensor[MaxwellPotential[str],opts],opts];
 
 
-Clear[KretschmannScalar]
+def@
 KretschmannScalar[g_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{rie,name,i,j,k,l,simpFnNest,simpFn},
+Module[{rie,name,i,j,k,l,simpFnNest,simpFn,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
+			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."}};
+	TestOptions[tests,{opts}];
 
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
@@ -588,10 +569,18 @@ Module[{rie,name,i,j,k,l,simpFnNest,simpFn},
 ]
 
 
-Clear[BianchiIdentities]
-BianchiIdentities[t_Tensor?MetricQ,contractions_:0,opts:OptionsPattern[]]/;MemberQ[{0,1,2},contractions]:=
-Module[{rie,ric,ein,i,j,k,l,m,simpFnNest,simpFn},
+def@
+BianchiIdentities[t_Tensor?MetricQ,contractions_:0,opts:OptionsPattern[]]:=
+Module[{rie,ric,ein,i,j,k,l,m,simpFnNest,simpFn,tests},
 
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
+			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."}};
+	TestOptions[tests,{opts}];
+
+	If[Not[MemberQ[{0,1,2},contractions]],
+		Print["Bianchi identities can only be contracted 0, 1, or 2 times"];
+		Abort[]
+	];
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
 	
@@ -615,7 +604,7 @@ Module[{rie,ric,ein,i,j,k,l,m,simpFnNest,simpFn},
 ]
 
 
-Clear[KinnersleyNullVector]
+def@
 KinnersleyNullVector[t_Tensor?MetricQ,vec_String]:=
 Module[{r,a,th,M,val,delta,sigma,valC,schw,rules},
 	
@@ -657,17 +646,16 @@ ShowSpecialCharacters->False,
 ShowStringCharacters->True,
 NumberMarks->True],
 FullForm]\),vec]},t,valC]
-]
+];
+reDef@KinnersleyNullVector["Schwarzschild",vec_String]:=KinnersleyNullVector[ToMetric["Schwarzschild"],vec];
+reDef@KinnersleyNullVector["Kerr",vec_String]:=KinnersleyNullVector[ToMetric["Kerr"],vec];
 
-KinnersleyNullVector["Schwarzschild",vec_String]:=KinnersleyNullVector[ToMetric["Schwarzschild"],vec]
-KinnersleyNullVector["Kerr",vec_String]:=KinnersleyNullVector[ToMetric["Kerr"],vec]
 
-
-Clear[KinnersleyNullTetrad]
+def@
 KinnersleyNullTetrad[expr_]:=KinnersleyNullVector[expr,#]&/@{"l","n","m","mStar"}
 
 
-Clear[KinnersleyDerivative]
+def@
 KinnersleyDerivative[tt_Tensor?MetricQ,op_String]:=
 Module[{r,th,t,phi},
 
@@ -697,12 +685,12 @@ Module[{r,th,t,phi},
 		Abort[]
 
 	].{D[#,t],D[#,r],D[#,th],D[#,phi]})&
-]
-KinnersleyDerivative["Schwarzschild",vec_String]:=KinnersleyDerivative[ToMetric["Schwarzschild"],vec]
-KinnersleyDerivative["Kerr",vec_String]:=KinnersleyDerivative[ToMetric["Kerr"],vec]
+];
+reDef@KinnersleyDerivative["Schwarzschild",vec_String]:=KinnersleyDerivative[ToMetric["Schwarzschild"],vec];
+reDef@KinnersleyDerivative["Kerr",vec_String]:=KinnersleyDerivative[ToMetric["Kerr"],vec];
 
 
-Clear[SpinCoefficient]
+reDef@
 SpinCoefficient[tt_Tensor?MetricQ,coeff_String,conj_?BooleanQ]:=
 Module[{r,a,th,M,val,rules,delta,schw},
 
@@ -751,16 +739,16 @@ Module[{r,a,th,M,val,rules,delta,schw},
 
 	If[conj,Simplify@ComplexExpand@Conjugate@val,val]
 ];
-SpinCoefficient[tt_Tensor?MetricQ,coeff_String]:=SpinCoefficient[tt,coeff,False]
-SpinCoefficient[str_String,coeff_String,conj_?BooleanQ]:=SpinCoefficient[ToMetric[str],coeff,conj]
-SpinCoefficient[str_String,coeff_String]:=SpinCoefficient[str,coeff,False]
+reDef@SpinCoefficient[tt_Tensor?MetricQ,coeff_String]:=SpinCoefficient[tt,coeff,False];
+reDef@SpinCoefficient[str_String,coeff_String,conj_?BooleanQ]:=SpinCoefficient[ToMetric[str],coeff,conj];
+reDef@SpinCoefficient[str_String,coeff_String]:=SpinCoefficient[str,coeff,False];
 
 
-Clear[FourVelocityVector]
+def@
 FourVelocityVector["KerrGeneric"]:=
 Module[{t,r,th,ph,tau,EE,JJ,M,rhoSq,Delta,ut,ur,uth,uph,QQ,a,x1},
 
-	{t,r,th,ph,tau,EE,JJ,M,QQ,a}=Symbol/@{"t","r","\[Theta]","\[Phi]","\[Tau]","\[ScriptCapitalE]","\[ScriptCapitalJ]","M","Q","a"};
+	{t,r,th,ph,tau,EE,JJ,M,QQ,a}=Symbol/@{"t","r","\[Theta]","\[Phi]","\[Tau]","\[ScriptCapitalE]","\[ScriptCapitalL]","M","Q","a"};
 	Delta=r[tau]^2-2M r[tau]+a^2;
 	rhoSq=r[tau]^2+a^2 Cos[th[tau]]^2;
 		
@@ -772,23 +760,24 @@ Module[{t,r,th,ph,tau,EE,JJ,M,rhoSq,Delta,ut,ur,uth,uph,QQ,a,x1},
 	
 	ToTensorOnCurve[{"FourVelocityVectorGenericKerr","u"},x1,{ut,ur,uth,uph}]
 ];
-FourVelocityVector["KerrGen"]:=FourVelocityVector["KerrGeneric"]
+reDef@FourVelocityVector["KerrGen"]:=FourVelocityVector["KerrGeneric"];
 
 
+reDef@
 FourVelocityVector["SchwarzschildGeneric"]:=
 Module[{t,r,th,ph,tau,EE,JJ,M,x1,ur},
 
-	{t,r,th,ph,tau,EE,JJ,M}=Symbol/@{"t","r","\[Theta]","\[Phi]","\[Tau]","\[ScriptCapitalE]","\[ScriptCapitalJ]","M"};
+	{t,r,th,ph,tau,EE,JJ,M}=Symbol/@{"t","r","\[Theta]","\[Phi]","\[Tau]","\[ScriptCapitalE]","\[ScriptCapitalL]","M"};
 
 	x1 = ToCurve[{"CurveGenericSchwarzschild","x"},ToMetric["Schwarzschild"],{t[tau],r[tau],\[Pi]/2,ph[tau]},tau];
 	ur = Sqrt[EE^2-(1-(2M)/r[tau])(1+JJ^2/r[tau]^2)];
 
 	ToTensorOnCurve[{"FourVelocityVectorGenericSchwarzschild","u"},x1,{EE/(1-(2 M)/r[tau]),ur,0,JJ/r[tau]^2}]
 ];
-FourVelocityVector["SchwGen"]:=FourVelocityVector["SchwarzschildGeneric"]
+reDef@FourVelocityVector["SchwGen"]:=FourVelocityVector["SchwarzschildGeneric"];
 
 
-Clear[TensorSphericalHarmonic]
+def@
 TensorSphericalHarmonic[label_String]:=
 Module[{Ylm,YAVal,thTemp,phTemp,l,th,ph,A,B,F,G,eps},
 
@@ -815,7 +804,7 @@ Module[{Ylm,YAVal,thTemp,phTemp,l,th,ph,A,B,F,G,eps},
 ]
 
 
-Clear[M2Amplitude]
+def@
 M2Amplitude[label_,metric_String:"SchwarzschildM2"]:=
 Module[{htt,htr,hrr,ht,hr,jt,jr,a,b,t,r,metricStr},
 

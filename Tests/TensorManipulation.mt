@@ -43,23 +43,23 @@ Test[
 	-
 	{{\[ScriptCapitalE]^2/(1 - (2 M)/
     r[\[Tau]])^2, (\[ScriptCapitalE] r[\[Tau]] \
-Sqrt[\[ScriptCapitalE]^2 - ((-2 M + r[\[Tau]]) (\[ScriptCapitalJ]^2 + 
+Sqrt[\[ScriptCapitalE]^2 - ((-2 M + r[\[Tau]]) (\[ScriptCapitalL]^2 + 
        r[\[Tau]]^2))/r[\[Tau]]^3])/(-2 M + r[\[Tau]]), 
-  0, -((\[ScriptCapitalE] \[ScriptCapitalJ])/(
+  0, -((\[ScriptCapitalE] \[ScriptCapitalL])/(
    2 M r[\[Tau]] - 
     r[\[Tau]]^2))}, {(\[ScriptCapitalE] r[\[Tau]] Sqrt[\
-\[ScriptCapitalE]^2 - ((-2 M + r[\[Tau]]) (\[ScriptCapitalJ]^2 + 
+\[ScriptCapitalE]^2 - ((-2 M + r[\[Tau]]) (\[ScriptCapitalL]^2 + 
        r[\[Tau]]^2))/r[\[Tau]]^3])/(-2 M + 
    r[\[Tau]]), \[ScriptCapitalE]^2 - ((-2 M + 
-      r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/r[\[Tau]]^3, 
-  0, (\[ScriptCapitalJ] Sqrt[\[ScriptCapitalE]^2 - ((-2 M + 
-       r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/r[\[Tau]]^3])/
+      r[\[Tau]]) (\[ScriptCapitalL]^2 + r[\[Tau]]^2))/r[\[Tau]]^3, 
+  0, (\[ScriptCapitalL] Sqrt[\[ScriptCapitalE]^2 - ((-2 M + 
+       r[\[Tau]]) (\[ScriptCapitalL]^2 + r[\[Tau]]^2))/r[\[Tau]]^3])/
   r[\[Tau]]^2}, {0, 0, 0, 
-  0}, {-((\[ScriptCapitalE] \[ScriptCapitalJ])/(
+  0}, {-((\[ScriptCapitalE] \[ScriptCapitalL])/(
    2 M r[\[Tau]] - 
-    r[\[Tau]]^2)), (\[ScriptCapitalJ] Sqrt[\[ScriptCapitalE]^2 - ((-2 \
-M + r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/r[\[Tau]]^3])/
-  r[\[Tau]]^2, 0, \[ScriptCapitalJ]^2/r[\[Tau]]^4}}],
+    r[\[Tau]]^2)), (\[ScriptCapitalL] Sqrt[\[ScriptCapitalE]^2 - ((-2 \
+M + r[\[Tau]]) (\[ScriptCapitalL]^2 + r[\[Tau]]^2))/r[\[Tau]]^3])/
+  r[\[Tau]]^2, 0, \[ScriptCapitalL]^2/r[\[Tau]]^4}}],
 	{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},
 	TestID->"MultiplyTensors"	
 ]
@@ -91,23 +91,23 @@ Test[
 	-
 	{{\[ScriptCapitalE]^2/(1 - (2 M)/
     r[\[Tau]])^2, (\[ScriptCapitalE] r[\[Tau]] \
-Sqrt[\[ScriptCapitalE]^2 - ((-2 M + r[\[Tau]]) (\[ScriptCapitalJ]^2 + 
+Sqrt[\[ScriptCapitalE]^2 - ((-2 M + r[\[Tau]]) (\[ScriptCapitalL]^2 + 
        r[\[Tau]]^2))/r[\[Tau]]^3])/(-2 M + r[\[Tau]]), 
-  0, -((\[ScriptCapitalE] \[ScriptCapitalJ])/(
+  0, -((\[ScriptCapitalE] \[ScriptCapitalL])/(
    2 M r[\[Tau]] - 
     r[\[Tau]]^2))}, {(\[ScriptCapitalE] r[\[Tau]] Sqrt[\
-\[ScriptCapitalE]^2 - ((-2 M + r[\[Tau]]) (\[ScriptCapitalJ]^2 + 
+\[ScriptCapitalE]^2 - ((-2 M + r[\[Tau]]) (\[ScriptCapitalL]^2 + 
        r[\[Tau]]^2))/r[\[Tau]]^3])/(-2 M + 
    r[\[Tau]]), \[ScriptCapitalE]^2 - ((-2 M + 
-      r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/r[\[Tau]]^3, 
-  0, (\[ScriptCapitalJ] Sqrt[\[ScriptCapitalE]^2 - ((-2 M + 
-       r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/r[\[Tau]]^3])/
+      r[\[Tau]]) (\[ScriptCapitalL]^2 + r[\[Tau]]^2))/r[\[Tau]]^3, 
+  0, (\[ScriptCapitalL] Sqrt[\[ScriptCapitalE]^2 - ((-2 M + 
+       r[\[Tau]]) (\[ScriptCapitalL]^2 + r[\[Tau]]^2))/r[\[Tau]]^3])/
   r[\[Tau]]^2}, {0, 0, 0, 
-  0}, {-((\[ScriptCapitalE] \[ScriptCapitalJ])/(
+  0}, {-((\[ScriptCapitalE] \[ScriptCapitalL])/(
    2 M r[\[Tau]] - 
-    r[\[Tau]]^2)), (\[ScriptCapitalJ] Sqrt[\[ScriptCapitalE]^2 - ((-2 \
-M + r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/r[\[Tau]]^3])/
-  r[\[Tau]]^2, 0, \[ScriptCapitalJ]^2/r[\[Tau]]^4}}],
+    r[\[Tau]]^2)), (\[ScriptCapitalL] Sqrt[\[ScriptCapitalE]^2 - ((-2 \
+M + r[\[Tau]]) (\[ScriptCapitalL]^2 + r[\[Tau]]^2))/r[\[Tau]]^3])/
+  r[\[Tau]]^2, 0, \[ScriptCapitalL]^2/r[\[Tau]]^4}}],
 	{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}},
 	TestID->"MergeTensors2"	
 ]

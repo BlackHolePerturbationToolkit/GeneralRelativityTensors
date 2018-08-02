@@ -1,6 +1,6 @@
 (* ::Package:: *)
 
-BeginPackage["GeneralRelativityTensors`TensorDefinitions`"];
+BeginPackage["GeneralRelativityTensors`TensorDefinitions`",{"GeneralRelativityTensors`Utils`"}];
 
 
 Tensor::usage="Tensor is a Head created with the command ToTensor.";
@@ -27,6 +27,9 @@ TensorFieldQ::usage="TensorFieldQ[t] returns True if \
 the values of Tensor t are functions of the manifold's coordinates.";
 CurveRules::usage="CurveRules[c] returns a list of rules sending the coordinates \
 of a Curve c to its values."
+
+ToTensorWithTetrad::usage="ToTensorWithTetrad[t,tet] returns the Tensor t with its Tetrad set to tet \
+and its values set to its tetrad components.";
 
 ToMetric::usage="ToMetric[n,coords,vals,posInds] returns a metric Tensor with TensorName \
 n, Coordinates coords, TensorValues vals, and PossibleIndices posInds.
@@ -65,13 +68,14 @@ SetTensorValues::usage="SetTensorValues[t,vals] returns the Tensor t with its Ra
 SetDimensions::usage="SetDimensions[t,dims] returns the Tensor t with its Dimensions set to dims.";
 SetCoordinates::usage="SetCoordinates[t,coords] returns the Tensor t with its Coordinates set to coords.";
 SetIndices::usage="SetIndices[t,inds] returns the Tensor t with its Indices set to inds.";
-SetPossibleIndices::usage="SetIndices[t,posInds] returns the Tensor t with its PossibleIndices set to posInds.";
+SetPossibleIndices::usage="SetPossibleIndices[t,posInds] returns the Tensor t with its PossibleIndices set to posInds.";
 SetMetric::usage="SetMetric[t,m] returns the Tensor t with its Metric set to m.";
 SetMetricQ::usage="SetMetricQ[t,bool] returns the Tensor t with its MetricQ flag set to bool (True or False).";
 SetCurve::usage="SetCurve[t,c] returns the Tensor t with its Curve set to c.";
 SetCurveQ::usage="SetCurveQ[t,bool] returns the Tensor t with its CurveQ flag set to bool (True or False).";
 SetCurveParameter::usage="SetCurve[t,param] returns the Tensor t with its CurveParameter set to param.";
 SetAbstractQ::usage="SetAbstractQ[t,bool] returns the Tensor t with its AbstractQ flag set to bool (True or False).";
+SetTetrad::usage="SetTetrad[t,tet] returns the Tensor t with its Tetrad set to tet.";
 
 RawTensorValues::usage="RawTensorValues[n,inds] returns the cached values of a Tensor \
 with TensorName n and indices in positions inds or \
@@ -103,6 +107,32 @@ ValidateTensorExpression::usage="ValidateTensorExpression[expr] checks whether a
 aborts if it is not.";
 
 
+Tetrad::usage="Tetrad is a Head created with the command ToTetrad.";
+ToTetrad::usage="ToTetrad[n,vecs,posInds] returns a Tetrad with name n made of the four vectors vecs with \
+possible TetradIndices posInds.";
+TetradValues::usage="TetradValues[tet] returns a 4x4 matrix of values corresponding to the Tetrad tet.";
+TetradVectors::usage="TetradVectors[tet] returns the four vectors (or co-vectors) stored by the Tetrad tet.";
+SpacetimeIndex::usage="SpacetimeIndex[tet] returns the second index of the Tetrad tet.";
+TetradIndex::usage="TetradIndex[tet] returns the first index of the Tetrad tet.";
+PossibleSpacetimeIndices::usage="PossibleSpacetimeIndices[tet] returns the list of PossibleIndices that can be \
+used in the second Index of the Tetrad tet.";
+PossibleTetradIndices::usage="PossibleTetradIndices[tet] returns the list of PossibleIndices that can be \
+used in the first Index of the Tetrad tet.";
+TetradName::usage="TetradName[tet] returns the name of Tetrad tet.";
+TetradDisplayName::usage="TetradDisplayName[tet] returns the name of Tetrad tet that is used for formatted output.";
+SpacetimeMetric::usage="SpacetimeMetric[tet] returns the metric used by the Vectors of the Tetrad tet.";
+TetradMetric::usage="TetradMetric[tet] returns the tetrad formed from the vectors of the Tetrad tet.";
+
+
+SetTetradKeyValue::usage="SetTetradKeyValue[tet,key,value] returns the Tetrad tet with the appropriate Rule changed to key->value.";
+SetTetradName::usage="SetTetradName[tet,n] returns the Tetrad tet with its TetradName changed to n.";
+SetTetradDisplayName::usage="SetTetradDisplayName[tet,n] returns the Tetrad tet with its TetradDisplayName changed to n.";
+SetTetradVectors::usage="SetTetradVectors[tet,vecs] returns the Tetrad tet with its Vectors set to vecs.";
+SetTetradIndex::usage="SetTetradIndex[tet,ind] returns the Tetrad tet with its TetradIndex set to ind.";
+SetSpacetimeIndex::usage="SetSpacetimeIndex[tet,ind] returns the Tetrad tet with its SpacetimeIndex set to ind.";
+SetTetradPossibleIndices::usage="SetTetradPossibleIndices[tet,posInds] returns the Tetrad tet with its PossibleIndices set to posInds.";
+
+
 Begin["`Private`"];
 
 
@@ -120,6 +150,15 @@ Options[SetTensorName]=Options[SetTensorKeyValue];
 Options[SetTensorDisplayName]=Options[SetTensorKeyValue];
 Options[SetAbstractQ]=Options[SetTensorKeyValue];
 Options[SetTensorValues]=Options[SetTensorKeyValue];
+Options[SetTetrad]=Options[SetTensorKeyValue];
+
+Options[SetTetradKeyValue]=Options[SetTensorKeyValue];
+Options[SetTetradName]=Options[SetTensorKeyValue];
+Options[SetTetradDisplayName]=Options[SetTensorKeyValue];
+Options[SetTetradVectors]=Options[SetTensorKeyValue];
+Options[SetTetradIndex]=Options[SetTensorKeyValue];
+Options[SetSpacetimeIndex]=Options[SetTensorKeyValue];
+Options[SetTetradPossibleIndices]=Options[SetTensorKeyValue];
 
 DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"] = {"IgnoreWarnings"->"If True, the Tensor's key value will be set regardless of whether it violates built-in warnings."};
 DocumentationBuilder`OptionDescriptions["SetMetricQ"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
@@ -135,22 +174,36 @@ DocumentationBuilder`OptionDescriptions["SetTensorName"]=DocumentationBuilder`Op
 DocumentationBuilder`OptionDescriptions["SetTensorDisplayName"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
 DocumentationBuilder`OptionDescriptions["SetAbstractQ"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
 DocumentationBuilder`OptionDescriptions["SetTensorValues"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetTetrad"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+
+DocumentationBuilder`OptionDescriptions["SetTetradKeyValue"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetTetradName"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetTetradDisplayName"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetTetradVectors"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetTetradIndex"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetSpacetimeIndex"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetTetradPossibleIndices"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
 
 
 $CacheTensorValues=False;
 
 
-Tensor/:Format[t_Tensor]:=formatTensor[TensorDisplayName@t,Indices@t,CurveParameter@t]
+Tensor/:Format[t_Tensor]:=formatTensor[TensorDisplayName@t,Indices@t,CurveParameter@t,If[Tetrad@t=!=Undefined,PossibleTetradIndices[Tetrad@t],{}]]
 
 
 Clear[formatTensor]
-formatTensor[name_,inds_,param_]:=
+formatTensor[name_,inds_,param_,posIndsTet_]:=
 Module[{upStr,dnStr,out1,nameStr},
 	nameStr = If[MatchQ[name,_String],name,ToString[name]];
 	out1=If[inds==={},
 		nameStr,
-		dnStr=StringJoin[If[MatchQ[#,-_Symbol|Verbatim[-_Symbol]|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],ToString[#/.-x_:>x],StringJoin@Table["  ",StringLength[ToString[#/.-x_:>x]]]]&/@inds];
-		upStr=StringJoin[If[Not@MatchQ[#,-_Symbol|Verbatim[-_Symbol]|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],ToString[#],StringJoin@Table["  ",StringLength[ToString[#/.-x_:>x]]]]&/@inds];
+		dnStr=StringJoin[If[MatchQ[#,-_Symbol|Verbatim[-_Symbol]|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],
+							If[MemberQ[posIndsTet,#/.-x_:>x],"("<>ToString[#/.-x_:>x]<>")",ToString[#/.-x_:>x]],
+							StringJoin@Table["  ",StringLength[If[MemberQ[posIndsTet,#],"("<>ToString[#]<>")",ToString[#]]]]
+						]&/@inds];
+		upStr=StringJoin[If[Not@MatchQ[#,-_Symbol|Verbatim[-_Symbol]|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],
+							If[MemberQ[posIndsTet,#],"("<>ToString[#]<>")",ToString[#]],
+							StringJoin@Table["  ",StringLength[If[MemberQ[posIndsTet,#/.-x_:>x],"("<>ToString[#/.-x_:>x]<>")",ToString[#/.-x_:>x]]]]]&/@inds];
 		SubsuperscriptBox[nameStr,StringReplace[dnStr, StartOfString ~~Whitespace~~EndOfString:> ""],StringReplace[upStr, StartOfString ~~Whitespace~~EndOfString:> ""]]
 	];
 	DisplayForm@If[param=!=Undefined,
@@ -160,26 +213,28 @@ Module[{upStr,dnStr,out1,nameStr},
 ]
 
 
-Coordinates[t_Tensor]:=(Association@@t)["Coordinates"]
-Curve[t_Tensor]:=If[(Association@@t)["Curve"]==="Self",t,(Association@@t)["Curve"]]
-Rank[t_Tensor]:=Module[{inds,co},inds=Indices[t];co=Count[inds,-_Symbol];{Length[inds]-co,co}];
-AbstractQ[t_Tensor]:=(Association@@t)["AbstractQ"]
-Tensor/:Dimensions[t_Tensor]:=(Association@@t)["Dimensions"]
-Indices[t_Tensor]:=(Association@@t)["Indices"]
-PossibleIndices[t_Tensor]:=(Association@@t)["PossibleIndices"]
-CurveParameter[t_Tensor]:=(Association@@t)["CurveParameter"]
-CurveQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["CurveQ"]
-OnCurveQ[t_]:=MatchQ[t,_Tensor]&&(CurveParameter[t]=!=Undefined)
-TensorName[t_Tensor]:=(Association@@t)["Name"]
-TensorDisplayName[t_Tensor]:=(Association@@t)["DisplayName"]
-IndexPositions[t_Tensor]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
-MetricQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["MetricQ"];
+def@Coordinates[t_Tensor]:=(Association@@t)["Coordinates"];
+def@Curve[t_Tensor]:=If[(Association@@t)["Curve"]==="Self",t,(Association@@t)["Curve"]];
+def@Rank[t_Tensor]:=Module[{inds,co},inds=Indices[t];co=Count[inds,-_Symbol];{Length[inds]-co,co}];
+def@AbstractQ[t_Tensor]:=(Association@@t)["AbstractQ"];
+Tensor/:Dimensions[t_Tensor]:=(Association@@t)["Dimensions"];
+def@Indices[t_Tensor]:=(Association@@t)["Indices"];
+def@PossibleIndices[t_Tensor]:=(Association@@t)["PossibleIndices"];
+def@CurveParameter[t_Tensor]:=(Association@@t)["CurveParameter"];
+def@CurveQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["CurveQ"];
+def@OnCurveQ[t_]:=MatchQ[t,_Tensor]&&(CurveParameter[t]=!=Undefined);
+def@TensorName[t_Tensor]:=(Association@@t)["Name"];
+reDef@TensorName[Undefined]:=Undefined;
+def@TensorDisplayName[t_Tensor]:=(Association@@t)["DisplayName"];
+def@IndexPositions[t_Tensor]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
+def@MetricQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["MetricQ"];
+def@Tetrad[t_Tensor]:=(Association@@t)["Tetrad"];
 
 
-PossibleIndices[expr_]:=PossibleIndices[Metric[expr]]
+reDef@PossibleIndices[expr_]:=PossibleIndices[Metric[expr]]
 
 
-Coordinates[expr_]:=Coordinates[Metric[expr]]
+reDef@Coordinates[expr_]:=Coordinates[Metric[expr]]
 
 
 RawTensorValues[___]:=Undefined;
@@ -197,17 +252,18 @@ Module[{vals},
 ]
 
 
-Clear[CurveRules]
+def@
 CurveRules[c1_Tensor?CurveQ]:=Thread[Coordinates@c1->RawTensorValues@c1]
 
 
-Clear[ToTensor]
+def@
 ToTensor[assoc_Association]:=
-Module[{keys,nullKeys,listKeys,indexChoices},
-	keys={"MetricQ","Metric","Coordinates","Name","DisplayName","Indices","Values",
-			"AbstractQ","Dimensions","PossibleIndices","CurveQ","Curve","CurveParameter"};
-	nullKeys={"Metric","Coordinates","Values","PossibleIndices","Dimensions"};
+Module[{keys,notAbstrKeys,listKeys,booleanKeys},
+	keys={"AbstractQ","Coordinates","Curve","CurveParameter","CurveQ","Dimensions",
+		"DisplayName","Indices","Metric","MetricQ","Name","PossibleIndices","Tetrad","Values"};
+	notAbstrKeys={"Metric","Coordinates","Values","PossibleIndices","Dimensions"};
 	listKeys={"Coordinates","PossibleIndices","Indices"};
+	booleanKeys={"MetricQ","CurveQ","AbstractQ"};
 
 	If[Sort@Keys[assoc]=!=Sort[keys],
 		Print["The following keys are missing in the tensor formation: "<>ToString[Complement[keys,Keys[assoc]]]];
@@ -219,113 +275,52 @@ Module[{keys,nullKeys,listKeys,indexChoices},
 		Print["Tensors must be formed from keys in alphabetical order."];
 		Abort[]
 	];
-	
-	If[Not@MatchQ[assoc["Indices"]/.-sym_Symbol:>sym,{___Symbol}],
-		Print["Indices can be a list of Symbols (and negative Symbols)."];Abort[]];
-		
-	If[Not@MatchQ[assoc["PossibleIndices"],{___Symbol}],Print["PossibleIndices must be a list of Symbols"];Abort[]];
 
-	If[assoc["Indices"]=!={}&&assoc["PossibleIndices"]=!={}&&Intersection[assoc["Indices"]/.(-a_Symbol:>a),assoc["PossibleIndices"]]==={},
-		Print["Given Indices ", assoc["Indices"]/.(-a_Symbol:>a), " are not found in List of with PossibleIndices ", assoc["PossibleIndices"]];
-		Abort[];
-	];
-
-	indexChoices=If[assoc["PossibleIndices"]==={},assoc["Indices"],assoc["PossibleIndices"]];
-	
-	If[DeleteDuplicates[If[assoc[#]=!=Undefined,Head[assoc[#]],##&[]]&/@listKeys]=!={List},
-		Print["The following Options were not given as lists: "<>ToString[If[assoc[#]=!=Undefined&&Head[assoc[#]]=!=List,#,##&[]]&/@listKeys]];
+	If[Not[MatchQ[assoc/@listKeys,{{___}..}]],
+		Print["The following values were not given as lists: "<>ToString[If[Head[assoc[#]]=!=List,#,Nothing]&/@listKeys]];
 		Abort[]
 	];
 
-	If[Not[assoc["AbstractQ"]]&&MemberQ[assoc[#]&/@nullKeys,Undefined],
-		Print["\"AbstractQ\"->False is inconsistent with Undefined values for "<>ToString[If[assoc[#]===Undefined,#,##&[]]&/@nullKeys]];
+	If[Not[MatchQ[assoc/@listKeys,{{___}..}]],
+		Print["The following values were not given as lists: "<>ToString[If[Head[assoc[#]]=!=List,#,Nothing]&/@listKeys]];
+		Abort[]
+	];
+
+	If[Not[assoc["AbstractQ"]]&&MemberQ[assoc[#]&/@notAbstrKeys,Undefined],
+		Print["\"AbstractQ\"->False is inconsistent with Undefined values for "<>ToString[If[assoc[#]===Undefined,#,Nothing]&/@notAbstrKeys]];
 		Abort[]
 	];
 	
-	If[(assoc["Coordinates"]=!=Undefined&&
-		assoc["Dimensions"]=!=Undefined)&&
-		Length@assoc["Coordinates"]=!=assoc["Dimensions"],
-			Print["The number of coordinates given does not match the number of dimensions."];
+	If[Not@MatchQ[assoc/@booleanKeys,{_?BooleanQ..}],
+		Print["The following values were not given as booleans: "<>ToString[If[Not[BooleanQ[assoc@#]],#,Nothing]&/@booleanKeys]];
+		Abort[]
+	];
+
+	tensorIndsDimsCoordsTests[assoc];
+
+	If[assoc["Metric"]=!="Self",tensorMetricTests[assoc]];
+			
+	If[MatchQ[assoc["Values"],_List],
+		If[MatchQ[assoc["Values"],{_?MetricQ..}],
+			tensorSubmetricTests[assoc],
+			tensorConsistentValuesTest[assoc]
+		],
+		If[Length[assoc["Indices"]]=!=0,
+			Print["Scalar quantity given with indices."];
 			Abort[]
-	];
-
-	If[(MatchQ[assoc["Values"],_List]&&
-		assoc["Dimensions"]=!=Undefined)&&
-		Dimensions[assoc["Values"]]=!=Table[assoc["Dimensions"],{Length[assoc["Indices"]]}],
-		
-		Print["Provided values are inconsistent with given tensor rank and number of dimensions."];
-		Abort[]
+		];
 	];
 	
-	If[Not@MatchQ[assoc["Values"],_List]&&assoc["Values"]=!=Undefined&&Length[assoc["Indices"]]=!=0,
-		Print["Scalar quantity given with indices."];
-			Abort[]
-	];
-
-	If[assoc["Metric"]=!=Undefined
-		&&assoc["Metric"]=!="Self"
-		&&Not@MetricQ[assoc["Metric"]],
-		Print["Given Option \"Metric\" is not a metric tensor."];
-		Abort[]
-	];
+	tensorCurveTests[assoc];
 	
-	If[assoc["Metric"]=!="Self" && (assoc["Coordinates"] =!= Coordinates[assoc["Metric"]]),
-		Print["Metric's Coordinates and given Coordinates are inconsistent: ", Coordinates[assoc["Metric"]], " and ",assoc["Coordinates"]];
-		Abort[]
-	];
-
-	If[assoc["Metric"]=!="Self" && (assoc["Dimensions"] =!= Dimensions[assoc["Metric"]]),
-		Print["Metric's Dimensions and given Dimensions are inconsistent ", Dimensions[assoc["Metric"]], " and ",assoc["Dimensions"]];
-		Abort[]
-	];
-
-	If[assoc["Coordinates"]=!=Undefined&&
-		Intersection[assoc["Coordinates"],indexChoices]=!={},
-			Print["The following elements appear as both indices and coordinates: "<>ToString[Intersection[assoc["Coordinates"],indexChoices]]];
-			Abort[]
-	];
-		
-	If[Not@BooleanQ[assoc["MetricQ"]],
-		Print["\"MetricQ\" must be True or False."];
-		Abort[]
-	];
-	
-	If[Not@MatchQ[assoc["CurveParameter"],_Symbol],
-		Print["\"CurveParameter\" must be a Symbol."];
-		Abort[]
-	];
-
-	If[Not@BooleanQ[assoc["CurveQ"]],
-		Print["\"CurveQ\" must be True or False."];
-		Abort[]
-	];
-
-	If[assoc["CurveQ"]&&(assoc["CurveParameter"]===Undefined),
-		Print["Curves must be parametrized."];
-		Abort[]
-	];
-	
-	If[assoc["Curve"]=!=Undefined&&
-		assoc["Curve"]=!="Self"&&
-		Not@CurveQ[assoc["Curve"]],
-		Print["Given Option \"Curve\" is not a Curve."];
-		Abort[]
-	];
-	
-	If[MemberQ[assoc["PossibleIndices"],assoc["CurveParameter"]],
-		Print["\"CurveParameter\" cannot also be a possible index."];
-		Abort[]
-	];
-	
-	If[assoc["CurveParameter"]=!=Undefined,
-		checkForParam[assoc["Values"],assoc["Coordinates"],assoc["CurveParameter"]];
-	];
+	If[assoc["Tetrad"]=!=Undefined,tensorTetradTests[assoc]];
 
 	If[#=!=Undefined&&Not[AutoNameQ[assoc["Name"]]]&&$CacheTensorValues,RawTensorValues[assoc["Name"],If[MatchQ[#,_Symbol],"Up","Down"]&/@assoc["Indices"]]=#]&[assoc["Values"]];
-	Tensor@@(Normal@assoc/.("PossibleIndices"->_):>("PossibleIndices"->indexChoices))
+	Tensor@@(Normal@assoc)
 ]
 
 
+reDef@
 ToTensor[{name_String,dispName_String},metric_Tensor?MetricQ,vals_,indsGiven_:Undefined]:=
 Module[{coords,posInds,dims,inds,nInds},
 
@@ -349,9 +344,10 @@ Module[{coords,posInds,dims,inds,nInds},
 						"Metric"->metric,
 						"Name"->name,
 						"PossibleIndices"->posInds,
+						"Tetrad"->Undefined,
 						"Values"->vals]]
 ]
-ToTensor[name_String,metric_Tensor?MetricQ,vals_List,indsGiven_:Undefined]:=ToTensor[{name,name},metric,vals,indsGiven];
+reDef@ToTensor[name_String,metric_Tensor?MetricQ,vals_,indsGiven_:Undefined]:=ToTensor[{name,name},metric,vals,indsGiven];
 
 
 Clear[builtInIndices]
@@ -368,70 +364,66 @@ Switch[label,
 ]
 
 
-Clear[ToMetric]
-ToMetric[assoc_Association]:=
-Module[{keys,dims,posInds,inds},
-	
-	keys={"Coordinates","Name","Indices","Values","AbstractQ","PossibleIndices","DisplayName","CurveParameter","Curve","CurveQ"};
-	
-	If[Sort@Keys[assoc]=!=Sort[keys],
-		Print["The following keys are missing in the metric tensor formation: "<>ToString[Complement[keys,Keys[assoc]]]];
-		Print["The following extra keys were in the metric tensor formation: "<>ToString[Complement[Keys[assoc],keys]]];
-		Abort[]
-	];
-	posInds=Complement[If[MemberQ[{"Greek","Latin","CapitalLatin"},assoc["PossibleIndices"]],builtInIndices[assoc["PossibleIndices"]],assoc["PossibleIndices"]],
-						Union[If[assoc["Coordinates"]=!=Undefined,assoc["Coordinates"],##&[]],Cases[assoc["Values"],_Symbol,Infinity]]];
-	If[Length[posInds]<8,Print["At least 8 possible indices needed when defining a non-abstract metric"]];
-	inds=If[assoc["Indices"]===Undefined,-Take[posInds,2],assoc["Indices"]];
-
-	If[Not@MatchQ[inds,{-_Symbol,-_Symbol}]||(inds[[1]]===inds[[2]]),Print["Metric indices must be a pair of distinct covariant symbols"];Abort[]];
-	If[assoc["Values"]=!=Undefined&&(Not@MatchQ[assoc["Values"],{Repeated[{__}]}]||Dimensions[assoc["Values"]]=!={Length@assoc["Coordinates"],Length@assoc["Coordinates"]}),
-		Print["To be consistent with given coordinates, metric values must be given as a ",Length@assoc["Coordinates"], " \[Times] ", Length@assoc["Coordinates"], " matrix."];
-		Abort[]
-	];
-
-	dims=If[assoc["Coordinates"]=!=Undefined,Length@assoc["Coordinates"],assoc["Coordinates"]];
-	ToTensor[KeySort@Join[KeyDrop[assoc,{"PossibleIndices","Indices"}],
-					Association["Metric"->"Self",
-								"MetricQ"->True,
-								"Dimensions"->dims,
-								"PossibleIndices"->posInds,
-								"Indices"->inds,
-								"CurveParameter"->Undefined,
-								"Curve"->Undefined,
-								"CurveQ"->False]]]
-]
-
-
+def@
 ToMetric[{name_String,dispName_String},coords_List,vals_List,posIndsParam_]:=
-Module[{inds,posInds},
+Module[{inds,posInds,posIndsFull,dims},
 
-	posInds=Complement[
-					If[MemberQ[{"Greek","Latin","CapitalLatin"},posIndsParam],builtInIndices[posIndsParam],posIndsParam],
-					Union[coords,Cases[vals,_Symbol,Infinity]]
-			];
+	posIndsFull = 
+		If[MemberQ[{"Greek","Latin","CapitalLatin"},posIndsParam],
+			builtInIndices[posIndsParam],
+			If[Not[MatchQ[posIndsParam,{__Symbol}]]||Length[posIndsParam]<8,
+				Print["At least 8 PossibleIndices needed when defining a Metric"];
+				Abort[],
+			
+				posIndsParam
+			]
+		];
 
+	posInds=Complement[posIndsFull,coords];
 	inds=-Take[posInds,2];
 	
-	ToMetric[
-		Association["Coordinates"->coords,
-					"Name"->name,
+	If[Not@MatchQ[coords,{__Symbol|__Integer}],
+		Print["Metric Coordinates not given as a List of Symbols or Integers"];
+		Abort[]
+	];
+
+	dims=Length@coords;
+	
+	If[MatchQ[vals,{{__}..}],
+		If[Dimensions[vals]=!={dims,dims},
+			Print["To be consistent with the given value of Dimensions, Metric Values must be a ", 
+				dims, " \[Times] ", dims, " matrix given as a nested List."];
+			Abort[]
+		],
+	
+		If[Not@MatchQ[vals,{_?MetricQ..}],
+			Print["Metric Values must given as a nested List"];
+			Abort[]
+		]
+	];
+	
+	ToTensor[Association[
+					"AbstractQ"->False,
+					"Coordinates"->coords,
+					"Curve"->Undefined,
+					"CurveParameter"->Undefined,
+					"CurveQ"->False,
+					"Dimensions"->dims,
 					"DisplayName"->dispName,
 					"Indices"->inds,
+					"Metric"->"Self",
+					"MetricQ"->True,
+					"Name"->name,
 					"PossibleIndices"->posInds,
-					"AbstractQ"->False,
-					"Values"->vals,
-					"CurveParameter"->Undefined,
-					"Curve"->Undefined,
-					"CurveQ"->False]
-		]
+					"Tetrad"->Undefined,
+					"Values"->vals]]
 ]
-ToMetric[{name_String,dispName_String},coords_,vals_]:=ToMetric[{name,dispName},coords,vals,"Greek"]
-ToMetric[name_String,coords_,vals_,posIndsParam_]:=ToMetric[{name,name},coords,vals,posIndsParam]
-ToMetric[name_String,coords_,vals_]:=ToMetric[{name,name},coords,vals,"Greek"]
+reDef@ToMetric[{name_String,dispName_String},coords_,vals_]:=ToMetric[{name,dispName},coords,vals,"Greek"]
+reDef@ToMetric[name_String,coords_,vals_,posIndsParam_]:=ToMetric[{name,name},coords,vals,posIndsParam]
+reDef@ToMetric[name_String,coords_,vals_]:=ToMetric[{name,name},coords,vals,"Greek"]
 
 
-Clear[ToCurve]
+def@
 ToCurve[{name_String,dispName_String},metric_Tensor?MetricQ,vals_List,param_Symbol]:=
 Module[{posInds,coords,dims},
 
@@ -454,8 +446,10 @@ Module[{posInds,coords,dims},
 								"Metric"->metric,
 								"Name"->name,
 								"PossibleIndices"->posInds,
+								"Tetrad"->Undefined,
 								"Values"->vals]]
 ]
+reDef@
 ToCurve[name_String,metric_Tensor?MetricQ,vals_List,param_Symbol]:=ToCurve[{name,name},metric,vals,param];
 
 
@@ -475,6 +469,7 @@ Module[{coordsP,temp,coordsPTemp,coordsPRules,exprTemp,notCurves},
 ]
 
 
+def@
 Metric[t_Tensor]:=Which[(Association@@t)["Metric"]==="Self",
 								t,
 								Curve@t=!=Undefined,
@@ -484,6 +479,7 @@ Metric[t_Tensor]:=Which[(Association@@t)["Metric"]==="Self",
 							];
 
 
+reDef@
 Metric[expr_]:=
 Module[{metrics,metricNames},
 
@@ -496,7 +492,7 @@ Module[{metrics,metricNames},
 ]
 
 
-Clear[InverseMetric]
+def@
 InverseMetric[t_Tensor?MetricQ]:=InverseMetric[t]=
 Module[{assoc,tvStored,tv,posUp},
 
@@ -516,95 +512,113 @@ Module[{assoc,tvStored,tv,posUp},
 								"Values"->tv,
 								"Metric"->Metric[t]]]]
 ];
+reDef@
 InverseMetric[t_Tensor]:=If[Metric@t===Undefined,Undefined,InverseMetric@Metric@t];
 
 
+def@
 ActOnTensorValues[fn_,t_Tensor]:=SetTensorValues[t,Map[fn,RawTensorValues[t],{Total@Rank[t]}]]
 
 
-Clear[ClearCachedTensorValues]
+def@
 ClearCachedTensorValues[s_String,inds_]:=If[RawTensorValues[s,inds]=!=Undefined,Unset[RawTensorValues[s,inds]]]
+reDef@
 ClearCachedTensorValues[str_String]:=Scan[ClearCachedTensorValues@@#&,Cases[CachedTensorValues[All],HoldPattern[{str,a___}->_]:>{str,a},Infinity]]
+reDef@
 ClearCachedTensorValues[t_Tensor]:=Scan[ClearCachedTensorValues[TensorName[t],#]&,Tuples[{"Up","Down"},Total[Rank[t]]]]
+reDef@
 ClearCachedTensorValues[All]:=Scan[ClearCachedTensorValues[Sequence@@#]&,
 									DeleteDuplicates@Cases[DownValues[RawTensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[RawTensorValues][x__]]:>{x},{_String,{___String}}]]
 
 
-Clear[CachedTensorValues]
+def@
 CachedTensorValues[s_String]:=#->RawTensorValues@@#&/@(Cases[DownValues[RawTensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[RawTensorValues][x__]]:>{x},{s,{___String}}])
+reDef@
 CachedTensorValues[t_Tensor]:=CachedTensorValues[TensorName[t]]
+reDef@
 CachedTensorValues[All]:=CachedTensorValues/@DeleteDuplicates@Cases[DownValues[RawTensorValues]/.(a_:>b_):>a/.Verbatim[HoldPattern][Verbatim[RawTensorValues][x__]]:>{x},{n_String,{___String}}:>n]
 
 
-AutoNameQ[t_Tensor]:=AutoNameQ[TensorName[t]]
-AutoNameQ[s_String]:=StringMatchQ[s,__~~"-Auto"]
+def@AutoNameQ[t_Tensor]:=AutoNameQ[TensorName[t]]
+reDef@AutoNameQ[s_String]:=StringMatchQ[s,__~~"-Auto"]
 
 
-Clear[SetTensorKeyValue]
+def@
 SetTensorKeyValue[t_Tensor,key_String,value_,opts:OptionsPattern[]]:=
-If[OptionValue["IgnoreWarnings"],
-	Tensor[Normal[KeySort@Join[KeyDrop[(Association@@t),{key}],Association[key->value]]]],
-	ToTensor[KeySort@Join[KeyDrop[(Association@@t),{key}],Association[key->value]]]
+Module[{tests},
+	tests = {"IgnoreWarnings" ->{BooleanQ,"IgnoreWarnings of MergeNested must be True or False."}};
+	TestOptions[tests,{opts}];
+
+	If[OptionValue["IgnoreWarnings"],
+		Tensor[Normal[KeySort@Join[KeyDrop[(Association@@t),{key}],Association[key->value]]]],
+		ToTensor[KeySort@Join[KeyDrop[(Association@@t),{key}],Association[key->value]]]
+	]
 ]
 
 
-Clear[SetMetric]
+def@
 SetMetric[t_Tensor,m_Tensor,opts:OptionsPattern[]]:=If[t=!=m,SetTensorKeyValue[t,"Metric",m,opts],t]
 
 
-Clear[SetMetricQ]
+def@
 SetMetricQ[t_Tensor,bool_?BooleanQ,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"MetricQ",bool,opts]
 
 
-Clear[SetCurve]
+def@
 SetCurve[t_Tensor,c_Tensor,opts:OptionsPattern[]]:=If[t=!=c,SetTensorKeyValue[t,"Curve",c],t,opts]
 
 
-Clear[SetCurveQ]
+def@
 SetCurveQ[t_Tensor,bool_?BooleanQ,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"CurveQ",bool,opts]
 
 
-Clear[SetCurveParameter]
+def@
 SetCurveParameter[t_Tensor,param_Symbol,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"CurveParameter",param,opts]
 
 
-Clear[SetIndices]
+def@
 SetIndices[t_Tensor,inds___List,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"Indices",inds,opts]
 
 
-Clear[SetPossibleIndices]
+def@
 SetPossibleIndices[t_Tensor,inds_List,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"PossibleIndices",inds,opts]
 
 
-Clear[SetDimensions]
+def@
 SetDimensions[t_Tensor,dims_Integer?NonNegative,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"Dimensions",dims,opts]
 
 
-Clear[SetCoordinates]
+def@
 SetCoordinates[t_Tensor,coords_List,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"Coordinates",coords,opts]
 
 
-Clear[SetTensorName]
+def@
 SetTensorName[t_Tensor,{name_String,dispName_String},opts:OptionsPattern[]]:=SetTensorDisplayName[SetTensorKeyValue[t,"Name",name,opts],dispName,opts]
+reDef@
 SetTensorName[t_Tensor,name_String,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"Name",name,opts]
 
 
-Clear[SetTensorDisplayName]
+def@
 SetTensorDisplayName[t_Tensor,name_String,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"DisplayName",name,opts]
 
 
-Clear[SetAbstractQ]
+def@
 SetAbstractQ[t_Tensor,bool_?BooleanQ,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"AbstractQ",bool,opts]
 
 
-Clear[SetTensorValues]
+def@
 SetTensorValues[t_Tensor,values_List,opts:OptionsPattern[]]:=(ClearCachedTensorValues[t];SetTensorKeyValue[t,"Values",values,opts])
-SetTensorValues[t_Tensor,values_,opts:OptionsPattern[]]/;Rank[t]==={0,0}:=(ClearCachedTensorValues[t];SetTensorKeyValue[t,"Values",values,opts])
+reDef@
+SetTensorValues[t_Tensor/;Rank[t]==={0,0},values_,opts:OptionsPattern[]]:=(ClearCachedTensorValues[t];SetTensorKeyValue[t,"Values",values,opts])
 
 
-Clear[ToTensorFieldOnCurve]
+def@
+SetTetrad[t_Tensor,tet_Tetrad,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"Tetrad",tet,opts]
+
+
+def@
 ToTensorFieldOnCurve[t1_Tensor,c1_?CurveQ]:=
-Module[{params,paramVals},
+Module[{params},
 	
 	If[TensorName@Metric@t1=!=TensorName[(Association@@c1)["Metric"]],
 		Print["Cannot put Tensor on a curve with a different metric."];
@@ -616,7 +630,7 @@ Module[{params,paramVals},
 ]
 
 
-Clear[ToTensorOnCurve]
+def@
 ToTensorOnCurve[t1_Tensor,c1_?CurveQ]:=
 Module[{params,vals},
 	
@@ -630,13 +644,15 @@ Module[{params,vals},
 ]
 
 
-ToTensorOnCurve[{name_String,displayName_String},c1_?CurveQ,vals_List,inds_:Undefined]/;MatchQ[inds,_List|Undefined]:=
+reDef@
+ToTensorOnCurve[{name_String,displayName_String},c1_?CurveQ,vals_List,inds_:Undefined]:=
 Module[{t1,params},
 	t1=ToTensor[{name,displayName},Metric[c1],vals,inds];
 	params = {t1,{"Curve",c1},{"CurveParameter",CurveParameter@c1}};
 	Fold[SetTensorKeyValue[#1,Sequence@@#2]&,params]
 ]
-ToTensorOnCurve[name_String,c1_?CurveQ,vals_List,inds_:Undefined]/;MatchQ[inds,_List|Undefined]:=ToTensorOnCurve[{name,name},c1,vals,inds]
+reDef@
+ToTensorOnCurve[name_String,c1_?CurveQ,vals_List,inds_:Undefined]:=ToTensorOnCurve[{name,name},c1,vals,inds]
 
 
 Indices[expr_]:=
@@ -675,7 +691,7 @@ Clear[ValidTensorExpressionQ]
 ValidTensorExpressionQ[expr_]:=ValidateTensorExpression[expr,True]
 
 
-Clear[ValidateTensorExpression]
+def@
 ValidateTensorExpression[expr_,test_?BooleanQ]:=
 Module[{exprExpand,tfList,terms,indicesList,sumQ,metricQ},
 	exprExpand=Expand[expr];
@@ -728,7 +744,7 @@ Module[{exprExpand},
 indicesInProduct[expr_]:=indicesInProduct[expr,False];
 
 
-Clear[validateIndices]
+def@
 validateIndices[inds_List,test_?BooleanQ]:=
 Module[{indsUp,repeatedInds,toCov},
 
@@ -766,6 +782,428 @@ Module[{toCov,indsUp},
 
 Clear[deleteRepeatedIndices]
 deleteRepeatedIndices[inds_]:=DeleteCases[inds,Alternatives@@Flatten@repeatedIndices[inds]]
+
+
+Tetrad/:Format[t_Tetrad]:=formatTetrad[TetradDisplayName@t,Indices@t]
+Clear[formatTetrad]
+formatTetrad[name_String,{tetInd_,stInd_}]:=
+Module[{upStr,dnStr,inds},
+
+	inds = {tetInd,stInd};
+
+		dnStr=StringJoin[If[MatchQ[#,-_Symbol],ToString[#/.-x_:>x],StringJoin@Table["  ",StringLength[ToString[#/.-x_:>x]]]]&/@inds];
+		upStr=StringJoin[If[Not@MatchQ[#,-_Symbol],ToString[#],StringJoin@Table["  ",StringLength[ToString[#/.-x_:>x]]]]&/@inds];
+		DisplayForm@SubsuperscriptBox[name,StringReplace[dnStr, StartOfString ~~Whitespace~~EndOfString:> ""],StringReplace[upStr, StartOfString ~~Whitespace~~EndOfString:> ""]]
+]
+
+
+def@
+ToTetrad[assoc_Association]:=
+Module[{keys,listKeys,index},
+	keys={"Name","DisplayName","Index","PossibleIndices","Vectors","Metric"};
+	listKeys={"PossibleIndices"};
+
+	If[Sort@Keys[assoc]=!=Sort[keys],
+		Print["The following keys are missing in the tetrad formation: "<>ToString[Complement[keys,Keys[assoc]]]];
+		Print["The following extra keys were in the tetrad formation: "<>ToString[Complement[Keys[assoc],keys]]];
+		Abort[]
+	];
+	
+	If[Keys[assoc]=!=Sort[keys],
+		Print["Tetrad must be formed from keys in alphabetical order."];
+		Abort[]
+	];
+
+	If[Not[MatchQ[assoc["Name"],_String]],
+		Print["Tetrad Name must be a String."];
+		Abort[]
+	];
+
+	If[Not[MatchQ[assoc["DisplayName"],_String]],
+		Print["Tetrad DisplayName must be a String."];
+		Abort[]
+	];
+	
+	If[Not[MatchQ[assoc["Vectors"],{_Tensor,_Tensor,_Tensor,_Tensor}]]||(DeleteDuplicates[Rank/@assoc["Vectors"]]=!={{1,0}}&&DeleteDuplicates[Rank/@assoc["Vectors"]]=!={{0,1}}),
+		Print["Tetrad must be formed from four contravariant vectors or four covariant vectors."];
+		Abort[]
+	];
+
+	If[Length@DeleteDuplicates[TensorName/@assoc["Vectors"]]=!=4,
+		Print["Cannot form tetrad without four unique vectors."];
+		Abort[]
+	];
+
+	If[Length@DeleteDuplicates[TensorName[Metric[#]]&/@assoc["Vectors"]]=!=1,
+		Print["Cannot form tetrad from vectors with inconsistent metrics."];
+		Abort[]
+	];
+
+	If[Length@DeleteDuplicates[Coordinates/@assoc["Vectors"]]=!=1,
+		Print["Cannot form tetrad from vectors with inconsistent Coordinates."];
+		Abort[]
+	];
+
+	If[Length@DeleteDuplicates[PossibleIndices/@assoc["Vectors"]]=!=1,
+		Print["Cannot form tetrad from vectors with inconsistent PossibleIndices Lists."];
+		Abort[]
+	];
+
+	If[Length@DeleteDuplicates[Indices/@assoc["Vectors"]]=!=1,
+		Print["Cannot form tetrad from vectors with inconsistent Indices."];
+		Abort[]
+	];
+
+	If[DeleteDuplicates[Dimensions/@assoc["Vectors"]]=!={4},
+		Print["Tetrads are currently only supported in 4 dimensions."];
+		Abort[]
+	];
+
+	If[Not@MatchQ[assoc["PossibleIndices"],{__Symbol}]||Length@assoc["PossibleIndices"]<8,
+		Print["PossibleIndices must be a list of at least 8 Symbols"];
+		Abort[]
+	];
+
+	If[Intersection[PossibleIndices[assoc["Vectors"][[1]]],assoc["PossibleIndices"]]=!={},
+		Print["Tetrad indices cannot be the same as spacetime indices of the tetrad vectors."];
+		Abort[]
+	];
+
+	If[assoc["Index"]=!=Undefined&&Not@MemberQ[assoc["PossibleIndices"],assoc["Index"]/.(-a_Symbol:>a)],
+		Print["Given Index ", assoc["Index"]/.(-a_Symbol:>a), " not found in List of with PossibleIndices ", assoc["PossibleIndices"]];
+		Abort[];
+	];
+
+	index=If[assoc["Index"]===Undefined,-assoc["PossibleIndices"][[1]],assoc["Index"]];
+
+(*	If[#=!=Undefined&&Not[AutoNameQ[assoc["Name"]]]&&$CacheTensorValues,RawTensorValues[assoc["Name"],If[MatchQ[#,_Symbol],"Up","Down"]&/@assoc["Indices"]]=#]&[assoc["Values"]];*)
+	Tetrad@@(Normal@assoc/.("Index"->_):>("Index"->index))
+]
+
+
+reDef@
+ToTetrad[{n_String,dn_String},vecs_List,posInds_]:=
+Module[{assocMet,metric,posIndsComp,posIndsSyms},
+
+	posIndsSyms = If[MemberQ[{"Greek","Latin","CapitalLatin"},posInds],builtInIndices[posInds],posInds];
+	If[Not@MatchQ[posIndsSyms,{__Symbol}],
+		Print["PossibleIndices must be a list of Symbols"];
+		Abort[]
+	];
+	
+	posIndsComp=Complement[posIndsSyms,Coordinates[First@vecs]];
+
+	metric = defTetradMetric[n,vecs,posIndsComp];
+
+	ToTetrad[KeySort@Association["DisplayName"->dn,"Index"->-First[posIndsComp],"Metric"->metric,"Name"->n,"PossibleIndices"->posIndsComp,"Vectors"->vecs]]
+];
+reDef@
+ToTetrad[n_String,vecs_List,posInds_List]:=ToTetrad[{n,n},vecs,posInds]
+
+
+Clear[defTetradMetric]
+defTetradMetric[name_,vecs_,posIndsTet_]:=
+Module[{tvsTet,tvsMet,tvsTetMet},
+	
+	tvsTet=Simplify[TensorValues[#]]&/@vecs;
+	tvsMet=TensorValues[Metric@First@vecs];
+	tvsTetMet = Simplify[tvsTet.tvsMet.Transpose[tvsTet]];
+
+	ToMetric[{name<>"TetradMetric","\[DoubleStruckG]"},{1,2,3,4},tvsTetMet,posIndsTet]
+]
+
+
+def@TetradVectors[t_Tetrad]:=(Association@@t)["Vectors"];
+reDef@Coordinates[t_Tetrad]:=Coordinates@First[TetradVectors[t]];
+def@SpacetimeIndex[t_Tetrad]:=Indices[First[TetradVectors[t]]][[1]];
+def@TetradIndex[t_Tetrad]:=(Association@@t)["Index"];
+reDef@Indices[t_Tetrad]:={TetradIndex[t],SpacetimeIndex[t]};
+Tetrad/:Dimensions[t_Tetrad]:=Dimensions@First[TetradVectors[t]];
+def@PossibleSpacetimeIndices[t_Tetrad]:=PossibleIndices@First[TetradVectors[t]];
+def@PossibleTetradIndices[t_Tetrad]:=(Association@@t)["PossibleIndices"];
+def@TetradName[t_Tetrad]:=(Association@@t)["Name"];
+def@TetradDisplayName[t_Tetrad]:=(Association@@t)["DisplayName"];
+reDef@IndexPositions[t_Tetrad]:=If[MatchQ[#,_Symbol],"Up","Down"]&/@Indices[t];
+def@SpacetimeMetric[t_Tetrad]:=Metric@First[TetradVectors[t]];
+def@TetradMetric[t_Tetrad]:=(Association@@t)["Metric"];
+
+
+def@
+SetTetradKeyValue[t_Tetrad,key_String,value_,opts:OptionsPattern[]]:=
+Module[{tests},
+	tests = {"IgnoreWarnings" ->{BooleanQ,"IgnoreWarnings of MergeNested must be True or False."}};
+	TestOptions[tests,{opts}];
+	
+	If[OptionValue["IgnoreWarnings"],
+		Tetrad[Normal[KeySort@Join[KeyDrop[(Association@@t),{key}],Association[key->value]]]],
+		ToTetrad[KeySort@Join[KeyDrop[(Association@@t),{key}],Association[key->value]]]
+	]
+]
+
+
+def@
+SetTetradName[t_Tetrad,{name_String,dispName_String},opts:OptionsPattern[]]:=SetTetradDisplayName[SetTetradKeyValue[t,"Name",name,opts],dispName,opts]
+reDef@
+SetTetradName[t_Tetrad,name_String,opts:OptionsPattern[]]:=SetTetradKeyValue[t,"Name",name,opts]
+
+
+def@
+SetTetradDisplayName[t_Tetrad,name_String,opts:OptionsPattern[]]:=SetTetradKeyValue[t,"DisplayName",name,opts]
+
+
+def@
+SetTetradVectors[t_Tetrad,vecs_List,opts:OptionsPattern[]]:=SetTetradKeyValue[t,"Vectors",vecs,opts]
+
+
+def@
+SetTetradIndex[t_Tetrad,ind_,opts:OptionsPattern[]]:=SetTetradKeyValue[t,"Index",ind,opts]
+
+
+def@
+SetSpacetimeIndex[t_Tetrad,ind_,opts:OptionsPattern[]]:=SetTetradVectors[t,Through[TetradVectors[t][ind]],opts]
+
+
+def@
+SetTetradPossibleIndices[t_Tetrad,posInds_List,opts:OptionsPattern[]]:=SetTetradKeyValue[t,"PossibleIndices",posInds,opts]
+
+
+def@
+TetradValues[t_Tetrad]:=
+Module[{indsPos,vecsUpDn,metId},
+
+	indsPos = IndexPositions[t];	
+	
+	metId=If[indsPos[[1]]==="Down",
+			IdentityMatrix[4],
+			TensorValues[InverseMetric[TetradMetric[t]]]
+		];
+
+	vecsUpDn=TensorValues/@TetradVectors[t];
+
+	metId.vecsUpDn
+]
+
+
+def@
+ToTensorWithTetrad[t_Tensor,tet_Tetrad]:=
+Module[{},
+	SetTetrad[t,tet]
+]
+
+
+Clear[tensorConsistentValuesTest]
+tensorConsistentValuesTest[assoc_Association]:=
+Module[{keys},
+	keys={"Values","Dimensions","Indices"};
+
+	If[Complement[keys,Keys[assoc]]=!={},
+		Print["The following keys are missing in the tensorConsistentValuesTest: "<>ToString[Complement[keys,Keys[assoc]]]];
+		Abort[]
+	];
+
+	If[Dimensions[assoc["Values"]]=!=Table[assoc["Dimensions"],{Length[assoc["Indices"]]}],
+		Print["Provided values are inconsistent with given Tensor Rank and/or Dimensions."];
+		Abort[]
+	];
+]
+
+
+Clear[tensorIndsDimsCoordsTests]
+tensorIndsDimsCoordsTests[assoc_Association]:=
+Module[{keys,fullPosInds},
+
+	keys={"Indices","Dimensions","Coordinates","PossibleIndices","Tetrad"};
+
+	If[Complement[keys,Keys[assoc]]=!={},
+		Print["The following keys are missing in the tensorIndicesCoordsTests: "<>ToString[Complement[keys,Keys[assoc]]]];
+		Abort[]
+	];
+
+	If[Not@MatchQ[assoc["Coordinates"],{__Symbol|__Integer}],
+		Print["Coordinates must be a List of Symbols or Integers."];
+		Abort[]
+	];
+
+	If[Not[MatchQ[assoc["Dimensions"],_Integer?Positive]],
+		Print["Dimensions must be a positive Integer."];
+		Abort[]
+	];
+	
+	If[Length@assoc["Coordinates"]=!=assoc["Dimensions"],
+		Print["The number of coordinates given does not match the number of dimensions."];
+		Abort[]
+	];
+
+	If[Not@MatchQ[assoc["Indices"]/.-sym_Symbol:>sym,{___Symbol}],
+		Print["Indices must be a list of Symbols (and negative Symbols)."];
+		Abort[]
+	];
+		
+	If[Not@MatchQ[assoc["PossibleIndices"],{__Symbol}]||Length[assoc["PossibleIndices"]]<8,
+		Print["PossibleIndices must be a list of at least 8 Symbols"];
+		Abort[]
+	];
+
+	fullPosInds = Join[assoc["PossibleIndices"],If[assoc["Tetrad"]===Undefined,{},PossibleTetradIndices[assoc["Tetrad"]]]];
+	If[assoc["Indices"]=!={}&&Not@ContainsAll[fullPosInds,assoc["Indices"]/.(-a_Symbol:>a)],
+		Print["Given Indices ", assoc["Indices"]/.(-a_Symbol:>a), " are not all found in List of with PossibleIndices ", fullPosInds];
+		Abort[];
+	];
+
+	If[Intersection[assoc["Coordinates"],assoc["PossibleIndices"]]=!={},
+		Print["The following elements appear as both indices and coordinates: "<>ToString[Intersection[assoc["Coordinates"],assoc["PossibleIndices"]]]];
+		Abort[]
+	];
+]
+
+
+
+Clear[tensorSubmetricTests]
+tensorSubmetricTests[assoc_Association]:=
+	Module[{coords,subsets,keys},
+
+	keys={"Values","Coordinates","PossibleIndices"};	
+
+	If[Complement[keys,Keys[assoc]]=!={},
+		Print["The following keys are missing in the tensotSubmetricTests: "<>ToString[Complement[keys,Keys[assoc]]]];
+		Abort[]
+	];
+
+	If[Length@assoc["Values"]===1,
+		Print["It doesn't really make sense to have only one submetric, does it?"];
+		Abort[]
+	];
+
+	coords=Flatten[Coordinates/@assoc["Values"]];
+	If[Sort@coords =!=  Sort[assoc["Coordinates"]],
+		Print["Together, the Submetrics must have the same Coordinates as the Metric."];
+		Abort[]
+	];
+
+	subsets=Subsets[Join[{assoc["PossibleIndices"]},PossibleIndices/@assoc["Values"]],{2}];
+	If[Flatten[Intersection@@#&/@subsets]=!={},
+		Print["The Metric and each of its Submetrics must have a unique List of PossibleIndices."];
+		Print["The following Symbols are used in multiple metrics: ",Flatten[Intersection@@#&/@subsets]];	
+		Abort[]
+		];
+]
+
+
+Clear[tensorMetricTests]
+tensorMetricTests[assoc_Association]:=
+Module[{keys},
+	keys={"Metric","Coordinates","Dimensions","PossibleIndices"};
+
+	If[Complement[keys,Keys[assoc]]=!={},
+		Print["The following keys are missing in the tensorMetricTests: "<>ToString[Complement[keys,Keys[assoc]]]];
+		Abort[]
+	];
+
+	If[assoc["Metric"]===Undefined,
+		Print["All Tensors must have an associated Metric."];
+			Abort[]
+	];
+
+	If[Not@MetricQ[assoc["Metric"]],
+		Print["Given Option \"Metric\" is not a metric tensor."];
+		Abort[]
+	];
+		
+	If[(assoc["Coordinates"] =!= Coordinates[assoc["Metric"]]),
+		Print["Metric's Coordinates and given Coordinates are inconsistent: ", Coordinates[assoc["Metric"]], " and ",assoc["Coordinates"]];
+		Abort[]
+	];
+
+	If[(assoc["Dimensions"] =!= Dimensions[assoc["Metric"]]),
+		Print["Metric's Dimensions and given Dimensions are inconsistent: ", Dimensions[assoc["Metric"]], " and ",assoc["Dimensions"]];
+		Abort[]
+	];
+	
+	If[Sort[assoc["PossibleIndices"]]=!= Sort[PossibleIndices[assoc["Metric"]]],
+		Print["Metric's PossibleIndices and given PossibleIndices are inconsistent: ", PossibleIndices[assoc["Metric"]], " and ",assoc["PossibleIndices"]];
+		Abort[]
+	];
+]
+
+
+Clear[tensorCurveTests]
+tensorCurveTests[assoc_Association]:=
+Module[{keys},
+	keys={"Curve","CurveParameter","CurveQ","PossibleIndices","Values"};
+
+	If[Complement[keys,Keys[assoc]]=!={},
+		Print["The following keys are missing in the tensorCurveTests: "<>ToString[Complement[keys,Keys[assoc]]]];
+		Abort[]
+	];
+
+	If[Not@MatchQ[assoc["CurveParameter"],_Symbol],
+		Print["\"CurveParameter\" must be a Symbol or Undefined."];
+		Abort[]
+	];
+
+	If[Not@BooleanQ[assoc["CurveQ"]],
+		Print["\"CurveQ\" must be True or False."];
+		Abort[]
+	];
+
+	If[assoc["CurveQ"]&&(assoc["CurveParameter"]===Undefined),
+		Print["Curves must be parametrized."];
+		Abort[]
+	];
+	
+	If[assoc["Curve"]=!=Undefined&&assoc["Curve"]=!="Self"&&
+		Not@CurveQ[assoc["Curve"]],
+		Print["Given Option \"Curve\" is not a Curve."];
+		Abort[]
+	];
+	
+	If[MemberQ[assoc["PossibleIndices"],assoc["CurveParameter"]],
+		Print["\"CurveParameter\" cannot also be a possible index."];
+		Abort[]
+	];
+	
+	If[assoc["CurveParameter"]=!=Undefined,
+		checkForParam[assoc["Values"],assoc["Coordinates"],assoc["CurveParameter"]];
+	];
+]
+
+
+
+Clear[tensorTetradTests]
+tensorTetradTests[assoc_Association]:=
+Module[{keys},
+	keys={"Tetrad","Dimensions","Metric","PossibleIndices","Name"};
+
+	If[Complement[keys,Keys[assoc]]=!={},
+		Print["The following keys are missing in the tensorTetradTests: "<>ToString[Complement[keys,Keys[assoc]]]];
+		Abort[]
+	];
+
+	If[Not[MatchQ[assoc["Tetrad"],_Tetrad]],
+			Print["\"Tetrad\" must be Undefined or have Head Tetrad."];
+			Abort[]
+	];
+		
+	If[Dimensions[assoc["Tetrad"]]=!=assoc["Dimensions"],
+		Print["Tetrad and Tensor must have same Dimensions."];
+		Abort[]
+	];
+	
+	If[assoc["Metric"]===Undefined,
+		Print["Tetrads can only be assigned to Tensors with metrics."];
+		Abort[]
+	];
+	
+	If[If[assoc["Metric"]==="Self",assoc["Name"],TensorName[assoc["Metric"]]]=!=TensorName[SpacetimeMetric[assoc["Tetrad"]]],
+		Print["Tetrad's spacetime Metric and Tensor's Metric are not the same."];
+		Abort[]
+	];
+	
+	If[Sort@PossibleSpacetimeIndices[assoc["Tetrad"]]=!=Sort@assoc["PossibleIndices"],
+		Print["Tetrad's PossibleSpacetimeIndices and Tensor's PossibleIndices are not the same."];
+		Abort[]
+	];
+]
 
 
 End[];

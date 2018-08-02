@@ -21,13 +21,15 @@ Test[
 ]
 
 Test[
-	Simplify[TensorValues[D[uS, \[Tau]]]-{-((2 M \[ScriptCapitalE] Derivative[1][r][\[Tau]])/(-2 M + 
-    r[\[Tau]])^2), -(((3 M \[ScriptCapitalJ]^2 - \[ScriptCapitalJ]^2 \
+	Simplify[TensorValues[D[uS, \[Tau]]]
+	-
+	{-((2 M \[ScriptCapitalE] Derivative[1][r][\[Tau]])/(-2 M + 
+    r[\[Tau]])^2), -(((3 M \[ScriptCapitalL]^2 - \[ScriptCapitalL]^2 \
 r[\[Tau]] + M r[\[Tau]]^2) Derivative[1][r][\[Tau]])/(
   r[\[Tau]]^4 Sqrt[\[ScriptCapitalE]^2 - ((-2 M + 
-       r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/
+       r[\[Tau]]) (\[ScriptCapitalL]^2 + r[\[Tau]]^2))/
     r[\[Tau]]^3])), 0, -((
-  2 \[ScriptCapitalJ] Derivative[1][r][\[Tau]])/r[\[Tau]]^3)}],
+  2 \[ScriptCapitalL] Derivative[1][r][\[Tau]])/r[\[Tau]]^3)}],
 	{0, 0, 0, 0},
 	TestID->"Tensor-D2"	
 ]
@@ -44,18 +46,18 @@ Test[
 Test[
 	Simplify[TensorValues@MergeTensors@CovariantD[uS,uS]-
 	{(2 M \[ScriptCapitalE] (Sqrt[\[ScriptCapitalE]^2 - ((-2 M + 
-        r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/r[\[Tau]]^3] -
+        r[\[Tau]]) (\[ScriptCapitalL]^2 + r[\[Tau]]^2))/r[\[Tau]]^3] -
      Derivative[1][r][\[Tau]]))/(-2 M + 
-   r[\[Tau]])^2, ((3 M \[ScriptCapitalJ]^2 - \[ScriptCapitalJ]^2 r[\
+   r[\[Tau]])^2, ((3 M \[ScriptCapitalL]^2 - \[ScriptCapitalL]^2 r[\
 \[Tau]] + 
     M r[\[Tau]]^2) (Sqrt[\[ScriptCapitalE]^2 - ((-2 M + 
-        r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/r[\[Tau]]^3] -
+        r[\[Tau]]) (\[ScriptCapitalL]^2 + r[\[Tau]]^2))/r[\[Tau]]^3] -
      Derivative[1][r][\[Tau]]))/(
  r[\[Tau]]^4 Sqrt[\[ScriptCapitalE]^2 - ((-2 M + 
-      r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/
+      r[\[Tau]]) (\[ScriptCapitalL]^2 + r[\[Tau]]^2))/
    r[\[Tau]]^3]), 0, (
- 2 \[ScriptCapitalJ] (Sqrt[\[ScriptCapitalE]^2 - ((-2 M + 
-        r[\[Tau]]) (\[ScriptCapitalJ]^2 + r[\[Tau]]^2))/r[\[Tau]]^3] -
+ 2 \[ScriptCapitalL] (Sqrt[\[ScriptCapitalE]^2 - ((-2 M + 
+        r[\[Tau]]) (\[ScriptCapitalL]^2 + r[\[Tau]]^2))/r[\[Tau]]^3] -
      Derivative[1][r][\[Tau]]))/r[\[Tau]]^3}],
 	{0, 0, 0, 0},
 	TestID->"Tensor-CovariantD2"	
