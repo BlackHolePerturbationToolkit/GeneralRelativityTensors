@@ -40,7 +40,7 @@ Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c,chrValue,tests},
 	gT=Metric[t];
 	xx=Coordinates[gT];
 	{a,b,c}=Take[PossibleIndices[gT],3];
-	n=Dimensions[gT];
+	n=SpacetimeDimensions[gT];
 	g=RawTensorValues[gT];
 	ig=RawTensorValues@InverseMetric[gT];
 	name="ChristoffelSymbol"<>TensorName[t];
@@ -100,7 +100,7 @@ Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords,va
 	indsFinal=indsLocal["Tot"]/.(local[#]->#&/@Join[inds[1],inds[2]]);
 
 	tvs=RawTensorValues[t1];
-	dims=Dimensions[t1];
+	dims=SpacetimeDimensions[t1];
 	coords=Coordinates[t1];
 	itrs={#,1,dims}&/@indsLocal["Tot"];
 	vals=Table[D[tvs[[Sequence@@indsLocal[2]]],coords[[Sequence@@indsLocal[1]]]],Evaluate[Sequence@@itrs]];

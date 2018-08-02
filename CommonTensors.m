@@ -246,7 +246,7 @@ Module[{n,xx,vals,name,simpFn,simpFnNest,chr,
 
 	xx=Coordinates[gT];
 	{a,b,c,d}=Take[PossibleIndices[gT],4];
-	n=Dimensions[gT];
+	n=SpacetimeDimensions[gT];
 	chr=RawTensorValues@ChristoffelSymbol[gT,"ActWith"->simpFnNest];
 	
 	name="RiemannTensor"<>TensorName[gT];
@@ -389,8 +389,8 @@ Module[{rie,ricT,ricS,dim,i,k,l,m,name,simpFnNest,simpFn,tests},
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
 
-	dim = Dimensions[g];
-	If[dim <= 2, Print["Weyl tensor requires dimensions of at least 3"]; Abort[]];
+	dim = SpacetimeDimensions[g];
+	If[dim <= 2, Print["Weyl tensor requires SpacetimeDimensions of at least 3"]; Abort[]];
 
 	{i,k,l,m}=Take[PossibleIndices[g],4];
 	rie=RiemannTensor[g,"ActWithNested"->simpFnNest];
@@ -425,8 +425,8 @@ Module[{ricT,ricS,dim,i,j,k,name,simpFnNest,simpFn,tests},
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
 
-	dim = Dimensions[g];
-	If[dim <= 2, Print["Cotton tensor requires dimensions of at least 3"]; Abort[]];
+	dim = SpacetimeDimensions[g];
+	If[dim <= 2, Print["Cotton tensor requires SpacetimeDimensions of at least 3"]; Abort[]];
 
 	{i,j,k}=Take[PossibleIndices[g],3];
 	ricT=RicciTensor[g,"ActWithNested"->simpFnNest];
@@ -436,7 +436,7 @@ Module[{ricT,ricS,dim,i,j,k,name,simpFnNest,simpFn,tests},
 	
 	If[RawTensorValues[name,{"Down","Down","Down"}]===Undefined,
 		MergeTensors[CovariantD[ricT[-i,-j],-k]-CovariantD[ricT[-i,-k],-j]
-			+1/(2(Dimensions[g]-1)) (CovariantD[MergeTensors[ricS g[-i,-k],"ActWithNested"->simpFnNest],-j]
+			+1/(2(SpacetimeDimensions[g]-1)) (CovariantD[MergeTensors[ricS g[-i,-k],"ActWithNested"->simpFnNest],-j]
 								- CovariantD[MergeTensors[ricS g[-i,-j],"ActWithNested"->simpFnNest],-k]),
 								{name,"C"},"ActWith"->simpFn,"ActWithNested"->simpFnNest],
 		ToTensor[KeySort@Join[KeyDrop[Association@@g,{"DisplayName","Name","Metric","MetricQ","Indices"}],

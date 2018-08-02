@@ -8,7 +8,7 @@
     },
 
     "See Also" ->
-    {"Indices","Rank"},
+    {"Indices","Rank","SpacetimeDimensions"},
 
     "Tutorials" -> {
       "Introduction to GeneralRelativityTensors"

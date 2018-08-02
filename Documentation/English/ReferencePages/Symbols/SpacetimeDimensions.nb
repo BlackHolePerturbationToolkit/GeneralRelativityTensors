@@ -1,7 +1,7 @@
 Notebook[{
 Cell[" ", "SymbolColorBar",
  CellMargins->{{Inherited, Inherited}, {-5, 
-   0}},ExpressionUUID->"7f8561ab-2cf1-4a49-8abe-7ec844de5692"],
+   0}},ExpressionUUID->"1d86ad06-916b-42de-a758-f901da067c1e"],
 
 Cell[TextData[{
  ButtonBox["GeneralRelativityTensors",
@@ -15,14 +15,14 @@ Cell[TextData[{
    "paclet:GeneralRelativityTensors/guide/GeneralRelativityTensors`\
 TensorDefinitions"],
  StyleBox[" > ", "LinkTrailSeparator"],
- ButtonBox["SetDimensions",
+ ButtonBox["SpacetimeDimensions",
   BaseStyle->{"Link", "LinkTrail"},
-  ButtonData->"paclet:GeneralRelativityTensors/ref/SetDimensions"]
-}], "LinkTrail",ExpressionUUID->"6a091c46-8e4c-4fdf-9ec0-8f2e25039832"],
+  ButtonData->"paclet:GeneralRelativityTensors/ref/SpacetimeDimensions"]
+}], "LinkTrail",ExpressionUUID->"2d9d45a6-5a26-4813-ac57-a2edd24594fd"],
 
 Cell[BoxData[GridBox[{
    {Cell["GENERALRELATIVITYTENSORS`TENSORDEFINITIONS PACLET SYMBOL", 
-     "PacletNameCell",ExpressionUUID->"bede6b97-21b1-4675-98c1-5a9e1f285224"],
+     "PacletNameCell",ExpressionUUID->"b2166891-1d69-4dda-9b6f-282d3e7ed8b5"],
      Cell[TextData[{
      Cell[BoxData[
       ActionMenuBox[
@@ -31,55 +31,50 @@ Cell[BoxData[GridBox[{
        RowBox[{"Introduction", " ", "to", " ", "GeneralRelativityTensors"}]:>
        Documentation`HelpLookup[
        "paclet:GeneralRelativityTensors/tutorial/Introduction to \
-GeneralRelativityTensors"], 
-       RowBox[{"Caching", " ", "Tensor", " ", "values"}]:>
-       Documentation`HelpLookup[
-       "paclet:GeneralRelativityTensors/tutorial/Caching Tensor values"], 
-       RowBox[{"Low", " ", "level", " ", "Tensor", " ", "operations"}]:>
-       Documentation`HelpLookup[
-       "paclet:GeneralRelativityTensors/tutorial/Low level Tensor \
-operations"]},
+GeneralRelativityTensors"]},
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "a34de25d-e95a-4c03-bb1e-0579be761269"],
+      "8c2253aa-25e6-448e-89c0-d75f93675b01"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]",
      Cell[BoxData[
       ActionMenuBox[
        FrameBox["\<\"See Also \[RightGuillemet]\"\>",
-        StripOnInput->False], {"SetTensorKeyValue":>Documentation`HelpLookup[
-       "paclet:GeneralRelativityTensors/ref/SetTensorKeyValue"]},
+        StripOnInput->False], {"Indices":>Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/Indices"], "Rank":>
+       Documentation`HelpLookup["paclet:GeneralRelativityTensors/ref/Rank"], 
+       "Coordinates":>Documentation`HelpLookup[
+       "paclet:GeneralRelativityTensors/ref/Coordinates"]},
        Appearance->None,
        MenuAppearance->Automatic]],
       LineSpacing->{1.4, 0},ExpressionUUID->
-      "c2cb4c19-ca10-4add-bcfd-e4c4a73e5861"],
+      "4be09b2d-174f-4065-a84c-c9b05705acac"],
      "\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\[ThickSpace]\
 \[ThickSpace]"
-    }], "AnchorBar",ExpressionUUID->"d15c0ba4-a23e-461a-90ce-dfe8d2ec1b51"]}
-  }]], "AnchorBarGrid",ExpressionUUID->"65ca265c-3b67-4846-8065-d61b8d10ebc1"],
+    }], "AnchorBar",ExpressionUUID->"45a07ccc-e030-4265-87ff-ab64ee48bc53"]}
+  }]], "AnchorBarGrid",ExpressionUUID->"32d8145e-c4e8-49b4-bf2e-899367aa5e28"],
 
 Cell[CellGroupData[{
 
-Cell["SetDimensions", \
-"ObjectName",ExpressionUUID->"368aa506-3e90-4ab1-91ee-5fac34decd3d"],
+Cell["SpacetimeDimensions", \
+"ObjectName",ExpressionUUID->"8b21cac7-2919-40d8-a0dc-577e0131a21a"],
 
 Cell[BoxData[GridBox[{
    {"", Cell[TextData[{
      Cell[BoxData[
       RowBox[{
-       ButtonBox["SetDimensions",
+       ButtonBox["SpacetimeDimensions",
         BaseStyle->"Link",
-        ButtonData->"paclet:GeneralRelativityTensors/ref/SetDimensions"], "[", 
-       StyleBox[
-        RowBox[{"t", ",", "dims"}], "TI"], "]"}]], "InlineFormula",
-      ExpressionUUID->"466ca636-ea85-4a54-a42e-fa4196660d11"],
-     "\[LineSeparator]returns the Tensor t with its Dimensions set to dims."
-    }],ExpressionUUID->"58079ba7-9832-4bed-bbea-22c242378b66"]}
-  }]], "Usage",ExpressionUUID->"8708683a-f33c-42ea-a71c-f195cb48221f"]
+        ButtonData->
+         "paclet:GeneralRelativityTensors/ref/SpacetimeDimensions"], "[", 
+       StyleBox["t", "TI"], "]"}]], "InlineFormula",ExpressionUUID->
+      "dbf0d212-b754-4c69-b01e-f1a7892996f4"],
+     "\[LineSeparator]returns the number of spacetime dimensions in the \
+manifold of Tensor t."
+    }],ExpressionUUID->"53cca89b-4650-4557-83b4-c63bab7d2bca"]}
+  }]], "Usage",ExpressionUUID->"d8f2c6a2-f2be-439b-beac-eeb995b3d5fb"]
 }, Open  ]],
-
-Cell[CellGroupData[{
 
 Cell["", "NotesSection",
  WholeCellGroupOpener->True,
@@ -122,35 +117,7 @@ Cell["", "NotesSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& ), Evaluator -> 
        None, Method -> "Preemptive"]]], None}, {None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"0f9e6d35-4626-4115-b2f1-f09c39ddde56"],
-
-Cell["\<\
-SetDimensions will fail without IgnoreWarnings->True, and for good reason. \
-You almost never want to use this function.\
-\>", "Notes",ExpressionUUID->"1acb6884-b211-4303-86d3-22c951e80f52"],
-
-Cell["The following options can be given: ", \
-"Notes",ExpressionUUID->"7aaad30a-a5b4-45b3-a6e7-c090697addfa"],
-
-Cell[BoxData[GridBox[{
-   {Cell["      ", "TableRowIcon",ExpressionUUID->
-     "06e5ba17-6bf3-42db-aec6-f8c9a74c42c7"], "IgnoreWarnings", "False", 
-    Cell["\<\
-If True, the Tensor's key value will be set regardless of whether it violates \
-built-in warnings.\
-\>", "TableText",ExpressionUUID->"69fccc29-702a-4588-8b73-f75b724cf732"]}
-  },
-  GridBoxAlignment->{
-   "Columns" -> {Left, Left, {Left}}, "ColumnsIndexed" -> {}, 
-    "Rows" -> {{Baseline}}, "RowsIndexed" -> {}}]], "3ColumnTableMod",
- GridBoxOptions->{
- GridBoxBackground->{
-  "Columns" -> {{None}}, "ColumnsIndexed" -> {}, "Rows" -> {{None}}, 
-   "RowsIndexed" -> {}},
- GridBoxDividers->{
-  "Rows" -> {{
-     True, True}}}},ExpressionUUID->"22b41a13-3c29-47c7-a671-7f69378cf615"]
-}, Open  ]],
+  0,ExpressionUUID->"6cc3e952-ce98-4826-8317-00fb37b9f7b3"],
 
 Cell[CellGroupData[{
 
@@ -191,58 +158,37 @@ Cell["", "PrimaryExamplesSection",
    None, None}},
  CellFrameLabelMargins->0,
  CellTags->
-  "PrimaryExamplesSection",ExpressionUUID->"262f9a2f-2887-4c99-8f8c-\
-b2f2ef7605d5"],
+  "PrimaryExamplesSection",ExpressionUUID->"b7b702ad-2862-4ffd-8992-\
+2b8b06c0837f"],
 
 Cell[CellGroupData[{
 
 Cell[TextData[{
  "Basic Examples",
  "\[NonBreakingSpace]\[NonBreakingSpace]",
- Cell["(4)", "ExampleCount",ExpressionUUID->
-  "86ffc5fd-0b73-4269-81b0-3d0e1503f0a7"]
-}], "ExampleSection",ExpressionUUID->"413a4586-6249-4765-9f7a-b3dfe60fe8b6"],
+ Cell["(2)", "ExampleCount",ExpressionUUID->
+  "8f4a55fb-04ab-425d-8f6e-ea18dab88a4a"]
+}], "ExampleSection",ExpressionUUID->"ed1ca3dd-5ad2-4b57-b5eb-3651cb9fd31e"],
 
 Cell[CellGroupData[{
 
-Cell["gK = ToMetric[\"Kerr\"]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"e807be93-dfb8-4cc5-9113-c0f093926aa4"],
+Cell["gS = ToMetric[\"Schwarzschild\"]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"63084e08-6856-4c8d-8297-e846bf823ecd"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"e300b0f5-ddb0-479b-bb7a-5ec936277c6b"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"9a4adf72-27d9-4fed-a740-00513fb1044f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Dimensions[gK]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"11d93923-f132-423e-9735-c1f2e0e01e08"],
+Cell["SpacetimeDimensions[gS]", "Input",
+ CellLabel->"In[1]:=",ExpressionUUID->"2d68e233-18c4-47ea-8c58-492c171423a7"],
 
 Cell[BoxData["4"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"eb558bb1-4b11-44bd-a22d-8a22c83ba6b7"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["gK3 = SetDimensions[gK,3,IgnoreWarnings->True]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"4a5d576b-4a04-453d-bd9e-6ce09cb333ee"],
-
-Cell[BoxData[
- TagBox[
-  SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
-  DisplayForm]], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"fe7a9bab-26df-477d-83f6-f2462094568b"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["Dimensions[gK3]", "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"011a7e9c-b402-4c98-8d7d-7918138911da"],
-
-Cell[BoxData["3"], "Output",
- CellLabel->"Out[1]:= ",ExpressionUUID->"21e22fef-2361-4c54-9056-d37db0a4abc6"]
+ CellLabel->"Out[1]:= ",ExpressionUUID->"df743b91-2957-48d0-9cd3-7bd293b1c0e7"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
@@ -284,21 +230,39 @@ Cell["", "SeeAlsoSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"0cb55a01-1c68-4e38-ad49-c99b2fa4fa23"],
+  0,ExpressionUUID->"8256c357-677f-4267-86bd-f118e6d55381"],
 
 Cell[TextData[{
  Cell[BoxData[
   StyleBox[
-   ButtonBox["SetTensorKeyValue",
+   ButtonBox["Indices",
     BaseStyle->"Link",
-    ButtonData->"paclet:GeneralRelativityTensors/ref/SetTensorKeyValue"],
+    ButtonData->"paclet:GeneralRelativityTensors/ref/Indices"],
    FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
-  "1b55e1e8-ad21-40a5-abdb-5e55f92f2fd4"],
+  "0218c219-dfa4-43d7-b15f-83b4aa822a90"],
  "\[NonBreakingSpace]",
  StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
   "InlineSeparator"],
- " "
-}], "SeeAlso",ExpressionUUID->"fae1b701-33f3-4ad1-adb3-c65280415d77"]
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["Rank",
+    BaseStyle->"Link",
+    ButtonData->"paclet:GeneralRelativityTensors/ref/Rank"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "9ffc629e-871b-43ce-b8c4-14c3be33c19f"],
+ "\[NonBreakingSpace]",
+ StyleBox["\[MediumSpace]\[FilledVerySmallSquare]\[MediumSpace]", 
+  "InlineSeparator"],
+ " ",
+ Cell[BoxData[
+  StyleBox[
+   ButtonBox["Coordinates",
+    BaseStyle->"Link",
+    ButtonData->"paclet:GeneralRelativityTensors/ref/Coordinates"],
+   FontFamily->"Verdana"]], "InlineFormula",ExpressionUUID->
+  "bc3d668e-a1f4-4c02-841d-ece3fa0ec3b3"]
+}], "SeeAlso",ExpressionUUID->"f4888bc9-3cb2-445f-b9a3-2ee4e0d42dc0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -340,58 +304,50 @@ Cell["", "TutorialsSection",
            FrontEnd`SelectedNotebook[], After, CellContents]}]& )]]], None}, {
    None, None}},
  CellFrameLabelMargins->
-  0,ExpressionUUID->"7a5cc80e-f1b3-49f7-b18e-59181be53143"],
+  0,ExpressionUUID->"42fdf0b6-ebd3-4b46-bf28-e3b0bcc17274"],
 
 Cell[TextData[ButtonBox["Introduction to GeneralRelativityTensors",
  BaseStyle->"Link",
  ButtonData->
   "paclet:GeneralRelativityTensors/tutorial/Introduction to \
 GeneralRelativityTensors"]], \
-"Tutorials",ExpressionUUID->"9e4142a7-3d49-453c-9b55-809d84258c89"],
-
-Cell[TextData[ButtonBox["Caching Tensor values",
- BaseStyle->"Link",
- ButtonData->
-  "paclet:GeneralRelativityTensors/tutorial/Caching Tensor values"]], \
-"Tutorials",ExpressionUUID->"163e12fb-a23e-454e-9310-0fb09d93a6f9"],
-
-Cell[TextData[ButtonBox["Low level Tensor operations",
- BaseStyle->"Link",
- ButtonData->
-  "paclet:GeneralRelativityTensors/tutorial/Low level Tensor operations"]], \
-"Tutorials",ExpressionUUID->"fa8e6267-3a28-4637-a90b-dbc4e355444d"]
+"Tutorials",ExpressionUUID->"8fadbee1-697e-422b-b438-15e8897c2367"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell[" ", "FooterCell",ExpressionUUID->"5133f6d3-4734-41c6-819c-18b87fa59234"],
+Cell[" ", "FooterCell",ExpressionUUID->"f6b7d63f-bbb5-489f-b56b-5e9f625edadd"],
 
-Cell[BoxData[""],ExpressionUUID->"1612a734-c543-43f1-af44-2deb1401f3b5"]
+Cell[BoxData[""],ExpressionUUID->"4e1d4693-f562-41a5-91c7-6570a0bdd699"]
 }, Open  ]]
 },
 Saveable->False,
 ScreenStyleEnvironment->"Working",
 WindowSize->{725, 750},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
-WindowTitle->"SetDimensions",
+WindowTitle->"SpacetimeDimensions",
 Visible->True,
 PrivateNotebookOptions->{"FileOutlineCache"->False},
 TaggingRules->{
  "ModificationHighlight" -> False, 
   "Metadata" -> {
    "context" -> "GeneralRelativityTensors`", 
-    "keywords" -> {"SetDimensions", "SETDIMENSIONS", "setdimensions"}, 
+    "keywords" -> {
+     "SpacetimeDimensions", "SPACETIMEDIMENSIONS", "spacetimedimensions"}, 
     "index" -> True, "label" -> 
     "GeneralRelativityTensors/GeneralRelativityTensors`TensorDefinitions \
 Symbol", "language" -> "en", "paclet" -> 
     "GeneralRelativityTensors`TensorDefinitions", "status" -> "None", 
     "summary" -> 
-    "SetDimensions[t,dims] returns the Tensor t with its Dimensions set to \
-dims.", "synonyms" -> {"SetDimensions", "SETDIMENSIONS", "setdimensions"}, 
-    "title" -> "SetDimensions", "windowTitle" -> "SetDimensions", "type" -> 
-    "Symbol", "uri" -> "GeneralRelativityTensors/ref/SetDimensions", 
-    "WorkflowDockedCell" -> ""}, "SearchTextTranslated" -> "", "LinkTrails" -> 
-  "", "NewStyles" -> False},
+    "SpacetimeDimensions[t] returns the number of spacetime dimensions in the \
+manifold of Tensor t.", 
+    "synonyms" -> {
+     "SpacetimeDimensions", "SPACETIMEDIMENSIONS", "spacetimedimensions"}, 
+    "title" -> "SpacetimeDimensions", "windowTitle" -> "SpacetimeDimensions", 
+    "type" -> "Symbol", "uri" -> 
+    "GeneralRelativityTensors/ref/SpacetimeDimensions", "WorkflowDockedCell" -> 
+    ""}, "SearchTextTranslated" -> "", "LinkTrails" -> "", "NewStyles" -> 
+  False},
 TrackCellChangeTimes->False,
 FrontEndVersion->"11.3 for Mac OS X x86 (32-bit, 64-bit Kernel) (March 5, \
 2018)",

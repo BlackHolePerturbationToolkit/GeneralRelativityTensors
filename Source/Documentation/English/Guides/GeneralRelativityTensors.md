@@ -25,7 +25,7 @@
       {"Indices", "List of Indices of Tensor"},
       {"PossibleIndices", "List of all possible indices of Tensor"},
       {"IndexPositions","List of elements \"Up\" and \"Down\" giving the positions of Tensor indices"},
-      {"Dimensions", "Dimensions is overloaded. For GeneralRelativityTensors it gives the number of dimensions of the manifold."},
+      {"SpacetimeDimensions", "The number of dimensions of the manifold."},
       {"Coordinates", "List of the coordinates of the Tensor"},
       {"TensorRules", "List of Rules showing Tensor values for given components"},
       {"TensorName", "Internal name of Tensor"},
@@ -68,7 +68,7 @@
       {"SetCoordinates", "Change internal coordinates"},
       {"SetIndices", "Change internal indices"},
       {"SetPossibleIndices", "Change internal list of possible indices"},
-      {"SetDimensions", "Change internal value of dimensions"}
+      {"SetSpacetimeDimensions", "Change internal value of dimensions"}
     }
    },
    {"Title" -> "Common Tensors and functions",

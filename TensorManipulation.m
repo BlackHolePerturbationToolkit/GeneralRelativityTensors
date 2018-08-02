@@ -188,7 +188,7 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 			
 			RawTensorValues[TensorName[t],indPosNew]===Undefined,
 			tvs=RawTensorValues[t];
-			n=Dimensions[t];
+			n=SpacetimeDimensions[t];
 			indsBefore=Table[itr[ii],{ii,1,pos-1}];
 			indsAfter=Table[itr[ii],{ii,pos+1,Length@indPos}];
 			itrBefore=({#,1,n}&/@indsBefore);
@@ -288,7 +288,7 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 	indsNew=Delete[inds,{#}&/@Flatten@rptIndsPos];
 
 	tvs=RawTensorValues[t];
-	n=Dimensions[t];
+	n=SpacetimeDimensions[t];
 	indsBefore=Table[itr[ii],{ii,1,rptIndsPos[[1]]-1}];
 	indsBetween=Table[itr[ii],{ii,rptIndsPos[[1]]+1,rptIndsPos[[2]]-1}];
 	indsAfter=Table[itr[ii],{ii,rptIndsPos[[2]]+1,Length@indPos}];
@@ -382,7 +382,7 @@ Module[{simpFn,posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvF
 
 	tvs[1]=tvFunc[t1];
 	tvs[2]=tvFunc[t2];
-	dims=Dimensions[t1];
+	dims=SpacetimeDimensions[t1];
 	itrs={#,1,dims}&/@indsLocal["Tot"];
 	
 	vals=Map[simpFn,
@@ -453,7 +453,7 @@ Module[{simpFn,posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,inds
 
 	tvs[1]=tvFunc[t1];
 	tvs[2]=tvFunc[t2];
-	dims=Dimensions[t1];
+	dims=SpacetimeDimensions[t1];
 	itrs={#,1,dims}&/@indsLocal["Tot"];
 	vals=Map[simpFn,
 			Table[tvs[1][[Sequence@@indsLocal[1]]]tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]],
@@ -565,7 +565,7 @@ Module[{met,tTr,simpFn,simpFnNest,a,b,c,tests},
 
 	{a,b}=Indices[t];
 	c=SelectFirst[PossibleIndices[t],Not@MemberQ[({a,b}/.-n_:>n),#]&];
-	MergeTensors[t[a,b] - 2 Metric[t][a,b] t[c,-c]/Dimensions[t],{name,dispName},opts]
+	MergeTensors[t[a,b] - 2 Metric[t][a,b] t[c,-c]/SpacetimeDimensions[t],{name,dispName},opts]
 ];
 reDef@TraceReverse[t_Tensor,name_String,opts:OptionsPattern[]]:=TraceReverse[t,{name,name},opts];
 reDef@TraceReverse[t_Tensor,opts:OptionsPattern[]]:=TraceReverse[t,{TensorName[t]<>"TraceReverse","\!\(\*OverscriptBox[\("<>TensorDisplayName[t]<>"\), \(_\)]\)"},opts];

@@ -40,6 +40,8 @@ the inverse metric Tensor on the same curve.";
 Metric::usage="Metric[expr] returns the metric Tensor associated with the Tensor expression expr.";
 MetricQ::usage="MetricQ[t] returns True if the Tensor t is a metric.";
 
+SpacetimeDimensions::usage="SpacetimeDimensions[t] returns the number of spacetime dimensions in the \
+manifold of Tensor t."
 Coordinates::usage="Coordinates[expr] returns a List of symbols used for the coordinates of the Tensor \
 expression expr.";
 Rank::usage="Rank[t] returns the Tensor rank of the Tensor t as a List {p,q}, \
@@ -65,7 +67,7 @@ SetTensorKeyValue::usage="SetTensorKeyValue[t,key,value] returns the Tensor t wi
 SetTensorName::usage="SetTensorName[t,n] returns the Tensor t with its TensorName changed to n.";
 SetTensorDisplayName::usage="SetTensorDisplayName[t,n] returns the Tensor t with its TensorDisplayName changed to n.";
 SetTensorValues::usage="SetTensorValues[t,vals] returns the Tensor t with its RawTensorValues set to vals.";
-SetDimensions::usage="SetDimensions[t,dims] returns the Tensor t with its Dimensions set to dims.";
+SetSpacetimeDimensions::usage="SetSpacetimeDimensions[t,dims] returns the Tensor t with its SpacetimeDimensions set to dims.";
 SetCoordinates::usage="SetCoordinates[t,coords] returns the Tensor t with its Coordinates set to coords.";
 SetIndices::usage="SetIndices[t,inds] returns the Tensor t with its Indices set to inds.";
 SetPossibleIndices::usage="SetPossibleIndices[t,posInds] returns the Tensor t with its PossibleIndices set to posInds.";
@@ -144,7 +146,7 @@ Options[SetCurveQ]=Options[SetTensorKeyValue];
 Options[SetCurveParameter]=Options[SetTensorKeyValue];
 Options[SetIndices]=Options[SetTensorKeyValue];
 Options[SetPossibleIndices]=Options[SetTensorKeyValue];
-Options[SetDimensions]=Options[SetTensorKeyValue];
+Options[SetSpacetimeDimensions]=Options[SetTensorKeyValue];
 Options[SetCoordinates]=Options[SetTensorKeyValue];
 Options[SetTensorName]=Options[SetTensorKeyValue];
 Options[SetTensorDisplayName]=Options[SetTensorKeyValue];
@@ -168,7 +170,7 @@ DocumentationBuilder`OptionDescriptions["SetCurveQ"]=DocumentationBuilder`Option
 DocumentationBuilder`OptionDescriptions["SetCurveParameter"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
 DocumentationBuilder`OptionDescriptions["SetIndices"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
 DocumentationBuilder`OptionDescriptions["SetPossibleIndices"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
-DocumentationBuilder`OptionDescriptions["SetDimensions"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
+DocumentationBuilder`OptionDescriptions["SetSpacetimeDimensions"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
 DocumentationBuilder`OptionDescriptions["SetCoordinates"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
 DocumentationBuilder`OptionDescriptions["SetTensorName"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
 DocumentationBuilder`OptionDescriptions["SetTensorDisplayName"]=DocumentationBuilder`OptionDescriptions["SetTensorKeyValue"];
@@ -217,7 +219,7 @@ def@Coordinates[t_Tensor]:=(Association@@t)["Coordinates"];
 def@Curve[t_Tensor]:=If[(Association@@t)["Curve"]==="Self",t,(Association@@t)["Curve"]];
 def@Rank[t_Tensor]:=Module[{inds,co},inds=Indices[t];co=Count[inds,-_Symbol];{Length[inds]-co,co}];
 def@AbstractQ[t_Tensor]:=(Association@@t)["AbstractQ"];
-Tensor/:Dimensions[t_Tensor]:=(Association@@t)["Dimensions"];
+def@SpacetimeDimensions[t_Tensor]:=(Association@@t)["Dimensions"];
 def@Indices[t_Tensor]:=(Association@@t)["Indices"];
 def@PossibleIndices[t_Tensor]:=(Association@@t)["PossibleIndices"];
 def@CurveParameter[t_Tensor]:=(Association@@t)["CurveParameter"];
@@ -328,7 +330,7 @@ Module[{coords,posInds,dims,inds,nInds},
 
 	coords=Coordinates[metric];	
 	posInds=PossibleIndices[metric];
-	dims=Dimensions[metric];
+	dims=SpacetimeDimensions[metric];
 	nInds=If[MatchQ[vals,_List],Length@Dimensions[vals],0];
 	inds=If[indsGiven===Undefined,Take[posInds,nInds],indsGiven];
 						
@@ -391,7 +393,7 @@ Module[{inds,posInds,posIndsFull,dims},
 	
 	If[MatchQ[vals,{{__}..}],
 		If[Dimensions[vals]=!={dims,dims},
-			Print["To be consistent with the given value of Dimensions, Metric Values must be a ", 
+			Print["To be consistent with the number of given Coordinates, Metric Values must be a ", 
 				dims, " \[Times] ", dims, " matrix given as a nested List."];
 			Abort[]
 		],
@@ -429,8 +431,8 @@ Module[{posInds,coords,dims},
 
 	posInds=PossibleIndices[metric];
 	coords=Coordinates[metric];
-	dims=Dimensions[metric];	
-	If[dims=!=Length@vals,Print["Number of given values do not match metric dimensions"]; Abort[]];
+	dims=SpacetimeDimensions[metric];	
+	If[dims=!=Length@vals,Print["Number of given values do not match Metric's SpacetimeDimensions"]; Abort[]];
 	
 	checkForParam[vals,coords,param];
 
@@ -585,7 +587,7 @@ SetPossibleIndices[t_Tensor,inds_List,opts:OptionsPattern[]]:=SetTensorKeyValue[
 
 
 def@
-SetDimensions[t_Tensor,dims_Integer?NonNegative,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"Dimensions",dims,opts]
+SetSpacetimeDimensions[t_Tensor,dims_Integer?NonNegative,opts:OptionsPattern[]]:=SetTensorKeyValue[t,"Dimensions",dims,opts]
 
 
 def@
@@ -854,8 +856,8 @@ Module[{keys,listKeys,index},
 		Abort[]
 	];
 
-	If[DeleteDuplicates[Dimensions/@assoc["Vectors"]]=!={4},
-		Print["Tetrads are currently only supported in 4 dimensions."];
+	If[DeleteDuplicates[SpacetimeDimensions/@assoc["Vectors"]]=!={4},
+		Print["Tetrads are currently only supported in 4 SpacetimeDimensions."];
 		Abort[]
 	];
 
@@ -918,7 +920,7 @@ reDef@Coordinates[t_Tetrad]:=Coordinates@First[TetradVectors[t]];
 def@SpacetimeIndex[t_Tetrad]:=Indices[First[TetradVectors[t]]][[1]];
 def@TetradIndex[t_Tetrad]:=(Association@@t)["Index"];
 reDef@Indices[t_Tetrad]:={TetradIndex[t],SpacetimeIndex[t]};
-Tetrad/:Dimensions[t_Tetrad]:=Dimensions@First[TetradVectors[t]];
+reDef@SpacetimeDimensions[t_Tetrad]:=SpacetimeDimensions@First[TetradVectors[t]];
 def@PossibleSpacetimeIndices[t_Tetrad]:=PossibleIndices@First[TetradVectors[t]];
 def@PossibleTetradIndices[t_Tetrad]:=(Association@@t)["PossibleIndices"];
 def@TetradName[t_Tetrad]:=(Association@@t)["Name"];
@@ -1030,7 +1032,7 @@ Module[{keys,fullPosInds},
 	];
 	
 	If[Length@assoc["Coordinates"]=!=assoc["Dimensions"],
-		Print["The number of coordinates given does not match the number of dimensions."];
+		Print["The number of coordinates given does not match the number of SpacetimeDimensions."];
 		Abort[]
 	];
 
@@ -1114,8 +1116,8 @@ Module[{keys},
 		Abort[]
 	];
 
-	If[(assoc["Dimensions"] =!= Dimensions[assoc["Metric"]]),
-		Print["Metric's Dimensions and given Dimensions are inconsistent: ", Dimensions[assoc["Metric"]], " and ",assoc["Dimensions"]];
+	If[(assoc["Dimensions"] =!= SpacetimeDimensions[assoc["Metric"]]),
+		Print["Metric's SpacetimeDimensions and given SpacetimeDimensions are inconsistent: ", SpacetimeDimensions[assoc["Metric"]], " and ",assoc["Dimensions"]];
 		Abort[]
 	];
 	
@@ -1184,8 +1186,8 @@ Module[{keys},
 			Abort[]
 	];
 		
-	If[Dimensions[assoc["Tetrad"]]=!=assoc["Dimensions"],
-		Print["Tetrad and Tensor must have same Dimensions."];
+	If[SpacetimeDimensions[assoc["Tetrad"]]=!=assoc["Dimensions"],
+		Print["Tetrad and Tensor must have same SpacetimeDimensions."];
 		Abort[]
 	];
 	

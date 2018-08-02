@@ -1,14 +1,14 @@
 {
   "More Information" -> {
-      "Like all functions in the Tensors package, ActOnTensorValues does not \
+      "Like all functions in GeneralRelativityTensors, ActOnTensorValues does not \
 change the values of the Tensor it is called on."
   },
 
   "Basic Examples" -> {
     "ric = RicciTensor[ToMetric[\"Schw\"]]",
     "TensorValues[ric]",
-    "rieSimp = ActOnTensorValues[Simplify, rie]",
-    TensorValues[rieSimp]
+    "ricSimp = ActOnTensorValues[Simplify, ric]",
+    TensorValues[ricSimp]
     },
 
     "See Also" ->

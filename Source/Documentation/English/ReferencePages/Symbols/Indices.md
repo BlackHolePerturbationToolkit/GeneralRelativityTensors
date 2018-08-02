@@ -13,7 +13,7 @@ have the same indices.",
     },
 
     "See Also" ->
-    {"PossibleIndices","IndicesTraced","Rank","IndexPositions","Coordinates"},
+    {"PossibleIndices","IndicesTraced","Rank","IndexPositions","Coordinates","SpacetimeDimensions"},
 
     "Tutorials" -> {
       "Introduction to GeneralRelativityTensors"
