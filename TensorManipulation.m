@@ -151,7 +151,7 @@ Module[{posInds,indsUp,repeatedInds},
 
 
 def@
-ShiftIndices[t_Tensor,inds:{__},opts:OptionsPattern[]]:=
+ShiftIndices[t_Tensor,inds_List,opts:OptionsPattern[]]:=
 Module[{tests},
 	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
 	TestOptions[tests,{opts}];
@@ -159,7 +159,46 @@ Module[{tests},
 	validateTensorIndices[t,inds];
 	
 	Fold[shiftIndex[#1,#2,OptionValue["ActWith"]]&,t,Thread[{Range@Length[inds],inds}]]
-](*/;ContainsAll[PossibleIndices[t],DeleteDuplicates[(inds/.-nn_Symbol:>nn)]]*)
+]
+
+
+reDef@
+ShiftIndices[t_Tensor?SubmanifoldsQ,newInds_List,subInds_List,opts:OptionsPattern[]]:=
+Module[{newSubInds,newTVs,newMet,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
+	TestOptions[tests,{opts}];
+
+	validateTensorIndices[t,newInds];
+	If[Not[SameQ[Replace[newInds,sym_Symbol->1,2],Sequence@@Replace[subInds,sym_Symbol->1,3]]],
+		Print["New Indices and SubmanifoldIndices have inconsistent contravariant and covariant forms."];
+		Print["New Indices: ", newInds];
+		Print["New SubmanifoldIndices: ", subInds];
+		AbortVerbose[]
+	];
+	newSubInds=AllSubmanifoldIndicesFromList[subInds,Submetrics[t]];
+	
+	newTVs=MapThread[shiftIndicesSector[#1,{#2,#3},OptionValue["ActWith"]]&,{RawTensorValues[t],SubmanifoldIndices[t],newSubInds},Total@Rank[t]];
+	newMet=If[MetricQ[t]&&(If[MatchQ[#,_Symbol],"Up","Down"]&/@newInds)==={"Down","Down"},"Self",Metric[t]];
+
+	ToTensor[KeySort@Join[Association@@t,
+						Association["Values"->newTVs,
+									"Metric"->newMet,
+									"Indices"->newInds,
+									"SubmanifoldIndices"->newSubInds]]]
+]
+
+
+reDef@
+ShiftIndices[t_Tensor?SubmanifoldsQ,newInds_List,opts:OptionsPattern[]]:=
+Module[{positionList,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
+	TestOptions[tests,{opts}];
+
+	positionList=If[MatchQ[#,_Symbol],"Up","Down"]&/@newInds;
+	ShiftIndices[t,newInds,SubmanifoldIndicesFromPositions[positionList,Metric[t]],opts]
+]
 
 
 testDef@
@@ -212,6 +251,14 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 								"Indices"->newInds,
 								"Curve"->newCurve]]]
 ]
+
+
+Clear[shiftIndexExpr]
+shiftIndexExpr[expr_,{oldInd_,newInd_},simpFn_]:=expr/.t_Tensor/;MemberQ[Indices[t],oldInd]:>shiftIndex[t,{Position[Indices[t],oldInd][[1,1]],newInd},simpFn]
+
+
+Clear[shiftIndicesSector]
+shiftIndicesSector[expr_,{oldInds_,newInds_},simpFn_]:=Fold[shiftIndexExpr[#1,#2,simpFn]&,expr,Thread[{oldInds,newInds}]]
 
 
 posIndPatterns={_Pattern,-_Pattern,

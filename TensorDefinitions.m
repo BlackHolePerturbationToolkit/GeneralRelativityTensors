@@ -50,6 +50,8 @@ Indices::usage="Indices[t] returns a List of Symbols representing the indices of
 Positive Symbols are contravariant and negative Symbols are covariant.
 Indices[expr] will return a uniqe list of indices if each term in the Tensor expression expr \
 has the same indices.";
+SubmanifoldIndices::usage="SubmanifoldIndices[t] returns a nested List of Symbols representing the indices of \
+the sub-tensors of t."
 IndicesTraced::usage="IndicesTraced[expr] returns a unique list of indices that each term \
 in the Tensor expression expr would have if all dummy indices were traced out.";
 PossibleIndices::usage="PossibleIndices[expr] returns a List of all possible Symbols that can \
@@ -109,7 +111,12 @@ ValidateTensorExpression::usage="ValidateTensorExpression[expr] checks whether a
 aborts if it is not.";
 
 SubmanifoldsQ::usage="SubmanifoldsQ[t] returns True if Tensor t is defined with Submanifolds.";
-SubmanifoldForm::usage="SubmanifoldForm[t] returns the values of Tensor t split into nested Lists corresponding to its submanifolds."
+(*SubmanifoldForm::usage="SubmanifoldForm[t] returns the values of Tensor t split into nested Lists corresponding to its submanifolds.";*)
+Submetrics::usage="Submetrics[t] returns the List of Metrics for the submanifolds of Tensor t.";
+
+
+AllSubmanifoldIndicesFromList;
+SubmanifoldIndicesFromPositions;
 
 
 Tetrad::usage="Tetrad is a Head created with the command ToTetrad.";
@@ -225,6 +232,7 @@ def@AbstractQ[t_Tensor]:=(Association@@t)["AbstractQ"];
 def@SpacetimeDimensions[t_Tensor]:=(Association@@t)["Dimensions"];
 def@Indices[t_Tensor]:=(Association@@t)["Indices"];
 def@PossibleIndices[t_Tensor]:=(Association@@t)["PossibleIndices"];
+def@SubmanifoldIndices[t_Tensor]:=(Association@@t)["SubmanifoldIndices"];
 def@CurveParameter[t_Tensor]:=(Association@@t)["CurveParameter"];
 def@CurveQ[t_]:=MatchQ[t,_Tensor]&&(Association@@t)["CurveQ"];
 def@OnCurveQ[t_]:=MatchQ[t,_Tensor]&&(CurveParameter[t]=!=Undefined);
@@ -265,9 +273,9 @@ def@
 ToTensor[assoc_Association]:=
 Module[{keys,notAbstrKeys,listKeys,booleanKeys},
 	keys={"AbstractQ","Coordinates","Curve","CurveParameter","CurveQ","Dimensions",
-		"DisplayName","Indices","Metric","MetricQ","Name","PossibleIndices",(*"SubmanifoldIndices",*)"Tetrad","Values"};
+		"DisplayName","Indices","Metric","MetricQ","Name","PossibleIndices","SubmanifoldIndices","Tetrad","Values"};
 	notAbstrKeys={"Metric","Coordinates","Values","PossibleIndices","Dimensions"};
-	listKeys={"Coordinates","PossibleIndices","Indices"(*,"SubmanifoldIndices"*)};
+	listKeys={"Coordinates","PossibleIndices","Indices"};
 	booleanKeys={"MetricQ","CurveQ","AbstractQ"};
 
 	If[Sort@Keys[assoc]=!=Sort[keys],
@@ -306,7 +314,7 @@ Module[{keys,notAbstrKeys,listKeys,booleanKeys},
 	If[assoc["Metric"]=!="Self",tensorMetricTests[assoc]];
 			
 	If[MatchQ[assoc["Values"],_List],
-		If[MatchQ[assoc["Values"],{_?MetricQ..}],
+		If[MatchQ[Diagonal[assoc["Values"]],{_?MetricQ..}],
 			tensorSubmetricTests[assoc],
 			tensorConsistentValuesTests[assoc]
 		],
@@ -327,7 +335,7 @@ Module[{keys,notAbstrKeys,listKeys,booleanKeys},
 
 reDef@
 ToTensor[{name_String,dispName_String},metric_Tensor?MetricQ,vals_,indsGiven_:Undefined]:=
-Module[{coords,posInds,dims,inds,nInds},
+Module[{coords,posInds,dims,inds,nInds,subInds},
 
 	If[AbstractQ[metric],Print["Tensor with values cannot be defined using \"AbstractQ\" metric."];AbortVerbose[]];
 
@@ -336,6 +344,10 @@ Module[{coords,posInds,dims,inds,nInds},
 	dims=SpacetimeDimensions[metric];
 	nInds=If[MatchQ[vals,_List],Length@Dimensions[vals],0];
 	inds=If[indsGiven===Undefined,Take[posInds,nInds],indsGiven];
+	subInds=If[SubmanifoldsQ[metric],
+				AllSubmanifoldIndicesFromValues[vals,Submetrics[metric]],
+				Undefined
+			];
 						
 	ToTensor[KeySort@Association["AbstractQ"->False,
 						"Coordinates"->coords,
@@ -349,10 +361,15 @@ Module[{coords,posInds,dims,inds,nInds},
 						"Metric"->metric,
 						"Name"->name,
 						"PossibleIndices"->posInds,
+						"SubmanifoldIndices"->subInds,
 						"Tetrad"->Undefined,
 						"Values"->vals]]
 ]
 reDef@ToTensor[name_String,metric_Tensor?MetricQ,vals_,indsGiven_:Undefined]:=ToTensor[{name,name},metric,vals,indsGiven];
+
+
+def@
+Submetrics[t_Tensor?SubmanifoldsQ]:=Diagonal@RawTensorValues[Metric@t]
 
 
 testDef@
@@ -371,7 +388,7 @@ Switch[label,
 
 def@
 ToMetric[{name_String,dispName_String},coords_List,vals_List,posIndsParam_]:=
-Module[{inds,posInds,posIndsFull,dims},
+Module[{inds,posInds,posIndsFull,dims,subInds,valsFull},
 
 	posIndsFull = 
 		If[MemberQ[{"Greek","Latin","CapitalLatin"},posIndsParam],
@@ -407,6 +424,10 @@ Module[{inds,posInds,posIndsFull,dims},
 		]
 	];
 	
+	{subInds,valsFull}=If[MatchQ[vals,{_Tensor?MetricQ..}],
+							{AllSubmanifoldIndicesFromList[Indices/@vals,vals],DiagonalMatrix[vals]},
+							{Undefined,vals}];
+			
 	ToTensor[Association[
 					"AbstractQ"->False,
 					"Coordinates"->coords,
@@ -420,8 +441,9 @@ Module[{inds,posInds,posIndsFull,dims},
 					"MetricQ"->True,
 					"Name"->name,
 					"PossibleIndices"->posInds,
+					"SubmanifoldIndices"->subInds,
 					"Tetrad"->Undefined,
-					"Values"->vals]]
+					"Values"->valsFull]]
 ]
 reDef@ToMetric[{name_String,dispName_String},coords_,vals_]:=ToMetric[{name,dispName},coords,vals,"Greek"]
 reDef@ToMetric[name_String,coords_,vals_,posIndsParam_]:=ToMetric[{name,name},coords,vals,posIndsParam]
@@ -451,6 +473,7 @@ Module[{posInds,coords,dims},
 								"Metric"->metric,
 								"Name"->name,
 								"PossibleIndices"->posInds,
+								"SubmanifoldIndices"->Undefined,
 								"Tetrad"->Undefined,
 								"Values"->vals]]
 ]
@@ -498,14 +521,14 @@ Module[{metrics,metricNames},
 
 
 def@
-SubmanifoldsQ[t_Tensor]:=MatchQ[TensorValues[Metric[t]],{_Tensor?MetricQ..}]
+SubmanifoldsQ[t_Tensor]:=MatchQ[Diagonal@TensorValues[Metric[t]],{_Tensor?MetricQ..}]
 
 
-def@
-SubmanifoldIndices[t_Tensor?SubmanifoldsQ]:=Map[Indices,RawTensorValues[t],{Total@Rank[t]}]
+(*def@
+SubmanifoldIndices[t_Tensor?SubmanifoldsQ]:=Map[Indices,RawTensorValues[t],{Total@Rank[t]}]*)
 
 
-def@
+(*def@
 SubmanifoldForm[t_Tensor]:=
 If[Not[SubmanifoldsQ[t]],
 	Print["Tensor ", t, " is not defined with Submanifolds."];
@@ -515,12 +538,12 @@ If[Not[SubmanifoldsQ[t]],
 		DiagonalMatrix[TensorValues[t]],
 		TensorValues[t]
 	]
-];
+];*)
 
 
 testDef@
-possibleSubmanifoldIndices[indexPositions_List,met_Tensor?(MetricQ@#&&SubmanifoldsQ@#&)]:=
-Module[{indsDn,indsUp,mets,nDn,nUp,totInds,totIndsUp},
+SubmanifoldIndicesFromPositions[indexPositions_List,met_Tensor?(MetricQ@#&&SubmanifoldsQ@#&)]:=
+Module[{indsDn,indsUp,mets,nDn,nUp,totIndsUp},
 
 	If[Not@MatchQ[indexPositions,{_String?(#==="Up"||#==="Down"&)..}],
 		Print["IndexPositions should be a List of \"Up\" and \"Down\"."];
@@ -533,14 +556,12 @@ Module[{indsDn,indsUp,mets,nDn,nUp,totInds,totIndsUp},
 	mets=RawTensorValues[met];
 	totIndsUp=Take[PossibleIndices@#,Length@indexPositions]&/@mets;
 
-	totInds=Table[MapThread[If[#1==="Up",1,-1]#2&,{indexPositions,indSub}],{indSub,totIndsUp}];
-
-	possibleSubmanifoldIndicesFromList[totInds,mets]
+	Table[MapThread[If[#1==="Up",1,-1]#2&,{indexPositions,indSub}],{indSub,totIndsUp}]
 ]
 
 
 testDef@
-possibleSubmanifoldIndicesFromList[totInds_?(MatchQ[#,{{__}..}]&),mets_?(MatchQ[#,{_?MetricQ..}]&)]:=
+AllSubmanifoldIndicesFromList[totInds_?(MatchQ[#,{{__}..}]&),mets_?(MatchQ[#,{_?MetricQ..}]&)]:=
 Module[{totIndsUp,posIndsUp},
 
 	totIndsUp=totInds/.-sym_Symbol:>sym;
@@ -560,7 +581,7 @@ Module[{totIndsUp,posIndsUp},
 
 
 testDef@
-possibleSubmanifoldIndicesFromValues[vals_List,mets_?(MatchQ[#,{_?MetricQ..}]&)]:=
+AllSubmanifoldIndicesFromValues[vals_List,mets_?(MatchQ[#,{_?MetricQ..}]&)]:=
 Module[{totInds},
 	If[Length@vals=!=Length@mets,
 		Print["Number of values does not equal number of submetrics."];
@@ -569,7 +590,7 @@ Module[{totInds},
 	
 	totInds=Indices[vals[[#,#]]]&/@Range[Length@mets];
 
-	possibleSubmanifoldIndicesFromList[totInds,mets]
+	AllSubmanifoldIndicesFromList[totInds,mets]
 ]
 
 
@@ -583,7 +604,7 @@ Module[{assoc,tvStored,tv,posUp},
 			If[TensorValues[t]===Undefined,
 				Undefined,
 				If[SubmanifoldsQ[t],
-					InverseMetric/@RawTensorValues[Metric[t]],
+					DiagonalMatrix[InverseMetric/@Submetrics[t]],
 					Simplify[Inverse@RawTensorValues[Metric[t]]]
 				]
 			],
@@ -1083,27 +1104,31 @@ Module[{},
 testDef@
 tensorConsistentValuesTests[assoc_Association]:=
 Module[{keys,subInds,indPosList,posInds},
-	keys={"Values","Dimensions","Indices","Metric"};
+	keys={"Values","Dimensions","Indices","Metric","MetricQ","SubmanifoldIndices"};
 
 	If[Complement[keys,Keys[assoc]]=!={},
 		Print["The following keys are missing in the tensorConsistentValuesTest: "<>ToString[Complement[keys,Keys[assoc]]]];
 		AbortVerbose[]
 	];
 
-	If[(assoc["Metric"]==="Self"&&MatchQ[assoc["Values"],{_Tensor?MetricQ..}])||(assoc["Metric"]=!="Self"&&SubmanifoldsQ[assoc["Metric"]]),
+	If[(assoc["Metric"]==="Self"&&MatchQ[Diagonal[assoc["Values"]],{_Tensor?MetricQ..}])||(assoc["Metric"]=!="Self"&&SubmanifoldsQ[assoc["Metric"]]),
 	
 		If[Dimensions[assoc["Values"]]=!=Table[Length[RawTensorValues[assoc["Metric"]]],{Length[assoc["Indices"]]}],
 			Print["Provided values are inconsistent with given Tensor Rank and/or the number of Submetrics."];
 			AbortVerbose[]
 		];
 		
-		If[assoc["Metric"]=!="Self"&&SubmanifoldsQ[assoc["Metric"]],
+		If[Not[assoc["MetricQ"]]&&SubmanifoldsQ[assoc["Metric"]],
 			subInds=Map[Indices,assoc["Values"],{Length@assoc["Indices"]}];
-			posInds=possibleSubmanifoldIndicesFromValues[assoc["Values"],RawTensorValues[assoc["Metric"]]];
+			posInds=AllSubmanifoldIndicesFromValues[assoc["Values"],Submetrics[assoc["Metric"]]];
 			
-			If[Echo@Map[Sort,posInds,{Length@assoc["Indices"]}]=!=Echo@Map[Sort,subInds,{Length@assoc["Indices"]}],
-				Print["Tensor submanifold Indices given as ", subInds];
-				Print["Given the submetrics and Rank the following submanifold Indices are expected: ", possibleSubmanifoldIndicesFromValues[assoc["Values"],RawTensorValues[assoc["Metric"]]]];
+			If[Not[SameQ[Map[Sort,posInds,{Length@assoc["Indices"]}],
+						Map[Sort,subInds,{Length@assoc["Indices"]}],
+						(*assoc["SubmanifoldIndices"]*)
+						Map[Sort,assoc["SubmanifoldIndices"],{Length@assoc["Indices"]}]]],
+				Print["Tensor SubmanifoldIndices given as: ", assoc["SubmanifoldIndices"]];
+				Print["Tensor SubmanifoldIndices from values are: ", subInds];
+				Print["Given the submetrics and Rank the following submanifold Indices are expected: ", posInds];
 				AbortVerbose[]
 			]
 		],
@@ -1168,26 +1193,32 @@ Module[{keys,fullPosInds},
 
 testDef@
 tensorSubmetricTests[assoc_Association]:=
-	Module[{coords,subsets,keys},
+Module[{coords,subsets,keys},
 
 	keys={"Values","Coordinates","PossibleIndices"};	
+	
 
 	If[Complement[keys,Keys[assoc]]=!={},
 		Print["The following keys are missing in the tensotSubmetricTests: "<>ToString[Complement[keys,Keys[assoc]]]];
 		AbortVerbose[]
 	];
 
-	If[Length@assoc["Values"]===1,
-		Print["It doesn't really make sense to have only one submetric, does it?"];
+	If[DiagonalMatrix@Diagonal[assoc["Values"]]=!=assoc["Values"],
+		Print["Submetrics can only be defined along the diagonal."];
 		AbortVerbose[]
 	];
+
+(*	If[Length@assoc["Values"]===1,
+		Print["It doesn't really make sense to have only one submetric, does it?"];
+		AbortVerbose[]
+	];*)
 
 	coords=Flatten[Coordinates/@assoc["Values"]];
 	If[Sort@coords === Sort[assoc["Coordinates"]],
 		If[coords =!= assoc["Coordinates"],
 			Print["Submetrics must given so their Coordinates are in the same order as the Metric."];
 			Print["Metric Coordinates are ", assoc["Coordinates"]];
-			Print["Subetric Coordinates are ", coords];
+			Print["Submanifold Coordinates are ", coords];
 			AbortVerbose[]
 		],
 			
@@ -1201,6 +1232,8 @@ tensorSubmetricTests[assoc_Association]:=
 		Print["The following Symbols are used in multiple metrics: ",Flatten[Intersection@@#&/@subsets]];	
 		AbortVerbose[]
 	];
+	
+	
 ]
 
 
