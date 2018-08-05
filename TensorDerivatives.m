@@ -65,7 +65,7 @@ Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c,chrValue,tests},
 ]
 
 
-def@
+testDef@
 validateDerivativeIndices[inds1_List,inds2_List]:=
 Module[{indsUp,repeatedInds,inds,toCov},
 
@@ -76,12 +76,12 @@ Module[{indsUp,repeatedInds,inds,toCov},
 
 	If[Union@Join[Count[indsUp,#]&/@DeleteDuplicates[indsUp],{1,2}]=!=Sort@{1,2},
 		Print["The following indices were repeated more than twice: ",If[Count[indsUp,#]>2,#,##&[]]&/@DeleteDuplicates[indsUp]];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[If[#[[1]]=!=-#[[2]],#,##&[]]&/@repeatedInds=!={},
 		Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],toCov[#[[1]]],##&[]]&/@repeatedInds];
-		Abort[]
+		AbortVerbose[]
 	];
 ]
 
@@ -195,13 +195,13 @@ Module[{simpFn,t1Simp,expr1,expr2,expr3,aInds,met,pis,tempD,exprExpand,merge,tes
 	met=Metric[expr];
 	pis=PossibleIndices[met];
 
-	If[Not[MemberQ[pis,a]],Print["Index ", a, " is not in the list of PossibleIndices of ",met]; Abort[]];
+	If[Not[MemberQ[pis,a]],Print["Index ", a, " is not in the list of PossibleIndices of ",met]; AbortVerbose[CovariantD]];
 
 	expr1=Which[MatchQ[Expand[expr],_Times],tempD[exprExpand,-a],
 			MatchQ[exprExpand,_Plus],tempD[#,-a]&/@exprExpand,
 			True,
 			Print["Expression ", exprExpand, " does not have Head Plus or Times. Cannot differentiate."];
-			Abort[]
+			AbortVerbose[CovariantD]
 	];
 
 	expr2 = expr1/.(tempD[coeff_ t:(_Tensor|Times[_Tensor, __Tensor]),-a]/;Not@MatchQ[coeff,_Tensor|Times[_Tensor, __Tensor] ]):>coeff covDProd[Sequence@t,-a,aInds,Identity];
@@ -229,7 +229,7 @@ Module[{b,aInds,met,pis,simpFn,merge,expr1,tests},
 	met=Metric[expr];
 	pis=PossibleIndices[met];
 	
-	If[Not[MemberQ[pis,a]],Print["Index ", a, " is not in the list of PossibleIndices of ",met]; Abort[]];
+	If[Not[MemberQ[pis,a]],Print["Index ", a, " is not in the list of PossibleIndices of ",met]; AbortVerbose[CovariantD]];
 
 	b=SelectFirst[pis,Not[MemberQ[aInds,#]]&];
 
@@ -290,15 +290,15 @@ Module[{chr,chrC,a,b,c,x1,x2,param,simpFn,tests},
 	x2=Curve[u];
 	If[TensorName[x1]=!=TensorName[x2],
 		Print["Cannot take covariant derivative along 4-velocity from different curves."]; 
-		Abort[]
+		AbortVerbose[CovariantD]
 	];
 	If[Not[Rank[u]==={1,0}],
 		Print["Four velocity that we differentiate along must be rank {1,0}."];
-		Abort[]
+		AbortVerbose[CovariantD]
 	];
 	If[Not[Total@Rank[t1]===1],
 		Print["For now, covariant differentiation on Curves is only possible for vectors."];
-		Abort[]
+		AbortVerbose[CovariantD]
 	];
 
 	param=CurveParameter[x2];
@@ -325,15 +325,15 @@ Module[{chr,chrC,inds,a,covD,simpFn,tests},
 	
 	If[TensorName[Metric@t1]=!=TensorName[Metric@u],
 		Print["Cannot take covariant derivative along 4-velocity from different metric."]; 
-		Abort[]
+		AbortVerbose[CovariantD]
 	];
 	If[Not[Rank[u]==={1,0}],
 		Print["Four velocity that we differentiate along must be rank {1,0}."];
-		Abort[]
+		AbortVerbose[CovariantD]
 	];
 	If[Curve[t1]=!=Undefined&&(TensorName[Curve[t1]]=!=TensorName[Curve[u]]),
 		Print["Cannot take covariant derivative along 4-velocity from different curves."]; 
-		Abort[]
+		AbortVerbose[CovariantD]
 	];
 	inds=Indices[t1];
 	a=SelectFirst[PossibleIndices[t1],Not[MemberQ[Join[inds,{avoidInds}]/.(-n_Symbol:>n),#]]&];

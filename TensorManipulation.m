@@ -112,7 +112,7 @@ t_Tetrad[inds__]:=ShiftTetradIndices[t,{inds}]
 (*UniqueIndices[t_Tensor,n_Integer/;n>=0]:=Unique[PadRight[{},n,PossibleIndices[t]]]*)
 
 
-def@
+testDef@
 validateTensorIndices[t_Tensor,{inds___}]:=
 Module[{posInds,indsUp,repeatedInds},
 
@@ -122,7 +122,7 @@ Module[{posInds,indsUp,repeatedInds},
 
 	If[Complement[indsUp,posInds]=!={},
 		Print["The following indices are not included in the list of PossibleIndices for tensor ", t, ": ", Complement[indsUp,posInds]];
-		Abort[]
+		AbortVerbose[]
 	];
 	(*The commented code is for when we add unique indices with dollar signs*)
 	(*If[Complement[Symbol[StringTrim[ToString[Unique[#]],"$"~~__]]&/@indsUp,posInds]=!={},
@@ -131,21 +131,21 @@ Module[{posInds,indsUp,repeatedInds},
 	];*)
 	If[Length[indsUp]=!=Total[Rank[t]],
 		Print["The tensor ", t, " expects " ,Total[Rank[t]], " indices, but ", Length[indsUp], If[Length[indsUp]===1," index was ", " indices were "],"given."];
-		Abort[]
+		AbortVerbose[]
 	];
 	If[Union@Join[Count[indsUp,#]&/@DeleteDuplicates[indsUp],{1,2}]=!=Sort@{1,2},
 		Print["The following indices were repeated more than twice: ",If[Count[indsUp,#]>2,#,##&[]]&/@DeleteDuplicates[indsUp]];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[If[#[[1]]=!=-#[[2]],#,##&[]]&/@repeatedInds=!={},
 		Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],#[[1]]/.-sym_Symbol:>sym,##&[]]&/@repeatedInds];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[Length[{inds}]=!=1 && CurveQ[t],
 		Print["The curve ", t, " can only have 1 index, but ", Length[{inds}]," were given."];
-		Abort[]
+		AbortVerbose[]
 	];
 ]
 
@@ -162,7 +162,7 @@ Module[{tests},
 ](*/;ContainsAll[PossibleIndices[t],DeleteDuplicates[(inds/.-nn_Symbol:>nn)]]*)
 
 
-def@
+testDef@
 shiftIndex[t_Tensor,{pos_Integer,ind_},simpFn_]:=
 Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 		coordsPTemp,temp,coords,param,itrBefore,itrAfter,vals,i,itrTot,itr,newPos,
@@ -171,7 +171,7 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 	newPos=If[MatchQ[ind,_Symbol],"Up","Down"];
 	indPos=IndexPositions[t];
 
-	If[pos>Length@indPos,Print["Tensor ", t, " has only ", Length@indPos ," indices. Cannot raise at position ", pos,"."];Abort[]];
+	If[pos>Length@indPos,Print["Tensor ", t, " has only ", Length@indPos ," indices. Cannot raise at position ", pos,"."];AbortVerbose[]];
 	indPosNew=ReplacePart[indPos,pos->newPos];
 	inds=Indices[t];
 	
@@ -181,7 +181,7 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 			
 			RawTensorValues[t]===Undefined && Metric[t]===Undefined,
 			Print["Cannot shift tensor indices without a metric."];
-			Abort[],
+			AbortVerbose[],
 				
 			RawTensorValues[t]===Undefined && Metric[t]=!=Undefined,
 			Undefined,
@@ -230,7 +230,7 @@ Module[{pis,inds,params,a},
 	If[Total@Rank[t]=!=Length@patternInds,
 		If[Length@patternInds =!= 1 || (patternInds=!={__} && patternInds=!={___} && Not[MatchQ[patternInds,{Pattern[a,__]}]] && Not[MatchQ[patternInds,{Pattern[a,___]}]]),
 			Print["TensorPattern called with ",  Length@patternInds , " Pattern indices, but the Tensor ", t, " is rank ", Rank[t]];
-			Abort[]
+			AbortVerbose[]
 		]
 	];
 	
@@ -319,11 +319,11 @@ Module[{indsPos,indsAbstr,indsAbstrUp,coordsPos,indsUp,tests},
 	
 	If[Not@ContainsAll[Coordinates[t],DeleteDuplicates[indsUp]],
 		Print["Tensor ", t, " has the following Coordinates: ", Coordinates[t], " but ", indsUp, " were given."];
-		Abort[]
+		AbortVerbose[]
 	];
 	If[Length[inds]=!=Total@Rank[t],
 		Print["Tensor ", t," expected ",Total@Rank[t]," indices to select a component, but ", Length[inds], If[Length[inds]===1," index was ", " indices were "],"given."];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	coordsPos=Flatten[Position[Coordinates[t],#]&/@indsUp];
@@ -346,11 +346,11 @@ Module[{pmList,lhs,tests},
 ]
 
 
-def@
+testDef@
 validateSumIndices[inds1_List,inds2_List]:=
 If[Sort[inds1]=!=Sort[inds2],
 		Print["Cannot add Tensors with different indices, ",Sort[inds1]," and ",Sort[inds2]];
-		Abort[]
+		AbortVerbose[]
 ]
 
 
@@ -361,9 +361,9 @@ Module[{simpFn,posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvF
 	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
 	TestOptions[tests,{opts}];
 
-	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot sum Abstract Tensors."];Abort[]];
-	If[TensorName@Metric[t1]=!=TensorName@Metric[t2],Print["Cannot sum Tensors with different metrics."];Abort[]];
-	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot sum Tensors on different curves."];Abort[]];
+	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot sum Abstract Tensors."];AbortVerbose[]];
+	If[TensorName@Metric[t1]=!=TensorName@Metric[t2],Print["Cannot sum Tensors with different metrics."];AbortVerbose[]];
+	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot sum Tensors on different curves."];AbortVerbose[]];
 	
 	simpFn=OptionValue["ActWith"];
 	tvFunc=If[OnCurveQ@t1||OnCurveQ@t2,TensorValues,RawTensorValues];
@@ -404,7 +404,7 @@ reDef@AddTensors[t1_Tensor,t2__Tensor,name_String,opts:OptionsPattern[]]:=SetTen
 reDef@AddTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String},opts:OptionsPattern[]]:=SetTensorName[AddTensors[t1,t2,opts],{name,displayName}]
 
 
-def@
+testDef@
 validateProductIndices[inds1_List,inds2_List]:=
 Module[{indsUp,repeatedInds,inds,toCov},
 
@@ -415,12 +415,12 @@ Module[{indsUp,repeatedInds,inds,toCov},
 
 	If[Union@Join[Count[indsUp,#]&/@DeleteDuplicates[indsUp],{1,2}]=!=Sort@{1,2},
 		Print["The following indices were repeated more than twice: ",If[Count[indsUp,#]>2,#,##&[]]&/@DeleteDuplicates[indsUp]];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[If[#[[1]]=!=-#[[2]],#,##&[]]&/@repeatedInds=!={},
 		Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],toCov[#[[1]]],##&[]]&/@repeatedInds];
-		Abort[]
+		AbortVerbose[]
 	];
 ]
 
@@ -432,9 +432,9 @@ Module[{simpFn,posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,inds
 	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
 	TestOptions[tests,{opts}];
 
-	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot multiply Abstract Tensors."];Abort[]];
-	If[TensorName@Metric[t1]=!=TensorName@Metric[t2],Print["Cannot multiply Tensors with different metrics."];Abort[]];
-	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot multiply Tensors on different curves."];Abort[]];
+	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot multiply Abstract Tensors."];AbortVerbose[]];
+	If[TensorName@Metric[t1]=!=TensorName@Metric[t2],Print["Cannot multiply Tensors with different metrics."];AbortVerbose[]];
+	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot multiply Tensors on different curves."];AbortVerbose[]];
 	
 	simpFn=OptionValue["ActWith"];
 	tvFunc=If[OnCurveQ@t1||OnCurveQ@t2,TensorValues,RawTensorValues];
@@ -482,8 +482,8 @@ Module[{simpFn,vals,name,dispName,ratStr,tests},
 	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
 	TestOptions[tests,{opts}];
 
-	If[AbstractQ[t],Print["Cannot multiply Abstract Tensors."];Abort[]];
-	If[Not[MatchQ[n,(_Symbol|_Real|_Complex|_Integer|_Rational|_Times|_Plus|_SeriesData)]],Print["Cannot multiply a Tensor by a ", Head[n]];Abort[]];
+	If[AbstractQ[t],Print["Cannot multiply Abstract Tensors."];AbortVerbose[]];
+	If[Not[MatchQ[n,(_Symbol|_Real|_Complex|_Integer|_Rational|_Times|_Plus|_SeriesData)]],Print["Cannot multiply a Tensor by a ", Head[n]];AbortVerbose[]];
 
 	simpFn=OptionValue["ActWith"];
 	vals= Map[simpFn[n #]&, RawTensorValues[t],{Total@Rank[t]}];
@@ -560,7 +560,7 @@ Module[{met,tTr,simpFn,simpFnNest,a,b,c,tests},
 	
 	If[Rank[t]=!={0,2},
 		Print["TraceReverse is built only for Tensors of Rank {0,2}"];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	{a,b}=Indices[t];
@@ -578,7 +578,7 @@ Module[{is,pis},
 
 	If[Sort@inds=!=Range[Total@Rank@t],
 		Print["Tensor ", t, " is of rank ", Total@Rank@t  ". ReorderTensorIndices requires a list of index positions including exactly the numbers ",Range[Total@Rank@t], " in some order." ];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	ToTensor[KeySort@Join[KeyDrop[Association@@t,{"DisplayName","Name","Metric","MetricQ","Indices"}],
@@ -603,20 +603,20 @@ Module[{ips,inds,inds2,indsBefore,indsBetween,indsAfter,indsA,indsB,tests},
 	
 	If[pos1>pos2,
 	Print["Indices must be given to SymmetrizeTensor in ascending order. Given as ",{pos1, pos2} ];
-		Abort[]
+		AbortVerbose[]
 	];
 	If[pos1>Total@Rank@t||pos2>Total@Rank@t,
 	Print["Tensor ", t, " is of rank ", Total@Rank@t  ". Cannot symmetrize on indices of positions ",{pos1, pos2} ];
-		Abort[]
+		AbortVerbose[]
 	];
 	If[pos1==pos2,
 	Print["Cannot symmetrize on indices of the same position: ",pos1 ];
-		Abort[]
+		AbortVerbose[]
 	];
 	ips=IndexPositions[t];
 	If[ips[[pos1]]=!=ips[[pos2]],
 		Print["Symmetrize indices must be both contravariant or covariant"];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	indsBefore=Range[1,pos1-1];
@@ -643,20 +643,20 @@ Module[{ips,inds,inds2,indsBefore,indsBetween,indsAfter,indsA,indsB,tests},
 	
 	If[pos1>pos2,
 	Print["Indices must be given to AntisymmetrizeTensor in ascending order. Given as ",{pos1, pos2} ];
-		Abort[]
+		AbortVerbose[]
 	];
 	If[pos1>Total@Rank@t||pos2>Total@Rank@t,
 	Print["Tensor ", t, " is of rank ", Total@Rank@t  ". Cannot symmetrize on indices of positions ",{pos1, pos2} ];
-		Abort[]
+		AbortVerbose[]
 	];
 	If[pos1==pos2,
 	Print["Cannot antisymmetrize on indices of the same position: ",pos1 ];
-		Abort[]
+		AbortVerbose[]
 	];
 	ips=IndexPositions[t];
 	If[ips[[pos1]]=!=ips[[pos2]],
 		Print["Antisymmetrize indices must be both contravariant or covariant"];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	indsBefore=Range[1,pos1-1];
@@ -685,7 +685,7 @@ Module[{tests},
 ]
 
 
-def@
+testDef@
 validateTetradIndices[t_Tetrad,{inds_}]:=
 Module[{posIndsST,posIndsTet,repeatedInds,indsUp},
 
@@ -696,17 +696,17 @@ Module[{posIndsST,posIndsTet,repeatedInds,indsUp},
 
 	If[Not[MatchQ[{indsUp},{_Symbol,_Symbol}]], 
 		Print["Tetrad can only have two indices: one tetrad index, and one spacetime index"];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[Not[MemberQ[posIndsTet,indsUp[[1]]]],
 		Print["First index given to Tetrad must be from the List PossibleTetradIndices."];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[Not[MemberQ[posIndsST,indsUp[[2]]]],
 		Print["Second index given to Tetrad must be from the List PossibleSpacetimeIndices."];
-		Abort[]
+		AbortVerbose[]
 	];
 ]
 

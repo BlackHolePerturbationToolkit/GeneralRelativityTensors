@@ -390,7 +390,7 @@ Module[{rie,ricT,ricS,dim,i,k,l,m,name,simpFnNest,simpFn,tests},
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
 
 	dim = SpacetimeDimensions[g];
-	If[dim <= 2, Print["Weyl tensor requires SpacetimeDimensions of at least 3"]; Abort[]];
+	If[dim <= 2, Print["Weyl tensor requires SpacetimeDimensions of at least 3"]; AbortVerbose[]];
 
 	{i,k,l,m}=Take[PossibleIndices[g],4];
 	rie=RiemannTensor[g,"ActWithNested"->simpFnNest];
@@ -426,7 +426,7 @@ Module[{ricT,ricS,dim,i,j,k,name,simpFnNest,simpFn,tests},
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
 
 	dim = SpacetimeDimensions[g];
-	If[dim <= 2, Print["Cotton tensor requires SpacetimeDimensions of at least 3"]; Abort[]];
+	If[dim <= 2, Print["Cotton tensor requires SpacetimeDimensions of at least 3"]; AbortVerbose[]];
 
 	{i,j,k}=Take[PossibleIndices[g],3];
 	ricT=RicciTensor[g,"ActWithNested"->simpFnNest];
@@ -481,8 +481,8 @@ Module[{g,name,i,j,simpFnNest,simpFn,tests},
 			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."}};
 	TestOptions[tests,{opts}];
 
-	If[Total@Rank[AA]=!=1,Print["Field strength tensor must be derived from a Rank 1 tensor"];Abort[]];
-	If[AbstractQ[AA],Print["Field strength tensor requires a non-abstract potential"];Abort[]];
+	If[Total@Rank[AA]=!=1,Print["Field strength tensor must be derived from a Rank 1 tensor"];AbortVerbose[]];
+	If[AbstractQ[AA],Print["Field strength tensor requires a non-abstract potential"];AbortVerbose[]];
 
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
@@ -513,8 +513,8 @@ Module[{g,name,i,k,l,m,simpFnNest,simpFn,tests},
 			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."}};
 	TestOptions[tests,{opts}];
 
-	If[Total@Rank[FF]=!=2,Print["Maxwell stress energy tensor must be derived from a Rank 2 tensor"];Abort[]];
-	If[AbstractQ[FF],Print["Maxwell stress energy requires a non-abstract field strength tensor"];Abort[]];
+	If[Total@Rank[FF]=!=2,Print["Maxwell stress energy tensor must be derived from a Rank 2 tensor"];AbortVerbose[]];
+	If[AbstractQ[FF],Print["Maxwell stress energy requires a non-abstract field strength tensor"];AbortVerbose[]];
 
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
@@ -579,7 +579,7 @@ Module[{rie,ric,ein,i,j,k,l,m,simpFnNest,simpFn,tests},
 
 	If[Not[MemberQ[{0,1,2},contractions]],
 		Print["Bianchi identities can only be contracted 0, 1, or 2 times"];
-		Abort[]
+		AbortVerbose[]
 	];
 	simpFnNest=OptionValue["ActWithNested"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
@@ -610,7 +610,7 @@ Module[{r,a,th,M,val,delta,sigma,valC,schw,rules},
 	
 	If[TensorName[t]=!="SchwarzschildMetric" && TensorName[t]=!="KerrMetric",
 		Print["KinnersleyNullVector only available for Kerr and Schwarzschild, but metric ", TensorName[t], " used."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	schw=TensorName[t]==="SchwarzschildMetric";
@@ -634,7 +634,7 @@ Module[{r,a,th,M,val,delta,sigma,valC,schw,rules},
 			___,
 			Print["No KinnersleyNullVector = "<>vec];
 			Print["Options are \"l\", \"n\", \"m\", and \"mStar\"."];
-			Abort[]
+			AbortVerbose[]
 		]/.rules;
 
 	valC=If[vec==="mStar",Simplify@ComplexExpand@Conjugate@#,#]&@val;
@@ -661,7 +661,7 @@ Module[{r,th,t,phi},
 
 	If[TensorName[tt]=!="SchwarzschildMetric" && TensorName[tt]=!="KerrMetric",
 		Print["KinnersleyDerivative only available for Kerr and Schwarzschild, but metric ", TensorName[tt], " used."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	{t,r,th,phi}=Symbol/@{"t","r","\[Theta]","\[Phi]"};
@@ -682,7 +682,7 @@ Module[{r,th,t,phi},
 		___,
 		Print["No KinnersleyDerivative = "<>op];
 		Print["Options are \"D\", \"Delta\", \"delta\", and \"deltaStar\"."];
-		Abort[]
+		AbortVerbose[]
 
 	].{D[#,t],D[#,r],D[#,th],D[#,phi]})&
 ];
@@ -696,7 +696,7 @@ Module[{r,a,th,M,val,rules,delta,schw},
 
 	If[TensorName[tt]=!="SchwarzschildMetric" && TensorName[tt]=!="KerrMetric",
 		Print["SpinCoefficient only available for Kerr and Schwarzschild, but metric ", TensorName[tt], " used."];
-		Abort[]
+		AbortVerbose[]
 	];
 	schw=TensorName[tt]==="SchwarzschildMetric";
 
@@ -733,7 +733,7 @@ Module[{r,a,th,M,val,rules,delta,schw},
 				___,
 				Print["No SpinCoefficient = ",coeff];
 				Print["Possible options are \"alpha\",\"beta\",\"gamma\",\"epsilon\",\"kappa\",\"lambda\",\"mu\",\"nu\",\"pi\",\"rho\",\"sigma\", and \"tau\"."];
-				Abort[]
+				AbortVerbose[]
 
 		]/.rules;
 
@@ -810,7 +810,7 @@ Module[{htt,htr,hrr,ht,hr,jt,jr,a,b,t,r,metricStr},
 
 	metricStr=Switch[metric,"RN"|"ReissnerNordstromM2","ReissnerNordstromM2","Schw"|"SchwarzschildM2","SchwarzschildM2",___,
 					Print["Metric ", metric, " is not a valid M2 metric. Options are \"SchwarzschildM2\" (or \"Schw\") or \"ReissnerNordstromM2\" (or \"RN\")"];
-					Abort[];
+					AbortVerbose[];
 				];
 	
 	{htt,htr,hrr,ht,hr,jt,jr,a,b,t,r}=Symbol/@{"htt","htr","hrr","ht","hr","jt","jr","a","b","t","r"};
@@ -825,7 +825,7 @@ Module[{htt,htr,hrr,ht,hr,jt,jr,a,b,t,r,metricStr},
 		___,
 		Print["No M2Amplitude associated with label ", label];
 		Print["Options are: ",{"hab","ja","ha"}];
-	Abort[];
+		AbortVerbose[];
 	]
 ]
 

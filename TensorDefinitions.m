@@ -108,6 +108,9 @@ ValidTensorExpressionQ::usage="ValidTensorExpressionQ[expr] tests whether a Tens
 ValidateTensorExpression::usage="ValidateTensorExpression[expr] checks whether a Tensor expression is valid and prints an error message and \
 aborts if it is not.";
 
+SubmanifoldsQ::usage="SubmanifoldsQ[t] returns True if Tensor t is defined with Submanifolds.";
+SubmanifoldForm::usage="SubmanifoldForm[t] returns the values of Tensor t split into nested Lists corresponding to its submanifolds."
+
 
 Tetrad::usage="Tetrad is a Head created with the command ToTetrad.";
 ToTetrad::usage="ToTetrad[n,vecs,posInds] returns a Tetrad with name n made of the four vectors vecs with \
@@ -262,40 +265,40 @@ def@
 ToTensor[assoc_Association]:=
 Module[{keys,notAbstrKeys,listKeys,booleanKeys},
 	keys={"AbstractQ","Coordinates","Curve","CurveParameter","CurveQ","Dimensions",
-		"DisplayName","Indices","Metric","MetricQ","Name","PossibleIndices","Tetrad","Values"};
+		"DisplayName","Indices","Metric","MetricQ","Name","PossibleIndices",(*"SubmanifoldIndices",*)"Tetrad","Values"};
 	notAbstrKeys={"Metric","Coordinates","Values","PossibleIndices","Dimensions"};
-	listKeys={"Coordinates","PossibleIndices","Indices"};
+	listKeys={"Coordinates","PossibleIndices","Indices"(*,"SubmanifoldIndices"*)};
 	booleanKeys={"MetricQ","CurveQ","AbstractQ"};
 
 	If[Sort@Keys[assoc]=!=Sort[keys],
 		Print["The following keys are missing in the tensor formation: "<>ToString[Complement[keys,Keys[assoc]]]];
 		Print["The following extra keys were in the tensor formation: "<>ToString[Complement[Keys[assoc],keys]]];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[Keys[assoc]=!=Sort[keys],
 		Print["Tensors must be formed from keys in alphabetical order."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Not[MatchQ[assoc/@listKeys,{{___}..}]],
 		Print["The following values were not given as lists: "<>ToString[If[Head[assoc[#]]=!=List,#,Nothing]&/@listKeys]];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Not[MatchQ[assoc/@listKeys,{{___}..}]],
 		Print["The following values were not given as lists: "<>ToString[If[Head[assoc[#]]=!=List,#,Nothing]&/@listKeys]];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Not[assoc["AbstractQ"]]&&MemberQ[assoc[#]&/@notAbstrKeys,Undefined],
 		Print["\"AbstractQ\"->False is inconsistent with Undefined values for "<>ToString[If[assoc[#]===Undefined,#,Nothing]&/@notAbstrKeys]];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[Not@MatchQ[assoc/@booleanKeys,{_?BooleanQ..}],
 		Print["The following values were not given as booleans: "<>ToString[If[Not[BooleanQ[assoc@#]],#,Nothing]&/@booleanKeys]];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	tensorIndsDimsCoordsTests[assoc];
@@ -305,11 +308,11 @@ Module[{keys,notAbstrKeys,listKeys,booleanKeys},
 	If[MatchQ[assoc["Values"],_List],
 		If[MatchQ[assoc["Values"],{_?MetricQ..}],
 			tensorSubmetricTests[assoc],
-			tensorConsistentValuesTest[assoc]
+			tensorConsistentValuesTests[assoc]
 		],
 		If[Length[assoc["Indices"]]=!=0,
 			Print["Scalar quantity given with indices."];
-			Abort[]
+			AbortVerbose[]
 		];
 	];
 	
@@ -326,7 +329,7 @@ reDef@
 ToTensor[{name_String,dispName_String},metric_Tensor?MetricQ,vals_,indsGiven_:Undefined]:=
 Module[{coords,posInds,dims,inds,nInds},
 
-	If[AbstractQ[metric],Print["Tensor with values cannot be defined using \"AbstractQ\" metric."];Abort[]];
+	If[AbstractQ[metric],Print["Tensor with values cannot be defined using \"AbstractQ\" metric."];AbortVerbose[]];
 
 	coords=Coordinates[metric];	
 	posInds=PossibleIndices[metric];
@@ -352,8 +355,8 @@ Module[{coords,posInds,dims,inds,nInds},
 reDef@ToTensor[name_String,metric_Tensor?MetricQ,vals_,indsGiven_:Undefined]:=ToTensor[{name,name},metric,vals,indsGiven];
 
 
-Clear[builtInIndices]
-builtInIndices[label_]:=
+testDef@
+builtInIndices[label_String]:=
 Switch[label,
 		"Latin",
 		Symbol/@CharacterRange["a","z"],
@@ -362,7 +365,7 @@ Switch[label,
 		"Greek",
 		Symbol/@Complement[CharacterRange["\[Alpha]","\[Omega]"],{"\[Pi]","\[Tau]","\[Chi]"}],
 		___,
-		Print["No built-in indices ", label, ". Options are \"Latin\", \"CapitalLatin\", and \"Greek\""]; Abort[]
+		Print["No built-in indices ", label, ". Options are \"Latin\", \"CapitalLatin\", and \"Greek\""]; AbortVerbose[]
 ]
 
 
@@ -375,7 +378,7 @@ Module[{inds,posInds,posIndsFull,dims},
 			builtInIndices[posIndsParam],
 			If[Not[MatchQ[posIndsParam,{__Symbol}]]||Length[posIndsParam]<8,
 				Print["At least 8 PossibleIndices needed when defining a Metric"];
-				Abort[],
+				AbortVerbose[],
 			
 				posIndsParam
 			]
@@ -386,7 +389,7 @@ Module[{inds,posInds,posIndsFull,dims},
 	
 	If[Not@MatchQ[coords,{__Symbol|__Integer}],
 		Print["Metric Coordinates not given as a List of Symbols or Integers"];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	dims=Length@coords;
@@ -395,12 +398,12 @@ Module[{inds,posInds,posIndsFull,dims},
 		If[Dimensions[vals]=!={dims,dims},
 			Print["To be consistent with the number of given Coordinates, Metric Values must be a ", 
 				dims, " \[Times] ", dims, " matrix given as a nested List."];
-			Abort[]
+			AbortVerbose[]
 		],
 	
 		If[Not@MatchQ[vals,{_?MetricQ..}],
-			Print["Metric Values must given as a nested List"];
-			Abort[]
+			Print["Metric Values must be given as a nested List"];
+			AbortVerbose[]
 		]
 	];
 	
@@ -432,7 +435,7 @@ Module[{posInds,coords,dims},
 	posInds=PossibleIndices[metric];
 	coords=Coordinates[metric];
 	dims=SpacetimeDimensions[metric];	
-	If[dims=!=Length@vals,Print["Number of given values do not match Metric's SpacetimeDimensions"]; Abort[]];
+	If[dims=!=Length@vals,Print["Number of given values do not match Metric's SpacetimeDimensions"]; AbortVerbose[]];
 	
 	checkForParam[vals,coords,param];
 
@@ -455,8 +458,8 @@ reDef@
 ToCurve[name_String,metric_Tensor?MetricQ,vals_List,param_Symbol]:=ToCurve[{name,name},metric,vals,param];
 
 
-Clear[checkForParam]
-checkForParam[expr_,coords_,param_]:=
+def@
+checkForParam[expr_,coords_List,param_]:=
 Module[{coordsP,temp,coordsPTemp,coordsPRules,exprTemp,notCurves},
 	coordsP=Through[coords[param]];
 	coordsPTemp=temp[ToString@#]& /@coords;
@@ -466,7 +469,7 @@ Module[{coordsP,temp,coordsPTemp,coordsPRules,exprTemp,notCurves},
 
 	If[notCurves=!={},
 		Print["The following coordinates are given without being parametrized by the curve parameter: ",notCurves];
-		Abort[]
+		AbortVerbose[]
 	];
 ]
 
@@ -486,11 +489,87 @@ Metric[expr_]:=
 Module[{metrics,metricNames},
 
 	metrics=Cases[{expr},m_Tensor/;MetricQ[m],Infinity];
-	If[metrics==={},Print["Expression ",expr, " does not contain a metric."] ;Abort[]];
+	If[metrics==={},Print["Expression ",expr, " does not contain a metric."]; AbortVerbose[]];
 	metricNames=DeleteDuplicates[TensorName/@metrics];
-	If[Not[SameQ@@metricNames],Print["Expression contains Tensors with different metrics: ",metricNames ]; Abort[]];
+	If[Not[SameQ@@metricNames],Print["Expression contains Tensors with different metrics: ",metricNames ]; AbortVerbose[]];
 
 	First@metrics
+]
+
+
+def@
+SubmanifoldsQ[t_Tensor]:=MatchQ[TensorValues[Metric[t]],{_Tensor?MetricQ..}]
+
+
+def@
+SubmanifoldIndices[t_Tensor?SubmanifoldsQ]:=Map[Indices,RawTensorValues[t],{Total@Rank[t]}]
+
+
+def@
+SubmanifoldForm[t_Tensor]:=
+If[Not[SubmanifoldsQ[t]],
+	Print["Tensor ", t, " is not defined with Submanifolds."];
+	AbortVerbose[],
+		
+	If[MetricQ[t],
+		DiagonalMatrix[TensorValues[t]],
+		TensorValues[t]
+	]
+];
+
+
+testDef@
+possibleSubmanifoldIndices[indexPositions_List,met_Tensor?(MetricQ@#&&SubmanifoldsQ@#&)]:=
+Module[{indsDn,indsUp,mets,nDn,nUp,totInds,totIndsUp},
+
+	If[Not@MatchQ[indexPositions,{_String?(#==="Up"||#==="Down"&)..}],
+		Print["IndexPositions should be a List of \"Up\" and \"Down\"."];
+		AbortVerbose[]
+	];
+	
+	nDn=Count[indexPositions,"Down"];
+	nUp=Count[indexPositions,"Up"];
+
+	mets=RawTensorValues[met];
+	totIndsUp=Take[PossibleIndices@#,Length@indexPositions]&/@mets;
+
+	totInds=Table[MapThread[If[#1==="Up",1,-1]#2&,{indexPositions,indSub}],{indSub,totIndsUp}];
+
+	possibleSubmanifoldIndicesFromList[totInds,mets]
+]
+
+
+testDef@
+possibleSubmanifoldIndicesFromList[totInds_?(MatchQ[#,{{__}..}]&),mets_?(MatchQ[#,{_?MetricQ..}]&)]:=
+Module[{totIndsUp,posIndsUp},
+
+	totIndsUp=totInds/.-sym_Symbol:>sym;
+	posIndsUp=PossibleIndices/@mets;
+	
+	If[Length@totInds=!=Length@mets,
+		Print["Number of index lists does not equal number of submetrics."];
+		AbortVerbose[]
+	];
+	MapThread[If[Not[ContainsAll[#1,#2]],
+				Print["Indices ", #2, " not entirely contained in PossibleIndices List ", #1]; 
+				AbortVerbose[]]&,
+				{posIndsUp,totIndsUp}];
+	
+	Nest[Partition[#,Length@mets]&,Tuples@Thread@totInds,Length@First@totInds-1]
+]
+
+
+testDef@
+possibleSubmanifoldIndicesFromValues[vals_List,mets_?(MatchQ[#,{_?MetricQ..}]&)]:=
+Module[{totInds},
+	If[Length@vals=!=Length@mets,
+		Print["Number of values does not equal number of submetrics."];
+		AbortVerbose[]
+	];
+	
+	totInds=Indices[vals[[#,#]]]&/@Range[Length@mets];
+
+	possibleSubmanifoldIndicesFromList[totInds,mets]
 ]
 
 
@@ -503,7 +582,10 @@ Module[{assoc,tvStored,tv,posUp},
 	tv=If[tvStored===Undefined,
 			If[TensorValues[t]===Undefined,
 				Undefined,
-				Simplify@Inverse[RawTensorValues[Metric[t]]]
+				If[SubmanifoldsQ[t],
+					InverseMetric/@RawTensorValues[Metric[t]],
+					Simplify[Inverse@RawTensorValues[Metric[t]]]
+				]
 			],
 			tvStored
 		];
@@ -624,7 +706,7 @@ Module[{params},
 	
 	If[TensorName@Metric@t1=!=TensorName[(Association@@c1)["Metric"]],
 		Print["Cannot put Tensor on a curve with a different metric."];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	params = {t1,{"Curve",c1}};
@@ -638,7 +720,7 @@ Module[{params,vals},
 	
 	If[TensorName@Metric@t1=!=TensorName@Metric@c1,
 		Print["Cannot put Tensor on a curve with a different metric."];
-		Abort[]
+		AbortVerbose[]
 	];
 	vals=TensorValues@ToTensorFieldOnCurve[t1,c1];
 	params = {t1,{"Name",TensorName[t1]<>"Curve"},{"Values",vals},{"Curve",c1},{"CurveParameter",CurveParameter@c1},{"MetricQ",False},{"Metric",Metric[t1]}};
@@ -657,22 +739,27 @@ reDef@
 ToTensorOnCurve[name_String,c1_?CurveQ,vals_List,inds_:Undefined]:=ToTensorOnCurve[{name,name},c1,vals,inds]
 
 
+reDef@
 Indices[expr_]:=
-Module[{terms,indicesList,tfList,sumQ,exprExpand},
+Module[{terms,indicesList,tfList,sumQ,exprExpand,lenQ,unsortedSumQ},
 	exprExpand=Expand[expr];
 	terms=tensorExprTerms[exprExpand];
 	indicesList=indicesInProduct/@terms;
 	tfList=validateIndices[#,True]&/@indicesList;
+	lenQ=SameQ@@(Length/@indicesList);
 	sumQ=SameQ@@(Sort/@indicesList);
+	unsortedSumQ=SameQ@@(indicesList);
 	If[DeleteDuplicates[tfList]=!={True},
 		MapThread[If[Not@#1,Print["The expression ",#2," has invalid indices."],Nothing]&,{tfList,terms}];
-		Abort[]
+		AbortVerbose[]
 	];
-	If[Not@sumQ,Print["The expression does not have unique indices. Call IndicesTraced to get a unique list."];Abort[]];
-	First[Sort/@indicesList]
+	If[Not@lenQ,Print["The expression does not have unique indices. Call IndicesTraced to get a unique list."];AbortVerbose[]];
+	If[Not@sumQ,Print["Cannot add terms with different indices."];AbortVerbose[]];
+	If[unsortedSumQ,First[indicesList],First[Sort/@indicesList]]
 ]
 
 
+reDef@
 IndicesTraced[expr_]:=
 Module[{terms,indicesList,tfList,sumQ,exprExpand},
 	exprExpand=Expand[expr];
@@ -682,9 +769,9 @@ Module[{terms,indicesList,tfList,sumQ,exprExpand},
 	sumQ=SameQ@@(Sort/@deleteRepeatedIndices/@indicesList);
 	If[DeleteDuplicates[tfList]=!={True},
 		MapThread[If[Not@#1,Print["The expression ",#2," has invalid indices."],Nothing]&,{tfList,terms}];
-		Abort[]
+		AbortVerbose[]
 	];
-	If[Not@sumQ,Print["Cannot add Tensors with different indices."];Abort[]];
+	If[Not@sumQ,Print["Cannot add Tensors with different indices."];AbortVerbose[]];
 	First[Sort/@deleteRepeatedIndices/@indicesList]
 ]
 
@@ -710,43 +797,43 @@ Module[{exprExpand,tfList,terms,indicesList,sumQ,metricQ},
 	If[Not@test,
 		If[DeleteDuplicates[tfList]=!={True},
 			MapThread[If[Not@#1,Print["The expression ",#2," has invalid indices."],Nothing]&,{tfList,terms}];
-			Abort[]
+			AbortVerbose[]
 		];
-		If[Not@sumQ,Print["Cannot add Tensors with different indices."];Abort[]];
-		If[Not@metricQ,Print["Cannot combine Tensors with different metrics."]; Abort[]],
+		If[Not@sumQ,Print["Cannot add Tensors with different indices."];AbortVerbose[]];
+		If[Not@metricQ,Print["Cannot combine Tensors with different metrics."]; AbortVerbose[]],
 		DeleteDuplicates[tfList]==={True}&&sumQ&&metricQ
 	]
 ]
 ValidateTensorExpression[expr_]:=ValidateTensorExpression[expr,False];
 
 
-Clear[tensorExprTerms]
+testDef@
 tensorExprTerms[expr_,test_?BooleanQ]:=
 Module[{exprExpand},
 	exprExpand=Expand[expr];
 	Which[MatchQ[exprExpand,_Plus],List@@exprExpand,
 		MatchQ[exprExpand,_Tensor]||MatchQ[exprExpand,_Times],{exprExpand},
-		True,If[test,False,Print["Expression should be a Tensor, a Tensor product, or a sum of Tensor (products), but is ", exprExpand]; Abort[]]
+		True,If[test,False,Print["Expression should be a Tensor, a Tensor product, or a sum of Tensor (products), but is ", exprExpand]; AbortVerbose[]]
 	]
 ];
 tensorExprTerms[expr_]:=tensorExprTerms[expr,False];
 
 
-Clear[indicesInProduct]
+testDef@
 indicesInProduct[expr_,test_?BooleanQ]:=
 Module[{exprExpand},
 	exprExpand=Expand[expr];
 	Which[
-		MatchQ[exprExpand,Power[_Tensor,_]|__ Power[_Tensor,_]],If[test,False,Print["Tensors cannot be raised to a power as in ", exprExpand]; Abort[]],
-		MatchQ[exprExpand,_Times],Join@@Cases[exprExpand,t_Tensor:>Indices[t],{1}],
+		MatchQ[exprExpand,Power[_Tensor,_]|__ Power[_Tensor,_]],If[test,False,Print["Tensors cannot be raised to a power as in ", exprExpand]; AbortVerbose[]],
+		MatchQ[exprExpand,_Times],Join@@Sort[Cases[exprExpand,t_Tensor:>Indices[t],{1}]],
 		MatchQ[exprExpand,_Tensor],Indices[exprExpand],
-		True,If[test,False,Print["Expression should be a Tensor or a Tensor product, but is ", exprExpand]; Abort[]]
+		True,If[test,False,Print["Expression should be a Tensor or a Tensor product, but is ", exprExpand]; AbortVerbose[]]
 	]
 ];
 indicesInProduct[expr_]:=indicesInProduct[expr,False];
 
 
-def@
+testDef@
 validateIndices[inds_List,test_?BooleanQ]:=
 Module[{indsUp,repeatedInds,toCov},
 
@@ -757,14 +844,14 @@ Module[{indsUp,repeatedInds,toCov},
 	If[Union@Join[Count[indsUp,#]&/@DeleteDuplicates[indsUp],{1,2}]=!=Sort@{1,2},
 		If[test,Return[False],
 			Print["The following indices were repeated more than twice: ",If[Count[indsUp,#]>2,#,##&[]]&/@DeleteDuplicates[indsUp]];
-			Abort[]
+			AbortVerbose[]
 		]
 	];
 
 	If[If[#[[1]]=!=-#[[2]],#,##&[]]&/@repeatedInds=!={},
 		If[test,Return[False],
 			Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],toCov[#[[1]]],##&[]]&/@repeatedInds];
-			Abort[]
+			AbortVerbose[]
 		]
 	];
 	
@@ -808,72 +895,72 @@ Module[{keys,listKeys,index},
 	If[Sort@Keys[assoc]=!=Sort[keys],
 		Print["The following keys are missing in the tetrad formation: "<>ToString[Complement[keys,Keys[assoc]]]];
 		Print["The following extra keys were in the tetrad formation: "<>ToString[Complement[Keys[assoc],keys]]];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[Keys[assoc]=!=Sort[keys],
 		Print["Tetrad must be formed from keys in alphabetical order."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Not[MatchQ[assoc["Name"],_String]],
 		Print["Tetrad Name must be a String."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Not[MatchQ[assoc["DisplayName"],_String]],
 		Print["Tetrad DisplayName must be a String."];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[Not[MatchQ[assoc["Vectors"],{_Tensor,_Tensor,_Tensor,_Tensor}]]||(DeleteDuplicates[Rank/@assoc["Vectors"]]=!={{1,0}}&&DeleteDuplicates[Rank/@assoc["Vectors"]]=!={{0,1}}),
 		Print["Tetrad must be formed from four contravariant vectors or four covariant vectors."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Length@DeleteDuplicates[TensorName/@assoc["Vectors"]]=!=4,
 		Print["Cannot form tetrad without four unique vectors."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Length@DeleteDuplicates[TensorName[Metric[#]]&/@assoc["Vectors"]]=!=1,
 		Print["Cannot form tetrad from vectors with inconsistent metrics."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Length@DeleteDuplicates[Coordinates/@assoc["Vectors"]]=!=1,
 		Print["Cannot form tetrad from vectors with inconsistent Coordinates."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Length@DeleteDuplicates[PossibleIndices/@assoc["Vectors"]]=!=1,
 		Print["Cannot form tetrad from vectors with inconsistent PossibleIndices Lists."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Length@DeleteDuplicates[Indices/@assoc["Vectors"]]=!=1,
 		Print["Cannot form tetrad from vectors with inconsistent Indices."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[DeleteDuplicates[SpacetimeDimensions/@assoc["Vectors"]]=!={4},
 		Print["Tetrads are currently only supported in 4 SpacetimeDimensions."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Not@MatchQ[assoc["PossibleIndices"],{__Symbol}]||Length@assoc["PossibleIndices"]<8,
 		Print["PossibleIndices must be a list of at least 8 Symbols"];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Intersection[PossibleIndices[assoc["Vectors"][[1]]],assoc["PossibleIndices"]]=!={},
 		Print["Tetrad indices cannot be the same as spacetime indices of the tetrad vectors."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[assoc["Index"]=!=Undefined&&Not@MemberQ[assoc["PossibleIndices"],assoc["Index"]/.(-a_Symbol:>a)],
 		Print["Given Index ", assoc["Index"]/.(-a_Symbol:>a), " not found in List of with PossibleIndices ", assoc["PossibleIndices"]];
-		Abort[];
+		AbortVerbose[];
 	];
 
 	index=If[assoc["Index"]===Undefined,-assoc["PossibleIndices"][[1]],assoc["Index"]];
@@ -890,7 +977,7 @@ Module[{assocMet,metric,posIndsComp,posIndsSyms},
 	posIndsSyms = If[MemberQ[{"Greek","Latin","CapitalLatin"},posInds],builtInIndices[posInds],posInds];
 	If[Not@MatchQ[posIndsSyms,{__Symbol}],
 		Print["PossibleIndices must be a list of Symbols"];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	posIndsComp=Complement[posIndsSyms,Coordinates[First@vecs]];
@@ -993,24 +1080,43 @@ Module[{},
 ]
 
 
-Clear[tensorConsistentValuesTest]
-tensorConsistentValuesTest[assoc_Association]:=
-Module[{keys},
-	keys={"Values","Dimensions","Indices"};
+testDef@
+tensorConsistentValuesTests[assoc_Association]:=
+Module[{keys,subInds,indPosList,posInds},
+	keys={"Values","Dimensions","Indices","Metric"};
 
 	If[Complement[keys,Keys[assoc]]=!={},
 		Print["The following keys are missing in the tensorConsistentValuesTest: "<>ToString[Complement[keys,Keys[assoc]]]];
-		Abort[]
+		AbortVerbose[]
 	];
 
-	If[Dimensions[assoc["Values"]]=!=Table[assoc["Dimensions"],{Length[assoc["Indices"]]}],
-		Print["Provided values are inconsistent with given Tensor Rank and/or Dimensions."];
-		Abort[]
+	If[(assoc["Metric"]==="Self"&&MatchQ[assoc["Values"],{_Tensor?MetricQ..}])||(assoc["Metric"]=!="Self"&&SubmanifoldsQ[assoc["Metric"]]),
+	
+		If[Dimensions[assoc["Values"]]=!=Table[Length[RawTensorValues[assoc["Metric"]]],{Length[assoc["Indices"]]}],
+			Print["Provided values are inconsistent with given Tensor Rank and/or the number of Submetrics."];
+			AbortVerbose[]
+		];
+		
+		If[assoc["Metric"]=!="Self"&&SubmanifoldsQ[assoc["Metric"]],
+			subInds=Map[Indices,assoc["Values"],{Length@assoc["Indices"]}];
+			posInds=possibleSubmanifoldIndicesFromValues[assoc["Values"],RawTensorValues[assoc["Metric"]]];
+			
+			If[Echo@Map[Sort,posInds,{Length@assoc["Indices"]}]=!=Echo@Map[Sort,subInds,{Length@assoc["Indices"]}],
+				Print["Tensor submanifold Indices given as ", subInds];
+				Print["Given the submetrics and Rank the following submanifold Indices are expected: ", possibleSubmanifoldIndicesFromValues[assoc["Values"],RawTensorValues[assoc["Metric"]]]];
+				AbortVerbose[]
+			]
+		],
+		
+		If[Dimensions[assoc["Values"]]=!=Table[assoc["Dimensions"],{Length[assoc["Indices"]]}],
+			Print["Provided values are inconsistent with given Tensor Rank and/or Dimensions."];
+			AbortVerbose[]
+		];
 	];
 ]
 
 
-Clear[tensorIndsDimsCoordsTests]
+testDef@
 tensorIndsDimsCoordsTests[assoc_Association]:=
 Module[{keys,fullPosInds},
 
@@ -1018,49 +1124,49 @@ Module[{keys,fullPosInds},
 
 	If[Complement[keys,Keys[assoc]]=!={},
 		Print["The following keys are missing in the tensorIndicesCoordsTests: "<>ToString[Complement[keys,Keys[assoc]]]];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Not@MatchQ[assoc["Coordinates"],{__Symbol|__Integer}],
 		Print["Coordinates must be a List of Symbols or Integers."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Not[MatchQ[assoc["Dimensions"],_Integer?Positive]],
 		Print["Dimensions must be a positive Integer."];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[Length@assoc["Coordinates"]=!=assoc["Dimensions"],
 		Print["The number of coordinates given does not match the number of SpacetimeDimensions."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Not@MatchQ[assoc["Indices"]/.-sym_Symbol:>sym,{___Symbol}],
 		Print["Indices must be a list of Symbols (and negative Symbols)."];
-		Abort[]
+		AbortVerbose[]
 	];
 		
 	If[Not@MatchQ[assoc["PossibleIndices"],{__Symbol}]||Length[assoc["PossibleIndices"]]<8,
 		Print["PossibleIndices must be a list of at least 8 Symbols"];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	fullPosInds = Join[assoc["PossibleIndices"],If[assoc["Tetrad"]===Undefined,{},PossibleTetradIndices[assoc["Tetrad"]]]];
 	If[assoc["Indices"]=!={}&&Not@ContainsAll[fullPosInds,assoc["Indices"]/.(-a_Symbol:>a)],
 		Print["Given Indices ", assoc["Indices"]/.(-a_Symbol:>a), " are not all found in List of with PossibleIndices ", fullPosInds];
-		Abort[];
+		AbortVerbose[];
 	];
 
 	If[Intersection[assoc["Coordinates"],assoc["PossibleIndices"]]=!={},
 		Print["The following elements appear as both indices and coordinates: "<>ToString[Intersection[assoc["Coordinates"],assoc["PossibleIndices"]]]];
-		Abort[]
+		AbortVerbose[]
 	];
 ]
 
 
 
-Clear[tensorSubmetricTests]
+testDef@
 tensorSubmetricTests[assoc_Association]:=
 	Module[{coords,subsets,keys},
 
@@ -1068,100 +1174,107 @@ tensorSubmetricTests[assoc_Association]:=
 
 	If[Complement[keys,Keys[assoc]]=!={},
 		Print["The following keys are missing in the tensotSubmetricTests: "<>ToString[Complement[keys,Keys[assoc]]]];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Length@assoc["Values"]===1,
 		Print["It doesn't really make sense to have only one submetric, does it?"];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	coords=Flatten[Coordinates/@assoc["Values"]];
-	If[Sort@coords =!=  Sort[assoc["Coordinates"]],
+	If[Sort@coords === Sort[assoc["Coordinates"]],
+		If[coords =!= assoc["Coordinates"],
+			Print["Submetrics must given so their Coordinates are in the same order as the Metric."];
+			Print["Metric Coordinates are ", assoc["Coordinates"]];
+			Print["Subetric Coordinates are ", coords];
+			AbortVerbose[]
+		],
+			
 		Print["Together, the Submetrics must have the same Coordinates as the Metric."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	subsets=Subsets[Join[{assoc["PossibleIndices"]},PossibleIndices/@assoc["Values"]],{2}];
 	If[Flatten[Intersection@@#&/@subsets]=!={},
 		Print["The Metric and each of its Submetrics must have a unique List of PossibleIndices."];
 		Print["The following Symbols are used in multiple metrics: ",Flatten[Intersection@@#&/@subsets]];	
-		Abort[]
-		];
+		AbortVerbose[]
+	];
 ]
 
 
-Clear[tensorMetricTests]
+testDef@
 tensorMetricTests[assoc_Association]:=
 Module[{keys},
 	keys={"Metric","Coordinates","Dimensions","PossibleIndices"};
 
 	If[Complement[keys,Keys[assoc]]=!={},
 		Print["The following keys are missing in the tensorMetricTests: "<>ToString[Complement[keys,Keys[assoc]]]];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[assoc["Metric"]===Undefined,
 		Print["All Tensors must have an associated Metric."];
-			Abort[]
+			AbortVerbose[]
 	];
 
 	If[Not@MetricQ[assoc["Metric"]],
 		Print["Given Option \"Metric\" is not a metric tensor."];
-		Abort[]
+		AbortVerbose[]
 	];
 		
 	If[(assoc["Coordinates"] =!= Coordinates[assoc["Metric"]]),
 		Print["Metric's Coordinates and given Coordinates are inconsistent: ", Coordinates[assoc["Metric"]], " and ",assoc["Coordinates"]];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[(assoc["Dimensions"] =!= SpacetimeDimensions[assoc["Metric"]]),
 		Print["Metric's SpacetimeDimensions and given SpacetimeDimensions are inconsistent: ", SpacetimeDimensions[assoc["Metric"]], " and ",assoc["Dimensions"]];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[Sort[assoc["PossibleIndices"]]=!= Sort[PossibleIndices[assoc["Metric"]]],
 		Print["Metric's PossibleIndices and given PossibleIndices are inconsistent: ", PossibleIndices[assoc["Metric"]], " and ",assoc["PossibleIndices"]];
-		Abort[]
+		AbortVerbose[]
 	];
 ]
 
 
-Clear[tensorCurveTests]
+testDef@
 tensorCurveTests[assoc_Association]:=
 Module[{keys},
 	keys={"Curve","CurveParameter","CurveQ","PossibleIndices","Values"};
 
 	If[Complement[keys,Keys[assoc]]=!={},
 		Print["The following keys are missing in the tensorCurveTests: "<>ToString[Complement[keys,Keys[assoc]]]];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Not@MatchQ[assoc["CurveParameter"],_Symbol],
 		Print["\"CurveParameter\" must be a Symbol or Undefined."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Not@BooleanQ[assoc["CurveQ"]],
 		Print["\"CurveQ\" must be True or False."];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[assoc["CurveQ"]&&(assoc["CurveParameter"]===Undefined),
 		Print["Curves must be parametrized."];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[assoc["Curve"]=!=Undefined&&assoc["Curve"]=!="Self"&&
 		Not@CurveQ[assoc["Curve"]],
 		Print["Given Option \"Curve\" is not a Curve."];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[MemberQ[assoc["PossibleIndices"],assoc["CurveParameter"]],
 		Print["\"CurveParameter\" cannot also be a possible index."];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[assoc["CurveParameter"]=!=Undefined,
@@ -1171,39 +1284,39 @@ Module[{keys},
 
 
 
-Clear[tensorTetradTests]
+def@
 tensorTetradTests[assoc_Association]:=
 Module[{keys},
 	keys={"Tetrad","Dimensions","Metric","PossibleIndices","Name"};
 
 	If[Complement[keys,Keys[assoc]]=!={},
 		Print["The following keys are missing in the tensorTetradTests: "<>ToString[Complement[keys,Keys[assoc]]]];
-		Abort[]
+		AbortVerbose[]
 	];
 
 	If[Not[MatchQ[assoc["Tetrad"],_Tetrad]],
-			Print["\"Tetrad\" must be Undefined or have Head Tetrad."];
-			Abort[]
+		Print["\"Tetrad\" must be Undefined or have Head Tetrad."];
+		AbortVerbose[]
 	];
 		
 	If[SpacetimeDimensions[assoc["Tetrad"]]=!=assoc["Dimensions"],
 		Print["Tetrad and Tensor must have same SpacetimeDimensions."];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[assoc["Metric"]===Undefined,
 		Print["Tetrads can only be assigned to Tensors with metrics."];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[If[assoc["Metric"]==="Self",assoc["Name"],TensorName[assoc["Metric"]]]=!=TensorName[SpacetimeMetric[assoc["Tetrad"]]],
 		Print["Tetrad's spacetime Metric and Tensor's Metric are not the same."];
-		Abort[]
+		AbortVerbose[]
 	];
 	
 	If[Sort@PossibleSpacetimeIndices[assoc["Tetrad"]]=!=Sort@assoc["PossibleIndices"],
 		Print["Tetrad's PossibleSpacetimeIndices and Tensor's PossibleIndices are not the same."];
-		Abort[]
+		AbortVerbose[]
 	];
 ]
 

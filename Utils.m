@@ -5,9 +5,8 @@ BeginPackage["GeneralRelativityTensors`Utils`"];
 
 def;
 reDef;
-defCond;
-reDefCond;
-Aborting;
+testDef;
+AbortVerbose;
 
 TestOptions;
 
@@ -169,7 +168,7 @@ MakeKeysStrings[syms_List]:=Last@StringSplit[ToString[#[[1]]],"`"]->#[[2]]&/@sym
 
 
 testDef@
-Aborting[fn_Symbol:$CurrentFunction]:=
+AbortVerbose[fn_Symbol:$CurrentFunction]:=
 Module[{},
 	Print["Aborting in ", fn, "[]."];
 	Abort[]
