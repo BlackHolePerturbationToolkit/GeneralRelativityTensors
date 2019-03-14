@@ -1,13 +1,13 @@
 gK = ToMetric["Kerr"];
 
 
-Test[
+VerificationTest[
 	$CacheTensorValues,
 	False,
 	TestID->"$CacheTensorValues"	
 ];
 
-Test[
+VerificationTest[
 	CachedTensorValues[gK],
 	{},
 	TestID->"CachedTensorValues1"	
@@ -16,7 +16,7 @@ Test[
 $CacheTensorValues = True;
 TensorValues[gK];
 
-Test[
+VerificationTest[
 	CachedTensorValues[gK],
 	{{"KerrMetric", {"Down", 
     "Down"}} -> {{(-a^2 + 2 M r - r^2 + a^2 Sin[\[Theta]]^2)/(
@@ -33,7 +33,7 @@ Test[
 
 $CacheTensorValues = False;
 
-Test[
+VerificationTest[
 	CachedTensorValues[gK],
 	{{"KerrMetric", {"Down", 
     "Down"}} -> {{(-a^2 + 2 M r - r^2 + a^2 Sin[\[Theta]]^2)/(
@@ -50,7 +50,7 @@ Test[
 
 ClearCachedTensorValues[gK];
 
-Test[
+VerificationTest[
 	CachedTensorValues[gK],
 	{},
 	TestID->"ClearCachedTensorValues"
