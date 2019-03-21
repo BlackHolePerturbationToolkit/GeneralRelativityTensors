@@ -1,0 +1,20 @@
+(************************************************************************)
+(* Testing the rank function by calculating the rank of the Kerr Metric *)
+(************************************************************************)
+
+Rank[gK]
+
+VerificationTest[Rank[gK], {0, 2}, 
+ TestID -> "Calculating the rank of the Kerr Metric"]
+
+
+(************************************************************************)
+(*      Testing the IndexPosition function on a Christoffel Symbol      *)
+(************************************************************************)
+
+chrS = ChristoffelSymbol[gS]
+
+IndexPositions[chrS]
+
+VerificationTest[IndexPositions[chrS], {"Up", "Down", "Down"}, 
+ TestID -> "IndexPositions of a Christoffel Symbol"]
