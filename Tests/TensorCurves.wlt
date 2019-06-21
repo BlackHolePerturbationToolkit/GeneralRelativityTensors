@@ -3,13 +3,13 @@ c1 = ToCurve["x1", gK, {t[\[Chi]], (p M)/(1 + e Cos[\[Chi]]), \[Pi]/2, \[Phi][\[
 gKC = ToTensorFieldOnCurve[gK, c1];
 gKC2 = ToTensorOnCurve["gCurve", c1, TensorValues[gKC], {-\[Alpha], -\[Beta]}];
 
-Test[
+VerificationTest[
 	TensorValues[c1],
 	{t[\[Chi]], (p M)/(1 + e Cos[\[Chi]]), \[Pi]/2, \[Phi][\[Chi]]},
 	TestID->"Curve1"	
 ]
 
-Test[
+VerificationTest[
 	RawTensorValues[gKC]
 	,
 	{{(-a^2 + 2 M r - r^2 + a^2 Sin[\[Theta]]^2)/(
@@ -24,7 +24,7 @@ Test[
 	TestID->"Curve-RawTensorValues"	
 ]
 
-Test[
+VerificationTest[
 	TensorValues[gKC],
 	{{((1 + e Cos[\[Chi]])^2 (-((M^2 p^2)/(1 + e Cos[\[Chi]])^2) + (
      2 M^2 p)/(1 + e Cos[\[Chi]])))/(M^2 p^2), 0, 
@@ -40,49 +40,49 @@ Test[
 	TestID->"Curve-TensorValues"	
 ]
 
-Test[
+VerificationTest[
 	Curve[c1],
 	c1,
 	TestID->"Curve-Curve1"	
 ]
 
-Test[
+VerificationTest[
 	Curve[gKC],
 	c1,
 	TestID->"Curve-Curve2"	
 ]
 
-Test[
+VerificationTest[
 	Curve[gK],
 	Undefined,
 	TestID->"Curve-Curve3"	
 ]
 
-Test[
+VerificationTest[
 	CurveQ[c1],
 	True,
 	TestID->"Curve-CurveQ1"	
 ]
 
-Test[
+VerificationTest[
 	CurveQ[gKC],
 	False,
 	TestID->"Curve-CurveQ2"	
 ]
 
-Test[
+VerificationTest[
 	OnCurveQ[c1],
 	True,
 	TestID->"Curve-OnCurveQ1"	
 ]
 
-Test[
+VerificationTest[
 	OnCurveQ[gKC],
 	False,
 	TestID->"Curve-OnCurveQ2"	
 ]
 
-Test[
+VerificationTest[
 	OnCurveQ[gKC2],
 	True,
 	TestID->"Curve-OnCurveQ3"	
