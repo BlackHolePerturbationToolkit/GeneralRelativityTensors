@@ -159,7 +159,7 @@ Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 
 Clear[CovariantD]
 CovariantD[expr_,inds__,avoidInds_List,opts:OptionsPattern[]]:=
-Module[{simpFn,simpFnNest,merge,mergeNest,tests},
+Module[{simpFn,simpFnNest,merge,mergeNest,tests,aInds},
 
 	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
 			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."},
@@ -172,8 +172,8 @@ Module[{simpFn,simpFnNest,merge,mergeNest,tests},
 
 	mergeNest=OptionValue["MergeNested"];
 	merge=If[mergeNest===False,OptionValue["Merge"],mergeNest];
-	
-	CovariantD[Fold[CovariantD[#1,#2,avoidInds,"ActWith"->simpFnNest,"Merge"->mergeNest]&,expr,Most@{inds}],Last@{inds},"ActWith"->simpFn,"Merge"->merge]
+	aInds=DeleteDuplicates@Flatten[Join[{inds},avoidInds]/.-aa_Symbol:>aa];
+	CovariantD[Fold[CovariantD[#1,#2,aInds,"ActWith"->simpFnNest,"Merge"->mergeNest]&,expr,Most@{inds}],Last@{inds},"ActWith"->simpFn,"Merge"->merge]
 ];
 CovariantD[expr_,inds__,opts:OptionsPattern[]]:=CovariantD[expr,inds,{},opts]
 
