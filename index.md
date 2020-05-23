@@ -11,4 +11,5 @@ All calculations using GeneralRelativityTensors require a metric with explicit v
 ```
 g = ToMetric["Kerr"]
 ```
-Other build in metrics include 
+Other build in metrics include `"Minkowski"`, `"Schwarzschild"`, `"ReissnerNordstrom"`, "KerrNewman", etc (see the documentation of `ToMetric` for more details).
+
