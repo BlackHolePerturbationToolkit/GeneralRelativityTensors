@@ -1,62 +1,45 @@
-(* Content-type: application/vnd.wolfram.mathematica *)
-
-(*** Wolfram Notebook File ***)
-(* http://www.wolfram.com/nb *)
-
-(* CreatedBy='Mathematica 11.0' *)
-
-(*CacheID: 234*)
-(* Internal cache information:
-NotebookFileLineBreakTest
-NotebookFileLineBreakTest
-NotebookDataPosition[       158,          7]
-NotebookDataLength[     69054,       1946]
-NotebookOptionsPosition[     55047,       1700]
-NotebookOutlinePosition[     56693,       1742]
-CellTagsIndexPosition[     56385,       1732]
-WindowFrame->Normal*)
-
-(* Beginning of Notebook Content *)
 Notebook[{
 
 Cell[CellGroupData[{
-Cell["GeneralRelativityTensors - Introduction to Tensor Curves", "Title",ExpressionUUID->"f18bd4c2-5f0f-4bee-a6dc-ff28cf732c90"],
+Cell["GeneralRelativityTensors - Introduction to Tensor Curves", \
+"Title",ExpressionUUID->"79330fa4-c775-4612-b1a1-bc24cfab5a9d"],
 
 Cell["\<\
 GeneralRelativityTensors provides support for Tensors defined on curves.\
-\>", "Text",ExpressionUUID->"92d6e2fb-ae7b-40c1-8a55-d2b78df182c6"],
+\>", "Text",ExpressionUUID->"42f863cd-2dc8-4622-bc12-4ec323d50f54"],
 
 Cell[BoxData[
  RowBox[{"<<", "GeneralRelativityTensors`"}]], "Input",
- CellLabel->"In[1]:=",ExpressionUUID->"cf537f83-b8eb-456d-a758-c68038441f99"],
+ CellLabel->"In[1]:=",ExpressionUUID->"d6aedce6-0558-4f94-847d-94a79ad24bfa"],
 
 Cell[CellGroupData[{
 
-Cell["Defining Curves", "Section",ExpressionUUID->"50fa1959-759f-46d4-a3e7-356deaec8f86"],
+Cell["Defining Curves", \
+"Section",ExpressionUUID->"1621da8f-61f5-4887-bd6a-197f73a18166"],
 
 Cell["\<\
 A Curve must have an associated metric. As an example, here we use Kerr \
 spacetime.\
-\>", "Item",ExpressionUUID->"73d4e4ab-2316-43d6-b75d-f6a5e5eef6cd"],
+\>", "Item",ExpressionUUID->"fea11879-97a5-4249-8ea4-97b5023d308d"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"gK", "=", 
   RowBox[{"ToMetric", "[", "\"\<Kerr\>\"", "]"}]}]], "Input",
- CellLabel->"In[2]:=",ExpressionUUID->"892bcc52-e40f-4836-a7fa-00b4cac7e47d"],
+ CellLabel->"In[2]:=",ExpressionUUID->"83730266-b95c-4f79-bb70-4e6596a060e6"],
 
 Cell[BoxData[
  TagBox[
   SubsuperscriptBox["g", "\[Alpha]\[Beta]", ""],
   DisplayForm]], "Output",
- CellLabel->"Out[2]=",ExpressionUUID->"ba47cf53-eb18-4a93-880c-b25244e7c029"]
+ CellLabel->"Out[2]=",ExpressionUUID->"6ed9ae2e-b31e-4c1c-9ea6-55f63750832e"]
 }, Open  ]],
 
 Cell["\<\
 Consider a parametrized equatorial, eccentric orbit on Kerr. The curve \
 parameter is \[Chi].\
-\>", "Item",ExpressionUUID->"e9cd28fa-1d56-4634-a578-6cc7a08cba0c"],
+\>", "Item",ExpressionUUID->"594971f4-ad80-47f5-88ac-1e1d33bbe37a"],
 
 Cell[BoxData[
  RowBox[{
@@ -71,11 +54,11 @@ Cell[BoxData[
         RowBox[{"Cos", "[", "\[Chi]", "]"}]}]}]], ",", 
      RowBox[{"\[Pi]", "/", "2"}], ",", 
      RowBox[{"\[Phi]", "[", "\[Chi]", "]"}]}], "}"}]}], ";"}]], "Input",
- CellLabel->"In[3]:=",ExpressionUUID->"9beb6689-0da1-44cd-9706-540291450115"],
+ CellLabel->"In[3]:=",ExpressionUUID->"ccb99bea-5d6c-441c-85b4-8e4f69568130"],
 
 Cell["\<\
 The Curve is defined on our manifold with the function ToCurve.\
-\>", "Item",ExpressionUUID->"03daab0a-25ee-43d3-80d5-74ed1304351c"],
+\>", "Item",ExpressionUUID->"e451876a-4ee1-4546-b144-1adc52becc24"],
 
 Cell[BoxData[GridBox[{
    {
@@ -109,9 +92,9 @@ Cell[BoxData[GridBox[{
       FontFamily->"Times",
       FontWeight->"Regular",
       FontSlant->"Italic"]
-    }], "TableText",ExpressionUUID->"59844714-d9c5-4581-bcf7-597f14032d45"]}
+    }], "TableText",ExpressionUUID->"231243c4-9c68-45a3-843c-7a7c85165842"]}
   }]], "DefinitionBox",
- CellID->1334,ExpressionUUID->"12fdf311-fd17-4f3d-8ade-35287869b147"],
+ CellID->1334,ExpressionUUID->"542341ec-c7e8-4fcf-9fb0-975f14449016"],
 
 Cell[CellGroupData[{
 
@@ -122,14 +105,14 @@ Cell[BoxData[
     RowBox[{"{", 
      RowBox[{"\"\<EquatorialEccentricKerr\>\"", ",", "\"\<x\>\""}], "}"}], 
     ",", "gK", ",", "eccKerrVals", ",", "\[Chi]"}], "]"}]}]], "Input",
- CellLabel->"In[4]:=",ExpressionUUID->"fa4f3e90-ee57-43a5-bb08-8fd9b2c8af1d"],
+ CellLabel->"In[4]:=",ExpressionUUID->"0e31f0db-c0ae-4154-b943-6f24b345c6a6"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["x", "", "\[Alpha]"], "[", "\<\"\[Chi]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[4]=",ExpressionUUID->"1cfd6f57-4a7d-435d-8d85-a12c5ffce5fc"]
+ CellLabel->"Out[4]=",ExpressionUUID->"9220a415-8053-40df-b559-267411965f99"]
 }, Open  ]],
 
 Cell["\<\
@@ -137,13 +120,13 @@ A Curve is just a rank-1 contravariant Tensor with the flags \
 \[OpenCurlyDoubleQuote]IsCurve\[CloseCurlyDoubleQuote] \[Rule] True, and \
 \[OpenCurlyDoubleQuote]Curve\[CloseCurlyDoubleQuote]\[Rule] \
 \[OpenCurlyDoubleQuote]Self\[CloseCurlyDoubleQuote]\
-\>", "Item",ExpressionUUID->"d1cc607e-d017-450e-91e8-e9c2ed6117b4"],
+\>", "Item",ExpressionUUID->"e6677684-abc2-4b58-9def-963d324b727b"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"List", "@@", "xK"}]], "Input",
- CellLabel->"In[5]:=",ExpressionUUID->"5dc77672-0553-4eb4-8763-a2fcecdd33f0"],
+ CellLabel->"In[5]:=",ExpressionUUID->"02959f60-2714-4732-a029-e224d800701e"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -185,26 +168,26 @@ Cell[BoxData[
    RowBox[{"\<\"Dimensions\"\>", "\[Rule]", "4"}], ",", 
    RowBox[{"\<\"IsCurve\"\>", "\[Rule]", "True"}], ",", 
    RowBox[{"\<\"Curve\"\>", "\[Rule]", "\<\"Self\"\>"}], ",", 
-   RowBox[{"\<\"CurveParameter\"\>", "\[Rule]", "\[Chi]"}]}], "}"}]], "Output",\
-
- CellLabel->"Out[5]=",ExpressionUUID->"94e4182e-d631-435b-9a5c-c46d95d9f059"]
+   RowBox[{"\<\"CurveParameter\"\>", "\[Rule]", "\[Chi]"}]}], "}"}]], "Output",
+ CellLabel->"Out[5]=",ExpressionUUID->"b2657c1b-2779-424a-aa4f-ed2e7c767d8b"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Putting other Tensors on Curves", "Section",ExpressionUUID->"4b862e2d-ef0b-4efb-a588-b84efa5e61f6"],
+Cell["Putting other Tensors on Curves", \
+"Section",ExpressionUUID->"a30ddf5e-7484-4e74-ab33-2f58ba238ffd"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 We will often want a Tensor field (originally a function of all coordinates \
 of the manifold) evaluated along a curve.\
-\>", "Item",ExpressionUUID->"fd8435a0-8c2e-4ce2-b1c4-b15605ba715b"],
+\>", "Item",ExpressionUUID->"700b97c4-6b19-41d4-8019-a67bff42c890"],
 
 Cell["\<\
 As an example, consider the Tensor computed by ChristoffelSymbol.\
-\>", "Item",ExpressionUUID->"26b5a9b6-dfa8-4e47-8878-49f0eb576e3b"]
+\>", "Item",ExpressionUUID->"4b2b8a5b-3507-4444-b788-a8d1134336a2"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -214,7 +197,7 @@ Cell[BoxData[
   RowBox[{"ChristoffelSymbol", "[", 
    RowBox[{"gK", ",", 
     RowBox[{"ActWith", "\[Rule]", "Simplify"}]}], "]"}]}]], "Input",
- CellLabel->"In[7]:=",ExpressionUUID->"54867fae-04ea-468d-8f98-ceac9ee27d61"],
+ CellLabel->"In[7]:=",ExpressionUUID->"dbcc272f-45d1-4023-b58c-0e055109a492"],
 
 Cell[BoxData[
  TagBox[
@@ -222,13 +205,13 @@ Cell[BoxData[
    RowBox[{"  ", "\[Beta]\[Gamma]"}], 
    RowBox[{"\[Alpha]", "    "}]],
   DisplayForm]], "Output",
- CellLabel->"Out[7]=",ExpressionUUID->"4c6f4853-65d1-4f6f-97e4-2fd780180f8e"]
+ CellLabel->"Out[7]=",ExpressionUUID->"3499d83e-6442-46c4-b642-cce62bdc7f56"]
 }, Open  ]],
 
 Cell["\<\
 This is a function of the four spacetime variables. For example, one \
 component is:\
-\>", "Item",ExpressionUUID->"864ed343-fb00-40b9-bd0e-7991a51dec8a"],
+\>", "Item",ExpressionUUID->"264cb7ee-fc9f-4c9b-a30c-7eb84bdc48b8"],
 
 Cell[CellGroupData[{
 
@@ -237,7 +220,7 @@ Cell[BoxData[
   RowBox[{"t", ",", 
    RowBox[{"-", "t"}], ",", 
    RowBox[{"-", "r"}]}], "]"}]], "Input",
- CellLabel->"In[8]:=",ExpressionUUID->"21aec045-7ceb-4def-8059-cfe15cb54606"],
+ CellLabel->"In[8]:=",ExpressionUUID->"d59db9e3-df2f-45c0-aea3-320003e5d0d1"],
 
 Cell[BoxData[
  RowBox[{"-", 
@@ -276,13 +259,13 @@ Cell[BoxData[
         RowBox[{"Cos", "[", 
          RowBox[{"2", " ", "\[Theta]"}], "]"}]}]}], ")"}], 
      "2"]}]]}]], "Output",
- CellLabel->"Out[8]=",ExpressionUUID->"298524f8-5448-4406-8d96-fbf3b3ecd6ac"]
+ CellLabel->"Out[8]=",ExpressionUUID->"8540d1e6-3e5f-4034-a0e0-b7a0235a7e48"]
 }, Open  ]],
 
 Cell["\<\
 We can associate this field with our Curve xK. This is done with \
 ToTensorFieldOnCurve.\
-\>", "Item",ExpressionUUID->"cbda8283-1516-4b09-96cb-de934e6d5dbd"],
+\>", "Item",ExpressionUUID->"a97167a7-d053-43d0-8da5-cea87b690310"],
 
 Cell[BoxData[GridBox[{
    {
@@ -311,7 +294,7 @@ Cell[BoxData[GridBox[{
      RowBox[{"manifold", "'"}], "s", " ", 
      RowBox[{"coordinates", "."}]}]}
   }]], "DefinitionBox",
- CellID->546406789,ExpressionUUID->"e04cccf4-7f00-4a05-a0d3-de318d319285"],
+ CellID->546406789,ExpressionUUID->"4b9ed791-3ef4-45a6-a9ae-dde704e640d9"],
 
 Cell[CellGroupData[{
 
@@ -319,7 +302,7 @@ Cell[BoxData[
  RowBox[{"chrKF", "=", 
   RowBox[{"ToTensorFieldOnCurve", "[", 
    RowBox[{"chrK", ",", "xK"}], "]"}]}]], "Input",
- CellLabel->"In[10]:=",ExpressionUUID->"4cb7d029-3f91-4bcf-9197-a72bbbd74380"],
+ CellLabel->"In[10]:=",ExpressionUUID->"0af0eadc-b9fd-4dd5-aa25-89a105a39449"],
 
 Cell[BoxData[
  TagBox[
@@ -327,10 +310,12 @@ Cell[BoxData[
    RowBox[{"  ", "\[Beta]\[Gamma]"}], 
    RowBox[{"\[Alpha]", "    "}]],
   DisplayForm]], "Output",
- CellLabel->"Out[10]=",ExpressionUUID->"2145586a-6451-428a-a507-59798d3c3fa4"]
+ CellLabel->
+  "Out[10]=",ExpressionUUID->"473ed09a-079b-4bc0-98b6-8034ba895c47"]
 }, Open  ]],
 
-Cell["Now the Component is evaluated along the Curve", "Item",ExpressionUUID->"83e4ef52-a2cd-4088-887f-797219b950f5"],
+Cell["Now the Component is evaluated along the Curve", \
+"Item",ExpressionUUID->"eb3632b4-4439-439d-8704-18fdb0bc8147"],
 
 Cell[CellGroupData[{
 
@@ -339,7 +324,7 @@ Cell[BoxData[
   RowBox[{"t", ",", 
    RowBox[{"-", "t"}], ",", 
    RowBox[{"-", "r"}]}], "]"}]], "Input",
- CellLabel->"In[11]:=",ExpressionUUID->"f066e683-066a-4bc7-80fd-eac39f4801bd"],
+ CellLabel->"In[11]:=",ExpressionUUID->"6dbcc68f-27cc-438d-b5d4-8ce8c85ad6b5"],
 
 Cell[BoxData[
  FractionBox[
@@ -380,7 +365,8 @@ Cell[BoxData[
       RowBox[{"1", "+", 
        RowBox[{"e", " ", 
         RowBox[{"Cos", "[", "\[Chi]", "]"}]}]}]]}], ")"}]}]]], "Output",
- CellLabel->"Out[11]=",ExpressionUUID->"4715fe77-3bf4-4e9d-8c28-c9eebab9cf21"]
+ CellLabel->
+  "Out[11]=",ExpressionUUID->"3b838f88-eb78-40f5-b7ac-19ebb3d9b97f"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -391,13 +377,14 @@ Cell[TextData[{
   FontWeight->"Bold",
   FontSlant->"Italic"],
  " evaluated along xK."
-}], "Item",ExpressionUUID->"eee5edec-d47f-4a52-bb68-806938dacc93"],
+}], "Item",ExpressionUUID->"96e54da3-3c8f-4d07-9aa1-94349597ff63"],
 
 Cell["\<\
 This allows us to still take derivatives with respect to the coordinates.\
-\>", "Item",ExpressionUUID->"39225905-f84e-4a25-98a5-a8f10bd9b30c"],
+\>", "Item",ExpressionUUID->"e8ec4d0e-a055-4135-8de3-bf9978b8da4f"],
 
-Cell["See the values with RawTensorValues.", "Item",ExpressionUUID->"020cc3c2-34cd-4172-8b4f-51f3201aacab"]
+Cell["See the values with RawTensorValues.", \
+"Item",ExpressionUUID->"5cf19c03-087c-494f-83a6-e1739e894848"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -405,7 +392,7 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"First", "@", 
   RowBox[{"RawTensorValues", "[", "chrKF", "]"}]}]], "Input",
- CellLabel->"In[12]:=",ExpressionUUID->"57cee931-5eff-4236-b257-eeb7a52d44c2"],
+ CellLabel->"In[12]:=",ExpressionUUID->"985747e3-f545-4f55-a9a9-a0a241dec068"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -640,17 +627,19 @@ Cell[BoxData[
           RowBox[{"Cos", "[", 
            RowBox[{"2", " ", "\[Theta]"}], "]"}]}]}], ")"}], "2"]], ",", 
      "0"}], "}"}]}], "}"}]], "Output",
- CellLabel->"Out[12]=",ExpressionUUID->"95349502-63ad-4a34-932a-9fd451ab3432"]
+ CellLabel->
+  "Out[12]=",ExpressionUUID->"6d605f5e-23a6-41c9-879d-f591ebec5468"]
 }, Open  ]],
 
-Cell["TensorValues gives the values along the curve.", "Item",ExpressionUUID->"6ef9cf36-6912-4c16-aa10-f721c82128db"],
+Cell["TensorValues gives the values along the curve.", \
+"Item",ExpressionUUID->"ca7e8660-d7f2-47ba-a8f8-1f4eb892f101"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"First", "@", 
   RowBox[{"TensorValues", "[", "chrKF", "]"}]}]], "Input",
- CellLabel->"In[13]:=",ExpressionUUID->"31470874-dc4e-480e-8a3a-334fd2a3fc54"],
+ CellLabel->"In[13]:=",ExpressionUUID->"afef4255-5059-4d44-b6f5-aa4cb2d46bd1"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -873,33 +862,36 @@ Cell[BoxData[
            RowBox[{"e", " ", 
             RowBox[{"Cos", "[", "\[Chi]", "]"}]}]}]]}], ")"}]}]], ",", "0", 
      ",", "0"}], "}"}]}], "}"}]], "Output",
- CellLabel->"Out[13]=",ExpressionUUID->"69ec42c8-9fef-4536-8bff-737addb910cf"]
+ CellLabel->
+  "Out[13]=",ExpressionUUID->"679284b0-1585-442d-a6e5-1cbb8b1dea4b"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Tensors evaluated explicitly on Curves", "Section",ExpressionUUID->"aad97c5d-4690-4833-b3ed-51c5514c3dd7"],
+Cell["Tensors evaluated explicitly on Curves", \
+"Section",ExpressionUUID->"dd944d2c-b53f-491f-9ba5-ef1294b19015"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 Sometimes we will want to evaluate the values of a Tensor explicitly along a \
 Curve.\
-\>", "Item",ExpressionUUID->"dff90d24-8f48-4255-83af-5a5363caaddf"],
+\>", "Item",ExpressionUUID->"6a15b529-1133-4f91-ae25-37fa5d4d0ebe"],
 
 Cell["\<\
 For instance, the four-velocity of a particle is defined only on a Curve.\
-\>", "Item",ExpressionUUID->"1648ff0e-7ea4-40e9-a01a-3c4dd005981c"],
+\>", "Item",ExpressionUUID->"4e24d69a-e9f8-4642-845a-ed4151375f1b"],
 
 Cell[TextData[{
  "Consider a generic ",
  StyleBox["trajectory",
   IgnoreSpellCheck->True],
  " in Schwarzschild, parametrized by proper time \[Tau]."
-}], "Item",ExpressionUUID->"2b21ef79-ef68-4c19-b714-75d0ffbbb140"],
+}], "Item",ExpressionUUID->"8e1fde00-b4f1-40a7-8deb-6624387e502f"],
 
-Cell["Without loss of generality, \[Theta]=\[Pi]/2.", "Item",ExpressionUUID->"4588b133-7d61-45bb-97b2-482078d5b5c1"]
+Cell["Without loss of generality, \[Theta]=\[Pi]/2.", \
+"Item",ExpressionUUID->"e2ab84c5-73a6-426c-9762-da5a58e5c1a2"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -919,17 +911,19 @@ Cell[BoxData[
       RowBox[{"\[Pi]", "/", "2"}], ",", 
       RowBox[{"\[Phi]", "[", "\[Tau]", "]"}]}], "}"}], ",", "\[Tau]"}], 
    "]"}]}]], "Input",
- CellLabel->"In[14]:=",ExpressionUUID->"2e2d1ba4-9358-4079-a77b-dcf2ac54580e"],
+ CellLabel->"In[14]:=",ExpressionUUID->"fd54d8cb-203b-4106-a3a9-079af0b18fde"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["x", "", "\[Alpha]"], "[", "\<\"\[Tau]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[14]=",ExpressionUUID->"120ae8ea-0f80-4a42-9b50-5c48fa0b281d"]
+ CellLabel->
+  "Out[14]=",ExpressionUUID->"634262ab-dcc5-4511-abbe-ce6b98756b52"]
 }, Open  ]],
 
-Cell["The covariant four velocity will have the values:", "Item",ExpressionUUID->"8436de6f-d150-423b-8542-9ac953500922"],
+Cell["The covariant four velocity will have the values:", \
+"Item",ExpressionUUID->"c6d4b494-c302-4fdd-8aa9-b402855868c6"],
 
 Cell[BoxData[
  RowBox[{
@@ -945,9 +939,10 @@ Cell[BoxData[
         RowBox[{"M", "/", 
          RowBox[{"r", "[", "\[Tau]", "]"}]}]}]}]], ",", "0", ",", 
      "\[ScriptCapitalJ]"}], "}"}]}], ";"}]], "Input",
- CellLabel->"In[15]:=",ExpressionUUID->"34d7b05f-e7ab-4497-a2d6-78414c2fef6a"],
+ CellLabel->"In[15]:=",ExpressionUUID->"7064ea9a-559c-4944-98c5-81ca19cde754"],
 
-Cell["Use ToTensorOnCurve to make the definition.", "Item",ExpressionUUID->"fc716eca-dd11-445c-95ea-1d43f2bb4a37"],
+Cell["Use ToTensorOnCurve to make the definition.", \
+"Item",ExpressionUUID->"2f03ef5a-a3e9-4de7-ae49-593281b862cd"],
 
 Cell[BoxData[GridBox[{
    {
@@ -968,7 +963,7 @@ Cell[BoxData[GridBox[{
       FontWeight->"Regular",
       FontSlant->"Italic"],
      "."
-    }], "TableText",ExpressionUUID->"29a56695-f2cf-4c7b-81ea-1de7d7dfd00d"]},
+    }], "TableText",ExpressionUUID->"3b2f7fae-5fec-4dbd-ab97-69623ad77427"]},
    {
     RowBox[{
      ButtonBox["ToTensorOnCurve",
@@ -977,9 +972,9 @@ Cell[BoxData[GridBox[{
      StyleBox[
       RowBox[{"n", ",", "c", ",", "vals", ",", "inds"}], "TI"], "]"}], Cell[
     "Returns a new Tensor evaluated explicitly on a Curve.", "TableText",
-     ExpressionUUID->"8ef341db-9c78-4287-ba57-b1e39093aac0"]}
+     ExpressionUUID->"d8a2933a-5d46-49b0-b8c2-b3a79b98b32b"]}
   }]], "DefinitionBox",
- CellID->1451382593,ExpressionUUID->"3ff5c08f-1021-4e39-8cdb-6b145899121c"],
+ CellID->1451382593,ExpressionUUID->"4b011f5a-0234-49f0-8a27-cb07fd4de2bd"],
 
 Cell[CellGroupData[{
 
@@ -992,14 +987,15 @@ Cell[BoxData[
      "}"}], ",", "xS", ",", "valsCo", ",", 
     RowBox[{"{", 
      RowBox[{"-", "\[Alpha]"}], "}"}]}], "]"}]}]], "Input",
- CellLabel->"In[17]:=",ExpressionUUID->"801e6056-dd07-47e4-af82-4d96c671737d"],
+ CellLabel->"In[17]:=",ExpressionUUID->"7fc27f5b-109d-4f08-a4b6-ef2558220f9e"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["u", "\[Alpha]", ""], "[", "\<\"\[Tau]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[17]=",ExpressionUUID->"38e1ce47-f4b4-4da1-b010-b5d560100dc7"]
+ CellLabel->
+  "Out[17]=",ExpressionUUID->"fa6e7f64-4a77-47a6-a068-77c31947861e"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1007,20 +1003,21 @@ Cell[CellGroupData[{
 Cell[BoxData[
  RowBox[{"uS", "=", 
   RowBox[{"uSCo", "[", "\[Alpha]", "]"}]}]], "Input",
- CellLabel->"In[18]:=",ExpressionUUID->"a34a0e8d-3de0-45c3-9293-7f55c5e642dd"],
+ CellLabel->"In[18]:=",ExpressionUUID->"31f177b5-c94e-48cb-a936-6327de5d1f36"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["u", "", "\[Alpha]"], "[", "\<\"\[Tau]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[18]=",ExpressionUUID->"836a0212-6462-4b28-896d-86c3b0a5df7b"]
+ CellLabel->
+  "Out[18]=",ExpressionUUID->"2b77aad5-fde5-4a6d-a76f-851cab63c81d"]
 }, Open  ]],
 
 Cell["\<\
 As another example, we use the first form of ToTensorOnCurve to evaluate a \
 Tensor field on a Curve.\
-\>", "Item",ExpressionUUID->"4f5256ec-5425-40f7-896f-d64501a12d66"],
+\>", "Item",ExpressionUUID->"7f31ad82-742a-408b-88b1-d92fe7fc4eb9"],
 
 Cell[CellGroupData[{
 
@@ -1028,7 +1025,7 @@ Cell[BoxData[
  RowBox[{"chrKC", "=", 
   RowBox[{"ToTensorOnCurve", "[", 
    RowBox[{"chrK", ",", "xK"}], "]"}]}]], "Input",
- CellLabel->"In[20]:=",ExpressionUUID->"8eb908b9-5b58-4658-a5eb-c81930e09b37"],
+ CellLabel->"In[20]:=",ExpressionUUID->"7d9c18ed-c181-408b-874b-69fd0ecfbb1b"],
 
 Cell[BoxData[
  TagBox[
@@ -1037,17 +1034,19 @@ Cell[BoxData[
     RowBox[{"  ", "\[Beta]\[Gamma]"}], 
     RowBox[{"\[Alpha]", "    "}]], "[", "\<\"\[Chi]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[20]=",ExpressionUUID->"d0e89a3e-0576-4e06-a8c2-af99fc76dccc"]
+ CellLabel->
+  "Out[20]=",ExpressionUUID->"6666e592-71bb-441e-969f-9802a3b17b48"]
 }, Open  ]],
 
-Cell["Compare this output to that from chrKF above:", "Item",ExpressionUUID->"dcab21a5-8aae-4e53-ba39-a347767622ac"],
+Cell["Compare this output to that from chrKF above:", \
+"Item",ExpressionUUID->"557f0bbd-06cb-4587-b5c1-612fa0be9bd5"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"First", "@", 
   RowBox[{"RawTensorValues", "[", "chrKC", "]"}]}]], "Input",
- CellLabel->"In[22]:=",ExpressionUUID->"0714e647-20f8-47ad-a6e9-360107b877a9"],
+ CellLabel->"In[22]:=",ExpressionUUID->"08473562-34dd-4761-9f6d-4e479d5b617f"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1270,24 +1269,26 @@ Cell[BoxData[
            RowBox[{"e", " ", 
             RowBox[{"Cos", "[", "\[Chi]", "]"}]}]}]]}], ")"}]}]], ",", "0", 
      ",", "0"}], "}"}]}], "}"}]], "Output",
- CellLabel->"Out[22]=",ExpressionUUID->"a85b9f9c-f7cc-4822-b687-364a1704817a"]
+ CellLabel->
+  "Out[22]=",ExpressionUUID->"f3bc404c-0d61-4dce-bfed-0031092fda7f"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Derivatives along Curves", "Section",ExpressionUUID->"f5003019-2da0-4f29-9b2e-ea89900cd729"],
+Cell["Derivatives along Curves", \
+"Section",ExpressionUUID->"739ef017-194d-4ef2-8f90-e9d33786ee01"],
 
 Cell["\<\
 We can take derivatives with respect to the CurveParameter using D, as usual.\
 \
-\>", "Item",ExpressionUUID->"8b9bf28c-0add-440b-94ed-4eb2dd26ac30"],
+\>", "Item",ExpressionUUID->"e80f6661-d4dc-4b76-938f-5bd65df60dcd"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"?", "CurveParameter"}]], "Input",
- CellLabel->"In[74]:=",ExpressionUUID->"0818ade3-3e5f-4821-899e-4ddbce336144"],
+ CellLabel->"In[74]:=",ExpressionUUID->"5e40f83f-b76a-43f1-9adf-0e330261476d"],
 
 Cell[BoxData[
  RowBox[{"\<\"CurveParameter[t] returns the parmeter which parametrizes the \
@@ -1297,21 +1298,20 @@ tensor t along the curve. It returns Undefined if t is not a curve.\"\>",
    StyleBox["\[RightSkeleton]", "SR"],
    Active->True,
    BaseStyle->"Link",
-   ButtonData->"paclet:Tensors/ref/CurveParameter"]}]], "Print", "PrintUsage",
- 
- CellTags->
-  "Info743740232308-1061845",ExpressionUUID->"2c8411af-31f1-4a18-bad7-\
-bb417a753238"]
+   ButtonData->
+    "paclet:Tensors/ref/CurveParameter"]}]], "Print", \
+"PrintUsage",ExpressionUUID->"1127b545-5fde-44ea-a4b5-9853c838fefe"]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"CurveParameter", "[", "uS", "]"}]], "Input",
- CellLabel->"In[24]:=",ExpressionUUID->"35f49dad-2916-4ef8-98eb-c791c08e1d7b"],
+ CellLabel->"In[24]:=",ExpressionUUID->"0223764c-08a9-40d5-a7a7-d3542189e00c"],
 
 Cell[BoxData["\[Tau]"], "Output",
- CellLabel->"Out[24]=",ExpressionUUID->"89a4ca94-67d8-47af-a8e5-91507e17512a"]
+ CellLabel->
+  "Out[24]=",ExpressionUUID->"ec36e5d5-3db6-4937-858c-48269e37d9e4"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1320,7 +1320,7 @@ Cell[BoxData[
  RowBox[{
   RowBox[{"D", "[", 
    RowBox[{"uS", ",", "\[Tau]"}], "]"}], "//", "TensorValues"}]], "Input",
- CellLabel->"In[34]:=",ExpressionUUID->"a277de13-d041-451a-9512-d35720aea220"],
+ CellLabel->"In[34]:=",ExpressionUUID->"b3dba50d-2bd1-40b8-9eea-bd5a222464cc"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1357,19 +1357,20 @@ Cell[BoxData[
         MultilineFunction->None], "[", "\[Tau]", "]"}]}], 
      SuperscriptBox[
       RowBox[{"r", "[", "\[Tau]", "]"}], "3"]]}]}], "}"}]], "Output",
- CellLabel->"Out[34]=",ExpressionUUID->"a7e51ff9-57e3-48b8-ad74-3ec523f2c1f2"]
+ CellLabel->
+  "Out[34]=",ExpressionUUID->"5ff20d22-e712-4fd6-8a84-dc627cbcde92"]
 }, Open  ]],
 
 Cell["\<\
 Usually, we want the covariant derivative, which is taken along a 4-velocity \
 using the second form of CovariantD.\
-\>", "Item",ExpressionUUID->"109c21e4-6df3-4d7b-8c38-74e88c8eab82"],
+\>", "Item",ExpressionUUID->"c1a4324b-d2a6-4619-8fd3-50172e333c00"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"?", "CovariantD"}]], "Input",
- CellLabel->"In[28]:=",ExpressionUUID->"142230a6-0672-4c77-81f8-cbe4d3378545"],
+ CellLabel->"In[28]:=",ExpressionUUID->"f30f7a1d-4803-48e3-8748-72bf204c0e6f"],
 
 Cell[BoxData[
  RowBox[{"\<\"CovariantD[t,ind] returns the covariant derivative of tensor t \
@@ -1380,16 +1381,15 @@ along a four-velocity u;\"\>", "\[NonBreakingSpace]",
    StyleBox["\[RightSkeleton]", "SR"],
    Active->True,
    BaseStyle->"Link",
-   ButtonData->"paclet:Tensors/ref/CovariantD"]}]], "Print", "PrintUsage",
- CellTags->
-  "Info283740231495-1061845",ExpressionUUID->"29e86449-bfe9-4404-a45d-\
-c24d893ebd31"]
+   ButtonData->
+    "paclet:Tensors/ref/CovariantD"]}]], "Print", \
+"PrintUsage",ExpressionUUID->"15af73f8-1c17-4adf-a0b4-9fac9cb14efb"]
 }, Open  ]],
 
 Cell["\<\
 Here, we find the geodesic equations for Schwarzschild by computing the \
 covariant derivative of the 4-velocity along itself.\
-\>", "Item",ExpressionUUID->"2b7279eb-29a5-4f68-b9cb-847b8cd67ad0"],
+\>", "Item",ExpressionUUID->"fca74f7c-7b0c-45ca-86a6-13e8fee0485b"],
 
 Cell[CellGroupData[{
 
@@ -1397,7 +1397,7 @@ Cell[BoxData[
  RowBox[{"uGradU", "=", 
   RowBox[{"CovariantD", "[", 
    RowBox[{"uS", ",", "uS"}], "]"}]}]], "Input",
- CellLabel->"In[30]:=",ExpressionUUID->"ba447ab1-f01b-421c-a44c-0059768d9b73"],
+ CellLabel->"In[30]:=",ExpressionUUID->"2331dcc7-9084-450f-a0b0-e76dfc298951"],
 
 Cell[BoxData[
  RowBox[{
@@ -1423,33 +1423,35 @@ Cell[BoxData[
       RowBox[{"\[PartialD]", "u"}], ")"}], "", "\[Alpha]"], 
     "[", "\<\"\[Tau]\"\>", "]"}],
    DisplayForm]}]], "Output",
- CellLabel->"Out[30]=",ExpressionUUID->"0b6a806d-ac96-4ce5-9d55-6ad9c94c0f9b"]
+ CellLabel->
+  "Out[30]=",ExpressionUUID->"f300bd93-b018-4c3c-a1b5-3ee862cff0e2"]
 }, Open  ]],
 
 Cell["\<\
 Note that by default CovariantD does not return a Tensor, but rather an \
 expression a sum and product of Tensors\
-\>", "Item",ExpressionUUID->"ba4a7695-f2da-4c1f-9f69-ee5466926da1"],
+\>", "Item",ExpressionUUID->"4f628134-7a93-4cdb-a831-10d819a2f774"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"Head", "[", "uGradU", "]"}]], "Input",
- CellLabel->"In[35]:=",ExpressionUUID->"8ef7ae03-b485-4441-be1b-5b5c3364df1c"],
+ CellLabel->"In[35]:=",ExpressionUUID->"70909777-7d13-49a0-9292-1f481e182ead"],
 
 Cell[BoxData["Plus"], "Output",
- CellLabel->"Out[35]=",ExpressionUUID->"b0370d87-30f6-4a90-ab14-d3e49943c3a6"]
+ CellLabel->
+  "Out[35]=",ExpressionUUID->"70544c37-3c6b-4c8b-99cf-88e181657d4f"]
 }, Open  ]],
 
 Cell["\<\
 The different Tensors can be combined together using MergeTensors\
-\>", "Item",ExpressionUUID->"47a10ff6-58f6-4a9b-8cc2-c01baca26c5e"],
+\>", "Item",ExpressionUUID->"be91c3f0-3214-4429-9d9f-7760298d123c"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"?", "MergeTensors"}]], "Input",
- CellLabel->"In[36]:=",ExpressionUUID->"1a64de3f-0a52-4750-9186-051675b9821b"],
+ CellLabel->"In[36]:=",ExpressionUUID->"f72494ac-83b0-4071-b2eb-7e8b49affe0b"],
 
 Cell[BoxData[
  RowBox[{"\<\"MergeTensors[expr,n] calls MultiplyTensors, \
@@ -1462,10 +1464,9 @@ TensorDisplayName from a combination of the Tensors making up the expression.\
    StyleBox["\[RightSkeleton]", "SR"],
    Active->True,
    BaseStyle->"Link",
-   ButtonData->"paclet:Tensors/ref/MergeTensors"]}]], "Print", "PrintUsage",
- CellTags->
-  "Info363740231759-1061845",ExpressionUUID->"d89a711f-fb88-4763-bc24-\
-d0952baa0841"]
+   ButtonData->
+    "paclet:Tensors/ref/MergeTensors"]}]], "Print", \
+"PrintUsage",ExpressionUUID->"c7cddf06-5e01-4705-978f-6ce4f471dd80"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1474,7 +1475,7 @@ Cell[BoxData[
  RowBox[{"Simplify", "@", 
   RowBox[{"TensorValues", "@", 
    RowBox[{"MergeTensors", "[", "uGradU", "]"}]}]}]], "Input",
- CellLabel->"In[33]:=",ExpressionUUID->"f70b57f9-2066-4207-9d2a-991199cc3a7d"],
+ CellLabel->"In[33]:=",ExpressionUUID->"5cb70aeb-cc27-40af-9a7a-c71dc643866f"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -1512,48 +1513,56 @@ Cell[BoxData[
      SuperscriptBox["r", "\[Prime]\[Prime]",
       MultilineFunction->None], "[", "\[Tau]", "]"}]}], ",", "0", ",", "0"}], 
   "}"}]], "Output",
- CellLabel->"Out[33]=",ExpressionUUID->"558e4dce-e5c4-47c7-8c0f-c257106bbab4"]
+ CellLabel->
+  "Out[33]=",ExpressionUUID->"3c9b05e7-d018-4bdf-8c60-2dcab2e8bec8"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Odds and ends", "Section",ExpressionUUID->"7a456b7c-4cbd-4a82-baa2-297f93582567"],
+Cell["Odds and ends", \
+"Section",ExpressionUUID->"e5248478-3779-47b6-bc9f-e925a444c361"],
 
 Cell[CellGroupData[{
 
 Cell["\<\
 There are subtle differences between a Tensor having being a Curve, having an \
 associated Curve, and being on a Curve.\
-\>", "Item",ExpressionUUID->"93d4ebbb-f229-48a4-a96f-676cfc2f6612"],
+\>", "Item",ExpressionUUID->"c2612a80-dc8f-4a6a-b213-b56388dff113"],
 
 Cell["\<\
 The functions Curve, CurveQ, and OnCurveQ help make the distinction.\
-\>", "Item",ExpressionUUID->"1850e059-81f5-43f7-ba39-c97bda27e3cb"],
+\>", "Item",ExpressionUUID->"731893e0-59f0-4517-ae0d-8c64adf6dcbb"],
 
-Cell["In the examples below, ", "Item",ExpressionUUID->"b31bf86b-3a93-4247-8b65-b25399312d7a"],
+Cell["In the examples below, ", \
+"Item",ExpressionUUID->"b21a2f88-4865-44b0-95e1-cf470a022551"],
 
 Cell[CellGroupData[{
 
-Cell["gK is just a Tensor field with no associated Curve.", "Subitem",ExpressionUUID->"81b64f42-00a4-4a3b-aa0b-a8044a5a6f53"],
+Cell["gK is just a Tensor field with no associated Curve.", \
+"Subitem",ExpressionUUID->"30bfa89e-c941-4fd4-9aa4-6b9c504f07f7"],
 
-Cell["xK is a Curve.", "Subitem",ExpressionUUID->"7e8e2461-a60e-4830-80fa-57df609e74be"],
+Cell["xK is a Curve.", \
+"Subitem",ExpressionUUID->"12299f0c-f4f2-4b63-b97b-03f85a92f699"],
 
-Cell["chrKF is a Tensor field with an associated Curve xK.", "Subitem",ExpressionUUID->"6d855fbc-3298-4f25-8355-8aa478b2d64e"],
+Cell["chrKF is a Tensor field with an associated Curve xK.", \
+"Subitem",ExpressionUUID->"5f5f83cb-5390-49f0-9d00-7e25c4c8e45a"],
 
-Cell["chrKC is explicitly evaluated on the Curve xK.", "Subitem",ExpressionUUID->"f9bf8c0b-70bd-40bb-bd2c-5e2d4785551d"]
+Cell["chrKC is explicitly evaluated on the Curve xK.", \
+"Subitem",ExpressionUUID->"c3bcee91-7cbb-4305-bcef-9436da08df3f"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["Curve", "Subsection",ExpressionUUID->"06b77e41-4270-40ba-b884-0a47bc66c605"],
+Cell["Curve", \
+"Subsection",ExpressionUUID->"f73259e9-50eb-475d-bd9a-ec462116a729"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"?", "Curve"}]], "Input",
- CellLabel->"In[39]:=",ExpressionUUID->"5751a8f5-3647-43a3-8294-e9ba0068454d"],
+ CellLabel->"In[39]:=",ExpressionUUID->"522aa893-b858-4e44-83af-8555709caea8"],
 
 Cell[BoxData[
  RowBox[{"\<\"Curve[t] returns the curve that  t is defined along.\"\>", 
@@ -1562,10 +1571,9 @@ Cell[BoxData[
    StyleBox["\[RightSkeleton]", "SR"],
    Active->True,
    BaseStyle->"Link",
-   ButtonData->"paclet:Tensors/ref/Curve"]}]], "Print", "PrintUsage",
- CellTags->
-  "Info393740231904-1061845",ExpressionUUID->"6a58427a-fe5a-4bc9-bc66-\
-ee0dad4c9b25"]
+   ButtonData->
+    "paclet:Tensors/ref/Curve"]}]], "Print", \
+"PrintUsage",ExpressionUUID->"8cd39d11-35f1-45a1-a19a-5f7ece32572c"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1574,44 +1582,46 @@ Cell[BoxData[{
  RowBox[{"Curve", "[", "gK", "]"}], "\[IndentingNewLine]", 
  RowBox[{"Curve", "[", "xK", "]"}], "\[IndentingNewLine]", 
  RowBox[{"Curve", "[", "chrKF", "]"}], "\[IndentingNewLine]", 
- RowBox[{"Curve", "[", "chrKC", "]"}]}], "Input",ExpressionUUID->"0bc8b679-\
-6af3-416c-a34e-cf1aace3802e"],
+ RowBox[{"Curve", "[", "chrKC", 
+  "]"}]}], "Input",ExpressionUUID->"f0743baf-3bc2-440a-ab96-4d9b92e487e7"],
 
 Cell[BoxData["Undefined"], "Output",
- CellLabel->"Out[66]=",ExpressionUUID->"bbd0a914-41f3-4f26-9540-df3d08ed75c5"],
+ CellLabel->"Out[66]=",ExpressionUUID->"c759e283-b79f-4f25-adf1-076a8402f6d4"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["x", "", "\[Alpha]"], "[", "\<\"\[Chi]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[67]=",ExpressionUUID->"79f20de4-fc53-419d-a99d-3ebd5a73efd3"],
+ CellLabel->"Out[67]=",ExpressionUUID->"6147b4b7-1c9f-4d32-b9a7-fddf08c5116d"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["x", "", "\[Alpha]"], "[", "\<\"\[Chi]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[68]=",ExpressionUUID->"7aa085dd-8eec-41d4-8bf6-bfcb51a9f046"],
+ CellLabel->"Out[68]=",ExpressionUUID->"89bf0897-199d-4c90-929c-be956bf06363"],
 
 Cell[BoxData[
  TagBox[
   RowBox[{
    SubsuperscriptBox["x", "", "\[Alpha]"], "[", "\<\"\[Tau]\"\>", "]"}],
   DisplayForm]], "Output",
- CellLabel->"Out[69]=",ExpressionUUID->"6d8d9c12-4a98-4db6-a69f-0dd0c2f6141b"]
+ CellLabel->
+  "Out[69]=",ExpressionUUID->"767524ae-e8c3-488f-ab0c-2b35bd11bd66"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["CurveQ", "Subsection",ExpressionUUID->"bab028ae-945d-4322-adfd-a9328c4dfd89"],
+Cell["CurveQ", \
+"Subsection",ExpressionUUID->"0adfbaf2-ce5d-48f6-8f35-8bc328948093"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"?", "CurveQ"}]], "Input",
- CellLabel->"In[77]:=",ExpressionUUID->"58de66c3-9ab4-4471-a0d4-7dd5fcab9242"],
+ CellLabel->"In[77]:=",ExpressionUUID->"79859e4b-3763-40b3-b930-40366f344658"],
 
 Cell[BoxData[
  RowBox[{"\<\"CurveQ[t] returns True if the Tensor t is a curve.\"\>", 
@@ -1620,10 +1630,9 @@ Cell[BoxData[
    StyleBox["\[RightSkeleton]", "SR"],
    Active->True,
    BaseStyle->"Link",
-   ButtonData->"paclet:Tensors/ref/CurveQ"]}]], "Print", "PrintUsage",
- CellTags->
-  "Info773740058877-3465279",ExpressionUUID->"f8eacbc3-a6b4-4e9c-9f99-\
-37cf818e2dbf"]
+   ButtonData->
+    "paclet:Tensors/ref/CurveQ"]}]], "Print", \
+"PrintUsage",ExpressionUUID->"21321689-9eab-4ba8-82ca-20583f4958f9"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1632,32 +1641,34 @@ Cell[BoxData[{
  RowBox[{"CurveQ", "[", "gK", "]"}], "\[IndentingNewLine]", 
  RowBox[{"CurveQ", "[", "xK", "]"}], "\[IndentingNewLine]", 
  RowBox[{"CurveQ", "[", "chrKF", "]"}], "\[IndentingNewLine]", 
- RowBox[{"CurveQ", "[", "chrKC", "]"}]}], "Input",ExpressionUUID->"3b5b4f21-\
-4d19-4bad-b47d-710459427063"],
+ RowBox[{"CurveQ", "[", "chrKC", 
+  "]"}]}], "Input",ExpressionUUID->"1a40cf50-805a-45ac-ba9c-ac4b6b898dd7"],
 
 Cell[BoxData["False"], "Output",
- CellLabel->"Out[70]=",ExpressionUUID->"6cb43875-9f14-4844-8b64-16692db54038"],
+ CellLabel->"Out[70]=",ExpressionUUID->"d72f9fae-0013-4291-9976-c1e0250e3147"],
 
 Cell[BoxData["True"], "Output",
- CellLabel->"Out[71]=",ExpressionUUID->"da71bde5-fdf4-48b9-90f5-decaae5d923d"],
+ CellLabel->"Out[71]=",ExpressionUUID->"2b3fd0cf-0ac0-4524-8be2-ac8dad1d2a91"],
 
 Cell[BoxData["False"], "Output",
- CellLabel->"Out[72]=",ExpressionUUID->"c53a6ec6-df6b-47dd-99f0-7b9e23d965be"],
+ CellLabel->"Out[72]=",ExpressionUUID->"d6881e77-7f12-4b48-bfa3-0549e46a98d3"],
 
 Cell[BoxData["False"], "Output",
- CellLabel->"Out[73]=",ExpressionUUID->"ba5377ce-3c7c-48a6-a3fe-b51c7f61e86d"]
+ CellLabel->
+  "Out[73]=",ExpressionUUID->"4695ccbc-f749-43d0-98ed-2718e5f77677"]
 }, Open  ]]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
-Cell["OnCurveQ", "Subsection",ExpressionUUID->"98785f76-0493-474c-9e1a-d6c162f4d86f"],
+Cell["OnCurveQ", \
+"Subsection",ExpressionUUID->"4750c1a6-750e-4732-906a-f1eaf8466945"],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
  RowBox[{"?", "OnCurveQ"}]], "Input",
- CellLabel->"In[46]:=",ExpressionUUID->"c45c6f98-a7db-4925-9d76-2d1ad9cad331"],
+ CellLabel->"In[46]:=",ExpressionUUID->"7f7e6bc8-35f9-415e-844e-9b909038a3a0"],
 
 Cell[BoxData[
  RowBox[{"\<\"OnCurveQ[t] returns True if the values of Tensor t are \
@@ -1667,10 +1678,9 @@ evaluatated along on a Curve. OnCurveQ[t] also returns True if t is a Curve\"\
    StyleBox["\[RightSkeleton]", "SR"],
    Active->True,
    BaseStyle->"Link",
-   ButtonData->"paclet:Tensors/ref/OnCurveQ"]}]], "Print", "PrintUsage",
- CellTags->
-  "Info463740231997-1061845",ExpressionUUID->"3759fc9f-0e9e-46f8-896f-\
-e12661aa4752"]
+   ButtonData->
+    "paclet:Tensors/ref/OnCurveQ"]}]], "Print", \
+"PrintUsage",ExpressionUUID->"e1059373-e631-437d-a105-fc3d2e0735c0"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -1679,275 +1689,32 @@ Cell[BoxData[{
  RowBox[{"OnCurveQ", "[", "gK", "]"}], "\[IndentingNewLine]", 
  RowBox[{"OnCurveQ", "[", "xK", "]"}], "\[IndentingNewLine]", 
  RowBox[{"OnCurveQ", "[", "chrKF", "]"}], "\[IndentingNewLine]", 
- RowBox[{"OnCurveQ", "[", "chrKC", "]"}]}], "Input",ExpressionUUID->"4589a390-\
-d9d0-4daf-8307-7eaec54e50bf"],
+ RowBox[{"OnCurveQ", "[", "chrKC", 
+  "]"}]}], "Input",ExpressionUUID->"3088c2fa-162c-437e-8d77-e49db4fe2342"],
 
 Cell[BoxData["True"], "Output",
- CellLabel->"Out[54]=",ExpressionUUID->"7803a512-ff2c-491f-9fcb-5964443aa82b"],
+ CellLabel->"Out[54]=",ExpressionUUID->"4229cd49-9da4-4f93-a777-68ba052af608"],
 
 Cell[BoxData["False"], "Output",
- CellLabel->"Out[55]=",ExpressionUUID->"f6968104-90e6-441b-baa3-0c0a56f7cc91"],
+ CellLabel->"Out[55]=",ExpressionUUID->"7896bf15-41e3-4dda-82ca-552685aee6f3"],
 
 Cell[BoxData["False"], "Output",
- CellLabel->"Out[56]=",ExpressionUUID->"50528d0d-c90e-4d3f-91f0-05b6919442c1"],
+ CellLabel->"Out[56]=",ExpressionUUID->"bea3848a-10a7-4fc1-8a59-cc5ef84b6390"],
 
 Cell[BoxData["True"], "Output",
- CellLabel->"Out[57]=",ExpressionUUID->"2ee75619-d165-4437-a162-2bbf6e0145e7"]
+ CellLabel->
+  "Out[57]=",ExpressionUUID->"a973ab8c-a43c-430e-a6b6-f756e9a3e889"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1680, 1005},
+WindowSize->{1680, 805},
 WindowMargins->{{0, Automatic}, {Automatic, 0}},
+PrivateNotebookOptions->{"FileOutlineCache"->False},
 FrontEndVersion->"10.2 for Mac OS X x86 (64-bit) (July 14, 2015)",
-StyleDefinitions->"Default.nb"
+StyleDefinitions->"Default.nb",
+$CellContext`TrackCellChangeTimes -> False,
+ExpressionUUID->"f8513f28-2ecc-4a99-92ea-73475bb776bb"
 ]
-(* End of Notebook Content *)
-
-(* Internal cache information *)
-(*CellTagsOutline
-CellTagsIndex->{
- "Info283740231495-1061845"->{
-  Cell[44431, 1373, 547, 12, 70, "Print",ExpressionUUID->"29e86449-bfe9-4404-a45d-c24d893ebd31",
-   CellTags->"Info283740231495-1061845"]},
- "Info363740231759-1061845"->{
-  Cell[46978, 1453, 667, 14, 70, "Print",ExpressionUUID->"d89a711f-fb88-4763-bc24-d0952baa0841",
-   CellTags->"Info363740231759-1061845"]},
- "Info393740231904-1061845"->{
-  Cell[50504, 1557, 373, 10, 47, "Print",ExpressionUUID->"6a58427a-fe5a-4bc9-bc66-ee0dad4c9b25",
-   CellTags->"Info393740231904-1061845"]},
- "Info463740231997-1061845"->{
-  Cell[53733, 1661, 455, 11, 47, "Print",ExpressionUUID->"3759fc9f-0e9e-46f8-896f-e12661aa4752",
-   CellTags->"Info463740231997-1061845"]},
- "Info743740232308-1061845"->{
-  Cell[41840, 1291, 463, 12, 47, "Print",ExpressionUUID->"2c8411af-31f1-4a18-bad7-bb417a753238",
-   CellTags->"Info743740232308-1061845"]},
- "Info773740058877-3465279"->{
-  Cell[52269, 1615, 372, 10, 47, "Print",ExpressionUUID->"f8eacbc3-a6b4-4e9c-9f99-37cf818e2dbf",
-   CellTags->"Info773740058877-3465279"]}
- }
-*)
-(*CellTagsIndex
-CellTagsIndex->{
- {"Info283740231495-1061845", 55367, 1711},
- {"Info363740231759-1061845", 55538, 1714},
- {"Info393740231904-1061845", 55709, 1717},
- {"Info463740231997-1061845", 55880, 1720},
- {"Info743740232308-1061845", 56051, 1723},
- {"Info773740058877-3465279", 56222, 1726}
- }
-*)
-(*NotebookFileOutline
-Notebook[{
-Cell[CellGroupData[{
-Cell[580, 22, 128, 0, 98, "Title",ExpressionUUID->"f18bd4c2-5f0f-4bee-a6dc-ff28cf732c90"],
-Cell[711, 24, 151, 2, 35, "Text",ExpressionUUID->"92d6e2fb-ae7b-40c1-8a55-d2b78df182c6"],
-Cell[865, 28, 147, 2, 30, "Input",ExpressionUUID->"cf537f83-b8eb-456d-a758-c68038441f99"],
-Cell[CellGroupData[{
-Cell[1037, 34, 89, 0, 67, "Section",ExpressionUUID->"50fa1959-759f-46d4-a3e7-356deaec8f86"],
-Cell[1129, 36, 163, 3, 32, "Item",ExpressionUUID->"73d4e4ab-2316-43d6-b75d-f6a5e5eef6cd"],
-Cell[CellGroupData[{
-Cell[1317, 43, 174, 3, 30, "Input",ExpressionUUID->"892bcc52-e40f-4836-a7fa-00b4cac7e47d"],
-Cell[1494, 48, 176, 4, 38, "Output",ExpressionUUID->"ba47cf53-eb18-4a93-880c-b25244e7c029"]
-}, Open  ]],
-Cell[1685, 55, 172, 3, 32, "Item",ExpressionUUID->"e9cd28fa-1d56-4634-a578-6cc7a08cba0c"],
-Cell[1860, 60, 478, 13, 49, "Input",ExpressionUUID->"9beb6689-0da1-44cd-9706-540291450115"],
-Cell[2341, 75, 142, 2, 32, "Item",ExpressionUUID->"03daab0a-25ee-43d3-80d5-74ed1304351c"],
-Cell[2486, 79, 1055, 34, 27, "DefinitionBox",ExpressionUUID->"12fdf311-fd17-4f3d-8ade-35287869b147",
- CellID->1334],
-Cell[CellGroupData[{
-Cell[3566, 117, 316, 7, 30, "Input",ExpressionUUID->"fa4f3e90-ee57-43a5-bb08-8fd9b2c8af1d"],
-Cell[3885, 126, 211, 5, 36, "Output",ExpressionUUID->"1cfd6f57-4a7d-435d-8d85-a12c5ffce5fc"]
-}, Open  ]],
-Cell[4111, 134, 330, 5, 32, "Item",ExpressionUUID->"d1cc607e-d017-450e-91e8-e9c2ed6117b4"],
-Cell[CellGroupData[{
-Cell[4466, 143, 132, 2, 30, "Input",ExpressionUUID->"5dc77672-0553-4eb4-8763-a2fcecdd33f0"],
-Cell[4601, 147, 1881, 42, 81, "Output",ExpressionUUID->"94e4182e-d631-435b-9a5c-c46d95d9f059"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[6531, 195, 105, 0, 67, "Section",ExpressionUUID->"4b862e2d-ef0b-4efb-a588-b84efa5e61f6"],
-Cell[CellGroupData[{
-Cell[6661, 199, 198, 3, 32, "Item",ExpressionUUID->"fd8435a0-8c2e-4ce2-b1c4-b15605ba715b"],
-Cell[6862, 204, 144, 2, 32, "Item",ExpressionUUID->"26b5a9b6-dfa8-4e47-8878-49f0eb576e3b"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[7043, 211, 243, 5, 30, "Input",ExpressionUUID->"54867fae-04ea-468d-8f98-ceac9ee27d61"],
-Cell[7289, 218, 240, 6, 38, "Output",ExpressionUUID->"4c6f4853-65d1-4f6f-97e4-2fd780180f8e"]
-}, Open  ]],
-Cell[7544, 227, 163, 3, 32, "Item",ExpressionUUID->"864ed343-fb00-40b9-bd0e-7991a51dec8a"],
-Cell[CellGroupData[{
-Cell[7732, 234, 206, 5, 30, "Input",ExpressionUUID->"21aec045-7ceb-4def-8059-cfe15cb54606"],
-Cell[7941, 241, 1123, 37, 62, "Output",ExpressionUUID->"298524f8-5448-4406-8d96-fbf3b3ecd6ac"]
-}, Open  ]],
-Cell[9079, 281, 167, 3, 32, "Item",ExpressionUUID->"cbda8283-1516-4b09-96cb-de934e6d5dbd"],
-Cell[9249, 286, 1016, 27, 27, "DefinitionBox",ExpressionUUID->"e04cccf4-7f00-4a05-a0d3-de318d319285",
- CellID->546406789],
-Cell[CellGroupData[{
-Cell[10290, 317, 207, 4, 30, "Input",ExpressionUUID->"4cb7d029-3f91-4bcf-9197-a72bbbd74380"],
-Cell[10500, 323, 241, 6, 38, "Output",ExpressionUUID->"2145586a-6451-428a-a507-59798d3c3fa4"]
-}, Open  ]],
-Cell[10756, 332, 117, 0, 32, "Item",ExpressionUUID->"83e4ef52-a2cd-4088-887f-797219b950f5"],
-Cell[CellGroupData[{
-Cell[10898, 336, 208, 5, 30, "Input",ExpressionUUID->"f066e683-066a-4bc7-80fd-eac39f4801bd"],
-Cell[11109, 343, 1207, 39, 93, "Output",ExpressionUUID->"4715fe77-3bf4-4e9d-8c28-c9eebab9cf21"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[12353, 387, 210, 6, 32, "Item",ExpressionUUID->"eee5edec-d47f-4a52-bb68-806938dacc93"],
-Cell[12566, 395, 152, 2, 32, "Item",ExpressionUUID->"39225905-f84e-4a25-98a5-a8f10bd9b30c"],
-Cell[12721, 399, 107, 0, 32, "Item",ExpressionUUID->"020cc3c2-34cd-4172-8b4f-51f3201aacab"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[12865, 404, 178, 3, 30, "Input",ExpressionUUID->"57cee931-5eff-4236-b257-eeb7a52d44c2"],
-Cell[13046, 409, 7655, 233, 115, "Output",ExpressionUUID->"95349502-63ad-4a34-932a-9fd451ab3432"]
-}, Open  ]],
-Cell[20716, 645, 117, 0, 32, "Item",ExpressionUUID->"6ef9cf36-6912-4c16-aa10-f721c82128db"],
-Cell[CellGroupData[{
-Cell[20858, 649, 175, 3, 30, "Input",ExpressionUUID->"31470874-dc4e-480e-8a3a-334fd2a3fc54"],
-Cell[21036, 654, 7368, 221, 186, "Output",ExpressionUUID->"69ec42c8-9fef-4536-8bff-737addb910cf"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[28453, 881, 112, 0, 67, "Section",ExpressionUUID->"aad97c5d-4690-4833-b3ed-51c5514c3dd7"],
-Cell[CellGroupData[{
-Cell[28590, 885, 164, 3, 32, "Item",ExpressionUUID->"dff90d24-8f48-4255-83af-5a5363caaddf"],
-Cell[28757, 890, 152, 2, 32, "Item",ExpressionUUID->"1648ff0e-7ea4-40e9-a01a-3c4dd005981c"],
-Cell[28912, 894, 215, 5, 32, "Item",ExpressionUUID->"2b21ef79-ef68-4c19-b714-75d0ffbbb140"],
-Cell[29130, 901, 116, 0, 32, "Item",ExpressionUUID->"4588b133-7d61-45bb-97b2-482078d5b5c1"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[29283, 906, 582, 15, 30, "Input",ExpressionUUID->"2e2d1ba4-9358-4079-a77b-dcf2ac54580e"],
-Cell[29868, 923, 212, 5, 36, "Output",ExpressionUUID->"120ae8ea-0f80-4a42-9b50-5c48fa0b281d"]
-}, Open  ]],
-Cell[30095, 931, 120, 0, 32, "Item",ExpressionUUID->"8436de6f-d150-423b-8542-9ac953500922"],
-Cell[30218, 933, 482, 14, 49, "Input",ExpressionUUID->"34d7b05f-e7ab-4497-a2d6-78414c2fef6a"],
-Cell[30703, 949, 114, 0, 32, "Item",ExpressionUUID->"fc716eca-dd11-445c-95ea-1d43f2bb4a37"],
-Cell[30820, 951, 1094, 30, 48, "DefinitionBox",ExpressionUUID->"3ff5c08f-1021-4e39-8cdb-6b145899121c",
- CellID->1451382593],
-Cell[CellGroupData[{
-Cell[31939, 985, 380, 9, 30, "Input",ExpressionUUID->"801e6056-dd07-47e4-af82-4d96c671737d"],
-Cell[32322, 996, 212, 5, 36, "Output",ExpressionUUID->"38e1ce47-f4b4-4da1-b010-b5d560100dc7"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[32571, 1006, 167, 3, 30, "Input",ExpressionUUID->"a34a0e8d-3de0-45c3-9293-7f55c5e642dd"],
-Cell[32741, 1011, 212, 5, 36, "Output",ExpressionUUID->"836a0212-6462-4b28-896d-86c3b0a5df7b"]
-}, Open  ]],
-Cell[32968, 1019, 180, 3, 32, "Item",ExpressionUUID->"4f5256ec-5425-40f7-896f-d64501a12d66"],
-Cell[CellGroupData[{
-Cell[33173, 1026, 202, 4, 30, "Input",ExpressionUUID->"8eb908b9-5b58-4658-a5eb-c81930e09b37"],
-Cell[33378, 1032, 285, 7, 38, "Output",ExpressionUUID->"d0e89a3e-0576-4e06-a8c2-af99fc76dccc"]
-}, Open  ]],
-Cell[33678, 1042, 116, 0, 32, "Item",ExpressionUUID->"dcab21a5-8aae-4e53-ba39-a347767622ac"],
-Cell[CellGroupData[{
-Cell[33819, 1046, 178, 3, 30, "Input",ExpressionUUID->"0714e647-20f8-47ad-a6e9-360107b877a9"],
-Cell[34000, 1051, 7368, 221, 186, "Output",ExpressionUUID->"a85b9f9c-f7cc-4822-b687-364a1704817a"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[41417, 1278, 98, 0, 67, "Section",ExpressionUUID->"f5003019-2da0-4f29-9b2e-ea89900cd729"],
-Cell[41518, 1280, 158, 3, 32, "Item",ExpressionUUID->"8b9bf28c-0add-440b-94ed-4eb2dd26ac30"],
-Cell[CellGroupData[{
-Cell[41701, 1287, 136, 2, 30, "Input",ExpressionUUID->"0818ade3-3e5f-4821-899e-4ddbce336144"],
-Cell[41840, 1291, 463, 12, 47, "Print",ExpressionUUID->"2c8411af-31f1-4a18-bad7-bb417a753238",
- CellTags->"Info743740232308-1061845"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[42340, 1308, 147, 2, 30, "Input",ExpressionUUID->"35f49dad-2916-4ef8-98eb-c791c08e1d7b"],
-Cell[42490, 1312, 112, 1, 34, "Output",ExpressionUUID->"89a4ca94-67d8-47af-a8e5-91507e17512a"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[42639, 1318, 198, 4, 30, "Input",ExpressionUUID->"a277de13-d041-451a-9512-d35720aea220"],
-Cell[42840, 1324, 1222, 35, 55, "Output",ExpressionUUID->"a7e51ff9-57e3-48b8-ad74-3ec523f2c1f2"]
-}, Open  ]],
-Cell[44077, 1362, 194, 3, 32, "Item",ExpressionUUID->"109c21e4-6df3-4d7b-8c38-74e88c8eab82"],
-Cell[CellGroupData[{
-Cell[44296, 1369, 132, 2, 30, "Input",ExpressionUUID->"142230a6-0672-4c77-81f8-cbe4d3378545"],
-Cell[44431, 1373, 547, 12, 70, "Print",ExpressionUUID->"29e86449-bfe9-4404-a45d-c24d893ebd31",
- CellTags->"Info283740231495-1061845"]
-}, Open  ]],
-Cell[44993, 1388, 205, 3, 32, "Item",ExpressionUUID->"2b7279eb-29a5-4f68-b9cb-847b8cd67ad0"],
-Cell[CellGroupData[{
-Cell[45223, 1395, 196, 4, 30, "Input",ExpressionUUID->"ba447ab1-f01b-421c-a44c-0059768d9b73"],
-Cell[45422, 1401, 749, 24, 38, "Output",ExpressionUUID->"0b6a806d-ac96-4ce5-9d55-6ad9c94c0f9b"]
-}, Open  ]],
-Cell[46186, 1428, 192, 3, 32, "Item",ExpressionUUID->"ba4a7695-f2da-4c1f-9f69-ee5466926da1"],
-Cell[CellGroupData[{
-Cell[46403, 1435, 141, 2, 30, "Input",ExpressionUUID->"8ef7ae03-b485-4441-be1b-5b5c3364df1c"],
-Cell[46547, 1439, 110, 1, 34, "Output",ExpressionUUID->"b0370d87-30f6-4a90-ab14-d3e49943c3a6"]
-}, Open  ]],
-Cell[46672, 1443, 144, 2, 32, "Item",ExpressionUUID->"47a10ff6-58f6-4a9b-8cc2-c01baca26c5e"],
-Cell[CellGroupData[{
-Cell[46841, 1449, 134, 2, 30, "Input",ExpressionUUID->"1a64de3f-0a52-4750-9186-051675b9821b"],
-Cell[46978, 1453, 667, 14, 70, "Print",ExpressionUUID->"d89a711f-fb88-4763-bc24-d0952baa0841",
- CellTags->"Info363740231759-1061845"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[47682, 1472, 214, 4, 30, "Input",ExpressionUUID->"f70b57f9-2066-4207-9d2a-991199cc3a7d"],
-Cell[47899, 1478, 1220, 36, 57, "Output",ExpressionUUID->"558e4dce-e5c4-47c7-8c0f-c257106bbab4"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[49168, 1520, 87, 0, 67, "Section",ExpressionUUID->"7a456b7c-4cbd-4a82-baa2-297f93582567"],
-Cell[CellGroupData[{
-Cell[49280, 1524, 198, 3, 32, "Item",ExpressionUUID->"93d4ebbb-f229-48a4-a96f-676cfc2f6612"],
-Cell[49481, 1529, 147, 2, 32, "Item",ExpressionUUID->"1850e059-81f5-43f7-ba39-c97bda27e3cb"],
-Cell[49631, 1533, 94, 0, 32, "Item",ExpressionUUID->"b31bf86b-3a93-4247-8b65-b25399312d7a"],
-Cell[CellGroupData[{
-Cell[49750, 1537, 125, 0, 27, "Subitem",ExpressionUUID->"81b64f42-00a4-4a3b-aa0b-a8044a5a6f53"],
-Cell[49878, 1539, 88, 0, 27, "Subitem",ExpressionUUID->"7e8e2461-a60e-4830-80fa-57df609e74be"],
-Cell[49969, 1541, 126, 0, 27, "Subitem",ExpressionUUID->"6d855fbc-3298-4f25-8355-8aa478b2d64e"],
-Cell[50098, 1543, 120, 0, 27, "Subitem",ExpressionUUID->"f9bf8c0b-70bd-40bb-bd2c-5e2d4785551d"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[50267, 1549, 82, 0, 54, "Subsection",ExpressionUUID->"06b77e41-4270-40ba-b884-0a47bc66c605"],
-Cell[CellGroupData[{
-Cell[50374, 1553, 127, 2, 30, "Input",ExpressionUUID->"5751a8f5-3647-43a3-8294-e9ba0068454d"],
-Cell[50504, 1557, 373, 10, 47, "Print",ExpressionUUID->"6a58427a-fe5a-4bc9-bc66-ee0dad4c9b25",
- CellTags->"Info393740231904-1061845"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[50914, 1572, 304, 5, 94, "Input",ExpressionUUID->"0bc8b679-6af3-416c-a34e-cf1aace3802e"],
-Cell[51221, 1579, 115, 1, 34, "Output",ExpressionUUID->"bbd0a914-41f3-4f26-9540-df3d08ed75c5"],
-Cell[51339, 1582, 212, 5, 36, "Output",ExpressionUUID->"79f20de4-fc53-419d-a99d-3ebd5a73efd3"],
-Cell[51554, 1589, 212, 5, 36, "Output",ExpressionUUID->"7aa085dd-8eec-41d4-8bf6-bfcb51a9f046"],
-Cell[51769, 1596, 212, 5, 36, "Output",ExpressionUUID->"6d8d9c12-4a98-4db6-a69f-0dd0c2f6141b"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[52030, 1607, 83, 0, 54, "Subsection",ExpressionUUID->"bab028ae-945d-4322-adfd-a9328c4dfd89"],
-Cell[CellGroupData[{
-Cell[52138, 1611, 128, 2, 30, "Input",ExpressionUUID->"58de66c3-9ab4-4471-a0d4-7dd5fcab9242"],
-Cell[52269, 1615, 372, 10, 47, "Print",ExpressionUUID->"f8eacbc3-a6b4-4e9c-9f99-37cf818e2dbf",
- CellTags->"Info773740058877-3465279"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[52678, 1630, 308, 5, 94, "Input",ExpressionUUID->"3b5b4f21-4d19-4bad-b47d-710459427063"],
-Cell[52989, 1637, 111, 1, 34, "Output",ExpressionUUID->"6cb43875-9f14-4844-8b64-16692db54038"],
-Cell[53103, 1640, 110, 1, 34, "Output",ExpressionUUID->"da71bde5-fdf4-48b9-90f5-decaae5d923d"],
-Cell[53216, 1643, 111, 1, 34, "Output",ExpressionUUID->"c53a6ec6-df6b-47dd-99f0-7b9e23d965be"],
-Cell[53330, 1646, 111, 1, 34, "Output",ExpressionUUID->"ba5377ce-3c7c-48a6-a3fe-b51c7f61e86d"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[53490, 1653, 85, 0, 54, "Subsection",ExpressionUUID->"98785f76-0493-474c-9e1a-d6c162f4d86f"],
-Cell[CellGroupData[{
-Cell[53600, 1657, 130, 2, 30, "Input",ExpressionUUID->"c45c6f98-a7db-4925-9d76-2d1ad9cad331"],
-Cell[53733, 1661, 455, 11, 47, "Print",ExpressionUUID->"3759fc9f-0e9e-46f8-896f-e12661aa4752",
- CellTags->"Info463740231997-1061845"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[54225, 1677, 316, 5, 94, "Input",ExpressionUUID->"4589a390-d9d0-4daf-8307-7eaec54e50bf"],
-Cell[54544, 1684, 110, 1, 34, "Output",ExpressionUUID->"7803a512-ff2c-491f-9fcb-5964443aa82b"],
-Cell[54657, 1687, 111, 1, 34, "Output",ExpressionUUID->"f6968104-90e6-441b-baa3-0c0a56f7cc91"],
-Cell[54771, 1690, 111, 1, 34, "Output",ExpressionUUID->"50528d0d-c90e-4d3f-91f0-05b6919442c1"],
-Cell[54885, 1693, 110, 1, 34, "Output",ExpressionUUID->"2ee75619-d165-4437-a162-2bbf6e0145e7"]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]]
-}
-]
-*)
 
