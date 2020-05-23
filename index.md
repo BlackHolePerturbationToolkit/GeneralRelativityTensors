@@ -54,5 +54,29 @@ t1 = ToTensor[{"NewTensor", "t"}, g, {f1[r], f2[r], f3[r], f4[r]}, {-a}]
 
 The contravariant version, $t^a$, can be accessed via `t[a]`. As with the metric, the values of any tensor can be explicitly computed using `TensorValues[]`.
 
+### Common tensors
+
+Some common tensors are build in. For instance `ChristoffelSymbol[g, ActWith -> Simplify]` will compute the ChristoffelSymbols, $\Gamma^\alpha_{\beta\gamma}. The `ActWith` option means the Simplify command will be applied to each component before returning the result. Useful built in common tensors include: `RiemmannTensor, RicciTensor, RicciScalar, Einstein Tensor, KretschmannScalar, WeylTensor` and many more.
+
 ### Merging tensors
 
+Another way to construct tensors is by merging other tensors using the command `MergeTensors[]`. As an example you can construct the Einstein tensor from the Ricci tensor, scalar and the metric via the commands:
+
+```
+g = ToMetric["Schwarzschild"]
+ricT = RicciTensor[g]
+ricS = RicciScalar[g]
+einExpr = ricT[-a, -b] - g[-a], -b] ricS/2
+```
+The variable `einExpr` is not yet a tensor, but rather the sum and product of three different Tensors. These can be combined using the `MergeTensors`, e.g.,
+```
+einS = MergeTensors[einSExpr, {"EinsteinSchwarzschild", "G"}, ActWith -> Simplify]
+```
+This returns $G_{ab}$. You can explicitly then check that the Schwarzschild solution is a vacuum solution via `TensorValues[EinS]` which returns
+```
+{% raw %}{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}{% endraw %}
+```
+
+### More examples
+
+The above just scratches the surface of what this package can do. Check the documentation for more details.
