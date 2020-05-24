@@ -1,7 +1,7 @@
 {
   "More Information" -> {
       "ValidateTensorExpression does nothing if the expression is valid.",
-      "As a test for validity, use ValidTensorExpressionQ, which returns True/False.",
+      "As a test for validity, use ValidTensorExpressionQ, which returns True/False."
   },
 
   "Basic Examples" -> {

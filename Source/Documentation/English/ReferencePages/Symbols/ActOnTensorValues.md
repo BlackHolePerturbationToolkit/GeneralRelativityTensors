@@ -8,7 +8,7 @@ change the values of the Tensor it is called on."
     "ric = RicciTensor[ToMetric[\"Schw\"]]",
     "TensorValues[ric]",
     "ricSimp = ActOnTensorValues[Simplify, ric]",
-    TensorValues[ricSimp]
+    "TensorValues[ricSimp]"
     },
 
     "See Also" ->
