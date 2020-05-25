@@ -1,7 +1,10 @@
 (* ::Package:: *)
 
-Needs["GeneralRelativityTensors`CommonTensors`"];
-Needs["GeneralRelativityTensors`TensorDefinitions`"];
-Needs["GeneralRelativityTensors`TensorDerivatives`"];
-Needs["GeneralRelativityTensors`TensorManipulation`"];
-Needs["GeneralRelativityTensors`Utils`"];
+BeginPackage["GeneralRelativityTensors`", {
+  "GeneralRelativityTensors`CommonTensors`",
+  "GeneralRelativityTensors`TensorDefinitions`",
+  "GeneralRelativityTensors`TensorDerivatives`",
+  "GeneralRelativityTensors`TensorManipulation`",
+  "GeneralRelativityTensors`Utils`"}];
+
+EndPackage[];
