@@ -1199,7 +1199,7 @@ Module[{coords,subsets,keys},
 	
 
 	If[Complement[keys,Keys[assoc]]=!={},
-		Print["The following keys are missing in the tensotSubmetricTests: "<>ToString[Complement[keys,Keys[assoc]]]];
+		Print["The following keys are missing in the tensorSubmetricTests: "<>ToString[Complement[keys,Keys[assoc]]]];
 		AbortVerbose[]
 	];
 
@@ -1216,7 +1216,7 @@ Module[{coords,subsets,keys},
 	coords=Flatten[Coordinates/@assoc["Values"]];
 	If[Sort@coords === Sort[assoc["Coordinates"]],
 		If[coords =!= assoc["Coordinates"],
-			Print["Submetrics must given so their Coordinates are in the same order as the Metric."];
+			Print["Submetrics must be given so their Coordinates are in the same order as the Metric."];
 			Print["Metric Coordinates are ", assoc["Coordinates"]];
 			Print["Submanifold Coordinates are ", coords];
 			AbortVerbose[]
