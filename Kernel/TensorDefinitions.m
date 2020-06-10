@@ -294,11 +294,6 @@ Module[{keys,notAbstrKeys,listKeys,booleanKeys},
 		AbortVerbose[]
 	];
 
-	If[Not[MatchQ[assoc/@listKeys,{{___}..}]],
-		Print["The following values were not given as lists: "<>ToString[If[Head[assoc[#]]=!=List,#,Nothing]&/@listKeys]];
-		AbortVerbose[]
-	];
-
 	If[Not[assoc["AbstractQ"]]&&MemberQ[assoc[#]&/@notAbstrKeys,Undefined],
 		Print["\"AbstractQ\"->False is inconsistent with Undefined values for "<>ToString[If[assoc[#]===Undefined,#,Nothing]&/@notAbstrKeys]];
 		AbortVerbose[]
