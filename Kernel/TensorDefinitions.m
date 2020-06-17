@@ -48,6 +48,7 @@ Rank::usage="Rank[t] returns the Tensor rank of the Tensor t as a List {p,q}, \
 where p is the number of contravariant indices and q the number of covariant indices.";
 Indices::usage="Indices[t] returns a List of Symbols representing the indices of the Tensor t. \
 Positive Symbols are contravariant and negative Symbols are covariant.
+Indices[te] returns the list of indices associated with the TensorExpression te. \
 Indices[expr] will return a uniqe list of indices if each term in the Tensor expression expr \
 has the same indices.";
 SubmanifoldIndices::usage="SubmanifoldIndices[t] returns a nested List of Symbols representing the indices of \
@@ -106,8 +107,8 @@ ActOnTensorValues::usage="ActOnTensorValues[f,t] acts with the functions f on th
 
 AbstractQ::usage="AbstractQ[t] returns True if the Tensor t is treated as Abstract.";
 
-ValidTensorExpressionQ::usage="ValidTensorExpressionQ[expr] tests whether a Tensor expression is valid are returns True if it is and False otherwise.";
-ValidateTensorExpression::usage="ValidateTensorExpression[expr] checks whether a Tensor expression is valid and prints an error message and \
+ValidTensorExpressionQ::usage="ValidTensorExpressionQ[te] tests whether a TensorExpression is valid and returns True if it is and False otherwise.";
+ValidateTensorExpression::usage="ValidateTensorExpression[te] checks whether a TensorExpression is valid and prints an error message and \
 aborts if it is not.";
 
 SubmanifoldsQ::usage="SubmanifoldsQ[t] returns True if Tensor t is defined with Submanifolds.";
@@ -143,6 +144,12 @@ SetTetradVectors::usage="SetTetradVectors[tet,vecs] returns the Tetrad tet with 
 SetTetradIndex::usage="SetTetradIndex[tet,ind] returns the Tetrad tet with its TetradIndex set to ind.";
 SetSpacetimeIndex::usage="SetSpacetimeIndex[tet,ind] returns the Tetrad tet with its SpacetimeIndex set to ind.";
 SetTetradPossibleIndices::usage="SetTetradPossibleIndices[tet,posInds] returns the Tetrad tet with its PossibleIndices set to posInds.";
+
+
+TensorExpression::usage="TensorExpression is a Head created by the command ToTensorExpression.";
+ToTensorExpression::usage="ToTensorExpression[expr] returns a TensorExpression that can have its indices manipulated \
+as if it were a single Tensor.";
+TensorExpressionTerms::usage="TensorExpressionTerms[te] returns a list of terms that make up the TensorExpression te.";
 
 
 Begin["`Private`"];
@@ -200,29 +207,42 @@ DocumentationBuilder`OptionDescriptions["SetTetradPossibleIndices"]=Documentatio
 $CacheTensorValues=False;
 
 
-Tensor/:Format[t_Tensor]:=formatTensor[TensorDisplayName@t,Indices@t,CurveParameter@t,If[Tetrad@t=!=Undefined,PossibleTetradIndices[Tetrad@t],{}]]
+Tensor/:Format[t_Tensor]:=formatTensor[TensorDisplayName@t,Indices@t,CurveParameter@t,If[(Tetrad@t=!=Undefined)&&(Tetrad@t=!=Blank[]),PossibleTetradIndices[Tetrad@t],{}]]
 
 
-Clear[formatTensor]
-formatTensor[name_,inds_,param_,posIndsTet_]:=
+Clear[indicesStrings]
+indicesStrings[inds_,posIndsTet_]:=
+Module[{dnStr,upStr},
+	dnStr=StringJoin[If[MatchQ[#,-_Symbol|Verbatim[-_Symbol]|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],
+							If[MemberQ[posIndsTet,#/.-x_:>x],"("<>ToString[#/.-x_:>x]<>")",ToString[#/.-x_:>x]],
+							StringJoin@Table["  ",StringLength[If[MemberQ[posIndsTet,#],"("<>ToString[#]<>")",ToString[#]]]]
+						]&/@inds];
+	upStr=StringJoin[If[Not@MatchQ[#,-_Symbol|Verbatim[-_Symbol]|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],
+							If[MemberQ[posIndsTet,#],"("<>ToString[#]<>")",ToString[#]],
+							StringJoin@Table["  ",StringLength[If[MemberQ[posIndsTet,#/.-x_:>x],"("<>ToString[#/.-x_:>x]<>")",ToString[#/.-x_:>x]]]]]&/@inds];
+
+	{upStr,dnStr}
+]
+
+
+Clear[formatTensorBoxes]
+formatTensorBoxes[name_,inds_,param_,posIndsTet_]:=
 Module[{upStr,dnStr,out1,nameStr},
 	nameStr = If[MatchQ[name,_String],name,ToString[name]];
 	out1=If[inds==={},
 		nameStr,
-		dnStr=StringJoin[If[MatchQ[#,-_Symbol|Verbatim[-_Symbol]|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],
-							If[MemberQ[posIndsTet,#/.-x_:>x],"("<>ToString[#/.-x_:>x]<>")",ToString[#/.-x_:>x]],
-							StringJoin@Table["  ",StringLength[If[MemberQ[posIndsTet,#],"("<>ToString[#]<>")",ToString[#]]]]
-						]&/@inds];
-		upStr=StringJoin[If[Not@MatchQ[#,-_Symbol|Verbatim[-_Symbol]|-_Pattern|Verbatim[-_]|Verbatim[-__]|Verbatim[-___]],
-							If[MemberQ[posIndsTet,#],"("<>ToString[#]<>")",ToString[#]],
-							StringJoin@Table["  ",StringLength[If[MemberQ[posIndsTet,#/.-x_:>x],"("<>ToString[#/.-x_:>x]<>")",ToString[#/.-x_:>x]]]]]&/@inds];
+		{upStr,dnStr}=indicesStrings[inds,posIndsTet];
 		SubsuperscriptBox[nameStr,StringReplace[dnStr, StartOfString ~~Whitespace~~EndOfString:> ""],StringReplace[upStr, StartOfString ~~Whitespace~~EndOfString:> ""]]
 	];
-	DisplayForm@If[param=!=Undefined,
+	If[param=!=Undefined,
 		out1[ToString[param]],
 		out1
 	]
 ]
+
+
+Clear[formatTensor]
+formatTensor[name_,inds_,param_,posIndsTet_]:=DisplayForm@formatTensorBoxes[name,inds,param,posIndsTet]
 
 
 def@Coordinates[t_Tensor]:=(Association@@t)["Coordinates"];
@@ -277,7 +297,7 @@ Module[{keys,notAbstrKeys,listKeys,booleanKeys},
 	notAbstrKeys={"Metric","Coordinates","Values","PossibleIndices","Dimensions"};
 	listKeys={"Coordinates","PossibleIndices","Indices"};
 	booleanKeys={"MetricQ","CurveQ","AbstractQ"};
-
+	
 	If[Sort@Keys[assoc]=!=Sort[keys],
 		Print["The following keys are missing in the tensor formation: "<>ToString[Complement[keys,Keys[assoc]]]];
 		Print["The following extra keys were in the tensor formation: "<>ToString[Complement[Keys[assoc],keys]]];
@@ -759,7 +779,7 @@ reDef@
 Indices[expr_]:=
 Module[{terms,indicesList,tfList,sumQ,exprExpand,lenQ,unsortedSumQ},
 	exprExpand=Expand[expr];
-	terms=tensorExprTerms[exprExpand];
+	terms=TensorExpressionTerms[exprExpand];
 	indicesList=indicesInProduct/@terms;
 	tfList=validateIndices[#,True]&/@indicesList;
 	lenQ=SameQ@@(Length/@indicesList);
@@ -779,7 +799,7 @@ reDef@
 IndicesTraced[expr_]:=
 Module[{terms,indicesList,tfList,sumQ,exprExpand},
 	exprExpand=Expand[expr];
-	terms=tensorExprTerms[exprExpand];
+	terms=TensorExpressionTerms[exprExpand];
 	indicesList=indicesInProduct/@terms;
 	tfList=validateIndices[#,True]&/@indicesList;
 	sumQ=SameQ@@(Sort/@deleteRepeatedIndices/@indicesList);
@@ -792,7 +812,7 @@ Module[{terms,indicesList,tfList,sumQ,exprExpand},
 ]
 
 
-Clear[ValidTensorExpressionQ]
+def@
 ValidTensorExpressionQ[expr_]:=ValidateTensorExpression[expr,True]
 
 
@@ -800,7 +820,7 @@ def@
 ValidateTensorExpression[expr_,test_?BooleanQ]:=
 Module[{exprExpand,tfList,terms,indicesList,sumQ,metricQ},
 	exprExpand=Expand[expr];
-	terms=tensorExprTerms[exprExpand,test];
+	terms=TensorExpressionTerms[exprExpand,test];
 	If[test&&Not@terms,Return@False];
 	indicesList=indicesInProduct[#,test]&/@terms;
 	If[test&&Cases[indicesList,False]=!={},Return@False];
@@ -823,16 +843,16 @@ Module[{exprExpand,tfList,terms,indicesList,sumQ,metricQ},
 ValidateTensorExpression[expr_]:=ValidateTensorExpression[expr,False];
 
 
-testDef@
-tensorExprTerms[expr_,test_?BooleanQ]:=
+def@
+TensorExpressionTerms[expr_,test_?BooleanQ]:=
 Module[{exprExpand},
-	exprExpand=Expand[expr];
+	exprExpand=Expand[Normal@expr];
 	Which[MatchQ[exprExpand,_Plus],List@@exprExpand,
 		MatchQ[exprExpand,_Tensor]||MatchQ[exprExpand,_Times],{exprExpand},
 		True,If[test,False,Print["Expression should be a Tensor, a Tensor product, or a sum of Tensor (products), but is ", exprExpand]; AbortVerbose[]]
 	]
 ];
-tensorExprTerms[expr_]:=tensorExprTerms[expr,False];
+reDef@TensorExpressionTerms[expr_]:=TensorExpressionTerms[expr,False];
 
 
 testDef@
@@ -1347,6 +1367,40 @@ Module[{keys},
 		AbortVerbose[]
 	];
 ]
+
+
+def@
+ToTensorExpression[expr_,displayName_:Undefined]:=
+Module[{},
+	ValidateTensorExpression[expr];
+	TensorExpression["Expression"->expr,"Indices"->IndicesTraced[expr],"DisplayName"->displayName]
+]
+
+
+TensorExpression/:Format[te_TensorExpression]:=
+Module[{exprBox,inds,upStr,dnStr,dispName},
+	dispName=If[(Association@@te)["DisplayName"]===Undefined,
+					(Association@@te)["Expression"]/.{t_Tensor:>formatTensorBoxes[TensorDisplayName@t,Indices@t,CurveParameter@t,If[(Tetrad@t=!=Undefined)&&(Tetrad@t=!=Blank[]),PossibleTetradIndices[Tetrad@t],{}]]},
+					(Association@@te)["DisplayName"]];
+	exprBox=RowBox[{"[",dispName,"]"}];
+	inds=(Association@@te)["Indices"];
+
+	{upStr,dnStr}=indicesStrings[inds,{}];
+
+DisplayForm@SubsuperscriptBox[exprBox,Style[StringReplace[dnStr, StartOfString ~~Whitespace~~EndOfString:> ""],Bold],Style[StringReplace[upStr, StartOfString ~~Whitespace~~EndOfString:> ""],FontWeight->Bold]]
+]
+
+
+TensorExpression/:Normal[te_TensorExpression]:=(Association@@te)["Expression"]
+TensorExpression/:Indices[te_TensorExpression]:=(Association@@te)["Indices"]
+te_TensorExpression[inds__]:=ShiftIndices[te,{inds}]
+
+
+reDef@ValidateTensorExpression[te_TensorExpression,test_?BooleanQ]:=ValidateTensorExpression[Normal@te,test]
+reDef@ValidateTensorExpression[te_TensorExpression]:=ValidateTensorExpression[te,False]
+
+
+reDef@ValidTensorExpressionQ[te_TensorExpression]:=ValidateTensorExpression[te,True]
 
 
 End[];

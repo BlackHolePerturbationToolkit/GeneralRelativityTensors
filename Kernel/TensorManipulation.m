@@ -9,7 +9,9 @@ ContractIndices[t] is equivalent to \
 ContractIndices[t,{TensorName[t],TensorDisplayName[t]}].";
 ShiftIndices::usage="ShiftIndices[t,inds] raises and/or lowers the indices of \
 Tensor t according to the given List inds, adjusting \
-the values using the Tensor's associated metric.";
+the values using the Tensor's associated metric. \
+ShiftIndices[te,inds] shifts indices for all the terms in \
+TensorExpression te.";
 TensorRules::usage="TensorRules[t] returns a List of Rules with possible \
 coordinates of Tensor t as keys and TensorValues as values.";
 TensorPattern::usage="TensorPattern[t,patInds] returns the Tensor t but with its \
@@ -291,20 +293,32 @@ Module[{pis,inds,params,a},
 
 reDef@
 TensorPattern[p_,patternInds_List]:=
-Tensor["AbstractQ"->_,
+Module[{},
+	If[Not@MatchQ[patternInds,{Repeated[Alternatives@@posIndPatterns]}],
+		Print["TensorPattern called with invalid index patterns: ",  patternInds];
+		AbortVerbose[]
+	];
+	If[Not@MatchQ[p,Verbatim[_]|Pattern[a,_]|Verbatim[_Tensor]|Pattern[a,Blank[Tensor]]],
+		Print["TensorPattern called with invalid Tensor name pattern: ", p];
+		AbortVerbose[]
+	];
+	
+	Tensor@@Normal[KeySort[{"AbstractQ"->_,
 			"Coordinates"->_,
 			"Curve"->_,
 			"CurveParameter"->_,
 			"Dimensions"->_,
 			"DisplayName"->_,
-			"Indices"->patternInds/;MatchQ[patternInds,{Repeated[Alternatives@@posIndPatterns]}]&&MatchQ[p,Verbatim[_]|Pattern[a,_]|Verbatim[_Tensor]|Pattern[a,Blank[Tensor]]],
+			"Indices"->patternInds,
 			"CurveQ"->_,
 			"MetricQ"->_,
 			"Metric"->_,
-			"Name"->_,
+			"Name"->p,
 			"PossibleIndices"->_,
-			"Tetrad",
-				"Values"->_]
+			"SubmanifoldIndices"->_,
+			"Tetrad"->_,
+			"Values"->_}]]
+]
 
 
 def@
@@ -317,7 +331,13 @@ Module[{tests},
 ];
 reDef@ContractIndices[t_Tensor,name_String,opts:OptionsPattern[]]:=SetTensorName[ContractIndices[t,opts],name];
 reDef@ContractIndices[t_Tensor,{name_String,displayName_String},opts:OptionsPattern[]]:=SetTensorName[ContractIndices[t,opts],{name,displayName}];
-reDef@ContractIndices[expr_,opts:OptionsPattern[]]:=expr/.t_Tensor:>ContractIndices[t,opts];
+reDef@ContractIndices[expr_,opts:OptionsPattern[]]:=
+Module[{expr1,tests},
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
+	TestOptions[tests,{opts}];
+	expr1 = contractIndicesByTerm[expr,opts];
+	expr1/.t_Tensor:>ContractIndices[t,opts]
+]
 
 
 def@
@@ -352,6 +372,23 @@ Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,tr
 					Association["Name"->TensorName[t]<>"-Auto",
 								"Values"->vals,
 								"Indices"->indsNew]]]
+]
+
+
+def@
+contractIndicesByTerm[expr_,opts:OptionsPattern[]]:=
+Module[{rules,expr1},
+	
+	rules={(g:TensorPattern[_,{x_Symbol,y_Symbol}])(c:TensorPattern[_,{c1___,-x_Symbol,c2___}])/;MetricQ[g]:>ShiftIndices[c,{c1,y,c2},opts],
+		(g:TensorPattern[_,{-x_Symbol,-y_Symbol}])(c:TensorPattern[_,{c1___,x_Symbol,c2___}])/;MetricQ[g]:>ShiftIndices[c,{c1,-y,c2},opts],
+		(g:TensorPattern[_,{-x_Symbol,y_Symbol}])(c:TensorPattern[_,{c1___,x_Symbol,c2___}])/;MetricQ[g]:> ShiftIndices[c,{c1,y,c2},opts],
+		(g:TensorPattern[_,{-x_Symbol,y_Symbol}])(c:TensorPattern[_,{c1___,-y_Symbol,c2___}])/;MetricQ[g]:> ShiftIndices[c,{c1,-x,c2},opts],
+		(g:TensorPattern[_,{x_Symbol,-y_Symbol}])(c:TensorPattern[_,{c1___,-x_Symbol,c2___}])/;MetricQ[g]:>ShiftIndices[c,{c1,-y,c2},opts],
+		(g:TensorPattern[_,{x_Symbol,-y_Symbol}])(c:TensorPattern[_,{c1___,y_Symbol,c2___}])/;MetricQ[g]:> ShiftIndices[c,{c1,x,c2},opts],
+		(g:TensorPattern[_,{x_Symbol,-x_Symbol}]|TensorPattern[_,{-x_Symbol,x_Symbol}])/;MetricQ[g]:>SpacetimeDimensions[g]};
+		
+	expr1 = expr//.rules;
+	expr1//.Times[a___,b:TensorPattern[_,{___,x_Symbol,___}],c:TensorPattern[_,{___,-x_Symbol,___}]]:>a MultiplyTensors[b,c,opts]
 ]
 
 
@@ -524,22 +561,34 @@ reDef@MultiplyTensors[t1_Tensor,t2__Tensor,{name_String,displayName_String},opts
 
 def@
 MultiplyTensorScalar[n_,t_Tensor,opts:OptionsPattern[]]:=
-Module[{simpFn,vals,name,dispName,ratStr,tests},
+Module[{simpFn,vals,name,dispName,l1,l2,l3,tests,seq},
 
 	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
 	TestOptions[tests,{opts}];
+	seq=Sequence[_Symbol,_Real,_Complex,_Integer,_Rational,_Times,_Plus,_SeriesData];
 
 	If[AbstractQ[t],Print["Cannot multiply Abstract Tensors."];AbortVerbose[]];
-	If[Not[MatchQ[n,(_Symbol|_Real|_Complex|_Integer|_Rational|_Times|_Plus|_SeriesData)]],Print["Cannot multiply a Tensor by a ", Head[n]];AbortVerbose[]];
-
+	If[Not[MatchQ[n,(Alternatives[seq,Power[Alternatives[seq],Alternatives[seq]]])]],Print["Cannot multiply a Tensor by a ", Head[n]];AbortVerbose[]];
 	simpFn=OptionValue["ActWith"];
 	vals= Map[simpFn[n #]&, RawTensorValues[t],{Total@Rank[t]}];
 	
-	ratStr=If[MatchQ[n,_Rational],n/.Rational[a_,b_]:>ToString[a]<>"/"<>ToString[b],ToString[n]];
+	(*ratStr=If[MatchQ[n,_Rational],n/.Rational[a_,b_]:>ToString[a]<>"/"<>ToString[b],ToString[n]];*)
+	l1=If[MatchQ[n,_Times],n/.tt_Times:>List@@tt,{n}];
+	l2=l1/.{Rational[a_,b_]:>"("<>ToString[a]<>"/"<>ToString[b]<>")",Power[a_,b_]:>\!\(\*
+TagBox[
+StyleBox[
+RowBox[{"\"\<\\!\\(\\*SuperscriptBox[\\(\>\"", "<>", 
+RowBox[{"ToString", "[", "a", "]"}], "<>", "\"\<\\), \\(\>\"", "<>", 
+RowBox[{"ToString", "[", "b", "]"}], "<>", "\"\<\\)]\\)\>\""}],
+ShowSpecialCharacters->False,
+ShowStringCharacters->True,
+NumberMarks->True],
+FullForm]\)};
+	l3=l2//.{a___,s:(_Symbol|_Real|_Complex|_Integer),b___}:>{a,"("<>ToString[s]<>")",b};
 	{name,dispName}=
 	If[MatchQ[n,_Plus],
-		{"(("<>ToString[n]<>")"<>TensorName[t]<>")-Auto","(("<>ratStr<>")\[CenterDot]"<>TensorDisplayName[t]<>")"},
-		{"("<>ToString[n]<>TensorName[t]<>")-Auto","("<>ratStr<>"\[CenterDot]"<>TensorDisplayName[t]<>")"}
+		{"(("<>ToString[n]<>")"<>TensorName[t]<>")-Auto","(("<>l3<>")\[CenterDot]"<>TensorDisplayName[t]<>")"},
+		{"("<>ToString[n]<>TensorName[t]<>")-Auto","("<>l3<>"\[CenterDot]"<>TensorDisplayName[t]<>")"}
 	];
 	ToTensor[KeySort@Join[KeyDrop[Association@@t,{"DisplayName","Name","MetricQ","Values","Metric"}],
 					Association["MetricQ"->False,
@@ -755,6 +804,52 @@ Module[{posIndsST,posIndsTet,repeatedInds,indsUp},
 		Print["Second index given to Tetrad must be from the List PossibleSpacetimeIndices."];
 		AbortVerbose[]
 	];
+]
+
+
+Clear[repeatedIndices]
+repeatedIndices[inds_]:=
+Module[{toCov,indsUp},
+	toCov[expr_]:=expr/.-sym_Symbol:>sym;
+	indsUp=toCov[inds];
+	Cases[inds,#|-#]&/@(If[Count[indsUp,#]>1,#,##&[]]&/@DeleteDuplicates[indsUp])
+]
+
+
+Clear[shiftIndicesTerm]
+shiftIndicesTerm[a___ t_Tensor t2___Tensor,exprIndsRules_,simpFn_]:=
+Module[{tList,ranks,indsSubsets,indsGiven,indsGivenUp,indsCurrentUp,newInds,
+	indsList1,indsList2,inds,repIndsUp,posInds,newDummies,dummyRules},
+	posInds=PossibleIndices[t t2];
+	inds=Indices[t t2];
+	indsGiven=exprIndsRules[[All,2]];
+	indsCurrentUp=exprIndsRules[[All,1]]/.-sym_Symbol:>sym;
+	indsGivenUp=indsGiven/.-sym_Symbol:>sym;
+	repIndsUp=DeleteDuplicates[Flatten@repeatedIndices[inds]/.-sym_Symbol:>sym];
+	tList={t,t2};
+	indsList1=(Indices/@tList);
+	newDummies=Take[Complement[posInds,Join[indsCurrentUp,indsGivenUp]],Length@repIndsUp];
+	indsList2=indsList1/.Thread[repIndsUp->newDummies];
+	newInds=indsList2/.exprIndsRules;
+	a Times@@MapThread[ShiftIndices[#1,#2,"ActWith"->simpFn]&,{{t,t2},newInds}]
+]
+
+
+reDef@
+ShiftIndices[te_TensorExpression,inds_List,opts:OptionsPattern[]]:=
+Module[{teInds,terms,termsNew,rules,expr},
+	validateIndices[inds];
+	teInds=Indices[te];
+	If[Length@teInds=!=Length@inds, 
+	Print["Tensor expression ", te, " is rank ", Length@teInds, 
+		" but ", Length@inds , If[Length@inds===1," index was"," indices were"]," given."];
+	AbortVerbose[]];
+	rules=Thread[teInds->inds];
+	terms=TensorExpressionTerms[te];
+	termsNew=shiftIndicesTerm[#,rules,OptionValue["ActWith"]]&/@terms;
+	expr=Total@termsNew;
+	ValidateTensorExpression[expr];
+	ToTensorExpression[expr]
 ]
 
 
