@@ -1393,7 +1393,6 @@ DisplayForm@SubsuperscriptBox[exprBox,Style[StringReplace[dnStr, StartOfString ~
 
 TensorExpression/:Normal[te_TensorExpression]:=(Association@@te)["Expression"]
 TensorExpression/:Indices[te_TensorExpression]:=(Association@@te)["Indices"]
-te_TensorExpression[inds__]:=ShiftIndices[te,{inds}]
 
 
 reDef@ValidateTensorExpression[te_TensorExpression,test_?BooleanQ]:=ValidateTensorExpression[Normal@te,test]

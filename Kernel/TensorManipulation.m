@@ -565,14 +565,13 @@ Module[{simpFn,vals,name,dispName,l1,l2,l3,tests,seq},
 
 	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
 	TestOptions[tests,{opts}];
-	seq=Sequence[_Symbol,_Real,_Complex,_Integer,_Rational,_Times,_Plus,_SeriesData];
+	seq=Sequence[_Symbol,_Symbol[__Symbol],_Real,_Complex,_Integer,_Rational,_Times,_Plus,_SeriesData];
 
 	If[AbstractQ[t],Print["Cannot multiply Abstract Tensors."];AbortVerbose[]];
 	If[Not[MatchQ[n,(Alternatives[seq,Power[Alternatives[seq],Alternatives[seq]]])]],Print["Cannot multiply a Tensor by a ", Head[n]];AbortVerbose[]];
 	simpFn=OptionValue["ActWith"];
 	vals= Map[simpFn[n #]&, RawTensorValues[t],{Total@Rank[t]}];
 	
-	(*ratStr=If[MatchQ[n,_Rational],n/.Rational[a_,b_]:>ToString[a]<>"/"<>ToString[b],ToString[n]];*)
 	l1=If[MatchQ[n,_Times],n/.tt_Times:>List@@tt,{n}];
 	l2=l1/.{Rational[a_,b_]:>"("<>ToString[a]<>"/"<>ToString[b]<>")",Power[a_,b_]:>\!\(\*
 TagBox[
@@ -584,7 +583,7 @@ ShowSpecialCharacters->False,
 ShowStringCharacters->True,
 NumberMarks->True],
 FullForm]\)};
-	l3=l2//.{a___,s:(_Symbol|_Real|_Complex|_Integer),b___}:>{a,"("<>ToString[s]<>")",b};
+	l3=StringJoin[l2//.{a___,s:(_Symbol[__Symbol]|_Symbol|_Real|_Complex|_Integer),b___}:>{a,"("<>ToString[s]<>")",b}];
 	{name,dispName}=
 	If[MatchQ[n,_Plus],
 		{"(("<>ToString[n]<>")"<>TensorName[t]<>")-Auto","(("<>l3<>")\[CenterDot]"<>TensorDisplayName[t]<>")"},
@@ -816,8 +815,11 @@ Module[{toCov,indsUp},
 ]
 
 
+te_TensorExpression[inds__]:=ShiftIndices[te,{inds}]
+
+
 Clear[shiftIndicesTerm]
-shiftIndicesTerm[a___ t_Tensor t2___Tensor,exprIndsRules_,simpFn_]:=
+shiftIndicesTerm[a___ t_Tensor t2___Tensor|t_Tensor,exprIndsRules_,simpFn_]:=
 Module[{tList,ranks,indsSubsets,indsGiven,indsGivenUp,indsCurrentUp,newInds,
 	indsList1,indsList2,inds,repIndsUp,posInds,newDummies,dummyRules},
 	posInds=PossibleIndices[t t2];
