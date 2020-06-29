@@ -910,12 +910,13 @@ ValidateIndices[inds_List]:=ValidateIndices[inds,False]
 
 testDef@
 checkForUniquePossibleIndices[mets_,test_?BooleanQ]:=
-Module[{metsPosInds},
+Module[{metsPosInds,allInds},
 	metsPosInds=DeleteDuplicates[{TensorName[#],PossibleIndices[#]}&/@mets];
 	If[Length@metsPosInds>1,
-		If[Intersection@@(metsPosInds[[All,2]])=!={},
+		allInds=Flatten[metsPosInds[[All,2]]];
+		If[Not@DuplicateFreeQ[allInds],
 			If[test,Return@False,
-				Print["The following Indices are given in lists of PossibleIndices for more than one metric: ", Intersection@@(metsPosInds[[All,2]])];
+				Print["The following Indices are given in lists of PossibleIndices for more than one metric: ", DeleteDuplicates[Select[allInds,Count[allInds,#]>1&]]];
 				AbortVerbose[]
 			]
 		]
