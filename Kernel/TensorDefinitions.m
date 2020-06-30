@@ -80,11 +80,10 @@ SetCurveParameter::usage="SetCurve[t,param] returns the Tensor t with its CurveP
 SetAbstractQ::usage="SetAbstractQ[t,bool] returns the Tensor t with its AbstractQ flag set to bool (True or False).";
 SetTetrad::usage="SetTetrad[t,tet] returns the Tensor t with its Tetrad set to tet.";
 
-RawTensorValues::usage="RawTensorValues[n,inds] returns the cached values of a Tensor \
+RawTensorValues::usage="RawTensorValues[t] returns the values actually stored inside the Tensor t.
+RawTensorValues[n,inds] returns the cached values of a Tensor \
 with TensorName n and indices in positions inds or \
-Undefined if none have been computed. The List inds should contain elements \"Up\" and/or \"Down\".
-RawTensorValues[t] is equivalent to RawTensorValues[TensorName[t],\
-IndexPositions[t]].";
+Undefined if none have been computed. The List inds should contain elements \"Up\" and/or \"Down\".";
 TensorValues::usage="TensorValues[t] returns the RawTensorValues of t. \
 If t has an associated curve, the values are evaluated along the curve.";
 ClearCachedTensorValues::usage="ClearCachedTensorValues[n,inds] removes cached expressions stored with \
