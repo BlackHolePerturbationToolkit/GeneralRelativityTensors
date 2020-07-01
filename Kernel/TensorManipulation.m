@@ -69,12 +69,12 @@ Options[Component]=Options[ShiftIndices];
 Options[TensorRules]=Options[ShiftIndices];
 Options[ContractIndices]=Options[ShiftIndices];
 Options[AddTensors]=Options[ShiftIndices];
-Options[MultiplyTensors]=Options[ShiftIndices];
+Options[MultiplyTensors]=Join[Options[ShiftIndices],{"ForceMerge"->False}];
 Options[MultiplyTensorScalar]=Options[ShiftIndices];
 Options[TraceReverse]=Join[Options[ShiftIndices],{"ActWithNested"->Identity}];
 Options[SymmetrizeTensor]=Options[TraceReverse];
 Options[AntisymmetrizeTensor]=Options[TraceReverse];
-Options[MergeTensors]=Join[Options[TraceReverse],{"NestQuantity"->3}];
+Options[MergeTensors]=DeleteDuplicates@Join[Options[TraceReverse],Options[MultiplyTensors],{"NestQuantity"->3}];
 
 Options[ShiftTetradIndices]=Options[ShiftIndices];
 
@@ -83,21 +83,23 @@ DocumentationBuilder`OptionDescriptions["Component"] = DocumentationBuilder`Opti
 DocumentationBuilder`OptionDescriptions["TensorRules"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["ContractIndices"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["AddTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
-DocumentationBuilder`OptionDescriptions["MultiplyTensors"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
+DocumentationBuilder`OptionDescriptions["MultiplyTensors"] = Join[DocumentationBuilder`OptionDescriptions["ShiftIndices"],
+{"ForceMerge"->"Boolean that must be set to True to merge Tensors with different Metrics into one."}];
 DocumentationBuilder`OptionDescriptions["MultiplyTensorScalar"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 DocumentationBuilder`OptionDescriptions["TraceReverse"] = Join[DocumentationBuilder`OptionDescriptions["ShiftIndices"],
 {"ActWithNested"->"Function that is applied to the elements of the tensor and also passed to any other functions called internally."}];
 DocumentationBuilder`OptionDescriptions["SymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
 DocumentationBuilder`OptionDescriptions["AntisymmetrizeTensor"] = DocumentationBuilder`OptionDescriptions["TraceReverse"];
-DocumentationBuilder`OptionDescriptions["MergeTensors"] = Join[DocumentationBuilder`OptionDescriptions["TraceReverse"],
+DocumentationBuilder`OptionDescriptions["MergeTensors"] = DeleteDuplicates@Join[DocumentationBuilder`OptionDescriptions["TraceReverse"],
+																				DocumentationBuilder`OptionDescriptions["MultiplyTensors"],
 {"NestQuantity"->"Number of times MergeTensors can call itself as it continues to try to create one Tensor from an expression"}];
 
 DocumentationBuilder`OptionDescriptions["ShiftTetradIndices"] = DocumentationBuilder`OptionDescriptions["ShiftIndices"];
 
 
 RepeatedIndexQ[t_Tensor]:=Length[DeleteDuplicates@(Indices[t]/.-sym_Symbol:>sym)]<Length[Indices[t]];
-t_Tensor[inds__]/;Complement[{inds}/.-sym_Symbol:>sym,PossibleIndices[t]]==={}:=ShiftIndices[t,{inds}]
-t_Tensor[inds__]/;(Coordinates[t]=!=Undefined)&&Complement[{inds}/.-sym_Symbol:>sym,Coordinates[t]]==={}:=Component[t,{inds}]
+t_Tensor[inds__]/;Complement[{inds}/.-sym_Symbol:>sym,Flatten[PossibleIndices[t]]]==={}:=ShiftIndices[t,{inds}]
+t_Tensor[inds__]/;(Coordinates[t]=!=Undefined)&&Complement[{inds}/.-sym_Symbol:>sym,Flatten[Coordinates[t]]]==={}:=Component[t,{inds}]
 t_Tensor[inds__]:=(Print["The given indices ",{inds}, " are not entirely in the List of PossibleIndices, or Coordinates of ", t, ", and they are not not all Patterns."];Abort[])
 
 
@@ -108,71 +110,45 @@ t_Tetrad[inds__]:=ShiftTetradIndices[t,{inds}]
 (*UniqueIndices[t_Tensor,n_Integer/;n>=0]:=Unique[PadRight[{},n,PossibleIndices[t]]]*)
 
 
-testDef@
-validateTensorIndices[t_Tensor,{inds___}]:=
-Module[{posInds,indsUp,repeatedInds},
-
-	posInds=PossibleIndices[t];
-	indsUp={inds}/.-sym_Symbol:>sym;
-	repeatedInds=Cases[{inds},#|-#]&/@(If[Count[indsUp,#]>1,#,##&[]]&/@DeleteDuplicates[indsUp]);
-
-	If[Complement[indsUp,posInds]=!={},
-		Print["The following indices are not included in the list of PossibleIndices for tensor ", t, ": ", Complement[indsUp,posInds]];
-		AbortVerbose[]
-	];
-	(*The commented code is for when we add unique indices with dollar signs*)
-	(*If[Complement[Symbol[StringTrim[ToString[Unique[#]],"$"~~__]]&/@indsUp,posInds]=!={},
-		Print["The following indices are not included in the list of PossibleIndices for tensor ", t, ": ", Complement[indsUp,posInds]];
-		Abort[]
-	];*)
-	If[Length[indsUp]=!=Total[Rank[t]],
-		Print["The tensor ", t, " expects " ,Total[Rank[t]], " indices, but ", Length[indsUp], If[Length[indsUp]===1," index was ", " indices were "],"given."];
-		AbortVerbose[]
-	];
-	If[Union@Join[Count[indsUp,#]&/@DeleteDuplicates[indsUp],{1,2}]=!=Sort@{1,2},
-		Print["The following indices were repeated more than twice: ",If[Count[indsUp,#]>2,#,##&[]]&/@DeleteDuplicates[indsUp]];
-		AbortVerbose[]
-	];
-
-	If[If[#[[1]]=!=-#[[2]],#,##&[]]&/@repeatedInds=!={},
-		Print["The following indices were given in the same position (both up or both down): ",If[#[[1]]=!=-#[[2]],#[[1]]/.-sym_Symbol:>sym,##&[]]&/@repeatedInds];
-		AbortVerbose[]
-	];
-	
-	If[Length[{inds}]=!=1 && CurveQ[t],
-		Print["The curve ", t, " can only have 1 index, but ", Length[{inds}]," were given."];
-		AbortVerbose[]
-	];
-]
-
-
 def@
 ShiftIndices[t_Tensor,inds_List,opts:OptionsPattern[]]:=
 Module[{tests},
 	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
 	TestOptions[tests,{opts}];
 
-	validateTensorIndices[t,inds];
+	ValidateIndices[t,inds];
 	
 	Fold[shiftIndex[#1,#2,OptionValue["ActWith"]]&,t,Thread[{Range@Length[inds],inds}]]
 ]
 
 
+reDef@
+ShiftIndices[t_Tensor?MultipleMetricsQ,inds_List,opts:OptionsPattern[]]:=
+Module[{tests},
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
+	TestOptions[tests,{opts}];
+
+	ValidateIndices[t,inds];
+	
+	Fold[shiftIndexMultiMetric[#1,#2,OptionValue["ActWith"]]&,t,Thread[{Range@Length[inds],inds}]]
+]
+
+
 testDef@
 shiftIndex[t_Tensor,{pos_Integer,ind_},simpFn_]:=
-Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
-		coordsPTemp,temp,coords,param,itrBefore,itrAfter,vals,i,itrTot,itr,newPos,
-		newMet,newInds,coordsP,coordsPRules,newCurve},
+Module[{gOrInvG,inds,currentUD,newUD,tvs,indsBefore,indsAfter,n,
+		itrBefore,itrAfter,vals,i,itrTot,itr,indUD,
+		newMet,newInds,newCurve},
 	
-	newPos=If[MatchQ[ind,_Symbol],"Up","Down"];
-	indPos=IndexPositions[t];
+	indUD=If[MatchQ[ind,_Symbol],"Up","Down"];
+	currentUD=IndexPositions[t];
 
-	If[pos>Length@indPos,Print["Tensor ", t, " has only ", Length@indPos ," indices. Cannot raise at position ", pos,"."];AbortVerbose[]];
-	indPosNew=ReplacePart[indPos,pos->newPos];
+	If[pos>Length@currentUD,Print["Tensor ", t, " has only ", Length@currentUD ," indices. Cannot raise/lower at position ", pos,"."];AbortVerbose[]];
+	newUD=ReplacePart[currentUD,pos->indUD];
 	inds=Indices[t];
 	
 	vals=simpFn@
-		Which[indPos[[pos]]===newPos,
+		Which[currentUD[[pos]]===indUD,
 			RawTensorValues[t],
 			
 			RawTensorValues[t]===Undefined && Metric[t]===Undefined,
@@ -182,20 +158,20 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 			RawTensorValues[t]===Undefined && Metric[t]=!=Undefined,
 			Undefined,
 			
-			RawTensorValues[TensorName[t],indPosNew]===Undefined,
+			RawTensorValues[TensorName[t],newUD]===Undefined,
 			tvs=RawTensorValues[t];
 			n=SpacetimeDimensions[t];
 			indsBefore=Table[itr[ii],{ii,1,pos-1}];
-			indsAfter=Table[itr[ii],{ii,pos+1,Length@indPos}];
+			indsAfter=Table[itr[ii],{ii,pos+1,Length@currentUD}];
 			itrBefore=({#,1,n}&/@indsBefore);
 			itrAfter=({#,1,n}&/@indsAfter);
 			itrTot=Join[itrBefore,{{i,1,n}},itrAfter];
 			
-			gOrInvG = If[OnCurveQ[t],TensorValues,RawTensorValues][If[newPos==="Up",InverseMetric[t],Metric[t]]];
+			gOrInvG = If[OnCurveQ[t],TensorValues,RawTensorValues][If[indUD==="Up",InverseMetric[t],Metric[t]]];
 			Table[Sum[gOrInvG[[i,s]]tvs[[Sequence@@indsBefore,s,Sequence@@indsAfter]],{s,1,n}],Evaluate[Sequence@@itrTot]],
 			
 			True,
-			RawTensorValues[TensorName[t],indPosNew]
+			RawTensorValues[TensorName[t],newUD]
 	];
 
 	newInds=ReplacePart[inds,pos->ind];
@@ -210,6 +186,110 @@ Module[{gOrInvG,inds,indPos,indPosNew,tvs,indsBefore,indsAfter,n,newTVs,
 ]
 
 
+testDef@
+shiftIndexMultiMetric[t_Tensor,{pos_Integer,ind_},simpFn_]:=
+Module[{gOrInvG,inds,currentUD,newUD,tvs,indsBefore,indsAfter,dims,
+		itrBefore,itrAfter,vals,i,itrTot,itr,indUD,
+		newMet,newInds,newCurve},
+	
+	indUD=If[MatchQ[ind,_Symbol],"Up","Down"];
+	currentUD=IndexPositions[t];
+
+	If[pos>Length@currentUD,Print["Tensor ", t, " has only ", Length@currentUD," indices. Cannot raise/lower at position ", pos,"."];AbortVerbose[]];
+	newUD=ReplacePart[currentUD,pos->indUD];
+	inds=Indices[t];
+	
+	vals=simpFn@
+		Which[currentUD[[pos]]===indUD,
+			RawTensorValues[t],
+			
+			RawTensorValues[t]===Undefined && Metric[t]===Undefined,
+			Print["Cannot shift tensor indices without a metric."];
+			AbortVerbose[],
+				
+			RawTensorValues[t]===Undefined && Metric[t]=!=Undefined,
+			Undefined,
+			
+			RawTensorValues[TensorName[t],newUD]===Undefined,
+			tvs=RawTensorValues[t];
+			dims=SpacetimeDimensions[t];
+		
+			indsBefore=Table[itr[ii],{ii,1,pos-1}];
+			indsAfter=Table[itr[ii],{ii,pos+1,Length@currentUD}];
+		
+			itrBefore = MapThread[{#1,1,#2}&,{indsBefore,Take[dims,Length[indsBefore]]}];
+			itrAfter=MapThread[{#1,1,#2}&,{indsAfter,Take[dims,-Length[indsAfter]]}];
+			itrTot=Join[itrBefore,{{i,1,dims[[pos]]}},itrAfter];
+			
+			gOrInvG = If[OnCurveQ[t],TensorValues,RawTensorValues][If[indUD==="Up",InverseMetric[t][[pos]],Metric[t][[pos]]]];
+	
+			Table[Sum[gOrInvG[[i,s]]tvs[[Sequence@@indsBefore,s,Sequence@@indsAfter]],{s,1,dims[[pos]]}],Evaluate[Sequence@@itrTot]],
+			
+			True,
+			RawTensorValues[TensorName[t],newUD]
+	];
+
+	newInds=ReplacePart[inds,pos->ind];
+	newMet=If[MetricQ[t]&&(If[MatchQ[#,_Symbol],"Up","Down"]&/@newInds)==={"Down","Down"},"Self",Metric[t]];
+	newCurve=If[CurveQ[t]&&(If[MatchQ[#,_Symbol],"Up","Down"]&/@newInds)==={"Up"},"Self",Curve[t]];
+
+	ToTensor[KeySort@Join[KeyDrop[Association@@t,{"Indices","Metric","Values","Curve"}],
+					Association["Values"->vals,
+								"Metric"->newMet,
+								"Indices"->newInds,
+								"Curve"->newCurve]]]
+]
+
+
+testDef@
+contractIndexMultiMetric[t_Tensor?MultipleMetricsQ,simpFn_]:=
+Module[{indsUp,rptInd,rptIndsPos,currentUD,inds,indsNew,dims,vals,
+	indsBefore,indsBetween,indsAfter,itrBefore,itrBetween,itrAfter,itrTot,tvs,itr,
+	posIndsNew,metsNew,coordsNew,dimsNew},
+	
+	currentUD=IndexPositions[t];
+
+	inds=Indices[t];
+	indsUp=inds/.-sym_Symbol:>sym;
+	rptInd=First[If[Count[indsUp,#]===2,#,##&[]]&/@DeleteDuplicates@indsUp];
+	rptIndsPos=Flatten@Position[indsUp,rptInd];
+
+	indsNew=Delete[inds,{#}&/@Flatten@rptIndsPos];
+
+	tvs=RawTensorValues[t];
+	dims=SpacetimeDimensions[t];
+
+	indsBefore=Table[itr[ii],{ii,1,rptIndsPos[[1]]-1}];
+	indsBetween=Table[itr[ii],{ii,rptIndsPos[[1]]+1,rptIndsPos[[2]]-1}];
+	indsAfter=Table[itr[ii],{ii,rptIndsPos[[2]]+1,Length@currentUD}];
+
+	itrBefore = MapThread[{#1,1,#2}&,{indsBefore,Take[dims,Length[indsBefore]]}];
+	itrBetween=MapThread[{#1,1,#2}&,{indsBetween,Take[dims,{First@rptIndsPos+1,Last@rptIndsPos-1}]}];
+	itrAfter=MapThread[{#1,1,#2}&,{indsAfter,Take[dims,-Length[indsAfter]]}];
+
+	itrTot=Join[itrBefore,itrBetween,itrAfter];
+	
+	vals = Map[simpFn,
+				Table[Sum[tvs[[Sequence@@indsBefore,s,Sequence@@indsBetween,s,Sequence@@indsAfter]],{s,1,dims[[rptIndsPos[[1]]]]}],Evaluate[Sequence@@itrTot]],
+				{Length@indsNew}];
+
+	posIndsNew=Delete[PossibleIndices[t],{#}&/@Flatten@rptIndsPos];
+	metsNew=Delete[Metric[t],{#}&/@Flatten@rptIndsPos];
+	coordsNew=Delete[Coordinates[t],{#}&/@Flatten@rptIndsPos];
+	dimsNew=Delete[dims,{#}&/@Flatten@rptIndsPos];
+
+	ToTensor[KeySort@Join[Association@@t,
+		Association["Name"->TensorName[t]<>"-Auto",
+					"Values"->vals,
+					"Indices"->indsNew,
+					"PossibleIndices"->posIndsNew,
+					"Metric"->metsNew,
+					"Dimensions"->dimsNew,
+					"Coordinates"->coordsNew]]]
+	
+]
+
+
 def@
 ContractIndices[t_Tensor,opts:OptionsPattern[]]:=
 Module[{tests},
@@ -217,6 +297,14 @@ Module[{tests},
 	TestOptions[tests,{opts}];
 	
 	NestWhile[contractIndex[#,OptionValue["ActWith"]]&,t,RepeatedIndexQ]
+];
+reDef@
+ContractIndices[t_Tensor?MultipleMetricsQ,opts:OptionsPattern[]]:=
+Module[{tests},
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
+	TestOptions[tests,{opts}];
+	
+	NestWhile[contractIndexMultiMetric[#,OptionValue["ActWith"]]&,t,RepeatedIndexQ]
 ];
 reDef@ContractIndices[t_Tensor,name_String,opts:OptionsPattern[]]:=SetTensorName[ContractIndices[t,opts],name];
 reDef@ContractIndices[t_Tensor,{name_String,displayName_String},opts:OptionsPattern[]]:=SetTensorName[ContractIndices[t,opts],{name,displayName}];
@@ -232,7 +320,7 @@ reDef@ContractIndices[te_TensorExpression,opts:OptionsPattern[]]:=ToTensorExpres
 
 def@
 contractIndex[t_Tensor,simpFn_]:=
-Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,tvsFull,n,vals,traceIndex,
+Module[{indsUp,rptInd,rptIndsPos,indPos,indPosNew,inds,indsNew,n,vals,
 	indsBefore,indsBetween,indsAfter,itrBefore,itrBetween,itrAfter,itrTot,tvs,itr},
 	
 	indPos=IndexPositions[t];
@@ -308,6 +396,78 @@ Module[{indsPos,indsAbstr,indsAbstrUp,coordsPos,indsUp,tests},
 ]
 
 
+reDef@
+Component[t_Tensor?MultipleMetricsQ,inds_List,opts:OptionsPattern[]]:=
+Module[{indsPos,indsAbstr,indsAbstrUp,coordsPos,indsUp,tests,coords,tfList},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
+	TestOptions[tests,{opts}];
+	
+	indsUp=inds/.-sym_Symbol:>sym;
+	coords=Coordinates[t];
+	If[Length[inds]=!=Total@Rank[t],
+		Print["Tensor ", t," expected ",Total@Rank[t]," indices to select a component, but ", Length[inds], If[Length[inds]===1," index was ", " indices were "],"given."];
+		AbortVerbose[]
+	];
+	
+	tfList=MapThread[MemberQ[#1,#2]&,{coords,indsUp}];
+	If[DeleteDuplicates@tfList=!={True},
+		MapThread[If[Not@#1,Print["Given index ", #2, " not found in List of Coordinates ", #3],Nothing]&,{tfList,indsUp,coords}];
+		AbortVerbose[];
+	];
+
+	coordsPos=Flatten@MapThread[Position[#1,#2]&,{coords,indsUp}];
+	indsAbstrUp=Indices[t]/.-sym_Symbol:>sym;
+	indsAbstr=MapThread[If[MatchQ[#1,_Symbol],#2,-#2]&,{inds,indsAbstrUp}];
+
+	Part[TensorValues[ShiftIndices[t,{Sequence@@indsAbstr},opts]],Sequence@@coordsPos]
+]
+
+
+reDef@
+Component[te_TensorExpression,inds___List,opts:OptionsPattern[]]:=
+Module[{tests,allInds,tts,indsUp,coords,tfList,allCompIndList,teC},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
+	TestOptions[tests,{opts}];
+	
+	indsUp=inds/.-sym_Symbol:>sym;
+
+	teC=ContractIndices[te];
+	allInds=AllIndices[teC];
+	tts=TensorTerms[teC];
+	coords=Coordinates[teC];
+	indsUp=inds/.-sym_Symbol:>sym;
+
+	If[Length@coords=!=Length@inds,
+		Print["TensorExpression ", teC, " expects ", Length@coords, " indices to select a component, but ", Length@inds, " were given."];
+		AbortVerbose[]
+	];
+
+	tfList=MapThread[MemberQ[#2,#1]&,{indsUp,coords}];
+
+	If[DeleteDuplicates[tfList]=!={True},
+		Print["Given component index list ",inds," incompatible with the coordinates of the TensorExpression ", teC];
+		MapThread[If[Not@#1,Print["Index ", #2, " is not found in the possible coordinates ",#3 ," of Metric ", #4]]&,{tfList,inds,coords, Metric[teC]}];
+		AbortVerbose[]
+	];
+
+	allCompIndList=allInds/.Thread[Indices[teC]->inds];
+	Total@MapThread[tensorTermComponent[#1,#2,OptionValue["ActWith"]]&,{tts,allCompIndList}]
+]
+
+
+Clear[tensorTermComponent]
+tensorTermComponent[tt_TensorTerm,compList_,simpFn_]:=
+Module[{sc,ts,ttL,vals},
+	ttL=List@@tt;
+	{sc,ts}={First@ttL,Rest@ttL};
+	vals=MapThread[Component[#1,#2,"ActWith"->simpFn]&,{ts,compList}];
+
+	sc Times@@vals
+]
+
+
 def@
 TensorRules[t_Tensor,opts:OptionsPattern[]]:=
 Module[{pmList,lhs,tests},
@@ -321,38 +481,65 @@ Module[{pmList,lhs,tests},
 
 
 testDef@
-validateSumIndices[inds1_List,inds2_List]:=
-If[Sort[inds1]=!=Sort[inds2],
-		Print["Cannot add Tensors with different indices, ",Sort[inds1]," and ",Sort[inds2]];
-		AbortVerbose[]
+addTensorsMultiMetric[t1_Tensor,t2_Tensor,simpFn_]:=
+Module[{vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal},
+
+	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot sum Abstract Tensors."];AbortVerbose[]];
+	If[TensorName/@Metric[t1]=!=TensorName/@Metric[t2],Print["Cannot sum Tensors with different metrics:",
+	Metric[t1], " and ", Metric[t2]];
+	AbortVerbose[]];
+	
+	inds[1]=Indices[t1];
+	inds[2]=Indices[t2];
+	If[Sort[inds[1]]=!=Sort[inds[2]],Print["Cannot add Tensors ",t1," and ",t2," with different indices."];AbortVerbose[]];
+
+	local[sym_]:=If[MatchQ[sym,-_Symbol],Symbol["cov"<>ToString[-sym]],Symbol["con"<>ToString[sym]]];
+	indsLocal[1]=local/@inds[1];
+	indsLocal[2]=local/@inds[2];
+	(*indsLocal["Tot"]=Sort@indsLocal[1];*)
+	indsLocal["Tot"]=indsLocal[1];
+	indsFinal=indsLocal["Tot"]/.(local[#]->#&/@inds[1]);
+
+	tvs[1]=RawTensorValues[t1];
+	tvs[2]=RawTensorValues[t2];
+	dims=SpacetimeDimensions[t1];
+
+	itrs = MapThread[{#1,1,#2}&,{indsLocal["Tot"],dims}];
+	
+	vals=Map[simpFn,
+			Table[tvs[1][[Sequence@@indsLocal[1]]]+tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]],
+			{Length@indsFinal}];
+	
+	ToTensor[KeySort@Join[Association@@t1,
+					Association["MetricQ"->False,
+								"Metric"->Metric[t1],
+								"Values"->vals,
+								"Name"->"("<>TensorName[t1]<>"+"<>TensorName[t2]<>")-Auto",
+								"DisplayName"->"("<>TensorDisplayName[t1]<>"+"<>TensorDisplayName[t2]<>")"]]]
 ]
 
 
-def@
-AddTensors[t1_Tensor,t2_Tensor,opts:OptionsPattern[]]:=
-Module[{simpFn,posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvFunc,tests},
+testDef@
+addTensorsOneMetric[t1_Tensor,t2_Tensor,simpFn_]:=
+Module[{vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvFunc},
 
-	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
-	TestOptions[tests,{opts}];
-
-	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot sum Abstract Tensors."];AbortVerbose[]];
+If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot sum Abstract Tensors."];AbortVerbose[]];
 	If[TensorName@Metric[t1]=!=TensorName@Metric[t2],Print["Cannot sum Tensors with different metrics."];AbortVerbose[]];
 	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot sum Tensors on different curves."];AbortVerbose[]];
 	
-	simpFn=OptionValue["ActWith"];
-	tvFunc=If[OnCurveQ@t1||OnCurveQ@t2,TensorValues,RawTensorValues];
-			
-	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
-
 	inds[1]=Indices[t1];
 	inds[2]=Indices[t2];
-	validateSumIndices[inds[1],inds[2]];
+	If[Sort[inds[1]]=!=Sort[inds[2]],Print["Cannot add Tensors ",t1," and ",t2," with different indices."];AbortVerbose[]];
+
+	tvFunc=If[OnCurveQ@t1||OnCurveQ@t2,TensorValues,RawTensorValues];
 
 	local[sym_]:=If[MatchQ[sym,-_Symbol],Symbol["cov"<>ToString[-sym]],Symbol["con"<>ToString[sym]]];
 	indsLocal[1]=local/@inds[1];
 	indsLocal[2]=local/@inds[2];
 	indsLocal["Tot"]=Sort@indsLocal[1];
+	(*indsLocal["Tot"]=indsLocal[1];*)
 	indsFinal=indsLocal["Tot"]/.(local[#]->#&/@inds[1]);
+	
 
 	tvs[1]=tvFunc[t1];
 	tvs[2]=tvFunc[t2];
@@ -363,15 +550,35 @@ Module[{simpFn,posInds,vals,inds,tvs,its,dims,itrs,local,indsLocal,indsFinal,tvF
 			Table[tvs[1][[Sequence@@indsLocal[1]]]+tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]],
 			{Length@indsFinal}];
 	
-	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","MetricQ","Values","Indices","PossibleIndices"}],
+	ToTensor[KeySort@Join[Association@@t1,
 					Association["MetricQ"->False,
 								"Metric"->Metric[t1],
 								"Indices"->indsFinal,
 								"Values"->vals,
-								"PossibleIndices"->posInds,
 								"Name"->"("<>TensorName[t1]<>"+"<>TensorName[t2]<>")-Auto",
 								"DisplayName"->"("<>TensorDisplayName[t1]<>"+"<>TensorDisplayName[t2]<>")"]]]
-];
+]
+
+
+def@
+AddTensors[t1_Tensor,t2_Tensor,opts:OptionsPattern[]]:=
+Module[{simpFn,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
+	TestOptions[tests,{opts}];
+
+	If[MultipleMetricsQ[t1]=!=MultipleMetricsQ[t2],
+		Print["Tensors ", t1, " and ", t2, " must either both have multiple metrics, or neither neither can."];
+		AbortVerbose[]
+	];
+
+	simpFn=OptionValue["ActWith"];
+
+	If[MultipleMetricsQ[t1],
+		addTensorsMultiMetric[t1,t2,simpFn],
+		addTensorsOneMetric[t1,t2,simpFn]
+	]
+]
 reDef@AddTensors[t1_Tensor,opts:OptionsPattern[]]:=t1;
 reDef@AddTensors[t1_Tensor,t2__Tensor,opts:OptionsPattern[]]:=Fold[AddTensors[#1,#2,opts]&,t1,{t2}]
 reDef@AddTensors[t1_Tensor,t2__Tensor,name_String,opts:OptionsPattern[]]:=SetTensorName[AddTensors[t1,t2,opts],name]
@@ -399,18 +606,59 @@ Module[{indsUp,repeatedInds,inds,toCov},
 ]
 
 
-def@
-MultiplyTensors[t1_Tensor,t2_Tensor,opts:OptionsPattern[]]:=
-Module[{simpFn,posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,tvFunc,tests},
+testDef@
+multiplyTensorsMultiMet[t1_Tensor,t2_Tensor,simpFn_]:=
+Module[{vals,inds,repeatedInds,tvs,dims,itrs,
+	indsLocal,local,indsFinal,tvFunc,mmVal},
 
-	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}};
-	TestOptions[tests,{opts}];
-
-	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot multiply Abstract Tensors."];AbortVerbose[]];
-	If[TensorName@Metric[t1]=!=TensorName@Metric[t2],Print["Cannot multiply Tensors with different metrics."];AbortVerbose[]];
 	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot multiply Tensors on different curves."];AbortVerbose[]];
+
+	tvFunc=If[OnCurveQ@t1||OnCurveQ@t2,TensorValues,RawTensorValues];
 	
-	simpFn=OptionValue["ActWith"];
+	mmVal[func_]:=Join[If[MultipleMetricsQ[t1],func[t1],Table[func[t1],Total@Rank[t1]]],
+						If[MultipleMetricsQ[t2],func[t2],Table[func[t2],Total@Rank[t2]]]];
+
+	inds[1]=Indices[t1];
+	inds[2]=Indices[t2];
+	validateProductIndices[inds[1],inds[2]];
+	
+	local[sym_]:=If[MatchQ[sym,-_Symbol],Symbol["cov"<>ToString[-sym]],Symbol["con"<>ToString[sym]]];
+	indsLocal[1]=local/@inds[1];
+	indsLocal[2]=local/@inds[2];
+	indsLocal["Tot"]=Join[indsLocal[1],indsLocal[2]];
+	indsFinal=indsLocal["Tot"]/.(local[#]->#&/@Join[inds[1],inds[2]]);
+
+	tvs[1]=RawTensorValues[t1];
+	tvs[2]=RawTensorValues[t2];
+	dims=mmVal[SpacetimeDimensions];
+		
+	itrs = MapThread[{#1,1,#2}&,{indsLocal["Tot"],dims}];
+
+	vals=Map[simpFn,
+			Table[tvs[1][[Sequence@@indsLocal[1]]]tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]],
+			{Length@indsFinal}];
+	
+	ToTensor[KeySort@Join[Association@@t1,
+					Association["MetricQ"->False,
+								"MultipleMetricsQ"->True,
+								"Metric"->mmVal[Metric],
+								"Indices"->indsFinal,
+								"Coordinates"->mmVal[Coordinates],
+								"Dimensions"->mmVal[SpacetimeDimensions],
+								"Values"->vals,
+								"PossibleIndices"->mmVal[PossibleIndices],
+								"Name"->"("<>TensorName[t1]<>"\[CenterDot]"<>TensorName[t2]<>")-Auto",
+								"DisplayName"->"("<>TensorDisplayName[t1]<>"\[CenterDot]"<>TensorDisplayName[t2]<>")"]]]
+]
+
+
+testDef@
+multiplyTensorsOneMet[t1_Tensor,t2_Tensor,simpFn_]:=
+Module[{posInds,vals,inds,repeatedInds,tvs,dims,itrs,
+	indsLocal,local,indsFinal,tvFunc},
+
+	If[TensorName@Curve@t1=!=TensorName@Curve@t2,Print["Cannot multiply Tensors on different curves."];AbortVerbose[]];
+
 	tvFunc=If[OnCurveQ@t1||OnCurveQ@t2,TensorValues,RawTensorValues];
 
 	posInds=Union[PossibleIndices[t1],PossibleIndices[t2]];
@@ -423,6 +671,7 @@ Module[{simpFn,posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,inds
 	indsLocal[1]=local/@inds[1];
 	indsLocal[2]=local/@inds[2];
 	indsLocal["Tot"]=Sort@Join[indsLocal[1],indsLocal[2]];
+	(*indsLocal["Tot"]=Join[indsLocal[1],indsLocal[2]];*)
 	indsFinal=indsLocal["Tot"]/.(local[#]->#&/@Join[inds[1],inds[2]]);
 
 	tvs[1]=tvFunc[t1];
@@ -433,7 +682,7 @@ Module[{simpFn,posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,inds
 			Table[tvs[1][[Sequence@@indsLocal[1]]]tvs[2][[Sequence@@indsLocal[2]]],Evaluate[Sequence@@itrs]],
 			{Length@indsFinal}];
 	
-	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Name","Metric","MetricQ","Values","Indices","PossibleIndices"}],
+	ToTensor[KeySort@Join[Association@@t1,
 					Association["MetricQ"->False,
 								"Metric"->Metric[t1],
 								"Indices"->indsFinal,
@@ -441,7 +690,35 @@ Module[{simpFn,posInds,vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,inds
 								"PossibleIndices"->posInds,
 								"Name"->"("<>TensorName[t1]<>"\[CenterDot]"<>TensorName[t2]<>")-Auto",
 								"DisplayName"->"("<>TensorDisplayName[t1]<>"\[CenterDot]"<>TensorDisplayName[t2]<>")"]]]
+]
 
+
+
+def@
+MultiplyTensors[t1_Tensor,t2_Tensor,opts:OptionsPattern[]]:=
+Module[{simpFn,fm,tests},
+
+	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
+			"ForceMerge"->{BooleanQ,"ForceMerge of MultiplyTensors must be True or False."}};
+	TestOptions[tests,{opts}];
+
+	simpFn=OptionValue["ActWith"];
+	fm=OptionValue["ForceMerge"];
+
+	If[AbstractQ[t1]||AbstractQ[t2],Print["Cannot multiply Abstract Tensors."];AbortVerbose[]];
+	If[MultipleMetricsQ[t1]||MultipleMetricsQ[t2]||TensorName@Metric[t1]=!=TensorName@Metric[t2],
+		If[fm,
+			If[OnCurveQ@t1||OnCurveQ@t2,
+				Print["Tensors on Curves with different Metrics cannot be merged."];
+				AbortVerbose[],
+				multiplyTensorsMultiMet[t1,t2,simpFn]
+			],
+			Print["Default behavior is not to multiply Tensors with different metrics."];
+			Print["To force this merge and create a Tensor with multiple Metrics use the Option \"ForceMerge\"->True."];
+			AbortVerbose[]
+		],
+		multiplyTensorsOneMet[t1,t2,simpFn]
+	]
 ];
 reDef@MultiplyTensors[t1_Tensor,opts:OptionsPattern[]]:=t1;
 reDef@MultiplyTensors[t1_Tensor,t2__Tensor,opts:OptionsPattern[]]:=Fold[MultiplyTensors[#1,#2,opts]&,t1,{t2}];
@@ -496,19 +773,21 @@ reDef@MultiplyTensorScalar[t1_Tensor,n_,{name_String,displayName_String},opts:Op
 
 def@
 MergeTensors[expr_,opts:OptionsPattern[]]:=
-Module[{expr1,expr2,expr3,expr4,expr5,simpFn,simpFnNest,nestNum,exprExpand,tests},
+Module[{expr1,expr2,expr3,expr4,expr5,simpFn,simpFnNest,nestNum,exprExpand,tests,fm},
 
 	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
 			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."},
-			"NestQuantity" ->{(IntegerQ[#]&&Positive[#])&,"OptionValue of NestQuantity must be a positive Integer."}};
+			"NestQuantity" ->{(IntegerQ[#]&&Positive[#])&,"OptionValue of NestQuantity must be a positive Integer."},
+			"ForceMerge"->{BooleanQ,"ForceMerge of MultiplyTensors must be True or False."}};
 	TestOptions[tests,{opts}];
 
 	simpFnNest=OptionValue["ActWithNested"];
+	fm=OptionValue["ForceMerge"];
 	simpFn=If[simpFnNest===Identity,OptionValue["ActWith"],simpFnNest];
 	nestNum=OptionValue["NestQuantity"];
 	
 	exprExpand=Expand[expr];
-	expr1=If[Cases[{exprExpand},Times[___, _Tensor ,__Tensor],3]=!={},exprExpand/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2,"ActWith"->simpFnNest],exprExpand];
+	expr1=If[Cases[{exprExpand},Times[___, _Tensor ,__Tensor],3]=!={},exprExpand/.t1_Tensor t2__Tensor:>MultiplyTensors[t1,t2,"ActWith"->simpFnNest,"ForceMerge"->fm],exprExpand];
 	expr2=If[Cases[{expr1},Times[n_,_Tensor]/;Not[MatchQ[n,_Tensor]],3]=!={},expr1/.n_ t_Tensor/;Not[MatchQ[n,_Tensor]]:>MultiplyTensorScalar[n,t,"ActWith"->simpFnNest],expr1];
 	expr3=ContractIndices[expr2];
 	expr4=If[Cases[{expr3},Plus[_Tensor,__Tensor],3]=!={},expr3/.Plus[t1_Tensor,t2__Tensor]:>AddTensors[t1,t2,"ActWith"->simpFnNest],expr3];
@@ -526,7 +805,8 @@ Module[{simpFnNest,simpFn,tests},
 
 	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
 			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."},
-			"NestQuantity" ->{(IntegerQ[#]&&Positive[#])&,"OptionValue of NestQuantity must be a positive Integer."}};
+			"NestQuantity" ->{(IntegerQ[#]&&Positive[#])&,"OptionValue of NestQuantity must be a positive Integer."},
+			"ForceMerge"->{BooleanQ,"ForceMerge of MultiplyTensors must be True or False."}};
 	TestOptions[tests,{opts}];
 	
 	simpFnNest=OptionValue["ActWithNested"];
@@ -698,7 +978,17 @@ Module[{posIndsST,posIndsTet,repeatedInds,indsUp},
 ]
 
 
-te_TensorExpression[inds__]:=ShiftIndices[te,{inds}]
+te_TensorExpression[inds__]/;DeleteDuplicates@validIndsTE[te,{inds}]==={True}:=ShiftIndices[te,{inds}]
+te_TensorExpression[inds__]/;DeleteDuplicates@validCompIndsTE[te,{inds}]==={True}:=Component[te,{inds}]
+te_TensorExpression[inds__]:=(Print["The given indices ",{inds}, " are not entirely in the List of PossibleIndices, or Coordinates of TensorExpression ", te];Abort[])
+
+
+Clear[validIndsTE]
+validIndsTE[te_TensorExpression,inds_List]:=If[Length[PossibleIndices[te]]===Length@inds,MapThread[MemberQ[#1,#2]&,{PossibleIndices[te],inds/.-sym_Symbol:>sym}],{False}]
+
+
+Clear[validCompIndsTE]
+validCompIndsTE[te_TensorExpression,inds_List]:=If[Length[Coordinates[te]]===Length@inds,MapThread[MemberQ[#1,#2]&,{Coordinates[te],inds/.-sym_Symbol:>sym}],{False}]
 
 
 Clear[shiftIndsTerm]
@@ -748,6 +1038,10 @@ Module[{rules,allInds,currentDummies,newIndsUp,newTerms,terms,tfList,tests},
 	terms=shiftIndsTerm[#,rules,OptionValue["ActWith"]]&/@TensorTerms[te];
 	SetTensorExpressionIndices[SetTensorExpressionTerms[te,terms],newInds]
 ]
+
+
+reDef@TensorValues[tt_TensorTerm]:=TensorValues@MergeTensors[Times@@tt,"ForceMerge"->True];
+reDef@TensorValues[te_TensorExpression]:=TensorValues@MergeTensors[Normal[te],"ForceMerge"->True];
 
 
 End[];
