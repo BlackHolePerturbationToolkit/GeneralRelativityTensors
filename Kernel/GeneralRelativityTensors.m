@@ -1,10 +1,11 @@
 (* ::Package:: *)
 
 BeginPackage["GeneralRelativityTensors`", {
+  "GeneralRelativityTensors`Curves`",
   "GeneralRelativityTensors`CommonTensors`",
-  "GeneralRelativityTensors`TensorDefinitions`",
-  "GeneralRelativityTensors`TensorDerivatives`",
-  "GeneralRelativityTensors`TensorManipulation`",
+  "GeneralRelativityTensors`BasicTensors`",
+  "GeneralRelativityTensors`BasicTensorManipulation`",
+  "GeneralRelativityTensors`BasicTensorDerivatives`",
   "GeneralRelativityTensors`Utils`"}];
 
 EndPackage[];

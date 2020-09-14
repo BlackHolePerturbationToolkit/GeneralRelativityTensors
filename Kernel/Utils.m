@@ -9,6 +9,8 @@ testDef;
 AbortVerbose;
 
 TestOptions;
+memberUniqueQ;
+stripDollarSignFromSymbol;
 
 
 Begin["`Private`"];
@@ -173,6 +175,14 @@ Module[{},
 	Print["Aborting in ", fn, "[]."];
 	Abort[]
 ]
+
+
+testDef@
+memberUniqueQ[list_List,ind_Symbol]:=MemberQ[list,stripDollarSignFromSymbol[ind]]
+
+
+def@
+stripDollarSignFromSymbol[ind_Symbol]:=Symbol[ind/.sym_:>StringTrim[ToString[sym],"$"~~__]]
 
 
 End[];

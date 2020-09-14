@@ -1,10 +1,12 @@
 (* ::Package:: *)
 
-BeginPackage["GeneralRelativityTensors`TensorDerivatives`",
-			{"GeneralRelativityTensors`TensorDefinitions`",
-			"GeneralRelativityTensors`TensorManipulation`",
+BeginPackage["GeneralRelativityTensors`BasicTensorDerivatives`",
+			{"GeneralRelativityTensors`BasicTensors`",
+			"GeneralRelativityTensors`BasicTensorManipulation`",
 			"GeneralRelativityTensors`Utils`"}];
 
+
+validateDerivativeIndices;
 
 ChristoffelSymbol::usage="ChristoffelSymbol[m] returns the Christoffel symbol computed from the metric Tensor m.";
 CovariantD::usage="CovariantD[t,ind1,ind2,...] returns the covariant derivative of tensor \
@@ -28,9 +30,18 @@ DocumentationBuilder`OptionDescriptions["CovariantD"] = {"ActWith"->"Function wh
 "MergeNested"->"If multiple derivatives are taken, this Boolean controls whether merging happens after each sub-derivative."};
 
 
+(*Options[CovariantD]=Join[Options[ChristoffelSymbol],{"ActWithNested"->Identity,"Merge"->False,"MergeNested"->False,"Metric"\[Rule]Undefined,"Expand"\[Rule]True}];
+DocumentationBuilder`OptionDescriptions["CovariantD"] = {"ActWith"->"Function which is applied to the values that CovariantD produces",
+"ActWithNested"->"If multiple derivatives are taken, this functions will be applied to the values of each sub-derivative.",
+"Expand"->"Boolean controlling whether covariant derivative is expanded as a partial derivative and Christoffel terms",
+"Merge"->"Boolean controlling whether the return value of CovariantD should be merged into one Tensor",
+"MergeNested"->"If multiple derivatives are taken, this Boolean controls whether merging happens after each sub-derivative.",
+"Metric"->"Relative to which Metric the covariant derivative is taken. If Undefined, CovariantD attempts to determine Metric automatically."};*)
+
+
 def@
 ChristoffelSymbol[t_Tensor?MetricQ,opts:OptionsPattern[]]:=
-Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c,chrValue,tests},
+Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c,chrValue,tests,posInds},
 
 	tests = List["ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."}];
 
@@ -39,8 +50,9 @@ Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c,chrValue,tests},
 	simpFn=OptionValue["ActWith"];
 	gT=Metric[t];
 	xx=Coordinates[gT];
-	{a,b,c}=Take[PossibleIndices[gT],3];
-	n=SpacetimeDimensions[gT];
+	posInds=PossibleIndices[gT];
+	{a,b,c}=Take[posInds,3];
+	n=ManifoldDimensions[gT];
 	g=RawTensorValues[gT];
 	ig=RawTensorValues@InverseMetric[gT];
 	name="ChristoffelSymbol"<>TensorName[t];
@@ -50,23 +62,48 @@ Module[{n,g,ig,xx,vals,gT,name,simpFn,a,b,c,chrValue,tests},
 	
 	vals=
 		If[RawTensorValues[name,{"Up","Down","Down"}]===Undefined,
-			(*Map[simpFn,Table[(1/2)Sum[ig[[i,s]](-D[g[[j,k]],xx[[s]]]+D[g[[j,s]],xx[[k]]]+D[g[[s,k]],xx[[j]]]),{s,1,n}],{i,1,n},{j,1,n},{k,1,n}],{3}],*)
 			Table[chrValue[i,j,k],{i,1,n},{j,1,n},{k,1,n}],
 			RawTensorValues[name,{"Up","Down","Down"}]
 		];
 
-	ToTensor[KeySort@Join[KeyDrop[Association@@gT,{"DisplayName","Name","Metric","MetricQ","Indices"}],
-			Association["Metric"->gT,
-						"MetricQ"->False,
-						"Values"->vals,
-						"DisplayName"->"\[CapitalGamma]",
-						"Name"->name,
-						"Indices"->{a,-b,-c}]]]
+	ToTensor[{name,"\[CapitalGamma]"},gT,vals,{a,-b,-c}]
 ]
 
 
+Tensor/:D[t1_Tensor?SingleMetricQ,-a_Symbol,simpFn_:Identity] :=
+Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords,valsSimp},
+
+	inds[1]={-a};
+	inds[2]=Indices[t1];
+	validateDerivativeIndices[inds[1],inds[2]];
+	
+	local[sym_]:=If[MatchQ[sym,-_Symbol],Symbol["cov"<>ToString[-sym]],Symbol["con"<>ToString[sym]]];
+	indsLocal[1]=local/@inds[1];
+	indsLocal[2]=local/@inds[2];
+	indsLocal["Tot"]=Join[indsLocal[1],indsLocal[2]];
+	indsFinal=indsLocal["Tot"]/.(local[#]->#&/@Join[inds[1],inds[2]]);
+
+	tvs=RawTensorValues[t1];
+	dims=ManifoldDimensions[t1];
+	coords=Coordinates[t1];
+	itrs={#,1,dims}&/@indsLocal["Tot"];
+	vals=Table[D[tvs[[Sequence@@indsLocal[2]]],coords[[Sequence@@indsLocal[1]]]],Evaluate[Sequence@@itrs]];
+	valsSimp=Map[simpFn,vals,{Length@indsFinal}];
+
+	ToTensor[{"(PartialD"<>TensorName[t1]<>")-Auto","(\[PartialD]"<>TensorDisplayName[t1]<>")"},Metric[t1],valsSimp,indsFinal]
+								
+] /;MemberQ[PossibleIndices[t1],a];
+
+
+Tensor/:D[t1_Tensor,a_Symbol,simpFn_:Identity]:=
+Module[{b},
+	b=First[Complement[PossibleIndices[t1],Join[{a},Indices[t1]]/.{-ind_:>ind}]];
+	Metric[t1][a,b]D[t1,-b,simpFn]
+] /;MemberQ[PossibleIndices[t1],a];
+
+
 testDef@
-validateDerivativeIndices[inds1_List,inds2_List]:=
+validateDerivativeIndices[inds1_List,inds2_List,fn_:$CurrentFunction]:=
 Module[{indsUp,repeatedInds,inds,toCov},
 
 	toCov[expr_]:=expr/.-sym_Symbol:>sym;
@@ -86,61 +123,8 @@ Module[{indsUp,repeatedInds,inds,toCov},
 ]
 
 
-Tensor/:D[t1_Tensor,-a_Symbol,simpFn_:Identity] :=
-Module[{vals,inds,repeatedInds,tvs,dims,itrs,indsLocal,local,indsFinal,coords,valsSimp},
-
-	inds[1]={-a};
-	inds[2]=Indices[t1];
-	validateDerivativeIndices[inds[1],inds[2]];
-	
-	local[sym_]:=If[MatchQ[sym,-_Symbol],Symbol["cov"<>ToString[-sym]],Symbol["con"<>ToString[sym]]];
-	indsLocal[1]=local/@inds[1];
-	indsLocal[2]=local/@inds[2];
-	indsLocal["Tot"]=Join[indsLocal[1],indsLocal[2]];
-	indsFinal=indsLocal["Tot"]/.(local[#]->#&/@Join[inds[1],inds[2]]);
-
-	tvs=RawTensorValues[t1];
-	dims=SpacetimeDimensions[t1];
-	coords=Coordinates[t1];
-	itrs={#,1,dims}&/@indsLocal["Tot"];
-	vals=Table[D[tvs[[Sequence@@indsLocal[2]]],coords[[Sequence@@indsLocal[1]]]],Evaluate[Sequence@@itrs]];
-	valsSimp=Map[simpFn,vals,{Length@indsFinal}];
-
-	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Metric","Name","MetricQ","Indices","Values"}],
-					Association["MetricQ"->False,
-								"Metric"->Metric[t1],
-								"Values"->valsSimp,
-								"DisplayName"->"(\[PartialD]"<>TensorDisplayName[t1]<>")",
-								"Name"->"(PartialD"<>TensorName[t1]<>")-Auto",
-								"Indices"->indsFinal]]]
-								
-] /;MemberQ[PossibleIndices[t1],a];
-
-
-Tensor/:D[t1_Tensor,a_Symbol,simpFn_:Identity]:=
-Module[{b},
-	b=First[Complement[PossibleIndices[t1],Join[{a},Indices[t1]]/.{-ind_:>ind}]];
-	Metric[t1][a,b]D[t1,-b,simpFn]
-] /;MemberQ[PossibleIndices[t1],a];
-
-
-Tensor/:D[t1_Tensor?OnCurveQ,param_Symbol,simpFn_:Identity] :=
-Module[{vals},
-
-	vals=Map[simpFn[D[#,param]]&,RawTensorValues[t1],{Total@Rank@t1}];
-
-	ToTensor[KeySort@Join[KeyDrop[Association@@t1,{"DisplayName","Name","Values","CurveQ","Curve"}],
-					Association["CurveQ"->False,
-								"Curve"->Curve[t1],
-								"Values"->vals,
-								"DisplayName"->"(d"<>TensorDisplayName[t1]<>"/d"<>ToString[param]<>")",
-								"Name"->"(d"<>TensorName[t1]<>"/d"<>ToString[param]<>")-Auto"]]]
-								
-] /;(CurveParameter[t1]===param);
-
-
 def@
-chrTerm[t_Tensor,tensorInd_,derivInd_,simpFn_,avoidInds_]:=
+chrTerm[t_Tensor?SingleMetricQ,tensorInd_,derivInd_,simpFn_,avoidInds_]:=
 Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 	inds=Indices[t];
 	tensorIndUp=tensorInd/.-sym_Symbol:>sym;
@@ -151,7 +135,7 @@ Module[{inds,dummy,chr,chrDummy,newInds,tNew,tensorIndUp},
 	newInds=inds/.tensorIndUp->dummy;
 	tNew=ToTensor[KeySort@Join[KeyDrop[(Association@@t),{"Indices","Metric","MetricQ"}],
 						Association["Indices"->newInds,
-									"Metric"->Metric[t],
+									"Metric"->Metric[t,"PerIndex"->True],
 									"MetricQ"->False]]];
 	If[tensorIndUp===tensorInd,1,-1]tNew chrDummy
 ]
@@ -240,7 +224,7 @@ Module[{b,aInds,met,pis,simpFn,merge,expr1,tests},
 CovariantD[expr_,a_Symbol,opts:OptionsPattern[]] :=CovariantD[expr,a,{},opts];
 
 
-CovariantD[t1_Tensor,-a_Symbol,avoidInds_List,opts:OptionsPattern[]]/; MemberQ[PossibleIndices[t1],a] := 
+CovariantD[t1_Tensor?SingleMetricQ,-a_Symbol,avoidInds_List,opts:OptionsPattern[]]/; MemberQ[PossibleIndices[t1],a] := 
 Module[{simpFn,expr1,merge,tests},
 
 	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
@@ -254,10 +238,10 @@ Module[{simpFn,expr1,merge,tests},
 	expr1 = D[t1,-a]+Sum[chrTerm[t1,i,-a,simpFn,avoidInds],{i,Indices[t1]}];
 	If[merge, MergeTensors[expr1,"ActWith"->simpFn], Replace[expr1,t_Tensor :> ActOnTensorValues[simpFn,t]]]
 ];
-CovariantD[t1_Tensor,-a_Symbol,opts:OptionsPattern[]] /; MemberQ[PossibleIndices[t1],a] := CovariantD[t1,-a,{},opts];
+CovariantD[t1_Tensor?SingleMetricQ,-a_Symbol,opts:OptionsPattern[]] /; MemberQ[PossibleIndices[t1],a] := CovariantD[t1,-a,{},opts];
 
 
-CovariantD[t1_Tensor,a_Symbol,avoidInds_List,opts:OptionsPattern[]]/;MemberQ[PossibleIndices[t1],a] :=
+CovariantD[t1_Tensor?SingleMetricQ,a_Symbol,avoidInds_List,opts:OptionsPattern[]]/;MemberQ[PossibleIndices[t1],a] :=
 Module[{b,simpFn,merge,expr1,tests},
 
 	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
@@ -272,77 +256,7 @@ Module[{b,simpFn,merge,expr1,tests},
 	expr1 = Metric[t1][a,b]CovariantD[t1,-b,{a},"ActWith"->simpFn,"Merge"->False];
 	If[merge, MergeTensors[expr1,"ActWith"->simpFn], Replace[expr1,t_Tensor :> ActOnTensorValues[simpFn,t]]]
 ];
-CovariantD[t1_Tensor,a_Symbol,opts:OptionsPattern[]] /; MemberQ[PossibleIndices[t1],a] := CovariantD[t1,a,{},opts];
-
-
-CovariantD[t1_Tensor?OnCurveQ,u_Tensor?OnCurveQ,avoidInds_List,opts:OptionsPattern[]]:=
-Module[{chr,chrC,a,b,c,x1,x2,param,simpFn,tests},
-
-	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
-			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."},
-			"Merge" ->{BooleanQ,"OptionValue of Merge must be True or False."},
-			"MergeNested" ->{BooleanQ,"OptionValue of MergeNested must be True or False."}};
-	TestOptions[tests,{opts},CovariantD];
-	
-	simpFn=OptionValue["ActWith"];
-
-	x1=Curve[t1];
-	x2=Curve[u];
-	If[TensorName[x1]=!=TensorName[x2],
-		Print["Cannot take covariant derivative along 4-velocity from different curves."]; 
-		AbortVerbose[CovariantD]
-	];
-	If[Not[Rank[u]==={1,0}],
-		Print["Four velocity that we differentiate along must be rank {1,0}."];
-		AbortVerbose[CovariantD]
-	];
-	If[Not[Total@Rank[t1]===1],
-		Print["For now, covariant differentiation on Curves is only possible for vectors."];
-		AbortVerbose[CovariantD]
-	];
-
-	param=CurveParameter[x2];
-	
-	{a,b,c}=Select[PossibleIndices[t1],Not[MemberQ[{avoidInds}/.(-nn_Symbol:>nn),#]]&,3];
-	
-	chr=ActOnTensorValues[simpFn,ToTensorOnCurve[ChristoffelSymbol[Metric[x1]],x1]];
-
-	D[t1[a],param,simpFn]+chr[a,-b,-c]ActOnTensorValues[simpFn,t1[b]]ActOnTensorValues[simpFn,u[c]]
-];
-CovariantD[t1_Tensor?OnCurveQ,u_Tensor?OnCurveQ,opts:OptionsPattern[]]:=CovariantD[t1,u,{},opts];
-
-
-CovariantD[t1_Tensor,u_Tensor?OnCurveQ,avoidInds_List,opts:OptionsPattern[]]:=
-Module[{chr,chrC,inds,a,covD,simpFn,tests},
-
-	tests = {"ActWith" ->{MatchQ[#,_]&,"OptionValue of ActWith can be any function."},
-			"ActWithNested" ->{MatchQ[#,_]&,"OptionValue of ActWithNested can be any function."},
-			"Merge" ->{BooleanQ,"OptionValue of Merge must be True or False."},
-			"MergeNested" ->{BooleanQ,"OptionValue of MergeNested must be True or False."}};
-	TestOptions[tests,{opts},CovariantD];
-
-	simpFn=OptionValue["ActWith"];
-	
-	If[TensorName[Metric@t1]=!=TensorName[Metric@u],
-		Print["Cannot take covariant derivative along 4-velocity from different metric."]; 
-		AbortVerbose[CovariantD]
-	];
-	If[Not[Rank[u]==={1,0}],
-		Print["Four velocity that we differentiate along must be rank {1,0}."];
-		AbortVerbose[CovariantD]
-	];
-	If[Curve[t1]=!=Undefined&&(TensorName[Curve[t1]]=!=TensorName[Curve[u]]),
-		Print["Cannot take covariant derivative along 4-velocity from different curves."]; 
-		AbortVerbose[CovariantD]
-	];
-	inds=Indices[t1];
-	a=SelectFirst[PossibleIndices[t1],Not[MemberQ[Join[inds,{avoidInds}]/.(-n_Symbol:>n),#]]&];
-
-	covD=CovariantD[t1,-a]/.t_Tensor:>ToTensorOnCurve[t,Curve[u]];
-	
-	ActOnTensorValues[simpFn,u[a]]ActOnTensorValues[simpFn,covD]
-];
-CovariantD[t1_Tensor,u_Tensor?OnCurveQ,opts:OptionsPattern[]]:=CovariantD[t1,u,{},opts];
+CovariantD[t1_Tensor?SingleMetricQ,a_Symbol,opts:OptionsPattern[]] /; MemberQ[PossibleIndices[t1],a] := CovariantD[t1,a,{},opts];
 
 
 def@
