@@ -80,3 +80,7 @@ This returns $G_{ab}$. You can explicitly then check that the Schwarzschild solu
 ### More examples
 
 The above just scratches the surface of what this package can do. Check the documentation for more details.
+
+## Authors and contributors
+
+**Seth Hopper**, Barry Wardell
